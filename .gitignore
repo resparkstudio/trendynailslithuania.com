@@ -1,18 +1,3 @@
-# ignore everything
 /*
 
-# do not ignore .gitignore and the wp-content directory
-!.gitignore
-!wp-content/
-
-# ignore everything in wp-content except themes
-wp-content/*
-!wp-content/themes/
-
-# Ignore all themes except the one you're working on (replace 'your-theme' with the actual theme folder name)
-wp-content/themes/*
-!wp-content/themes/your-theme-name/
-
-# ignore npm
-wp-content/themes/your-theme-name/node_modules/
-wp-content/themes/your-theme-name/*.log
+!app/public/wp-content/themes/_tw/
