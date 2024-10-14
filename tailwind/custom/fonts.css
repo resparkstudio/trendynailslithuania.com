@@ -1,44 +1,43 @@
 .heading-xl {
-	@apply font-medium text-4xl leading-[48px] font-sans; /* H1 */
+	@apply font-medium text-[2.5rem] leading-[3rem] font-sans;
 }
 
 .heading-lg {
-	@apply font-medium text-3xl leading-[44px] font-sans; /* H2 */
+	@apply font-medium text-[2.25rem] leading-[2.75rem] font-sans;
 }
 
 .heading-md {
-	@apply font-medium text-2xl leading-[34px] font-sans; /* H3 */
+	@apply font-medium text-[1.625rem] leading-[2.125rem] font-sans;
 }
 
 .heading-sm {
-	@apply font-medium text-xl leading-[22px] font-sans; /* H4 */
+	@apply font-medium text-[1.125rem] leading-[1.375rem] font-sans;
 }
 
-/* Body Text */
 .body-normal-regular {
-	@apply font-normal text-base leading-5 font-sans; /* 16px regular */
+	@apply font-normal text-[1rem] leading-[1.25rem] font-sans;
 }
 
 .body-normal-medium {
-	@apply font-normal text-base leading-5 font-sans; /* 16px medium */
+	@apply font-normal text-[1rem] leading-[1.25rem] font-sans;
 }
 
 .body-normal-semibold {
-	@apply font-semibold text-base leading-5 font-sans; /* 16px semi-bold */
+	@apply font-semibold text-[1rem] leading-[1.25rem] font-sans;
 }
 
 .body-small-regular {
-	@apply font-normal text-sm leading-4 font-sans; /* 14px regular */
+	@apply font-normal text-[0.875rem] leading-[1.125rem] font-sans;
 }
 
 .body-small-light {
-	@apply font-light text-sm leading-4 font-sans; /* 14px light */
+	@apply font-light text-[0.875rem] leading-[1.125rem] font-sans;
 }
 
 .body-small-semibold {
-	@apply font-semibold text-sm leading-4 font-sans; /* 14px semi-bold */
+	@apply font-semibold text-[0.875rem] leading-[1.125rem] font-sans;
 }
 
 .body-extra-small {
-	@apply font-normal text-xs leading-4 font-sans; /* 12px regular */
+	@apply font-normal text-[0.75rem] leading-[1rem] font-sans;
 }
