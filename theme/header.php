@@ -39,9 +39,8 @@
 			</nav>
 
 			<div class="site-logo flex-initial">
-				<?php
-				the_custom_logo();
-				?>
+				<img src="<?php echo esc_url(wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full')); ?>"
+					class="w-[8.625rem] h-[2.625rem] md:w-[6.25rem] md:h-[1.875rem]">
 			</div>
 
 			<div class="header-icons flex-initial">
