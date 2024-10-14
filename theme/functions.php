@@ -202,10 +202,8 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 
-/**
- * Function to register custom menus
- * @return void
- */
+
+// Custom functions
 function register_my_menus()
 {
 	register_nav_menus(
@@ -216,8 +214,11 @@ function register_my_menus()
 }
 add_action('init', 'register_my_menus');
 
+
 function theme_setup()
 {
-	add_theme_support("custom-logo", array());
+	add_theme_support("custom-logo", array(
+
+	));
 }
 add_action('after_setup_theme', 'theme_setup');

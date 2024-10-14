@@ -27,42 +27,42 @@
 	<div id="page">
 		<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
 
-		<header class="site-header">
-			<div class="header-inner">
-				<nav id="site-navigation" class="main-navigation">
-					<?php
-					wp_nav_menu(array(
-						'theme_location' => 'header-menu',
-						'menu_id' => 'primary-menu',
-					));
-					?>
-				</nav>
+		<header class="site-header flex">
 
-				<div class="site-logo">
-					<?php
-					the_custom_logo();
-					?>
-				</div>
+			<nav id="site-navigation" class="main-navigation flex-initial">
+				<?php
+				wp_nav_menu(array(
+					'theme_location' => 'header-menu',
+					'menu_id' => 'primary-menu',
+				));
+				?>
+			</nav>
 
-				<div class="header-icons">
-					<a href="#" class="search-icon">
-						<?php get_product_search_form(); ?>
-					</a>
+			<div class="site-logo flex-initial">
+				<?php
+				the_custom_logo();
+				?>
+			</div>
 
-					<a href="<?php echo esc_url(home_url('/favorites')); ?>" class="favorites-icon">
-						<i class="fas fa-heart"></i>
-					</a>
+			<div class="header-icons flex-initial">
+				<a href="#" class="search-icon">
+					<?php get_product_search_form(); ?>
+				</a>
 
-					<a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>"
-						class="account-icon">
-						<i class="fas fa-user"></i>
-					</a>
+				<a href="<?php echo esc_url(home_url('/favorites')); ?>" class="favorites-icon">
+					<i class="fas fa-heart"></i>
+				</a>
 
-					<a href="<?php echo wc_get_cart_url(); ?>" class="cart-icon">
-						<i class="fas fa-shopping-bag"></i>
-						<span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-					</a>
-				</div>
+				<a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>"
+					class="account-icon">
+					<i class="fas fa-user"></i>
+				</a>
+
+				<a href="<?php echo wc_get_cart_url(); ?>" class="cart-icon">
+					<i class="fas fa-shopping-bag"></i>
+					<span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+				</a>
+
 			</div>
 		</header>
 		<div id="content">
