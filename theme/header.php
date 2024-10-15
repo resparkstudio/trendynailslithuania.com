@@ -30,7 +30,7 @@
 						'theme_location' => 'header-menu',
 						'menu_id' => 'primary-menu',
 						'container' => false,
-						'menu_class' => 'flex space-x-[2.75rem] relative',
+						'menu_class' => 'flex main-menu-fluid-spacing relative',
 						'link_before' => '<span>',
 						'link_after' => '</span>',
 						'depth' => 1,
@@ -134,7 +134,7 @@
 					<div class="sidebar-footer mb-10 ml-12 flex-shrink-0 flex flex-col space-y-[1.75rem]">
 						<p>Sekite mūsų naujienas!</p>
 						<div class="flex space-x-4">
-							<!-- TODO  -->
+							<!-- TODO add real links  -->
 							<a href="https://facebook.com" target="_blank" class="text-white">
 								<svg width="8" height="16" viewBox="0 0 8 16" fill="none"
 									xmlns="http://www.w3.org/2000/svg">

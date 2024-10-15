@@ -1,16 +1,24 @@
 // Set the Preflight flag based on the build target.
 const includePreflight = 'editor' === process.env._TW_TARGET ? false : true;
 
+// Import Fluid Tailwind's extractor and plugin.
+const fluid = require('fluid-tailwind');
+const { extract } = require('fluid-tailwind');
+
 module.exports = {
 	presets: [
 		// Manage Tailwind Typography's configuration in a separate file.
 		require('./tailwind-typography.config.js'),
 	],
-	content: [
-		// Ensure changes to PHP files trigger a rebuild.
-		'./theme/**/*.php',
-	],
+	content: {
+		files: [
+			// Ensure changes to PHP files trigger a rebuild.
+			'./theme/**/*.php',
+		],
+		extract,
+	},
 	theme: {
+		// Desktop-first approach
 		screens: {
 			'2xl': { max: '1535px' },
 			xl: { max: '1279px' },
@@ -29,15 +37,8 @@ module.exports = {
 		preflight: includePreflight,
 	},
 	plugins: [
-		// Add Tailwind Typography (via _tw fork).
 		require('@_tw/typography'),
-
-		// Extract colors and widths from `theme.json`.
 		require('@_tw/themejson'),
-
-		// Uncomment below to add additional first-party Tailwind plugins.
-		// require('@tailwindcss/forms'),
-		// require('@tailwindcss/aspect-ratio'),
-		// require('@tailwindcss/container-queries'),
+		fluid, // Add the Fluid Tailwind plugin here
 	],
 };
