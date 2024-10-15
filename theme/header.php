@@ -29,23 +29,33 @@
 	<div id="page">
 		<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
 
-		<header class="site-header flex justify-between items-center p-4 md:p-6">
+		<header class="site-header flex justify-between items-center h-[5rem] px-12">
 
-			<nav id="site-navigation" class="main-navigation flex-initial body-small-regular">
+			<!-- Navigation Menu -->
+			<nav id="site-navigation" class="main-navigation body-small-regular text-black flex-1 flex justify-start">
 				<?php
 				wp_nav_menu(array(
 					'theme_location' => 'header-menu',
 					'menu_id' => 'primary-menu',
+					'container' => false,
+					'menu_class' => 'flex space-x-[2.75rem]',
+					'link_before' => '<span>',
+					'link_after' => '</span>',
+					'depth' => 1,
 				));
 				?>
 			</nav>
 
-			<div class="site-logo flex-initial">
-				<img src="<?php echo esc_url(wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full')); ?>"
-					class="w-[8.625rem] h-[2.625rem] md:w-[6.25rem] md:h-[1.875rem]">
+			<!-- Site Logo -->
+			<div class="site-logo flex flex-none justify-items-center mx-auto">
+				<a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">
+					<img src="<?php echo esc_url(wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full')); ?>"
+						class="w-[8.625rem] h-[2.625rem] md:w-[6.25rem] md:h-[1.875rem]">
+				</a>
 			</div>
 
-			<div class="header-icons flex-initial">
+			<!-- Header Icons -->
+			<div class="header-icons flex-1 flex justify-end space-x-6">
 				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<mask id="path-1-inside-1_192_1896" fill="white">
 						<path
