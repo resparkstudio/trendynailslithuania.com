@@ -209,6 +209,7 @@ function register_my_menus()
 	register_nav_menus(
 		array(
 			'header-menu' => __('Header Menu'),
+			'shop-sidebar-menu' => __('Shop Sidebar Menu'),
 		)
 	);
 }

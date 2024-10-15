@@ -119,8 +119,37 @@
 					<!-- TO-DO cart count -->
 					<!-- <span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span> -->
 				</a>
-
 			</div>
+
+			<!-- Sidebar -->
+			<aside id="shop-sidebar"
+				class="shop-sidebar fixed right-0 top-0 w-[300px] h-full bg-black text-white hidden z-50">
+				<div class="sidebar-header p-4 flex justify-between items-center">
+					<h2 class="text-xl">IŠPARDAVIMAS</h2>
+
+				</div>
+				<!-- To do make not-hardcoded menu -->
+				<nav class="sidebar-navigation">
+					<ul class="space-y-2 p-4">
+						<li><a href="">Naujienos</a></li>
+						<li><a href="">Populiariausi</a></li>
+						<li><a href="">Geliniai lakai</a></li>
+						<li><a href="">Bazės ir topai</a></li>
+						<li><a href="">UV gelio sistema</a></li>
+						<li><a href="">Polygelio sistema</a></li>
+						<li><a href="">Darbo įrankiai</a></li>
+						<li><a href="">Rinkiniai</a></li>
+					</ul>
+				</nav>
+
+				<div class="sidebar-footer p-4">
+					<p>Sekite mūsų naujienas!</p>
+					<div class="flex space-x-4">
+						<a href="https://facebook.com" class="text-white">FB</a>
+						<a href="https://instagram.com" class="text-white">IG</a>
+					</div>
+				</div>
+			</aside>
 
 		</header>
 		<div id="content">
