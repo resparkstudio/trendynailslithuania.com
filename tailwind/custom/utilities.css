@@ -1,8 +1,12 @@
-/**
- * Custom styles to immediately follow Tailwind’s `utilities` layer
- *
- * Add your own utility classes to this theme. Complex utility classes should
- * be added using Tailwind’s plugin system:
- *
- * https://tailwindcss.com/docs/plugins#adding-utilities
- */
+@layer utilities {
+	/* adjusting sidebar position according to wp admin header menu */
+	body.admin-bar .shop-sidebar {
+		top: 32px;
+	}
+
+	@media (max-width: 782px) {
+		body.admin-bar .shop-sidebar {
+			top: 46px;
+		}
+	}
+}

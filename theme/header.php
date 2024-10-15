@@ -123,7 +123,7 @@
 
 			<!-- Sidebar -->
 			<aside id="shop-sidebar"
-				class="shop-sidebar fixed right-0 top-0 w-[300px] h-full bg-black text-white hidden z-50">
+				class="shop-sidebar fixed right-0 top-0 w-[300px] h-svh bg-black text-white hidden z-50">
 				<div class="sidebar-header p-4 flex justify-between items-center">
 					<h2 class="text-xl">IŠPARDAVIMAS</h2>
 
