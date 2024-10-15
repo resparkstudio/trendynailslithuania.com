@@ -38,7 +38,7 @@
 					'theme_location' => 'header-menu',
 					'menu_id' => 'primary-menu',
 					'container' => false,
-					'menu_class' => 'flex space-x-[2.75rem]',
+					'menu_class' => 'flex space-x-[2.75rem] relative',
 					'link_before' => '<span>',
 					'link_after' => '</span>',
 					'depth' => 1,
