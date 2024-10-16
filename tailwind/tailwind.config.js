@@ -12,8 +12,10 @@ module.exports = {
 	],
 	content: {
 		files: [
-			// Ensure changes to PHP files trigger a rebuild.
+			// Ensure changes to PHP and custom CSS files trigger a rebuild.
 			'./theme/**/*.php',
+			'./assets/css/colors.css', // Add your colors.css
+			'./assets/css/fonts.css', // Add your fonts.css
 		],
 		extract,
 	},
@@ -30,6 +32,26 @@ module.exports = {
 			fontFamily: {
 				sans: ['"Albert Sans"', 'sans-serif'],
 			},
+			fontSize: {
+				'heading-xl': ['2.5rem', { lineHeight: '3rem' }],
+				'heading-lg': ['2.25rem', { lineHeight: '2.75rem' }],
+				'heading-md': ['1.625rem', { lineHeight: '2.125rem' }],
+				'heading-sm': ['1.125rem', { lineHeight: '1.375rem' }],
+				'body-normal': ['1rem', { lineHeight: '1.25rem' }],
+				'body-small': ['0.875rem', { lineHeight: '1.125rem' }],
+				'body-extra-small': ['0.75rem', { lineHeight: '1rem' }],
+				'body-extra-small-light': ['10px', { lineHeight: '20px' }],
+			},
+			colors: {
+				black: '#000000',
+				'dark-gray': '#201F1F',
+				white: '#FFFFFF',
+				'light-gray-1': '#F7F7F7',
+				'light-gray-2': '#F5F5F5',
+				gray: '#C3C3C3',
+				'gray-dark': '#747474',
+				muted: '#E5D7D1',
+			},
 		},
 	},
 	corePlugins: {
@@ -40,5 +62,6 @@ module.exports = {
 		require('@_tw/typography'),
 		require('@_tw/themejson'),
 		fluid, // Add the Fluid Tailwind plugin here
+		require('postcss-import'), // Ensure CSS imports are handled
 	],
 };
