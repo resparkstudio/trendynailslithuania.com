@@ -1,3 +1,13 @@
+/* Header */
+
+.shop-link {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 0.25rem;
+}
+
+/* Body */
+
 body {
 	@apply bg-background text-foreground font-sans;
 }
@@ -8,6 +18,7 @@ body {
 	flex-direction: column;
 }
 
+/* Footer */
 footer {
 	margin-top: auto;
 }
