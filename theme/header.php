@@ -24,13 +24,13 @@
 
 				<!-- Navigation Menu -->
 				<nav id="site-navigation"
-					class="main-navigation body-small-regular text-black flex-1 flex justify-start">
+					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4">
 					<?php
 					wp_nav_menu(array(
 						'theme_location' => 'header-menu',
 						'menu_id' => 'primary-menu',
 						'container' => false,
-						'menu_class' => 'flex main-menu-fluid-spacing relative',
+						'menu_class' => 'flex main-menu-fluid-spacing whitespace-nowrap relative',
 						'link_before' => '<span>',
 						'link_after' => '</span>',
 						'depth' => 1,
@@ -47,7 +47,7 @@
 				</div>
 
 				<!-- Header Icons -->
-				<div class="header-icons flex-1 flex justify-end space-x-6">
+				<div class="header-icons flex-1 flex justify-end space-x-6 pl-4">
 					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<mask id="path-1-inside-1_192_1896" fill="white">
 							<path

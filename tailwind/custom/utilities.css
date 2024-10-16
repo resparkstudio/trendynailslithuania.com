@@ -1,6 +1,17 @@
 @layer utilities {
 	.main-menu-fluid-spacing {
-		/* Set max space at larger screens, adjust smaller screens */
-		@apply lg:gap-[2.75rem] md:gap-8 sm:gap-6 gap-4;
+		gap: clamp(1rem, 4vw, 2.75rem);
+	}
+
+	@media (min-width: 1279px) {
+		.main-menu-fluid-spacing {
+			gap: 2.75rem;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.main-menu-fluid-spacing {
+			gap: 1rem;
+		}
 	}
 }
