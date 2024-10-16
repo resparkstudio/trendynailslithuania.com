@@ -13,7 +13,12 @@
 		class="container flex flex-nowrap lg:flex-wrap justify-between gap-y-8 gap-x-6 px-12 lg:px-8 sm:px-4 body-small-regular">
 		<!-- Left Section: Company Info -->
 		<div class="w-1/4 lg:w-full">
-			<h2 class="text-xl font-bold mb-2">TRENDY nails</h2>
+			<div class="site-logo flex flex-none justify-items-center mx-auto">
+				<a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">
+					<img src="<?php echo esc_url(wp_get_attachment_url(45)); ?>"
+						class="w-[8.625rem] h-[2.625rem] md:w-[6.25rem] md:h-[1.875rem]">
+				</a>
+			</div>
 			<p class="text-sm">
 				Trendy Nails yra šiuolaikiškas ir inovatyvus Ukrainos manikiūro priemonių prekes ženklas, orientuotas į
 				kokybiškų produktų tiekimą nagų industrijai.
