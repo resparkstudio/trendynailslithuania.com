@@ -65,8 +65,10 @@
 					class="w-full p-2 bg-gray-700 text-white rounded">
 				<button type="submit" class="w-full mt-2 bg-white text-black py-2 px-4 rounded">Prenumeruoti</button>
 			</form>
-			<div class="flex space-x-4 mt-4">
-			<a><svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<!-- Payment icons -->
+			<div class="grid grid-cols-6 gap-1 mt-4 auto-rows-auto xl:grid-cols-5 lg:grid-cols-4">
+				<a class="w-full">
+					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
 						<path fill-rule="evenodd" clip-rule="evenodd"
@@ -77,7 +79,7 @@
 							fill="white" />
 					</svg>
 				</a>
-				<a>
+				<a class="w-full">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -93,7 +95,7 @@
 					</svg>
 
 				</a>
-				<a>
+				<a class="w-full">
 					<svg width="42" height="32" viewBox="0 0 42 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="41.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -112,7 +114,7 @@
 					</svg>
 
 				</a>
-				<a>
+				<a class="w-full">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -147,7 +149,7 @@
 					</svg>
 
 				</a>
-				<a>
+				<a class="w-full lg:col-start-1">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -164,7 +166,7 @@
 					</svg>
 
 				</a>
-				<a>
+				<a class="w-full xl:col-start-1 lg:col-start-2">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
