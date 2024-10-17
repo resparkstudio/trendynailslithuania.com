@@ -1,19 +1,19 @@
-<footer id="site-footer" class="bg-black text-white pt-20 pb-4 mb:pt-14 mb:pb-4">
-	<div class="container grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular mb-10 md:grid-cols-1">
+<footer id="site-footer" class="bg-black text-white pt-20 pb-4 md:pt-14 md:pb-4 mb:px-4">
+	<div
+		class="container grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular mb-10 md:grid-cols-1 md:px-4 md:gap-0">
 		<!-- 1st Div: Spans columns 1-3 -->
-		<div class="col-span-3 md:col-span-1">
-			<div class="site-logo flex flex-none justify-items-center mx-auto pb-5">
+		<div class="col-span-3 md:col-span-1 md:mb-10">
+			<div class="site-logo flex flex-none justify-items-center mx-auto pb-5 md:pb-7">
 				<a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">
-					<img src="<?php echo esc_url(wp_get_attachment_url(45)); ?>"
-						class="w-[8.625rem] h-[2.625rem] md:w-[6.25rem] md:h-[1.875rem]">
+					<img src="<?php echo esc_url(wp_get_attachment_url(45)); ?>" class="w-[8.625rem] h-[2.625rem]">
 				</a>
 			</div>
 			<p class="text-sm pb-7">
 				Trendy Nails yra šiuolaikiškas ir inovatyvus Ukrainos manikiūro priemonių prekes ženklas, orientuotas į
 				kokybiškų produktų tiekimą nagų industrijai.
 			</p>
-			<ul class="mt-4 space-y-2 pb-7">
-				<li class="pb-2.5">+370 000 00000</li>
+			<ul class="mt-4 space-y-2.5 mb-7">
+				<li>+370 000 00000</li>
 				<li><a href="mailto:info@trendynailsthluania.com" class="underline">info@trendynailsthluania.com</a>
 				</li>
 			</ul>
@@ -37,8 +37,8 @@
 		</div>
 
 		<!-- 2nd Div: Spans columns 5-6 -->
-		<div class="col-start-5 col-span-2 md:col-span-1">
-			<h2 class="body-normal-medium mb-5">PARDUOTUVĖ</h2>
+		<div class="col-start-5 col-span-2 md:col-span-1 md:mb-4">
+			<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Parduotuvė</h2>
 			<ul class="space-y-2">
 				<li><a href="#" class="hover:underline">Geliniai lakai</a></li>
 				<li><a href="#" class="hover:underline">Bazės ir topai</a></li>
@@ -50,8 +50,8 @@
 		</div>
 
 		<!-- 3rd Div: Spans columns 7-8 -->
-		<div class="col-start-7 col-span-2 md:col-span-1">
-			<h2 class="body-normal-medium mb-5">INFO</h2>
+		<div class="col-start-7 col-span-2 md:col-span-1 md:mb-11">
+			<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Info</h2>
 			<ul class="space-y-2.5">
 				<li><a href="#" class="hover:underline">Apie mus</a></li>
 				<li><a href="#" class="hover:underline">Blogas</a></li>
@@ -62,19 +62,19 @@
 		</div>
 
 		<!-- 4th Div: Spans columns 10-12 -->
-		<div class="col-start-10 col-span-3 pb-10 md:col-span-1">
-			<h2 class="body-normal-medium mb-2">PRENUMERUOKITE</h2>
-			<p class="text-sm">
+		<div class="col-start-10 col-span-3 pb-10 md:col-span-1 md:pb-0">
+			<h2 class="uppercase body-normal-medium mb-6 md:mb-5">Prenumeruokite</h2>
+			<p class="text-sm mb-5 md:mb-8">
 				Užsiregistruokite ir gaukite –15 % nuolaidą pirmajam užsakymui, pirmieji sužinokite apie naujausius
 				produktus!
 			</p>
-			<form action="#" method="POST" class="mt-4 max-w-md">
+			<form action="#" method="POST" class="mt-4 mb-9 md:mb-5 w-full">
 				<input type="email" name="email" placeholder="El. paštas"
-					class="w-full p-2 bg-gray-700 text-white rounded">
+					class="w-full pl-3 py-4 bg-gray-700 text-white rounded-lg">
 			</form>
 			<!-- Payment icons -->
 			<div
-				class="grid grid-cols-6 gap-1 mt-4 auto-rows-auto xl:grid-cols-5 lg:grid-cols-4 max-w-72 md:grid-cols-6">
+				class="grid grid-cols-6 gap-1 mt-4 auto-rows-auto xl:grid-cols-5 lg:grid-cols-4 max-850px:grid-cols-3 max-w-72 md:grid-cols-6">
 				<a class="w-full">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
@@ -122,7 +122,7 @@
 					</svg>
 
 				</a>
-				<a class="w-full">
+				<a class="w-full max-850px:col-start-1 md:col-start-4">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -157,7 +157,7 @@
 					</svg>
 
 				</a>
-				<a class="w-full lg:col-start-1 md:col-start-5">
+				<a class="w-full lg:col-start-1 max-850px:col-start-2  md:col-start-5">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -174,7 +174,7 @@
 					</svg>
 
 				</a>
-				<a class="w-full xl:col-start-1 lg:col-start-2 md:col-start-6">
+				<a class="w-full xl:col-start-1 lg:col-start-2 max-850px:col-start-3 md:col-start-6">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
