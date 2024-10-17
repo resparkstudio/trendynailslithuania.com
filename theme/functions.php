@@ -202,7 +202,6 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 
-
 // Custom functions
 function register_my_menus()
 {
@@ -223,3 +222,4 @@ function theme_setup()
 	));
 }
 add_action('after_setup_theme', 'theme_setup');
+

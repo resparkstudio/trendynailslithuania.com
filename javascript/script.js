@@ -1,4 +1,15 @@
+/**
+ * Front-end JavaScript
+ *
+ * The JavaScript code you place here will be processed by esbuild. The output
+ * file will be created at `../theme/js/script.min.js` and enqueued in
+ * `../theme/functions.php`.
+ *
+ * For esbuild documentation, please see:
+ * https://esbuild.github.io/
+ */
 document.addEventListener('DOMContentLoaded', function () {
+	// ------------------- Header
 	// Shop sidebar
 	const shopLink = document.querySelector('.shop-link');
 	const sidebar = document.getElementById('shop-sidebar');
@@ -29,9 +40,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		shopLink.classList.add('flex', 'items-center', 'gap-1');
 
-		const anchor = shopLink.querySelector('a');
-		if (anchor) {
-			anchor.classList.add('inline-block');
-		}
+		// ------------------- Footer
+
+		// Footer dynamic date
+		document.getElementById('currentYear').textContent =
+			new Date().getFullYear();
+
+		// Mobile footer toggle menus
+		const toggleMenus = document.querySelectorAll('.md-footer-toggle-menu');
+
+		toggleMenus.forEach((menu) => {
+			menu.addEventListener('click', function () {
+				let targetMenu;
+				const icon = this.querySelector('.menu-icon-rotate'); // Select the icon inside this menu header
+
+				if (this.nextElementSibling.id === 'footer-shop-menu') {
+					targetMenu = document.getElementById('footer-shop-menu');
+				} else if (this.nextElementSibling.id === 'footer-info-menu') {
+					targetMenu = document.getElementById('footer-info-menu');
+				}
+
+				// Toggle the visibility of the target menu
+				if (targetMenu) {
+					targetMenu.classList.toggle('md:hidden');
+
+					// Toggle the rotation of the icon
+					icon.classList.toggle('menu-icon-flipped');
+				}
+			});
+		});
 	}
 });

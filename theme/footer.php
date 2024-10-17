@@ -38,8 +38,16 @@
 
 		<!-- 2nd Div: Spans columns 5-6 -->
 		<div class="col-start-5 col-span-2 md:col-span-1 md:mb-4">
-			<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Parduotuvė</h2>
-			<ul class="space-y-2">
+			<div class="flex justify-between items-center cursor-pointer md-footer-toggle-menu">
+				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Parduotuvė</h2>
+				<svg class="menu-icon-rotate hidden w-3.5 h-3.5  md:inline-block" xmlns="http://www.w3.org/2000/svg"
+					width="13" height="8" viewBox="0 0 13 8" fill="none">
+					<path
+						d="M6.5 8L13 0.994744L12.077 -2.11161e-06L9.854 2.40981L6.5 6.02452L3.146 2.40981L0.923 0.0140101L1.66822e-07 1.00876L6.5 8Z"
+						fill="white" />
+				</svg>
+			</div>
+			<ul id="footer-shop-menu" class="space-y-2 md:hidden md:mt-5">
 				<li><a href="#" class="hover:underline">Geliniai lakai</a></li>
 				<li><a href="#" class="hover:underline">Bazės ir topai</a></li>
 				<li><a href="#" class="hover:underline">UV gelio sistema</a></li>
@@ -51,8 +59,16 @@
 
 		<!-- 3rd Div: Spans columns 7-8 -->
 		<div class="col-start-7 col-span-2 md:col-span-1 md:mb-11">
-			<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Info</h2>
-			<ul class="space-y-2.5">
+			<div class="flex justify-between items-center cursor-pointer md-footer-toggle-menu">
+				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Info</h2>
+				<svg class="menu-icon-rotate hidden w-3.5 h-3.5 md:inline-block" xmlns="http://www.w3.org/2000/svg"
+					width="13" height="8" viewBox="0 0 13 8" fill="none">
+					<path
+						d="M6.5 8L13 0.994744L12.077 -2.11161e-06L9.854 2.40981L6.5 6.02452L3.146 2.40981L0.923 0.0140101L1.66822e-07 1.00876L6.5 8Z"
+						fill="white" />
+				</svg>
+			</div>
+			<ul id="footer-info-menu" class="space-y-2.5 md:hidden md:mt-5">
 				<li><a href="#" class="hover:underline">Apie mus</a></li>
 				<li><a href="#" class="hover:underline">Blogas</a></li>
 				<li><a href="#" class="hover:underline">Kontaktai</a></li>
@@ -60,7 +76,6 @@
 				<li><a href="#" class="hover:underline">Slapukai</a></li>
 			</ul>
 		</div>
-
 		<!-- 4th Div: Spans columns 10-12 -->
 		<div class="col-start-10 col-span-3 pb-10 md:col-span-1 md:pb-0">
 			<h2 class="uppercase body-normal-medium mb-6 md:mb-5">Prenumeruokite</h2>
@@ -196,8 +211,11 @@
 		</p>
 
 	</div>
-</footer>
 
-<script>
-	document.getElementById('currentYear').textContent = new Date().getFullYear();
-</script>
+</footer>
+</div><!-- #content -->
+</div><!-- #page -->
+<?php wp_footer(); ?>
+</body>
+
+</html>
