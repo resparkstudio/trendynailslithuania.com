@@ -1,7 +1,7 @@
-<footer id="site-footer" class="bg-black text-white pt-20">
-	<div class="container grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular">
+<footer id="site-footer" class="bg-black text-white pt-20 pb-4 mb:pt-14 mb:pb-4">
+	<div class="container grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular mb-10 md:grid-cols-1">
 		<!-- 1st Div: Spans columns 1-3 -->
-		<div class="col-span-3">
+		<div class="col-span-3 md:col-span-1">
 			<div class="site-logo flex flex-none justify-items-center mx-auto pb-5">
 				<a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">
 					<img src="<?php echo esc_url(wp_get_attachment_url(45)); ?>"
@@ -37,8 +37,8 @@
 		</div>
 
 		<!-- 2nd Div: Spans columns 5-6 -->
-		<div class="col-start-5 col-span-2">
-			<h2 class="body-normal-medium mb-2">PARDUOTUVĖ</h2>
+		<div class="col-start-5 col-span-2 md:col-span-1">
+			<h2 class="body-normal-medium mb-5">PARDUOTUVĖ</h2>
 			<ul class="space-y-2">
 				<li><a href="#" class="hover:underline">Geliniai lakai</a></li>
 				<li><a href="#" class="hover:underline">Bazės ir topai</a></li>
@@ -50,9 +50,9 @@
 		</div>
 
 		<!-- 3rd Div: Spans columns 7-8 -->
-		<div class="col-start-7 col-span-2">
-			<h2 class="body-normal-medium mb-2">INFO</h2>
-			<ul class="space-y-2">
+		<div class="col-start-7 col-span-2 md:col-span-1">
+			<h2 class="body-normal-medium mb-5">INFO</h2>
+			<ul class="space-y-2.5">
 				<li><a href="#" class="hover:underline">Apie mus</a></li>
 				<li><a href="#" class="hover:underline">Blogas</a></li>
 				<li><a href="#" class="hover:underline">Kontaktai</a></li>
@@ -62,7 +62,7 @@
 		</div>
 
 		<!-- 4th Div: Spans columns 10-12 -->
-		<div class="col-start-10 col-span-3 pb-10">
+		<div class="col-start-10 col-span-3 pb-10 md:col-span-1">
 			<h2 class="body-normal-medium mb-2">PRENUMERUOKITE</h2>
 			<p class="text-sm">
 				Užsiregistruokite ir gaukite –15 % nuolaidą pirmajam užsakymui, pirmieji sužinokite apie naujausius
@@ -73,7 +73,8 @@
 					class="w-full p-2 bg-gray-700 text-white rounded">
 			</form>
 			<!-- Payment icons -->
-			<div class="grid grid-cols-6 gap-1 mt-4 auto-rows-auto xl:grid-cols-5 lg:grid-cols-4">
+			<div
+				class="grid grid-cols-6 gap-1 mt-4 auto-rows-auto xl:grid-cols-5 lg:grid-cols-4 max-w-72 md:grid-cols-6">
 				<a class="w-full">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
@@ -156,7 +157,7 @@
 					</svg>
 
 				</a>
-				<a class="w-full lg:col-start-1">
+				<a class="w-full lg:col-start-1 md:col-start-5">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -173,7 +174,7 @@
 					</svg>
 
 				</a>
-				<a class="w-full xl:col-start-1 lg:col-start-2">
+				<a class="w-full xl:col-start-1 lg:col-start-2 md:col-start-6">
 					<svg width="43" height="32" viewBox="0 0 43 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect x="0.25" y="0.25" width="42.5" height="31.5" rx="3.75" stroke="#747474"
 							stroke-width="0.5" />
@@ -188,7 +189,15 @@
 		</div>
 	</div>
 
-	<div class="container mx-auto px-4 text-center pb-4">
-		<p class="text-gray-dark body-extra-small-light">&copy; 2024. Trendy Nails Lithuania</p>
+	<div class="container block mx-auto text-center">
+
+		<p class="text-gray-dark block body-extra-small-light">
+			&copy; <span id="currentYear"></span> Trendy Nails Lithuania
+		</p>
+
 	</div>
 </footer>
+
+<script>
+	document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>

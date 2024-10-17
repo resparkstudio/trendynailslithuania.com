@@ -1,10 +1,6 @@
 // Set the Preflight flag based on the build target.
 const includePreflight = 'editor' === process.env._TW_TARGET ? false : true;
 
-// Import Fluid Tailwind's extractor and plugin.
-const fluid = require('fluid-tailwind');
-const { extract } = require('fluid-tailwind');
-
 module.exports = {
 	presets: [
 		// Manage Tailwind Typography's configuration in a separate file.
@@ -14,10 +10,7 @@ module.exports = {
 		files: [
 			// Ensure changes to PHP and custom CSS files trigger a rebuild.
 			'./theme/**/*.php',
-			'./assets/css/colors.css', // Add your colors.css
-			'./assets/css/fonts.css', // Add your fonts.css
 		],
-		extract,
 	},
 	theme: {
 		// Desktop-first approach
@@ -31,16 +24,6 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: ['"Albert Sans"', 'sans-serif'],
-			},
-			fontSize: {
-				'heading-xl': ['2.5rem', { lineHeight: '3rem' }],
-				'heading-lg': ['2.25rem', { lineHeight: '2.75rem' }],
-				'heading-md': ['1.625rem', { lineHeight: '2.125rem' }],
-				'heading-sm': ['1.125rem', { lineHeight: '1.375rem' }],
-				'body-normal': ['1rem', { lineHeight: '1.25rem' }],
-				'body-small': ['0.875rem', { lineHeight: '1.125rem' }],
-				'body-extra-small': ['0.75rem', { lineHeight: '1rem' }],
-				'body-extra-small-light': ['10px', { lineHeight: '20px' }],
 			},
 			colors: {
 				black: '#000000',
@@ -61,7 +44,6 @@ module.exports = {
 	plugins: [
 		require('@_tw/typography'),
 		require('@_tw/themejson'),
-		fluid, // Add the Fluid Tailwind plugin here
 		require('postcss-import'), // Ensure CSS imports are handled
 	],
 };
