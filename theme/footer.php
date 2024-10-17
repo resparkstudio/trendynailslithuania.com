@@ -204,9 +204,9 @@
 		</div>
 	</div>
 
-	<div class="container block mx-auto text-center">
+	<div class="container block mx-auto text-center md:px-4">
 
-		<p class="text-gray-dark block body-extra-small-light">
+		<p class="text-gray-dark block body-extra-small-light md:text-left">
 			&copy; <span id="currentYear"></span> Trendy Nails Lithuania
 		</p>
 

@@ -5,6 +5,10 @@
 	flex-wrap: nowrap;
 	gap: 0.25rem;
 }
+/* Add padding to the sidebar when the admin bar is visible */
+body.admin-bar #shop-sidebar {
+	padding-top: 32px;
+}
 
 /* Body */
 

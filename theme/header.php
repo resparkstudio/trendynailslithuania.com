@@ -20,7 +20,7 @@
 		<div id="page">
 			<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
 
-			<header class="site-header flex justify-between items-center h-[5rem] px-12">
+			<header class="site-header flex justify-between items-center h-[5rem] px-12 relative">
 
 				<!-- Navigation Menu -->
 				<nav id="site-navigation"
@@ -115,8 +115,9 @@
 
 				<!-- Sidebar -->
 				<aside id="shop-sidebar"
-					class="shop-sidebar flex-col fixed right-0 top-0 w-[300px] h-svh bg-black text-white body-small-regular hidden z-50">
-					<!-- To do make not-hardcoded menu -->
+					class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-50">
+					<div class="body-small-regular h-[5rem]"><a class="shop-link">Parduotuvė</a></div>
+					<!-- TO-DO make not-hardcoded menu -->
 					<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
 						<ul class="flex flex-col space-y-[1.25rem]">
 							<li><a href="">Išpardavimas</a></li>
