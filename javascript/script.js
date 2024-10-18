@@ -1,39 +1,45 @@
-/**
- * Front-end JavaScript
- *
- * The JavaScript code you place here will be processed by esbuild. The output
- * file will be created at `../theme/js/script.min.js` and enqueued in
- * `../theme/functions.php`.
- *
- * For esbuild documentation, please see:
- * https://esbuild.github.io/
- */
+import gsap from 'gsap';
+
 document.addEventListener('DOMContentLoaded', function () {
 	// ------------------- Header
 	// Shop sidebar
 	const sidebarOpenLink = document.querySelector('.shop-link');
 	const sidebarCloseLink = document.getElementById('sidebar-close-link');
 	const sidebar = document.getElementById('shop-sidebar');
-	// Toggle sidebar visibility
+
+	// Initial state of sidebar (hidden off-screen)
+	gsap.set(sidebar, { x: '-100%', display: 'none' });
+
+	// Open sidebar with animation
 	if (sidebarOpenLink) {
 		sidebarOpenLink.addEventListener('click', function (e) {
 			e.preventDefault();
 
-			if (sidebar.classList.contains('hidden')) {
-				sidebar.classList.remove('hidden');
-				sidebar.classList.add('flex');
-			} else {
-				sidebar.classList.add('hidden');
-				sidebar.classList.remove('flex');
+			// Check if the sidebar is hidden
+			if (sidebar.style.display === 'none') {
+				// Make the sidebar visible and animate it coming in from the left
+				sidebar.style.display = 'flex';
+				gsap.to(sidebar, {
+					duration: 0.5,
+					x: '0%',
+					ease: 'power2.out',
+				});
 			}
 		});
 
+		// Close sidebar with animation
 		sidebarCloseLink.addEventListener('click', function (e) {
-			e.preventDefault;
-			if (sidebar.classList.contains('flex')) {
-				sidebar.classList.remove('flex');
-				sidebar.classList.add('hidden');
-			}
+			e.preventDefault();
+
+			// Animate the sidebar sliding out to the left and hide it after animation
+			gsap.to(sidebar, {
+				duration: 0.5,
+				x: '-100%',
+				ease: 'power2.in',
+				onComplete: function () {
+					sidebar.style.display = 'none';
+				},
+			});
 		});
 
 		sidebarOpenLink.insertAdjacentHTML(
