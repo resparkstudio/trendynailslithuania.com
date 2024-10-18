@@ -20,7 +20,7 @@
 		<div id="page" class="relative">
 			<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
 
-			<header class="site-header flex justify-between items-center h-[5rem] px-12 relative">
+			<header class="site-header flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 relative">
 
 				<!-- Navigation Menu -->
 				<nav id="site-navigation"
@@ -38,7 +38,7 @@
 					?>
 				</nav>
 
-				<div class="shop-link hidden md:block">
+				<div class="shop-link hidden md:block md:pr-9">
 					<svg width="18" height="8" viewBox="0 0 18 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<line y1="1.4" x2="17.5" y2="1.4" stroke="black" stroke-width="1.2" />
 						<line y1="7.4" x2="17.5" y2="7.4" stroke="black" stroke-width="1.2" />
@@ -124,7 +124,8 @@
 
 
 			</header>
-			<div class="absolute top-0 left-0 z-20 body-small-regular h-[5rem] text-black flex items-center pl-12">
+			<div
+				class="absolute top-0 left-0 z-20 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
 				<a href="#" id="sidebar-close-link" class="invisible gap-1">
 					<span class="inline-block">
 						Parduotuvė
