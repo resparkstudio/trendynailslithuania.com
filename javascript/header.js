@@ -2,7 +2,7 @@
 import gsap from 'gsap';
 
 document.addEventListener('DOMContentLoaded', function () {
-	const sidebarOpenLink = document.querySelector('.shop-link'); // Main nav shop link
+	const sidebarOpenLinks = document.querySelectorAll('.shop-link'); // Main nav shop links (multiple)
 	const sidebarCloseLink = document.getElementById('sidebar-close-link'); // Sidebar close link
 	const sidebarCloseLinkSpan = document.querySelector(
 		'#sidebar-close-link span'
@@ -57,18 +57,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Open sidebar with animation
-	if (sidebarOpenLink) {
-		sidebarOpenLink.addEventListener('click', function (e) {
+	// Open sidebar with animation for each shop-link
+	sidebarOpenLinks.forEach((link) => {
+		link.addEventListener('click', function (e) {
 			e.preventDefault();
 			sidebarCloseLinkSpan.classList.add('toggle-underline');
-			gsap.to(sidebarOpenLink, {
+			gsap.to(link, {
 				duration: 0.3,
 				opacity: 0,
 				ease: 'power2.out',
 				onComplete: function () {
-					sidebarOpenLink.style.pointerEvents = 'none';
-					sidebarOpenLink.style.visibility = 'hidden';
+					link.style.pointerEvents = 'none';
+					link.style.visibility = 'hidden';
 				},
 			});
 
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 			});
 		});
-	}
+	});
 
 	// Close sidebar with animation
 	sidebarCloseLink.addEventListener('click', function (e) {
@@ -114,33 +114,32 @@ document.addEventListener('DOMContentLoaded', function () {
 			ease: 'power2.in',
 			onComplete: () => {
 				sidebarCloseLink.style.display = 'none';
-				sidebarOpenLink.style.visibility = 'visible';
-				sidebarOpenLink.style.pointerEvents = 'auto';
-				gsap.to(sidebarOpenLink, {
-					duration: 0.3,
-					opacity: 1,
-					ease: 'power2.out',
+				sidebarOpenLinks.forEach((link) => {
+					link.style.visibility = 'visible';
+					link.style.pointerEvents = 'auto';
+					gsap.to(link, {
+						duration: 0.3,
+						opacity: 1,
+						ease: 'power2.out',
+					});
 				});
 			},
 		});
 	});
 
-	// Inject SVG icon into the main nav shop-link dynamically
-	sidebarOpenLink.insertAdjacentHTML(
-		'beforeend',
-		`
+	// Inject SVG icon into each .shop-link dynamically
+	sidebarOpenLinks.forEach((link) => {
+		link.insertAdjacentHTML(
+			'beforeend',
+			`
             <div class="flex items-center">
                 <svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z" fill="black"/>
                 </svg>
             </div>
         `
-	);
+		);
 
-	sidebarOpenLink.classList.add(
-		'flex',
-		'items-center',
-		'gap-1',
-		'cursor-pointer'
-	);
+		link.classList.add('flex', 'items-center', 'gap-1', 'cursor-pointer');
+	});
 });

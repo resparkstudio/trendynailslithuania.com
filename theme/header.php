@@ -24,7 +24,7 @@
 
 				<!-- Navigation Menu -->
 				<nav id="site-navigation"
-					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4 ">
+					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4 md:hidden">
 					<?php
 					wp_nav_menu(array(
 						'theme_location' => 'header-menu',
@@ -37,6 +37,13 @@
 					));
 					?>
 				</nav>
+
+				<div class="shop-link hidden md:block">
+					<svg width="18" height="8" viewBox="0 0 18 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<line y1="1.4" x2="17.5" y2="1.4" stroke="black" stroke-width="1.2" />
+						<line y1="7.4" x2="17.5" y2="7.4" stroke="black" stroke-width="1.2" />
+					</svg>
+				</div>
 
 				<!-- Site Logo -->
 				<div class="site-logo flex flex-none justify-items-center mx-auto">
