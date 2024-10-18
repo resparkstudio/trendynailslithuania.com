@@ -8,8 +8,9 @@ module.exports = {
 	],
 	content: {
 		files: [
-			// Ensure changes to PHP and custom CSS files trigger a rebuild.
 			'./theme/**/*.php',
+			'./theme/**/*.js',
+			'./css/**/*.css', // Include all the new CSS files
 		],
 	},
 	theme: {
