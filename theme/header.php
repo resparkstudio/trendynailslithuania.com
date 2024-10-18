@@ -17,7 +17,7 @@
 
 		<?php wp_body_open(); ?>
 
-		<div id="page">
+		<div id="page" class="relative">
 			<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
 
 			<header class="site-header flex justify-between items-center h-[5rem] px-12 relative">
@@ -113,48 +113,64 @@
 					</a>
 				</div>
 
-				<!-- Sidebar -->
-				<aside id="shop-sidebar"
-					class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-50">
-					<div class="body-small-regular h-[5rem]"><a class="shop-link">Parduotuvė</a></div>
-					<!-- TO-DO make not-hardcoded menu -->
-					<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
-						<ul class="flex flex-col space-y-[1.25rem]">
-							<li><a href="">Išpardavimas</a></li>
-							<li><a href="">Naujienos</a></li>
-							<li><a href="">Populiariausi</a></li>
-							<li><a href="">Geliniai lakai</a></li>
-							<li><a href="">Bazės ir topai</a></li>
-							<li><a href="">UV gelio sistema</a></li>
-							<li><a href="">Polygelio sistema</a></li>
-							<li><a href="">Darbo įrankiai</a></li>
-							<li><a href="">Rinkiniai</a></li>
-						</ul>
-					</nav>
 
-					<div class="sidebar-footer mb-10 ml-12 flex-shrink-0 flex flex-col space-y-[1.75rem]">
-						<p>Sekite mūsų naujienas!</p>
-						<div class="flex space-x-4">
-							<!-- TODO add real links  -->
-							<a href="https://facebook.com" target="_blank" class="text-white">
-								<svg width="8" height="16" viewBox="0 0 8 16" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M7.47636 9L7.88364 6.125H5.29455V4.25C5.29455 3.4375 5.64364 2.6875 6.80727 2.6875H8V0.21875C8 0.21875 6.92364 0 5.90545 0C3.78182 0 2.38545 1.40625 2.38545 3.90625V6.125H0V9H2.38545V16H5.29455V9H7.47636Z"
-										fill="white" />
-								</svg>
-							</a>
-							<a href="https://instagram.com" target="_blank" class="text-white">
-								<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M8.01786 3.875C10.2679 3.875 12.125 5.73214 12.125 7.98214C12.125 10.2679 10.2679 12.0893 8.01786 12.0893C5.73214 12.0893 3.91071 10.2679 3.91071 7.98214C3.91071 5.73214 5.73214 3.875 8.01786 3.875ZM8.01786 10.6607C9.48214 10.6607 10.6607 9.48214 10.6607 7.98214C10.6607 6.51786 9.48214 5.33929 8.01786 5.33929C6.51786 5.33929 5.33929 6.51786 5.33929 7.98214C5.33929 9.48214 6.55357 10.6607 8.01786 10.6607ZM13.2321 3.73214C13.2321 4.26786 12.8036 4.69643 12.2679 4.69643C11.7321 4.69643 11.3036 4.26786 11.3036 3.73214C11.3036 3.19643 11.7321 2.76786 12.2679 2.76786C12.8036 2.76786 13.2321 3.19643 13.2321 3.73214ZM15.9464 4.69643C16.0179 6.01786 16.0179 9.98214 15.9464 11.3036C15.875 12.5893 15.5893 13.6964 14.6607 14.6607C13.7321 15.5893 12.5893 15.875 11.3036 15.9464C9.98214 16.0179 6.01786 16.0179 4.69643 15.9464C3.41071 15.875 2.30357 15.5893 1.33929 14.6607C0.410714 13.6964 0.125 12.5893 0.0535714 11.3036C-0.0178571 9.98214 -0.0178571 6.01786 0.0535714 4.69643C0.125 3.41071 0.410714 2.26786 1.33929 1.33929C2.30357 0.410714 3.41071 0.125 4.69643 0.0535714C6.01786 -0.0178571 9.98214 -0.0178571 11.3036 0.0535714C12.5893 0.125 13.7321 0.410714 14.6607 1.33929C15.5893 2.26786 15.875 3.41071 15.9464 4.69643ZM14.2321 12.6964C14.6607 11.6607 14.5536 9.16071 14.5536 7.98214C14.5536 6.83929 14.6607 4.33929 14.2321 3.26786C13.9464 2.58929 13.4107 2.01786 12.7321 1.76786C11.6607 1.33929 9.16071 1.44643 8.01786 1.44643C6.83929 1.44643 4.33929 1.33929 3.30357 1.76786C2.58929 2.05357 2.05357 2.58929 1.76786 3.26786C1.33929 4.33929 1.44643 6.83929 1.44643 7.98214C1.44643 9.16071 1.33929 11.6607 1.76786 12.6964C2.05357 13.4107 2.58929 13.9464 3.30357 14.2321C4.33929 14.6607 6.83929 14.5536 8.01786 14.5536C9.16071 14.5536 11.6607 14.6607 12.7321 14.2321C13.4107 13.9464 13.9821 13.4107 14.2321 12.6964Z"
-										fill="white" />
-								</svg>
-							</a>
-						</div>
-					</div>
-				</aside>
 
 			</header>
+			<!-- Sidebar -->
+			<aside id="shop-sidebar"
+				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-50">
+				<a href="#" id="sidebar-close-link">
+					<div class="body-small-regular h-[5rem] flex pl-12 items-center  gap-1"><span>
+							Parduotuvė
+						</span>
+						<div class="flex items-center">
+							<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M4.5 -3.93402e-07L5.43522e-08 4.37828L0.639 5L2.178 3.49387L4.5 1.23468L6.822 3.49387L8.361 4.99124L9 4.36953L4.5 -3.93402e-07Z"
+									fill="white" />
+							</svg>
+
+						</div>
+					</div>
+				</a>
+
+				<!-- TO-DO make not-hardcoded menu -->
+				<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
+					<ul class="flex flex-col space-y-[1.25rem]">
+						<li><a href="">Išpardavimas</a></li>
+						<li><a href="">Naujienos</a></li>
+						<li><a href="">Populiariausi</a></li>
+						<li><a href="">Geliniai lakai</a></li>
+						<li><a href="">Bazės ir topai</a></li>
+						<li><a href="">UV gelio sistema</a></li>
+						<li><a href="">Polygelio sistema</a></li>
+						<li><a href="">Darbo įrankiai</a></li>
+						<li><a href="">Rinkiniai</a></li>
+					</ul>
+				</nav>
+
+				<div class="sidebar-footer mb-10 ml-12 flex-shrink-0 flex flex-col space-y-[1.75rem]">
+					<p>Sekite mūsų naujienas!</p>
+					<div class="flex space-x-4">
+						<!-- TODO add real links  -->
+						<a href="https://facebook.com" target="_blank" class="text-white">
+							<svg width="8" height="16" viewBox="0 0 8 16" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M7.47636 9L7.88364 6.125H5.29455V4.25C5.29455 3.4375 5.64364 2.6875 6.80727 2.6875H8V0.21875C8 0.21875 6.92364 0 5.90545 0C3.78182 0 2.38545 1.40625 2.38545 3.90625V6.125H0V9H2.38545V16H5.29455V9H7.47636Z"
+									fill="white" />
+							</svg>
+						</a>
+						<a href="https://instagram.com" target="_blank" class="text-white">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M8.01786 3.875C10.2679 3.875 12.125 5.73214 12.125 7.98214C12.125 10.2679 10.2679 12.0893 8.01786 12.0893C5.73214 12.0893 3.91071 10.2679 3.91071 7.98214C3.91071 5.73214 5.73214 3.875 8.01786 3.875ZM8.01786 10.6607C9.48214 10.6607 10.6607 9.48214 10.6607 7.98214C10.6607 6.51786 9.48214 5.33929 8.01786 5.33929C6.51786 5.33929 5.33929 6.51786 5.33929 7.98214C5.33929 9.48214 6.55357 10.6607 8.01786 10.6607ZM13.2321 3.73214C13.2321 4.26786 12.8036 4.69643 12.2679 4.69643C11.7321 4.69643 11.3036 4.26786 11.3036 3.73214C11.3036 3.19643 11.7321 2.76786 12.2679 2.76786C12.8036 2.76786 13.2321 3.19643 13.2321 3.73214ZM15.9464 4.69643C16.0179 6.01786 16.0179 9.98214 15.9464 11.3036C15.875 12.5893 15.5893 13.6964 14.6607 14.6607C13.7321 15.5893 12.5893 15.875 11.3036 15.9464C9.98214 16.0179 6.01786 16.0179 4.69643 15.9464C3.41071 15.875 2.30357 15.5893 1.33929 14.6607C0.410714 13.6964 0.125 12.5893 0.0535714 11.3036C-0.0178571 9.98214 -0.0178571 6.01786 0.0535714 4.69643C0.125 3.41071 0.410714 2.26786 1.33929 1.33929C2.30357 0.410714 3.41071 0.125 4.69643 0.0535714C6.01786 -0.0178571 9.98214 -0.0178571 11.3036 0.0535714C12.5893 0.125 13.7321 0.410714 14.6607 1.33929C15.5893 2.26786 15.875 3.41071 15.9464 4.69643ZM14.2321 12.6964C14.6607 11.6607 14.5536 9.16071 14.5536 7.98214C14.5536 6.83929 14.6607 4.33929 14.2321 3.26786C13.9464 2.58929 13.4107 2.01786 12.7321 1.76786C11.6607 1.33929 9.16071 1.44643 8.01786 1.44643C6.83929 1.44643 4.33929 1.33929 3.30357 1.76786C2.58929 2.05357 2.05357 2.58929 1.76786 3.26786C1.33929 4.33929 1.44643 6.83929 1.44643 7.98214C1.44643 9.16071 1.33929 11.6607 1.76786 12.6964C2.05357 13.4107 2.58929 13.9464 3.30357 14.2321C4.33929 14.6607 6.83929 14.5536 8.01786 14.5536C9.16071 14.5536 11.6607 14.6607 12.7321 14.2321C13.4107 13.9464 13.9821 13.4107 14.2321 12.6964Z"
+									fill="white" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</aside>
 			<div id="content">

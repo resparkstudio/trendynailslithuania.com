@@ -11,11 +11,12 @@
 document.addEventListener('DOMContentLoaded', function () {
 	// ------------------- Header
 	// Shop sidebar
-	const shopLink = document.querySelector('.shop-link');
+	const sidebarOpenLink = document.querySelector('.shop-link');
+	const sidebarCloseLink = document.getElementById('sidebar-close-link');
 	const sidebar = document.getElementById('shop-sidebar');
 	// Toggle sidebar visibility
-	if (shopLink) {
-		shopLink.addEventListener('click', function (e) {
+	if (sidebarOpenLink) {
+		sidebarOpenLink.addEventListener('click', function (e) {
 			e.preventDefault();
 
 			if (sidebar.classList.contains('hidden')) {
@@ -27,7 +28,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 
-		shopLink.insertAdjacentHTML(
+		sidebarCloseLink.addEventListener('click', function (e) {
+			e.preventDefault;
+			if (sidebar.classList.contains('flex')) {
+				sidebar.classList.remove('flex');
+				sidebar.classList.add('hidden');
+			}
+		});
+
+		sidebarOpenLink.insertAdjacentHTML(
 			'beforeend',
 			`
 			  <div class="flex items-center">
@@ -38,36 +47,36 @@ document.addEventListener('DOMContentLoaded', function () {
 			`
 		);
 
-		shopLink.classList.add('flex', 'items-center', 'gap-1');
-
-		// ------------------- Footer
-
-		// Footer dynamic date
-		document.getElementById('currentYear').textContent =
-			new Date().getFullYear();
-
-		// Mobile footer toggle menus
-		const toggleMenus = document.querySelectorAll('.md-footer-toggle-menu');
-
-		toggleMenus.forEach((menu) => {
-			menu.addEventListener('click', function () {
-				let targetMenu;
-				const icon = this.querySelector('.menu-icon-rotate'); // Select the icon inside this menu header
-
-				if (this.nextElementSibling.id === 'footer-shop-menu') {
-					targetMenu = document.getElementById('footer-shop-menu');
-				} else if (this.nextElementSibling.id === 'footer-info-menu') {
-					targetMenu = document.getElementById('footer-info-menu');
-				}
-
-				// Toggle the visibility of the target menu
-				if (targetMenu) {
-					targetMenu.classList.toggle('md:hidden');
-
-					// Toggle the rotation of the icon
-					icon.classList.toggle('menu-icon-flipped');
-				}
-			});
-		});
+		sidebarOpenLink.classList.add('flex', 'items-center', 'gap-1');
 	}
+
+	// ------------------- Footer
+
+	// Footer dynamic date
+	document.getElementById('currentYear').textContent =
+		new Date().getFullYear();
+
+	// Mobile footer toggle menus
+	const toggleMenus = document.querySelectorAll('.md-footer-toggle-menu');
+
+	toggleMenus.forEach((menu) => {
+		menu.addEventListener('click', function () {
+			let targetMenu;
+			const icon = this.querySelector('.menu-icon-rotate'); // Select the icon inside this menu header
+
+			if (this.nextElementSibling.id === 'footer-shop-menu') {
+				targetMenu = document.getElementById('footer-shop-menu');
+			} else if (this.nextElementSibling.id === 'footer-info-menu') {
+				targetMenu = document.getElementById('footer-info-menu');
+			}
+
+			// Toggle the visibility of the target menu
+			if (targetMenu) {
+				targetMenu.classList.toggle('md:hidden');
+
+				// Toggle the rotation of the icon
+				icon.classList.toggle('menu-icon-flipped');
+			}
+		});
+	});
 });
