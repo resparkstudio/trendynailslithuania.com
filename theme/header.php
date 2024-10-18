@@ -24,14 +24,14 @@
 
 				<!-- Navigation Menu -->
 				<nav id="site-navigation"
-					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4">
+					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4 ">
 					<?php
 					wp_nav_menu(array(
 						'theme_location' => 'header-menu',
 						'menu_id' => 'primary-menu',
 						'container' => false,
 						'menu_class' => 'flex main-menu-fluid-spacing whitespace-nowrap relative',
-						'link_before' => '<span>',
+						'link_before' => '<span class = "link-hover">',
 						'link_after' => '</span>',
 						'depth' => 1,
 					));
@@ -115,38 +115,41 @@
 
 
 
-			</header>
-			<!-- Sidebar -->
-			<aside id="shop-sidebar"
-				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-50">
-				<a href="#" id="sidebar-close-link">
-					<div class="body-small-regular h-[5rem] flex pl-12 items-center  gap-1"><span>
-							Parduotuvė
-						</span>
-						<div class="flex items-center">
-							<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M4.5 -3.93402e-07L5.43522e-08 4.37828L0.639 5L2.178 3.49387L4.5 1.23468L6.822 3.49387L8.361 4.99124L9 4.36953L4.5 -3.93402e-07Z"
-									fill="white" />
-							</svg>
 
-						</div>
+			</header>
+			<div class="absolute top-0 left-0 z-20 body-small-regular h-[5rem] text-black flex items-center pl-12">
+				<a href="#" id="sidebar-close-link" class="invisible gap-1">
+					<span class="inline-block">
+						Parduotuvė
+					</span>
+					<div class="flex items-center">
+						<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z"
+								fill="black" />
+						</svg>
 					</div>
 				</a>
+			</div>
+
+			<!-- Sidebar -->
+			<aside id="shop-sidebar"
+				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10">
+
 
 				<!-- TO-DO make not-hardcoded menu -->
 				<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
 					<ul class="flex flex-col space-y-[1.25rem]">
-						<li><a href="">Išpardavimas</a></li>
-						<li><a href="">Naujienos</a></li>
-						<li><a href="">Populiariausi</a></li>
-						<li><a href="">Geliniai lakai</a></li>
-						<li><a href="">Bazės ir topai</a></li>
-						<li><a href="">UV gelio sistema</a></li>
-						<li><a href="">Polygelio sistema</a></li>
-						<li><a href="">Darbo įrankiai</a></li>
-						<li><a href="">Rinkiniai</a></li>
+						<li><a href="" class="link-hover">Išpardavimas</a></li>
+						<li><a href="" class="link-hover">Naujienos</a></li>
+						<li><a href="" class="link-hover">Populiariausi</a></li>
+						<li><a href="" class="link-hover">Geliniai lakai</a></li>
+						<li><a href="" class="link-hover">Bazės ir topai</a></li>
+						<li><a href="" class="link-hover">UV gelio sistema</a></li>
+						<li><a href="" class="link-hover">Polygelio sistema</a></li>
+						<li><a href="" class="link-hover">Darbo įrankiai</a></li>
+						<li><a href="" class="link-hover">Rinkiniai</a></li>
 					</ul>
 				</nav>
 

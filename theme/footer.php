@@ -48,12 +48,12 @@
 				</svg>
 			</div>
 			<ul id="footer-shop-menu" class="space-y-2 md:hidden md:mt-5">
-				<li><a href="#" class="hover:underline">Geliniai lakai</a></li>
-				<li><a href="#" class="hover:underline">Bazės ir topai</a></li>
-				<li><a href="#" class="hover:underline">UV gelio sistema</a></li>
-				<li><a href="#" class="hover:underline">Polygelio sistema</a></li>
-				<li><a href="#" class="hover:underline">Darbo įrankiai</a></li>
-				<li><a href="#" class="hover:underline">Rinkiniai</a></li>
+				<li><a href="#" class="link-hover">Geliniai lakai</a></li>
+				<li><a href="#" class="link-hover">Bazės ir topai</a></li>
+				<li><a href="#" class="link-hover">UV gelio sistema</a></li>
+				<li><a href="#" class="link-hover">Polygelio sistema</a></li>
+				<li><a href="#" class="link-hover">Darbo įrankiai</a></li>
+				<li><a href="#" class="link-hover">Rinkiniai</a></li>
 			</ul>
 		</div>
 
@@ -69,11 +69,11 @@
 				</svg>
 			</div>
 			<ul id="footer-info-menu" class="space-y-2.5 md:hidden md:mt-5">
-				<li><a href="#" class="hover:underline">Apie mus</a></li>
-				<li><a href="#" class="hover:underline">Blogas</a></li>
-				<li><a href="#" class="hover:underline">Kontaktai</a></li>
-				<li><a href="#" class="hover:underline">Privatumo politika</a></li>
-				<li><a href="#" class="hover:underline">Slapukai</a></li>
+				<li><a href="#" class="link-hover">Apie mus</a></li>
+				<li><a href="#" class="link-hover">Blogas</a></li>
+				<li><a href="#" class="link-hover">Kontaktai</a></li>
+				<li><a href="#" class="link-hover">Privatumo politika</a></li>
+				<li><a href="#" class="link-hover">Slapukai</a></li>
 			</ul>
 		</div>
 		<!-- 4th Div: Spans columns 10-12 -->

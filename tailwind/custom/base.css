@@ -1,4 +1,4 @@
-/* Header */
+/* ---------------------------------- Header */
 
 .shop-link {
 	display: flex;
@@ -6,7 +6,7 @@
 	gap: 0.25rem;
 }
 
-/* Body */
+/* -------------------------------------- Body */
 
 body {
 	@apply bg-background text-foreground font-sans;
@@ -18,14 +18,37 @@ body {
 	flex-direction: column;
 }
 
-/* Sidebar */
+/* --------------------------------- Sidebar */
 
 /* fix overlapping */
 body.admin-bar #shop-sidebar {
 	padding-top: 32px;
 }
 
-/* Footer */
+#sidebar-close-link span {
+	display: inline-block;
+	position: relative;
+	text-decoration: none;
+}
+#sidebar-close-link span::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	border-radius: 5px;
+	height: 0.05em;
+	bottom: 0;
+	left: 0;
+	background: currentcolor;
+	transform-origin: bottom right;
+	transition: transform 0.25s ease-out;
+}
+#sidebar-close-link .toggle-underline::after {
+	transform: scaleX(1);
+	transform-origin: bottom left;
+}
+
+/* ----------------------------------- Footer */
 footer {
 	margin-top: auto;
 }
