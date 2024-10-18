@@ -1,12 +1,12 @@
-// sidebar.js
 import gsap from 'gsap';
 
 document.addEventListener('DOMContentLoaded', function () {
 	const sidebarOpenLinks = document.querySelectorAll('.shop-link'); // Main nav shop links (multiple)
+	const mobileSidebarOpenLink = document.querySelector('.mobile-shop-link'); // Mobile nav shop link
 	const sidebarCloseLink = document.getElementById('sidebar-close-link'); // Sidebar close link
 	const sidebarCloseLinkSpan = document.querySelector(
 		'#sidebar-close-link span'
-	); // Sidebar close link
+	); // Sidebar close link span
 	const sidebar = document.getElementById('shop-sidebar');
 
 	// Initial state of sidebar and sidebar-close-link (hidden off-screen)
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Open sidebar with animation for each shop-link
+	// Open sidebar with animation for each shop-link (desktop)
 	sidebarOpenLinks.forEach((link) => {
 		link.addEventListener('click', function (e) {
 			e.preventDefault();
@@ -94,7 +94,66 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-	// Close sidebar with animation
+	// Open or Close sidebar for mobile-shop-link with a toggle state
+	let sidebarOpen = false; // Track sidebar state
+
+	if (mobileSidebarOpenLink) {
+		mobileSidebarOpenLink.addEventListener('click', function (e) {
+			e.preventDefault();
+
+			if (sidebarOpen) {
+				// Close the sidebar
+				sidebarCloseLinkSpan.classList.remove('toggle-underline');
+				gsap.to(sidebar, {
+					duration: 0.5,
+					x: '-100%',
+					ease: 'power2.in',
+					onComplete: function () {
+						sidebar.style.display = 'none';
+					},
+				});
+
+				animateLinkClose(sidebarCloseLink);
+				gsap.to(sidebarCloseLink, {
+					duration: 0.4,
+					opacity: 0,
+					ease: 'power2.in',
+					onComplete: () => {
+						sidebarCloseLink.style.display = 'none';
+					},
+				});
+
+				sidebarOpen = false; // Update state
+			} else {
+				// Open the sidebar
+				sidebarCloseLinkSpan.classList.add('toggle-underline');
+
+				gsap.set(sidebar, { display: 'flex', visibility: 'visible' });
+				gsap.to(sidebar, {
+					duration: 0.5,
+					x: '0%',
+					ease: 'power2.out',
+				});
+
+				gsap.set(sidebarCloseLink, {
+					display: 'flex',
+					visibility: 'visible',
+				});
+				gsap.to(sidebarCloseLink, {
+					duration: 0.1,
+					opacity: 1,
+					ease: 'power2.out',
+					onComplete: () => {
+						animateLinkOpen(sidebarCloseLink);
+					},
+				});
+
+				sidebarOpen = true; // Update state
+			}
+		});
+	}
+
+	// Close sidebar with animation (applies to both desktop and mobile)
 	sidebarCloseLink.addEventListener('click', function (e) {
 		e.preventDefault();
 		sidebarCloseLinkSpan.classList.remove('toggle-underline');
@@ -125,5 +184,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 			},
 		});
+		sidebarOpen = false; // Ensure the state is updated
 	});
 });

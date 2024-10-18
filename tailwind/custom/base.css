@@ -13,8 +13,10 @@ body {
 /* --------------------------------- Sidebar */
 
 /* fix overlapping */
-body.admin-bar #shop-sidebar {
-	padding-top: 32px;
+@media screen and (min-width: 782px) {
+	body.admin-bar #shop-sidebar {
+		padding-top: 32px;
+	}
 }
 
 #sidebar-close-link span {

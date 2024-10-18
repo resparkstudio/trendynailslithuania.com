@@ -20,7 +20,8 @@
 		<div id="page" class="relative">
 			<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
 
-			<header class="site-header flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 relative">
+			<header
+				class="site-header flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 relative bg-white md:z-30">
 				<nav id="site-navigation"
 					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4 md:hidden">
 
@@ -58,7 +59,7 @@
 					?>
 				</nav>
 
-				<div class="shop-link hidden md:block md:pr-9">
+				<div class="mobile-shop-link hidden md:block md:pr-9">
 					<svg width="18" height="8" viewBox="0 0 18 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<line y1="1.4" x2="17.5" y2="1.4" stroke="black" stroke-width="1.2" />
 						<line y1="7.4" x2="17.5" y2="7.4" stroke="black" stroke-width="1.2" />
@@ -163,7 +164,7 @@
 
 			<!-- Sidebar -->
 			<aside id="shop-sidebar"
-				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10 md:top-[3.75rem]">
+				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10">
 				<!-- TO-DO make not-hardcoded menu -->
 				<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
 					<ul class="flex flex-col space-y-[1.25rem]">
