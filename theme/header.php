@@ -59,7 +59,7 @@
 					?>
 				</nav>
 
-				<div class="mobile-shop-link hidden md:block md:mr-9">
+				<div class="mobile-shop-link hidden md:block md:mr-9 cursor-pointer">
 					<svg width="18" height="8" viewBox="0 0 18 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<line y1="1.4" x2="17.5" y2="1.4" stroke="black" stroke-width="1.2" />
 						<line y1="7.4" x2="17.5" y2="7.4" stroke="black" stroke-width="1.2" />

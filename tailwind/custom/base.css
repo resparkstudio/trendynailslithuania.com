@@ -18,6 +18,11 @@ body {
 		padding-top: 32px;
 	}
 }
+@media screen and (max-width: 782px) {
+	body.admin-bar #shop-sidebar {
+		padding-top: 46px;
+	}
+}
 
 #sidebar-close-link span {
 	display: inline-block;
