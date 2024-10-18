@@ -21,20 +21,40 @@
 			<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
 
 			<header class="site-header flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 relative">
-
-				<!-- Navigation Menu -->
 				<nav id="site-navigation"
 					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4 md:hidden">
+
 					<?php
-					wp_nav_menu(array(
-						'theme_location' => 'header-menu',
-						'menu_id' => 'primary-menu',
-						'container' => false,
-						'menu_class' => 'flex main-menu-fluid-spacing whitespace-nowrap relative',
-						'link_before' => '<span class = "link-hover">',
-						'link_after' => '</span>',
-						'depth' => 1,
-					));
+					$locations = get_nav_menu_locations();
+
+					if (isset($locations['header-menu'])) {
+						$menu_id = $locations['header-menu'];
+						$menu_items = wp_get_nav_menu_items($menu_id);
+
+						echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative">';
+
+						foreach ($menu_items as $index => &$item) {
+							$classes = 'flex items-center gap-1 cursor-pointer';
+							$item_title = $item->title;
+
+							if ($index === 0) {
+								$item->title = '<p class = "link-hover">' . $item_title . '</p>' . '
+								<div class="flex items-center">
+									<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z" fill="black"/>
+									</svg>
+								</div>';
+							}
+
+							echo '<li class="' . esc_attr(implode(' ', $item->classes)) . '">';
+							echo '<a href="' . esc_url($item->url) . '" class="' . esc_attr($classes) . '">';
+							echo $item->title;
+							echo '</a>';
+							echo '</li>';
+						}
+
+						echo '</ul>';
+					}
 					?>
 				</nav>
 
@@ -143,9 +163,7 @@
 
 			<!-- Sidebar -->
 			<aside id="shop-sidebar"
-				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10">
-
-
+				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10 md:top-[3.75rem]">
 				<!-- TO-DO make not-hardcoded menu -->
 				<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
 					<ul class="flex flex-col space-y-[1.25rem]">
