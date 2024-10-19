@@ -145,8 +145,7 @@
 
 
 			</header>
-			<div
-				class="absolute top-0 left-0 z-20 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
+			<div class="fixed left-0 z-20 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
 				<a href="#" id="sidebar-close-link" class="invisible gap-1">
 					<span class="inline-block">
 						Parduotuvė
@@ -164,7 +163,7 @@
 
 			<!-- Sidebar -->
 			<aside id="shop-sidebar"
-				class="shop-sidebar flex-col fixed left-0 top-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10">
+				class="shop-sidebar flex-col fixed left-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10">
 				<!-- TO-DO make not-hardcoded menu -->
 				<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
 					<ul class="flex flex-col space-y-[1.25rem]">
