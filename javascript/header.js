@@ -1,23 +1,49 @@
 import gsap from 'gsap';
 
 document.addEventListener('DOMContentLoaded', function () {
-	const sidebarOpenLinks = document.querySelectorAll('.shop-link'); // Main nav shop links (multiple)
-	const mobileSidebarOpenLink = document.querySelector('.mobile-shop-link'); // Mobile nav shop link
-	const sidebarCloseLink = document.getElementById('sidebar-close-link'); // Sidebar close link
+	const menuItems = document.querySelectorAll('.sidebar-toggle-menu');
+
+	menuItems.forEach((item) => {
+		item.addEventListener('click', (event) => {
+			const hasChildren =
+				item.getAttribute('data-has-children') === 'true';
+
+			if (hasChildren) {
+				event.preventDefault();
+
+				// Find the submenu related to the clicked item
+				const submenu = item.parentElement.querySelector('ul.submenu');
+				const icon = item.querySelector('.sidebar-more-icon');
+
+				// Toggle submenu visibility using Tailwind classes
+				if (submenu.classList.contains('flex')) {
+					submenu.classList.remove('flex');
+					submenu.classList.add('hidden');
+					icon.classList.remove('menu-icon-flipped-90');
+				} else {
+					submenu.classList.remove('hidden');
+					submenu.classList.add('flex');
+					icon.classList.add('menu-icon-flipped-90');
+				}
+			}
+		});
+	});
+
+	const sidebarOpenLinks = document.querySelectorAll('.shop-link');
+	const mobileSidebarOpenLink = document.querySelector('.mobile-shop-link');
+	const sidebarCloseLink = document.getElementById('sidebar-close-link');
 	const sidebarCloseLinkSpan = document.querySelector(
 		'#sidebar-close-link span'
-	); // Sidebar close link span
+	);
 	const sidebar = document.getElementById('shop-sidebar');
 
-	// Initial state of sidebar and sidebar-close-link (hidden off-screen)
 	gsap.set(sidebar, { x: '-100%', display: 'none' });
 	gsap.set(sidebarCloseLink, {
 		opacity: 0,
 		display: 'none',
 		visibility: 'hidden',
-	}); // Initially hidden
+	});
 
-	// Function to flip SVG 180 degrees and change color
 	function animateLinkOpen(link, color = 'white', rotate = 180) {
 		const svg = link.querySelector('svg path');
 		const text = link.querySelector('span');
@@ -37,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Function to reset SVG and text color
 	function animateLinkClose(link, color = 'black', rotate = 0) {
 		const svg = link.querySelector('svg path');
 		const text = link.querySelector('span');
@@ -57,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Open sidebar with animation for each shop-link (desktop)
 	sidebarOpenLinks.forEach((link) => {
 		link.addEventListener('click', function (e) {
 			e.preventDefault();
@@ -72,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 			});
 
-			gsap.set(sidebar, { display: 'flex', visibility: 'visible' });
+			gsap.set(sidebar, { display: 'grid', visibility: 'visible' });
 			gsap.to(sidebar, {
 				duration: 0.5,
 				x: '0%',
@@ -94,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-	// Open or Close sidebar for mobile-shop-link with a toggle state
 	let sidebarOpen = false; // Track sidebar state
 
 	if (mobileSidebarOpenLink) {
@@ -123,12 +146,11 @@ document.addEventListener('DOMContentLoaded', function () {
 					},
 				});
 
-				sidebarOpen = false; // Update state
+				sidebarOpen = false;
 			} else {
-				// Open the sidebar
 				sidebarCloseLinkSpan.classList.add('toggle-underline');
 
-				gsap.set(sidebar, { display: 'flex', visibility: 'visible' });
+				gsap.set(sidebar, { display: 'grid', visibility: 'visible' });
 				gsap.to(sidebar, {
 					duration: 0.5,
 					x: '0%',
@@ -148,12 +170,11 @@ document.addEventListener('DOMContentLoaded', function () {
 					},
 				});
 
-				sidebarOpen = true; // Update state
+				sidebarOpen = true;
 			}
 		});
 	}
 
-	// Close sidebar with animation (applies to both desktop and mobile)
 	sidebarCloseLink.addEventListener('click', function (e) {
 		e.preventDefault();
 		sidebarCloseLinkSpan.classList.remove('toggle-underline');
@@ -184,6 +205,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 			},
 		});
-		sidebarOpen = false; // Ensure the state is updated
+		sidebarOpen = false;
 	});
 });

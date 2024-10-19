@@ -35,6 +35,10 @@ body {
 	transform-origin: bottom left;
 }
 
+body.admin-bar #shop-sidebar {
+	padding-bottom: 32px;
+}
+
 /* ----------------------------------- Footer */
 footer {
 	margin-top: auto;
@@ -47,4 +51,8 @@ footer {
 
 .menu-icon-flipped {
 	transform: rotate(180deg);
+}
+
+.menu-icon-flipped-90 {
+	transform: rotate(90deg);
 }

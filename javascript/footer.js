@@ -1,10 +1,6 @@
 // footer.js
 
 document.addEventListener('DOMContentLoaded', function () {
-	// Footer dynamic date
-	document.getElementById('currentYear').textContent =
-		new Date().getFullYear();
-
 	// Mobile footer toggle menus
 	const toggleMenus = document.querySelectorAll('.md-footer-toggle-menu');
 
@@ -25,4 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	});
+
+	// Footer dynamic date
+	document.getElementById('currentYear').textContent =
+		new Date().getFullYear();
 });
