@@ -163,21 +163,80 @@
 
 			<!-- Sidebar -->
 			<aside id="shop-sidebar"
-				class="shop-sidebar flex-col fixed left-0 w-[300px] h-full bg-black text-white body-small-regular hidden z-10">
-				<!-- TO-DO make not-hardcoded menu -->
-				<nav class="sidebar-navigation mt-28 ml-12 mr-28 flex-grow">
-					<ul class="flex flex-col space-y-[1.25rem]">
-						<li><a href="" class="link-hover">Išpardavimas</a></li>
-						<li><a href="" class="link-hover">Naujienos</a></li>
-						<li><a href="" class="link-hover">Populiariausi</a></li>
-						<li><a href="" class="link-hover">Geliniai lakai</a></li>
-						<li><a href="" class="link-hover">Bazės ir topai</a></li>
-						<li><a href="" class="link-hover">UV gelio sistema</a></li>
-						<li><a href="" class="link-hover">Polygelio sistema</a></li>
-						<li><a href="" class="link-hover">Darbo įrankiai</a></li>
-						<li><a href="" class="link-hover">Rinkiniai</a></li>
-					</ul>
+				class="shop-sidebar overflow-auto flex-col fixed left-0 w-[300px] h-svh bg-black text-white body-small-regular hidden z-10">
+
+				<nav id="desktop-sidebar-navigation"
+					class="main-navigation body-small-regular text-white flex flex-col md:flex hidden md:block">
+					<?php
+					$locations = get_nav_menu_locations();
+
+					if (isset($locations['sidebar-menu'])) {
+						$menu_id = $locations['sidebar-menu'];
+						$menu_items = wp_get_nav_menu_items($menu_id);
+
+						echo '<ul id="primary-sidebar-menu" class="flex flex-col main-menu-fluid-spacing">';
+
+						foreach ($menu_items as $index => &$item) {
+							$classes = 'flex items-center gap-2 cursor-pointer';
+							$has_children = !empty($item->menu_item_parent) && $item->menu_item_parent != 0;
+							$item_title = $item->title;
+							$item->title = '<p class="link-hover">' . $item_title . '</p>';
+							if ($has_children) {
+								$item->title = $item->title .
+									'<div class="flex items-center">
+										<svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5 4.5L0.621716 0L0 0.639L1.50613 2.178L3.76532 4.5L1.50613 6.822L0.00875641 8.361L0.630473 9L5 4.5Z" fill="white"/>
+										</svg>
+									</div>';
+							}
+
+							echo '<li class="' . esc_attr(implode(' ', $item->classes)) . '">';
+							echo '<a href="' . esc_url($item->url) . '" class="' . esc_attr($classes) . '">';
+							echo $item->title;
+							echo '</a>';
+							echo '</li>';
+						}
+
+						echo '</ul>';
+					}
+					?>
 				</nav>
+
+				<nav id="mobile-sidebar-navigation"
+					class="main-navigation body-small-regular text-white flex flex-col md:hidden">
+					<?php
+					if (isset($locations['mobile-sidebar-menu'])) {
+						$menu_id = $locations['mobile-sidebar-menu'];
+						$menu_items = wp_get_nav_menu_items($menu_id);
+
+						echo '<ul id="mobile-primary-menu" class="flex flex-col main-menu-fluid-spacing">';
+
+						foreach ($menu_items as $index => &$item) {
+							$classes = 'flex items-center gap-2 cursor-pointer';
+							$has_children = !empty($item->menu_item_parent) && $item->menu_item_parent != 0;
+							$item_title = $item->title;
+							$item->title = '<p class="link-hover">' . $item_title . '</p>';
+							if ($has_children) {
+								$item->title = $item->title .
+									'<div class="flex items-center">
+										<svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5 4.5L0.621716 0L0 0.639L1.50613 2.178L3.76532 4.5L1.50613 6.822L0.00875641 8.361L0.630473 9L5 4.5Z" fill="white"/>
+										</svg>
+									</div>';
+							}
+
+							echo '<li class="' . esc_attr(implode(' ', $item->classes)) . '">';
+							echo '<a href="' . esc_url($item->url) . '" class="' . esc_attr($classes) . '">';
+							echo $item->title;
+							echo '</a>';
+							echo '</li>';
+						}
+
+						echo '</ul>';
+					}
+					?>
+				</nav>
+
 
 				<div class="sidebar-footer mb-10 ml-12 flex-shrink-0 flex flex-col space-y-[1.75rem]">
 					<p>Sekite mūsų naujienas!</p>
