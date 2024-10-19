@@ -35,8 +35,15 @@ body {
 	transform-origin: bottom left;
 }
 
+/* Fix sidebar position according to wpadminbar */
 body.admin-bar #shop-sidebar {
 	padding-bottom: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar #shop-sidebar {
+		padding-bottom: 46px;
+	}
 }
 
 /* ----------------------------------- Footer */

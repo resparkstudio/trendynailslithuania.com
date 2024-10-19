@@ -32,7 +32,7 @@
 						$menu_id = $locations['header-menu'];
 						$menu_items = wp_get_nav_menu_items($menu_id);
 
-						echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative">';
+						echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative gap-11">';
 
 						foreach ($menu_items as $index => &$item) {
 							$classes = 'flex items-center gap-1 cursor-pointer';
@@ -223,7 +223,7 @@
 
 
 				<nav id="mobile-sidebar-navigation"
-					class="main-navigation body-small-regular text-white flex-col hidden md:flex">
+					class="main-navigation body-small-regular text-white flex-col hidden md:flex row-span-10 pt-4 pl-8 pr-18">
 					<?php
 					if (isset($locations['mobile-sidebar-menu'])) {
 						$menu_id = $locations['mobile-sidebar-menu'];
@@ -235,9 +235,43 @@
 							$menu_items_by_parent[$item->menu_item_parent][] = $item;
 						}
 
-						echo '<ul id="mobile-primary-menu" class="flex flex-col main-menu-fluid-spacing gap-5">';
+						echo '<ul id="mobile-primary-menu" class="flex flex-col overflow-auto main-menu-fluid-spacing gap-5">';
 
-						display_menu_items(0, $menu_items_by_parent);
+						function display_mobile_menu_items($parent_id, $menu_items_by_parent, $is_submenu = false)
+						{
+							if (!isset($menu_items_by_parent[$parent_id])) {
+								return;
+							}
+
+							foreach ($menu_items_by_parent[$parent_id] as $item) {
+								$classes = 'flex items-center justify-between cursor-pointer sidebar-toggle-menu';
+								$has_children = isset($menu_items_by_parent[$item->ID]);
+
+								echo '<li>';
+								echo '<a href="' . esc_url($item->url) . '" class="' . esc_attr($classes) . '" data-has-children="' . ($has_children ? 'true' : 'false') . '">';
+								echo '<div class="flex-grow">' . '<span class="link-hover">' . $item->title . '</span>' . '</div>';
+
+								if ($has_children) {
+									echo '<div class="icon flex items-center justify-end">
+                        <svg class="sidebar-more-icon menu-icon-rotate" width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 4.5L0.621716 0L0 0.639L1.50613 2.178L3.76532 4.5L1.50613 6.822L0.00875641 8.361L0.630473 9L5 4.5Z" fill="white"/>
+                        </svg>
+                    </div>';
+								}
+
+								echo '</a>';
+
+								if ($has_children) {
+									echo '<ul class="pt-5 gap-5 flex-col submenu hidden">'; // Similar classes for the submenu
+									display_mobile_menu_items($item->ID, $menu_items_by_parent, true);
+									echo '</ul>';
+								}
+
+								echo '</li>';
+							}
+						}
+
+						display_mobile_menu_items(0, $menu_items_by_parent);
 						echo '</ul>';
 					}
 					?>
@@ -245,7 +279,9 @@
 
 
 
-				<div class="sidebar-footer pl-12 pr-8 flex flex-col justify-end row-span-3 pb-11 gap-5">
+
+				<div
+					class="sidebar-footer px-12 pb-11 md:px-8 md:pb-6 flex flex-col justify-end row-span-3 md:row-span-2 gap-5">
 					<p class="w-full">Sekite mūsų naujienas!</p>
 					<div class="flex gap-4 w-full">
 						<!-- TODO add real links  -->
