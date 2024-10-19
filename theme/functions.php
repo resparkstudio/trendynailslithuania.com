@@ -81,8 +81,11 @@ if (!function_exists('_tw_setup')):
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus(
 			array(
-				'menu-1' => __('Primary', '_tw'),
-				'menu-2' => __('Footer Menu', '_tw'),
+				'header-menu' => __('Header Menu'),
+				'sidebar-menu' => __('Sidebar Menu'),
+				'mobile-sidebar-menu' => __('Mobile Sidebar Menu'),
+				'footer-shop-menu' => __('Footer Shop Menu'),
+				'footer-info-menu' => __('Footer Info Menu')
 			)
 		);
 
@@ -202,17 +205,6 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 
-// Custom functions
-function register_my_menus()
-{
-	register_nav_menus(
-		array(
-			'header-menu' => __('Header Menu'),
-			'shop-sidebar-menu' => __('Shop Sidebar Menu'),
-		)
-	);
-}
-add_action('init', 'register_my_menus');
 
 
 function theme_setup()
