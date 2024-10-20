@@ -38,12 +38,12 @@
 	@apply font-semibold text-[0.875rem] leading-[1.125rem] font-sans;
 }
 
-.body-extra-small {
-	@apply font-normal text-[0.75rem] leading-[1rem] font-sans;
+.body-extra-small-light {
+	@apply font-light text-[0.625rem] leading-[1.25rem] font-sans;
 }
 
-.body-extra-small-light {
-	@apply font-light text-[10px] leading-[20px] font-sans;
+.body-extra-small-regular {
+	@apply font-normal text-[0.75rem] leading-[1rem] font-sans;
 }
 
 .link-hover {

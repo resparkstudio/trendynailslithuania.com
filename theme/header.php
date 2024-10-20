@@ -223,7 +223,7 @@
 
 
 				<nav id="mobile-sidebar-navigation"
-					class="main-navigation body-small-regular text-white flex-col hidden md:flex row-span-10 pt-4 pl-8 pr-18">
+					class="main-navigation body-small-regular text-white flex-col hidden md:flex row-span-10 pt-6 pl-8 pr-10">
 					<?php
 					if (isset($locations['mobile-sidebar-menu'])) {
 						$menu_id = $locations['mobile-sidebar-menu'];
@@ -235,7 +235,7 @@
 							$menu_items_by_parent[$item->menu_item_parent][] = $item;
 						}
 
-						echo '<ul id="mobile-primary-menu" class="flex flex-col overflow-auto main-menu-fluid-spacing gap-5">';
+						echo '<ul id="mobile-primary-menu" class="flex flex-col overflow-y-auto overflow-x-hidden main-menu-fluid-spacing gap-5 pr-10">';
 
 						function display_mobile_menu_items($parent_id, $menu_items_by_parent, $is_submenu = false)
 						{
@@ -282,7 +282,7 @@
 
 				<div
 					class="sidebar-footer px-12 pb-11 md:px-8 md:pb-6 flex flex-col justify-end row-span-3 md:row-span-2 gap-5">
-					<p class="w-full">Sekite mūsų naujienas!</p>
+					<p class="w-full md:font-normal md:text-[0.75rem] body-small-light">Sekite mūsų naujienas!</p>
 					<div class="flex gap-4 w-full">
 						<!-- TODO add real links  -->
 						<a href="https://facebook.com" target="_blank" class="text-white">

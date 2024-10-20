@@ -11,11 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (hasChildren) {
 				event.preventDefault();
 
-				// Find the submenu related to the clicked item
 				const submenu = item.parentElement.querySelector('ul.submenu');
 				const icon = item.querySelector('.sidebar-more-icon');
 
-				// Toggle submenu visibility using Tailwind classes
 				if (submenu.classList.contains('flex')) {
 					submenu.classList.remove('flex');
 					submenu.classList.add('hidden');
@@ -115,68 +113,31 @@ document.addEventListener('DOMContentLoaded', function () {
 					animateLinkOpen(sidebarCloseLink);
 				},
 			});
+
+			sidebarOpen = true;
 		});
 	});
 
-	let sidebarOpen = false; // Track sidebar state
+	let sidebarOpen = false;
 
 	if (mobileSidebarOpenLink) {
 		mobileSidebarOpenLink.addEventListener('click', function (e) {
 			e.preventDefault();
 
 			if (sidebarOpen) {
-				// Close the sidebar
-				sidebarCloseLinkSpan.classList.remove('toggle-underline');
-				gsap.to(sidebar, {
-					duration: 0.5,
-					x: '-100%',
-					ease: 'power2.in',
-					onComplete: function () {
-						sidebar.style.display = 'none';
-					},
-				});
-
-				animateLinkClose(sidebarCloseLink);
-				gsap.to(sidebarCloseLink, {
-					duration: 0.4,
-					opacity: 0,
-					ease: 'power2.in',
-					onComplete: () => {
-						sidebarCloseLink.style.display = 'none';
-					},
-				});
-
-				sidebarOpen = false;
+				closeSidebar();
 			} else {
-				sidebarCloseLinkSpan.classList.add('toggle-underline');
-
-				gsap.set(sidebar, { display: 'grid', visibility: 'visible' });
-				gsap.to(sidebar, {
-					duration: 0.5,
-					x: '0%',
-					ease: 'power2.out',
-				});
-
-				gsap.set(sidebarCloseLink, {
-					display: 'flex',
-					visibility: 'visible',
-				});
-				gsap.to(sidebarCloseLink, {
-					duration: 0.1,
-					opacity: 1,
-					ease: 'power2.out',
-					onComplete: () => {
-						animateLinkOpen(sidebarCloseLink);
-					},
-				});
-
-				sidebarOpen = true;
+				openSidebar();
 			}
 		});
 	}
 
 	sidebarCloseLink.addEventListener('click', function (e) {
 		e.preventDefault();
+		closeSidebar();
+	});
+
+	function closeSidebar() {
 		sidebarCloseLinkSpan.classList.remove('toggle-underline');
 		gsap.to(sidebar, {
 			duration: 0.5,
@@ -194,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			ease: 'power2.in',
 			onComplete: () => {
 				sidebarCloseLink.style.display = 'none';
+
 				sidebarOpenLinks.forEach((link) => {
 					link.style.visibility = 'visible';
 					link.style.pointerEvents = 'auto';
@@ -205,6 +167,33 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 			},
 		});
+
 		sidebarOpen = false;
-	});
+	}
+
+	function openSidebar() {
+		sidebarCloseLinkSpan.classList.add('toggle-underline');
+
+		gsap.set(sidebar, { display: 'grid', visibility: 'visible' });
+		gsap.to(sidebar, {
+			duration: 0.5,
+			x: '0%',
+			ease: 'power2.out',
+		});
+
+		gsap.set(sidebarCloseLink, {
+			display: 'flex',
+			visibility: 'visible',
+		});
+		gsap.to(sidebarCloseLink, {
+			duration: 0.1,
+			opacity: 1,
+			ease: 'power2.out',
+			onComplete: () => {
+				animateLinkOpen(sidebarCloseLink);
+			},
+		});
+
+		sidebarOpen = true;
+	}
 });
