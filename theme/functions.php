@@ -78,6 +78,8 @@ if (!function_exists('_tw_setup')):
 		 */
 		add_theme_support('post-thumbnails');
 
+
+
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus(
 			array(
