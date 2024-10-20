@@ -47,14 +47,16 @@
 						fill="white" />
 				</svg>
 			</div>
-			<ul id="footer-shop-menu" class="space-y-2 md:hidden md:mt-5">
-				<li><a href="#" class="link-hover">Geliniai lakai</a></li>
-				<li><a href="#" class="link-hover">Bazės ir topai</a></li>
-				<li><a href="#" class="link-hover">UV gelio sistema</a></li>
-				<li><a href="#" class="link-hover">Polygelio sistema</a></li>
-				<li><a href="#" class="link-hover">Darbo įrankiai</a></li>
-				<li><a href="#" class="link-hover">Rinkiniai</a></li>
-			</ul>
+			<?php
+			wp_nav_menu(array(
+				'theme_location' => 'footer-shop-menu',
+				'container' => false,
+				'menu_id' => 'footer-shop-menu',
+				'menu_class' => 'space-y-2 md:hidden md:mt-5',
+				'fallback_cb' => false,
+				'depth' => 1
+			));
+			?>
 		</div>
 
 		<!-- 3rd Div: Spans columns 7-8 -->
@@ -68,14 +70,18 @@
 						fill="white" />
 				</svg>
 			</div>
-			<ul id="footer-info-menu" class="space-y-2.5 md:hidden md:mt-5">
-				<li><a href="#" class="link-hover">Apie mus</a></li>
-				<li><a href="#" class="link-hover">Blogas</a></li>
-				<li><a href="#" class="link-hover">Kontaktai</a></li>
-				<li><a href="#" class="link-hover">Privatumo politika</a></li>
-				<li><a href="#" class="link-hover">Slapukai</a></li>
-			</ul>
+			<?php
+			wp_nav_menu(array(
+				'theme_location' => 'footer-info-menu',
+				'container' => false,
+				'menu_id' => 'footer-info-menu',
+				'menu_class' => 'space-y-2.5 md:hidden md:mt-5',
+				'fallback_cb' => false,
+				'depth' => 1
+			));
+			?>
 		</div>
+
 		<!-- 4th Div: Spans columns 10-12 -->
 		<div class="col-start-10 col-span-3 pb-10 md:col-span-1 md:pb-0">
 			<h2 class="uppercase body-normal-medium mb-6 md:mb-5">Prenumeruokite</h2>
