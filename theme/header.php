@@ -285,7 +285,9 @@
 
 				<div
 					class="sidebar-footer px-12 pb-11 md:px-8 md:pb-6 flex flex-col justify-end row-span-3 md:row-span-2 gap-5">
-					<p class="w-full md:font-normal md:text-[0.75rem] body-small-light">Sekite mūsų naujienas!</p>
+					<p class="w-full md:font-normal md:text-[0.75rem] body-small-light">
+						<?php esc_html_e('Sekite mūsų naujienas!', '_tw'); ?>
+					</p>
 					<div class="flex gap-4 w-full">
 						<!-- TODO add real links  -->
 						<a href="https://facebook.com" target="_blank" class="text-white">

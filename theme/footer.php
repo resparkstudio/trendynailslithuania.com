@@ -1,4 +1,4 @@
-<footer id="site-footer" class="bg-black text-white pt-20 pb-4 md:pt-14 md:pb-4 mb:px-4 mt-36 md:mt-28">
+<footer id="site-footer" class="bg-black text-white pt-20 pb-4 md:pt-14 md:pb-4 mb:px-4 mt-auto">
 	<div
 		class="container grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular mb-10 md:grid-cols-1 md:px-4 md:gap-0">
 		<!-- 1st Div: Spans columns 1-3 -->
@@ -9,13 +9,13 @@
 				</a>
 			</div>
 			<p class="text-sm pb-7">
-				Trendy Nails yra šiuolaikiškas ir inovatyvus Ukrainos manikiūro priemonių prekes ženklas, orientuotas į
-				kokybiškų produktų tiekimą nagų industrijai.
+				<?php esc_html_e('Trendy Nails yra šiuolaikiškas ir inovatyvus Ukrainos manikiūro priemonių prekes ženklas, orientuotas į
+				kokybiškų produktų tiekimą nagų industrijai.', '_tw') ?>
 			</p>
 			<ul class="mt-4 space-y-2.5 mb-7">
-				<li>+370 000 00000</li>
-				<li><a href="mailto:info@trendynailsthluania.com" class="underline">info@trendynailsthluania.com</a>
-				</li>
+				<li><?php echo esc_html('+370 000 00000'); ?></li>
+				<li><a href="mailto:info@trendynailsthluania.com"
+						class="underline"><?php echo esc_html('info@trendynailsthluania.com'); ?></a></li>
 			</ul>
 			<div class="flex space-x-4">
 				<!-- TODO add real links  -->
@@ -39,7 +39,9 @@
 		<!-- 2nd Div: Spans columns 5-6 -->
 		<div class="col-start-5 col-span-2 md:col-span-1 md:mb-4">
 			<div class="flex justify-between items-center cursor-pointer md-footer-toggle-menu">
-				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Parduotuvė</h2>
+				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
+					<?php esc_html_e("Parduotuvė", "_tw") ?>
+				</h2>
 				<svg class="menu-icon-rotate hidden w-3.5 h-3.5  md:inline-block" xmlns="http://www.w3.org/2000/svg"
 					width="13" height="8" viewBox="0 0 13 8" fill="none">
 					<path
@@ -62,7 +64,9 @@
 		<!-- 3rd Div: Spans columns 7-8 -->
 		<div class="col-start-7 col-span-2 md:col-span-1 md:mb-11">
 			<div class="flex justify-between items-center cursor-pointer md-footer-toggle-menu">
-				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">Info</h2>
+				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
+					<?php esc_html_e("Info", "_tw") ?>
+				</h2>
 				<svg class="menu-icon-rotate hidden w-3.5 h-3.5 md:inline-block" xmlns="http://www.w3.org/2000/svg"
 					width="13" height="8" viewBox="0 0 13 8" fill="none">
 					<path
@@ -84,10 +88,9 @@
 
 		<!-- 4th Div: Spans columns 10-12 -->
 		<div class="col-start-10 col-span-3 pb-10 md:col-span-1 md:pb-0">
-			<h2 class="uppercase body-normal-medium mb-6 md:mb-5">Prenumeruokite</h2>
+			<h2 class="uppercase body-normal-medium mb-6 md:mb-5"><?php esc_html_e("Prenumeruokite", "_tw") ?></h2>
 			<p class="text-sm mb-5 md:mb-8">
-				Užsiregistruokite ir gaukite –15 % nuolaidą pirmajam užsakymui, pirmieji sužinokite apie naujausius
-				produktus!
+				<?php echo wp_kses_post('Užsiregistruokite ir gaukite <b>–15 %</b> nuolaidą pirmajam užsakymui, pirmieji sužinokite apie naujausius produktus!'); ?>
 			</p>
 			<form action="#" method="POST" class="mt-4 mb-9 md:mb-5 w-full">
 				<input type="email" name="email" placeholder="El. paštas"
@@ -213,7 +216,7 @@
 	<div class="container block mx-auto text-center md:px-4">
 
 		<p class="text-gray-dark block body-extra-small-light md:text-left">
-			&copy; <span id="currentYear"></span> Trendy Nails Lithuania
+			&copy; <span id="currentYear"></span> <?php esc_html_e('Trendy Nails Lithuania', '_tw'); ?>
 		</p>
 
 	</div>
