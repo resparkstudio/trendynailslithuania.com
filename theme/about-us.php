@@ -28,7 +28,7 @@ $bottom_image_description = get_field('bottom_image_description');
 ?>
 <section id="primary" class="mb-36 md:mb-28">
     <main id="main">
-        <div id="page-content" class="flex flex-col gap-20">
+        <div id="page-content" class="flex flex-col gap-20 md:gap-16">
             <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
                 <div id="hero-section" class="mx-4 relative">
                     <?php if ($hero_image && $hero_image_mobile): ?>
@@ -53,15 +53,18 @@ $bottom_image_description = get_field('bottom_image_description');
 
             <?php if ($description_1): ?>
                 <div id="description-section-1" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
-                    <p class="col-start-7 col-end-12"><?php echo wp_kses_post($description_1); ?></p>
+                    <p class="col-start-7 col-end-12 md:col-start-1"><?php echo wp_kses_post($description_1); ?></p>
                 </div>
             <?php endif; ?>
 
             <?php if ($product_category_image_1 || $product_category_image_2 || $product_category_image_3): ?>
-                <div id="category-section" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
-                    <img class="col-span-4 round-10" src="<?php echo esc_url($product_category_image_1); ?>" />
-                    <img class="col-span-4 round-10" src="<?php echo esc_url($product_category_image_2); ?>" />
-                    <img class="col-span-4 round-10" src="<?php echo esc_url($product_category_image_3); ?>" />
+                <div id="category-section" class="mx-4 grid grid-cols-12 grid-rows-1 md:grid-cols-1 md:grid-rows-3 gap-4">
+                    <img class="col-span-4 rounded-lg md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
+                        src="<?php echo esc_url($product_category_image_1); ?>" />
+                    <img class="col-span-4 rounded-lg md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
+                        src="<?php echo esc_url($product_category_image_2); ?>" />
+                    <img class="col-span-4 rounded-lg md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
+                        src="<?php echo esc_url($product_category_image_3); ?>" />
                 </div>
             <?php endif; ?>
 
@@ -74,15 +77,18 @@ $bottom_image_description = get_field('bottom_image_description');
             <?php endif; ?>
 
             <?php if ($bottom_image || $bottom_image_description): ?>
-                <div id="decription-section-2" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
-                    <img class="col-span-6 mr-10 round-10" src="<?php echo esc_url($bottom_image); ?>" />
-                    <div class="col-span-6 flex justify-center items-center ml-10">
+                <div id="description-section-2" class="mx-4 grid grid-cols-12 gap-4 grid-rows-1 md:grid-cols-1 md:gap-y-12">
+                    <img class="col-span-6 rounded-lg md:col-span-12 md:row-span-1"
+                        src="<?php echo esc_url($bottom_image); ?>" />
+                    <div class="col-span-6 flex justify-center items-center ml-10 md:ml-0 md:col-span-12 md:row-span-1">
                         <p class="body-normal-regular">
                             <?php echo wp_kses_post($bottom_image_description); ?>
                         </p>
                     </div>
                 </div>
             <?php endif; ?>
+
+
         </div><!-- .page-content -->
     </main><!-- #main -->
 </section><!-- #primary -->

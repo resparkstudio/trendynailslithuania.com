@@ -8,14 +8,15 @@
 					<img src="<?php echo esc_url(wp_get_attachment_url(45)); ?>" class="w-[8.625rem] h-[2.625rem]">
 				</a>
 			</div>
-			<p class="text-sm pb-7">
+			<p class="body-small-light pb-7 body-small">
 				<?php esc_html_e('Trendy Nails yra šiuolaikiškas ir inovatyvus Ukrainos manikiūro priemonių prekes ženklas, orientuotas į
 				kokybiškų produktų tiekimą nagų industrijai.', '_tw') ?>
 			</p>
 			<ul class="mt-4 space-y-2.5 mb-7">
 				<li><?php echo esc_html('+370 000 00000'); ?></li>
-				<li><a href="mailto:info@trendynailsthluania.com"
-						class="underline"><?php echo esc_html('info@trendynailsthluania.com'); ?></a></li>
+				<li><a
+						href="mailto:info@trendynailsthluania.com"><?php echo esc_html('info@trendynailsthluania.com'); ?></a>
+				</li>
 			</ul>
 			<div class="flex space-x-4">
 				<!-- TODO add real links  -->
