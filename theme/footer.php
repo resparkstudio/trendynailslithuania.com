@@ -1,3 +1,10 @@
+<?php
+/*
+Template Name: Footer
+*/
+?>
+
+
 <footer id="site-footer" class="bg-black text-white pt-20 pb-4 md:pt-14 md:pb-4 mb:px-4 mt-auto">
 	<div
 		class="container grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular mb-10 md:grid-cols-1 md:px-4 md:gap-0">
