@@ -43,7 +43,7 @@ $bottom_image_description = get_field('bottom_image_description');
 
                     <?php if ($hero_text): ?>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <h2 class="mx-24 body-hero-medium md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white">
+                            <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white text-center">
                                 <?php echo wp_kses_post($hero_text); ?>
                             </h2>
                         </div>
@@ -70,7 +70,7 @@ $bottom_image_description = get_field('bottom_image_description');
 
             <?php if ($product_category_description): ?>
                 <div id="category-description-section" class="mx-4">
-                    <h2 class="mx-24 body-hero-medium md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-black">
+                    <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-black text-center">
                         <?php echo wp_kses_post($product_category_description); ?>
                     </h2>
                 </div>

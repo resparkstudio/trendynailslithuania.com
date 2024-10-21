@@ -38,6 +38,10 @@
 	@apply font-semibold text-[0.875rem] leading-[1.125rem] font-sans;
 }
 
+.body-small-medium {
+	@apply font-medium text-[0.875rem] leading-[1.125rem] font-sans;
+}
+
 .body-extra-small-light {
 	@apply font-light text-[0.625rem] leading-[1.25rem] font-sans;
 }
@@ -45,14 +49,6 @@
 .body-extra-small-regular {
 	@apply font-normal text-[0.75rem] leading-[1rem] font-sans;
 }
-
-.body-hero-medium {
-	@apply font-medium text-[2.25rem] leading-[2.75rem] font-sans;
-}
-
-/* .body-hero-medium-mobile {
-	@apply font-medium text-[1.5rem] leading-[2rem] font-sans;
-} */
 
 .link-hover {
 	display: inline-block;
