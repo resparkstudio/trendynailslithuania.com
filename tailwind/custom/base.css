@@ -10,6 +10,10 @@ body {
 	flex-direction: column;
 }
 
+.round-10 {
+	border-radius: 10px;
+}
+
 /* --------------------------------- Sidebar */
 
 #sidebar-close-link span {

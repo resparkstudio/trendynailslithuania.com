@@ -3,63 +3,86 @@
 Template Name: About Us
 */
 get_header();
-?>
 
+
+// hero section
+$hero_image = get_field('hero_image');
+$hero_image_mobile = get_field('hero_image_mobile');
+$hero_text = get_field('hero_text');
+
+// description section 1
+$description_1 = get_field('description_1');
+
+// category-section
+$product_category_image_1 = get_field('product_category_image_1');
+$product_category_image_2 = get_field('product_category_image_2');
+$product_category_image_3 = get_field('product_category_image_3');
+
+// category description section
+$product_category_description = get_field('product_category_description');
+
+// description section 2
+$bottom_image = get_field('bottom_image');
+$bottom_image_description = get_field('bottom_image_description');
+
+?>
 <section id="primary" class="mb-36 md:mb-28">
     <main id="main">
-        <div id="page-content">
-            <div id="hero-section" class="mx-4 relative">
-                <?php
-                $hero_image = get_field('hero_image');
-                $hero_image_mobile = get_field('hero_image_mobile');
-                $hero_text = get_field('hero_text');
+        <div id="page-content" class="flex flex-col gap-20">
+            <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
+                <div id="hero-section" class="mx-4 relative">
+                    <?php if ($hero_image && $hero_image_mobile): ?>
+                        <img class="block md:hidden w-full h-auto object-cover round-10"
+                            src="<?php echo esc_url($hero_image); ?>" alt="Hero Image" />
+                        <img class="hidden md:block w-full h-auto object-cover round-10"
+                            src="<?php echo esc_url($hero_image_mobile); ?>" alt="Mobile Hero Image" />
+                    <?php elseif ($hero_image): ?>
+                        <img class="w-full h-auto object-cover round-10" src="<?php echo esc_url($hero_image); ?>"
+                            alt="Hero Image" />
+                    <?php endif; ?>
 
-                if ($hero_image) {
-                    echo '<img class="block md:hidden w-full h-auto object-cover" src="' . esc_url($hero_image) . '" alt="Hero Image" />';
+                    <?php if ($hero_text): ?>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <h2 class="mx-24 body-hero-medium md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white">
+                                <?php echo wp_kses_post($hero_text); ?>
+                            </h2>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
-                    echo '<img class="hidden md:block w-full h-auto object-cover" src="' . esc_url($hero_image_mobile) . '" alt="Mobile Hero Image" />';
-                } elseif ($hero_image) {
+            <?php if ($description_1): ?>
+                <div id="description-section-1" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
+                    <p class="col-start-7 col-end-12"><?php echo wp_kses_post($description_1); ?></p>
+                </div>
+            <?php endif; ?>
 
-                    echo '<img class="w-full h-auto object-cover" src="' . esc_url($hero_image) . '" alt="Hero Image" />';
-                }
+            <?php if ($product_category_image_1 || $product_category_image_2 || $product_category_image_3): ?>
+                <div id="category-section" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
+                    <img class="col-span-4 round-10" src="<?php echo esc_url($product_category_image_1); ?>" />
+                    <img class="col-span-4 round-10" src="<?php echo esc_url($product_category_image_2); ?>" />
+                    <img class="col-span-4 round-10" src="<?php echo esc_url($product_category_image_3); ?>" />
+                </div>
+            <?php endif; ?>
 
-                if ($hero_text) {
-                    echo '<div class="absolute inset-0 flex items-center justify-center">';
-                    echo '<p class="mx-24 body-hero-medium md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white">' . wp_kses_post($hero_text) . '</p>';
-                    echo '</div>';
-                }
-                ?>
+            <?php if ($product_category_description): ?>
+                <div id="category-description-section" class="mx-4">
+                    <h2 class="mx-24 body-hero-medium md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-black">
+                        <?php echo wp_kses_post($product_category_description); ?>
+                    </h2>
+                </div>
+            <?php endif; ?>
 
-            </div>
-            <div id="description-section-1" class="w-full mx-4">
-                <?php
-
-
-
-                ?>
-            </div>
-            <div id="category-section" class="w-full mx-4">
-                <?php
-
-
-
-                ?>
-            </div>
-            <div id="category-description-section" class="w-full mx-4">
-                <?php
-
-
-
-                ?>
-            </div>
-            <div id="decription-section-2" class="w-full mx-4">
-                <?php
-
-
-
-                ?>
-            </div>
-
+            <?php if ($bottom_image || $bottom_image_description): ?>
+                <div id="decription-section-2" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
+                    <img class="col-span-6 mr-10 round-10" src="<?php echo esc_url($bottom_image); ?>" />
+                    <div class="col-span-6 flex justify-center items-center ml-10">
+                        <p class="body-normal-regular">
+                            <?php echo wp_kses_post($bottom_image_description); ?>
+                        </p>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div><!-- .page-content -->
     </main><!-- #main -->
 </section><!-- #primary -->
