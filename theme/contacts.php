@@ -19,13 +19,14 @@ $privacy_text = get_field('privacy_text');
 <section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
     <main id="main">
         <div id="page-content" class="flex flex-col mx-12 md:mx-4">
-            <div id="heading-section" class="w-full mb-16 md:mb-5">
-                <?php if ($heading): ?>
-                    <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo esc_html($heading); ?></h1>
-                <?php endif; ?>
-
+            <div class="w-full mb-16 md:mb-5">
+                <header id="heading-section">
+                    <?php if ($heading): ?>
+                        <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo esc_html($heading); ?></h1>
+                    <?php endif; ?>
+                </header>
                 <?php if ($description): ?>
-                    <p class="w-full body-normal-regular text-deep-dark-gray"><?php echo wp_kses_post($description); ?></p>
+                    <p class="w-full body-normal-regular text-deep-dark-gray"><?php echo esc_textarea($description); ?></p>
                 <?php endif; ?>
             </div>
 

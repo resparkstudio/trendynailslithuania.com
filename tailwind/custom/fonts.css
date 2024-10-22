@@ -50,6 +50,10 @@
 	@apply font-normal text-[0.75rem] leading-[1rem] font-sans;
 }
 
+.font-not-found-page {
+	@apply font-semibold text-[4.375rem] leading-[5.25rem] font-sans;
+}
+
 .link-hover {
 	display: inline-block;
 	position: relative;

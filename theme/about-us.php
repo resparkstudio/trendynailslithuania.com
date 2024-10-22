@@ -53,7 +53,7 @@ $bottom_image_description = get_field('bottom_image_description');
 
             <?php if ($description_1): ?>
                 <div id="description-section-1" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
-                    <p class="col-start-7 col-end-12 md:col-start-1"><?php echo wp_kses_post($description_1); ?></p>
+                    <p class="col-start-7 col-end-12 md:col-start-1"><?php echo esc_textarea($description_1); ?></p>
                 </div>
             <?php endif; ?>
 
@@ -71,7 +71,7 @@ $bottom_image_description = get_field('bottom_image_description');
             <?php if ($product_category_description): ?>
                 <div id="category-description-section" class="mx-4">
                     <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-black text-center">
-                        <?php echo wp_kses_post($product_category_description); ?>
+                        <?php echo esc_textarea($product_category_description); ?>
                     </h2>
                 </div>
             <?php endif; ?>
@@ -82,7 +82,7 @@ $bottom_image_description = get_field('bottom_image_description');
                         src="<?php echo esc_url($bottom_image); ?>" />
                     <div class="col-span-6 flex justify-center items-center ml-10 md:ml-0 md:col-span-12 md:row-span-1">
                         <p class="body-normal-regular">
-                            <?php echo wp_kses_post($bottom_image_description); ?>
+                            <?php echo esc_textarea($bottom_image_description); ?>
                         </p>
                     </div>
                 </div>
