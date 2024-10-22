@@ -16,9 +16,9 @@ $mandatory_text = get_field('mandatory_text');
 $privacy_text = get_field('privacy_text');
 
 ?>
-<section id="primary" class="mb-48 mt-5 md:mb-28">
+<section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
     <main id="main">
-        <div id="page-content" class="flex flex-col mx-12">
+        <div id="page-content" class="flex flex-col mx-12 md:mx-4">
             <div id="heading-section" class="w-full mb-16 md:mb-5">
                 <?php if ($heading): ?>
                     <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo esc_html($heading); ?></h1>
