@@ -10,6 +10,10 @@ body {
 	flex-direction: column;
 }
 
+.round-9 {
+	border-radius: 9px;
+}
+
 .round-10 {
 	border-radius: 10px;
 }
