@@ -2,6 +2,19 @@
 /*
 Template Name: Footer
 */
+
+$soc_media_page_id = 169;
+$footer_page_id = 178;
+
+$logo_description = get_field('logo_description', $footer_page_id);
+$phone_number = get_field('phone_number', $soc_media_page_id);
+$email = get_field('email', $soc_media_page_id);
+$facebook_link = get_field('facebook_link', $soc_media_page_id);
+$instagram_link = get_field('instagram_link', $soc_media_page_id);
+$shop_menu_heading = get_field('shop_menu_heading', $footer_page_id);
+$info_menu_heading = get_field('info_menu_heading', $footer_page_id);
+$subscribe_heading = get_field('subscribe_heading', $footer_page_id);
+$subscribe_description = get_field('subscribe_description', $footer_page_id);
 ?>
 
 
@@ -15,41 +28,55 @@ Template Name: Footer
 					<img src="<?php echo esc_url(wp_get_attachment_url(45)); ?>" class="w-[8.625rem] h-[2.625rem]">
 				</a>
 			</div>
-			<p class="body-small-light pb-7 body-small">
-				<?php esc_html_e('Trendy Nails yra šiuolaikiškas ir inovatyvus Ukrainos manikiūro priemonių prekes ženklas, orientuotas į
-				kokybiškų produktų tiekimą nagų industrijai.', '_tw') ?>
-			</p>
+			<?php if ($logo_description): ?>
+				<p class="body-small-light pb-7 body-small">
+					<?php echo wp_kses_post($logo_description); ?>
+				</p>
+			<?php endif; ?>
 			<ul class="mt-4 space-y-2.5 mb-7">
-				<li><?php echo esc_html('+370 000 00000'); ?></li>
-				<li><a
-						href="mailto:info@trendynailsthluania.com"><?php echo esc_html('info@trendynailsthluania.com'); ?></a>
-				</li>
+				<?php if ($phone_number): ?>
+					<li>
+						<a href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo esc_html($phone_number); ?></a>
+					</li>
+				<?php endif; ?>
+
+				<?php if ($email): ?>
+					<li>
+						<a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
+					</li>
+				<?php endif; ?>
 			</ul>
 			<div class="flex space-x-4">
-				<!-- TODO add real links  -->
-				<a href="https://facebook.com" target="_blank" class="text-white">
-					<svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M7.47636 9L7.88364 6.125H5.29455V4.25C5.29455 3.4375 5.64364 2.6875 6.80727 2.6875H8V0.21875C8 0.21875 6.92364 0 5.90545 0C3.78182 0 2.38545 1.40625 2.38545 3.90625V6.125H0V9H2.38545V16H5.29455V9H7.47636Z"
-							fill="white" />
-					</svg>
-				</a>
-				<a href="https://instagram.com" target="_blank" class="text-white">
-					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M8.01786 3.875C10.2679 3.875 12.125 5.73214 12.125 7.98214C12.125 10.2679 10.2679 12.0893 8.01786 12.0893C5.73214 12.0893 3.91071 10.2679 3.91071 7.98214C3.91071 5.73214 5.73214 3.875 8.01786 3.875ZM8.01786 10.6607C9.48214 10.6607 10.6607 9.48214 10.6607 7.98214C10.6607 6.51786 9.48214 5.33929 8.01786 5.33929C6.51786 5.33929 5.33929 6.51786 5.33929 7.98214C5.33929 9.48214 6.55357 10.6607 8.01786 10.6607ZM13.2321 3.73214C13.2321 4.26786 12.8036 4.69643 12.2679 4.69643C11.7321 4.69643 11.3036 4.26786 11.3036 3.73214C11.3036 3.19643 11.7321 2.76786 12.2679 2.76786C12.8036 2.76786 13.2321 3.19643 13.2321 3.73214ZM15.9464 4.69643C16.0179 6.01786 16.0179 9.98214 15.9464 11.3036C15.875 12.5893 15.5893 13.6964 14.6607 14.6607C13.7321 15.5893 12.5893 15.875 11.3036 15.9464C9.98214 16.0179 6.01786 16.0179 4.69643 15.9464C3.41071 15.875 2.30357 15.5893 1.33929 14.6607C0.410714 13.6964 0.125 12.5893 0.0535714 11.3036C-0.0178571 9.98214 -0.0178571 6.01786 0.0535714 4.69643C0.125 3.41071 0.410714 2.26786 1.33929 1.33929C2.30357 0.410714 3.41071 0.125 4.69643 0.0535714C6.01786 -0.0178571 9.98214 -0.0178571 11.3036 0.0535714C12.5893 0.125 13.7321 0.410714 14.6607 1.33929C15.5893 2.26786 15.875 3.41071 15.9464 4.69643ZM14.2321 12.6964C14.6607 11.6607 14.5536 9.16071 14.5536 7.98214C14.5536 6.83929 14.6607 4.33929 14.2321 3.26786C13.9464 2.58929 13.4107 2.01786 12.7321 1.76786C11.6607 1.33929 9.16071 1.44643 8.01786 1.44643C6.83929 1.44643 4.33929 1.33929 3.30357 1.76786C2.58929 2.05357 2.05357 2.58929 1.76786 3.26786C1.33929 4.33929 1.44643 6.83929 1.44643 7.98214C1.44643 9.16071 1.33929 11.6607 1.76786 12.6964C2.05357 13.4107 2.58929 13.9464 3.30357 14.2321C4.33929 14.6607 6.83929 14.5536 8.01786 14.5536C9.16071 14.5536 11.6607 14.6607 12.7321 14.2321C13.4107 13.9464 13.9821 13.4107 14.2321 12.6964Z"
-							fill="white" />
-					</svg>
-				</a>
+				<?php if ($facebook_link): ?>
+					<a href="<?php echo esc_url($facebook_link); ?>" target="_blank" class="text-white">
+						<svg width="9" height="18" viewBox="0 0 9 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M8.41091 10.125L8.86909 6.89062H5.95636V4.78125C5.95636 3.86719 6.34909 3.02344 7.65818 3.02344H9V0.246094C9 0.246094 7.78909 0 6.64364 0C4.25455 0 2.68364 1.58203 2.68364 4.39453V6.89062H0V10.125H2.68364V18H5.95636V10.125H8.41091Z"
+								fill="white" />
+						</svg>
+					</a>
+				<?php endif; ?>
+
+				<?php if ($instagram_link): ?>
+					<a href="<?php echo esc_url($instagram_link); ?>" target="_blank" class="text-white">
+						<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M9.02009 4.35938C11.5513 4.35938 13.6406 6.44866 13.6406 8.97991C13.6406 11.5513 11.5513 13.6004 9.02009 13.6004C6.44866 13.6004 4.39955 11.5513 4.39955 8.97991C4.39955 6.44866 6.44866 4.35938 9.02009 4.35938ZM9.02009 11.9933C10.6674 11.9933 11.9933 10.6674 11.9933 8.97991C11.9933 7.33259 10.6674 6.0067 9.02009 6.0067C7.33259 6.0067 6.0067 7.33259 6.0067 8.97991C6.0067 10.6674 7.37277 11.9933 9.02009 11.9933ZM14.8862 4.19866C14.8862 4.80134 14.404 5.28348 13.8013 5.28348C13.1987 5.28348 12.7165 4.80134 12.7165 4.19866C12.7165 3.59598 13.1987 3.11384 13.8013 3.11384C14.404 3.11384 14.8862 3.59598 14.8862 4.19866ZM17.9397 5.28348C18.0201 6.77009 18.0201 11.2299 17.9397 12.7165C17.8594 14.1629 17.5379 15.4085 16.4933 16.4933C15.4487 17.5379 14.1629 17.8594 12.7165 17.9397C11.2299 18.0201 6.77009 18.0201 5.28348 17.9397C3.83705 17.8594 2.59152 17.5379 1.5067 16.4933C0.462054 15.4085 0.140625 14.1629 0.0602679 12.7165C-0.0200893 11.2299 -0.0200893 6.77009 0.0602679 5.28348C0.140625 3.83705 0.462054 2.55134 1.5067 1.5067C2.59152 0.462054 3.83705 0.140625 5.28348 0.0602679C6.77009 -0.0200893 11.2299 -0.0200893 12.7165 0.0602679C14.1629 0.140625 15.4487 0.462054 16.4933 1.5067C17.5379 2.55134 17.8594 3.83705 17.9397 5.28348ZM16.0112 14.2835C16.4933 13.1183 16.3728 10.3058 16.3728 8.97991C16.3728 7.6942 16.4933 4.8817 16.0112 3.67634C15.6897 2.91295 15.0871 2.27009 14.3237 1.98884C13.1183 1.5067 10.3058 1.62723 9.02009 1.62723C7.6942 1.62723 4.8817 1.5067 3.71652 1.98884C2.91295 2.31027 2.31027 2.91295 1.98884 3.67634C1.5067 4.8817 1.62723 7.6942 1.62723 8.97991C1.62723 10.3058 1.5067 13.1183 1.98884 14.2835C2.31027 15.0871 2.91295 15.6897 3.71652 16.0112C4.8817 16.4933 7.6942 16.3728 9.02009 16.3728C10.3058 16.3728 13.1183 16.4933 14.3237 16.0112C15.0871 15.6897 15.7299 15.0871 16.0112 14.2835Z"
+								fill="white" />
+						</svg>
+					</a>
+				<?php endif; ?>
 			</div>
 		</div>
 
 		<!-- 2nd Div: Spans columns 5-6 -->
 		<div class="col-start-5 col-span-2 md:col-span-1 md:mb-4">
-			<div class="flex justify-between items-center cursor-pointer md-footer-toggle-menu">
-				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
-					<?php esc_html_e("Parduotuvė", "_tw") ?>
-				</h2>
+			<div class="flex justify-between items-center md:cursor-pointer md-footer-toggle-menu">
+				<?php if ($shop_menu_heading): ?>
+					<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
+						<?php echo esc_html($shop_menu_heading); ?>
+					</h2>
+				<?php endif; ?>
 				<svg class="menu-icon-rotate hidden w-3.5 h-3.5  md:inline-block" xmlns="http://www.w3.org/2000/svg"
 					width="13" height="8" viewBox="0 0 13 8" fill="none">
 					<path
@@ -71,10 +98,12 @@ Template Name: Footer
 
 		<!-- 3rd Div: Spans columns 7-8 -->
 		<div class="col-start-7 col-span-2 md:col-span-1 md:mb-11">
-			<div class="flex justify-between items-center cursor-pointer md-footer-toggle-menu">
-				<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
-					<?php esc_html_e("Info", "_tw") ?>
-				</h2>
+			<div class="flex justify-between items-center md:cursor-pointer md-footer-toggle-menu">
+				<?php if ($info_menu_heading): ?>
+					<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
+						<?php echo esc_html($info_menu_heading); ?>
+					</h2>
+				<?php endif; ?>
 				<svg class="menu-icon-rotate hidden w-3.5 h-3.5 md:inline-block" xmlns="http://www.w3.org/2000/svg"
 					width="13" height="8" viewBox="0 0 13 8" fill="none">
 					<path
@@ -96,10 +125,15 @@ Template Name: Footer
 
 		<!-- 4th Div: Spans columns 10-12 -->
 		<div class="col-start-10 col-span-3 pb-10 md:col-span-1 md:pb-0">
-			<h2 class="uppercase body-normal-medium mb-6 md:mb-5"><?php esc_html_e("Prenumeruokite", "_tw") ?></h2>
-			<p class="text-sm mb-5 md:mb-8">
-				<?php echo wp_kses_post('Užsiregistruokite ir gaukite <b>–15 %</b> nuolaidą pirmajam užsakymui, pirmieji sužinokite apie naujausius produktus!'); ?>
-			</p>
+			<?php if ($subscribe_heading): ?>
+				<h2 class="uppercase body-normal-medium mb-6 md:mb-5"><?php echo esc_html($subscribe_heading); ?></h2>
+			<?php endif; ?>
+
+			<?php if ($subscribe_description): ?>
+				<p class="text-sm mb-5 md:mb-8">
+					<?php echo wp_kses_post($subscribe_description); ?>
+				</p>
+			<?php endif; ?>
 			<form action="#" method="POST" class="mt-4 mb-9 md:mb-5 w-full">
 				<input type="email" name="email" placeholder="El. paštas"
 					class="w-full pl-3 py-4 bg-gray-700 text-white rounded-lg">
@@ -214,8 +248,6 @@ Template Name: Footer
 							d="M23.9972 14.671C23.9035 15.2334 23.6023 15.7463 23.1468 16.119C22.6913 16.4917 22.1109 16.7002 21.5083 16.7076C20.3092 16.7152 19.1621 17.1711 18.3178 17.9754C17.4734 18.7798 17.0006 19.8672 17.0026 21H18.9887C18.9849 20.3629 19.2482 19.7503 19.721 19.296C20.1938 18.8417 20.8377 18.5826 21.5121 18.5753C22.6394 18.5669 23.723 18.1625 24.5519 17.4407C25.3808 16.7189 25.8956 15.7315 25.9961 14.6709L23.9972 14.671ZM17 14.671V18.5294C17.4732 17.7574 18.1574 17.1198 18.9811 16.6835V14.6709L17 14.671ZM21.5057 11.8641C22.1172 11.8712 22.7058 12.0854 23.1642 12.4677C23.6227 12.8501 23.9206 13.3752 24.0038 13.9476H26C25.9103 12.878 25.3991 11.879 24.5675 11.1481C23.7359 10.4172 22.6443 10.0075 21.5084 10C20.3721 10.0068 19.2798 10.4162 18.4476 11.1472C17.6154 11.8782 17.1038 12.8775 17.014 13.9476H19.0104C19.0935 13.3757 19.391 12.8509 19.8489 12.4686C20.3067 12.0863 20.8946 11.8718 21.5057 11.8641Z"
 							fill="white" />
 					</svg>
-
-
 				</a>
 			</div>
 		</div>
