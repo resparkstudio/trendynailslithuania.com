@@ -207,8 +207,6 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 
-
-
 function theme_setup()
 {
 	add_theme_support("custom-logo", array(
@@ -217,7 +215,7 @@ function theme_setup()
 }
 add_action('after_setup_theme', 'theme_setup');
 
-
+// Prevent from accesing to certain pages
 function redirect_site_settings_page()
 {
 	if (is_page('footeris')) {
@@ -230,3 +228,22 @@ function redirect_site_settings_page()
 
 }
 add_action('template_redirect', 'redirect_site_settings_page');
+
+
+// Make some templates not indexible by the browsers
+// TODO if actuallly not appearing in search
+function add_noindex_to_specific_templates()
+{
+	if (is_page_template('soc-media.php') || is_page_template('footer.php')) {
+		echo '<meta name="robots" content="noindex, nofollow">';
+	}
+}
+add_action('wp_head', 'add_noindex_to_specific_templates');
+
+// WOOCOMMERCE
+
+function _tw_add_woocommerce_support()
+{
+	add_theme_support('woocommerce');
+}
+add_action('after_setup_theme', '_tw_add_woocommerce_support');

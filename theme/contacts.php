@@ -96,7 +96,7 @@ $privacy_text = get_field('privacy_text');
                             </div>
                             <div class="col-span-2">
                                 <textarea name="your-message"
-                                    class="form-textarea w-full p-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray"
+                                    class="form-textarea w-full min-h-32 max-h-72 p-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray"
                                     placeholder="Žinutė*" required></textarea>
                             </div>
                         </div>
