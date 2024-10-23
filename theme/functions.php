@@ -218,14 +218,10 @@ add_action('after_setup_theme', 'theme_setup');
 // Prevent from accesing to certain pages
 function redirect_site_settings_page()
 {
-	if (is_page('footeris')) {
-		wp_redirect(get_permalink(woocommerce_get_page_id('shop')));
-		exit;
-	} else if (is_page('socialine-medija')) {
-		wp_redirect(get_permalink(woocommerce_get_page_id('shop')));
+	if (is_page('footeris') || is_page('socialine-medija')) {
+		wp_redirect(get_permalink(get_page_by_path('titulinis')->ID));
 		exit;
 	}
-
 }
 add_action('template_redirect', 'redirect_site_settings_page');
 

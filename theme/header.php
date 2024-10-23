@@ -79,7 +79,7 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
 
 				<!-- Site Logo -->
 				<div class="site-logo flex flex-none justify-items-center mx-auto">
-					<a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">
+					<a href="<?php echo get_permalink(get_page_by_path('titulinis')->ID); ?>">
 						<img src="<?php echo esc_url(wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full')); ?>"
 							class="w-[8.625rem] h-[2.625rem] md:w-[6.25rem] md:h-[1.875rem]">
 					</a>
