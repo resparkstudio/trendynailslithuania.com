@@ -32,7 +32,7 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
 			<a href="#content" class="sr-only"><?php esc_html('Skip to content'); ?></a>
 
 			<header
-				class="fixed w-full site-header flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 z-10 bg-white md:z-30">
+				class="fixed w-full site-header flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 z-40 bg-white md:z-30">
 				<nav id="site-navigation"
 					class="main-navigation body-small-regular text-black flex-1 flex justify-start pr-4 md:hidden">
 
@@ -159,7 +159,7 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
 
 
 			</header>
-			<div class="fixed left-0 z-20 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
+			<div class="fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
 				<a href="#" id="sidebar-close-link" class="invisible gap-1">
 					<span class="inline-block">
 						Parduotuvė
@@ -177,7 +177,7 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
 
 			<!-- Sidebar -->
 			<aside id="shop-sidebar"
-				class="shop-sidebar flex-col fixed left-0 w-[16.5rem] md:w-[14.25rem] h-svh bg-black text-white body-small-regular hidden z-10 pt-20 md:pt-[3.75rem] grid-rows-12">
+				class="shop-sidebar flex-col fixed left-0 w-[16.5rem] md:w-[14.25rem] h-svh bg-black text-white body-small-regular hidden z-40 pt-20 md:pt-[3.75rem] grid-rows-12">
 				<nav id="desktop-sidebar-navigation"
 					class="main-navigation body-small-regular text-white flex flex-col md:hidden row-span-9 pl-12 pr-4 py-9">
 					<?php

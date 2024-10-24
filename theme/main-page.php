@@ -93,9 +93,63 @@ get_header();
             <?php endif; ?>
 
 
-            <?php if ($sale_heading): ?> <!-- or no products for sale -->
-                <div id="sale-section"></div>
+            <?php if ($sale_heading): ?>
+                <div id="sale-section">
+                    <!-- Swiper Container -->
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php
+                            // Query sale products
+                            $args = array(
+                                'post_type' => 'product',
+                                'posts_per_page' => 10, // Change as needed
+                                'meta_query' => array(
+                                    'relation' => 'OR',
+                                    array( // Query products with sale prices
+                                        'key' => '_sale_price',
+                                        'value' => 0,
+                                        'compare' => '>',
+                                        'type' => 'NUMERIC'
+                                    ),
+                                    array( // For variable products with sale price
+                                        'key' => '_min_variation_sale_price',
+                                        'value' => 0,
+                                        'compare' => '>',
+                                        'type' => 'NUMERIC'
+                                    )
+                                )
+                            );
+                            $loop = new WP_Query($args);
+
+                            if ($loop->have_posts()):
+                                while ($loop->have_posts()):
+                                    $loop->the_post();
+                                    global $product;
+                                    ?>
+                                    <!-- Swiper Slide for each product -->
+                                    <div class="swiper-slide">
+                                        <div class="product-card">
+                                            <a href="<?php the_permalink(); ?>">
+                                                <?php woocommerce_template_loop_product_thumbnail(); ?>
+                                                <h2 class="product-title"><?php the_title(); ?></h2>
+                                            </a>
+                                            <div class="product-price">
+                                                <?php woocommerce_template_loop_price(); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endwhile;
+                                wp_reset_postdata();
+                            endif; ?>
+                        </div>
+
+                        <!-- Custom Navigation Buttons (arrows) -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
             <?php endif; ?>
+
 
             <?php if ($new_products_heading): ?><!-- or no new products-->
                 <div id="new-products-section"></div>
