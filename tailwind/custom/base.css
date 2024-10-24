@@ -34,7 +34,7 @@ body {
 }
 
 .black-button {
-	@apply bg-deep-dark-gray text-white uppercase body-small-medium round-9 border-[0.7px] border-white;
+	@apply bg-deep-dark-gray text-white uppercase body-small-medium round-9 border-[0.7px] border-deep-dark-gray;
 }
 
 .black-button:hover {

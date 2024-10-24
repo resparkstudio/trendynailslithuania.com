@@ -109,7 +109,7 @@ $privacy_text = get_field('privacy_text');
                             </div>
                             <div class="col-span-3 flex w-full items-center md:flex-wrap">
                                 <button type="submit" name="cf-submit"
-                                    class="btn bg-deep-dark-gray text-white py-4 px-24 round-9 uppercase body-small-medium col-span-3 md:order-2 md:w-full md:px-0">Siųsti</button>
+                                    class="black-button py-4 px-24 round-9 body-small-medium col-span-3 md:order-2 md:w-full md:px-0">Siųsti</button>
                                 <div class="ml-8 md:order-1 md:ml-0 md:w-full md:mb-4">
                                     <input type="checkbox" name="privacy-policy" required>
                                     <label class="body-small-regular ml-2.5 md:text-[0.75rem]" for="privacy-policy">
