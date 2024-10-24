@@ -256,7 +256,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 	<div class="container block mx-auto text-center md:px-4">
 
 		<p class="text-gray-dark block body-extra-small-light md:text-left">
-			&copy; <span id="currentYear"></span> <?php esc_html_e('Trendy Nails Lithuania', '_tw'); ?>
+			&copy; <span id="currentYear"></span> <?php esc_html('Trendy Nails Lithuania'); ?>
 		</p>
 
 	</div>

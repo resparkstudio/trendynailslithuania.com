@@ -113,12 +113,12 @@ $privacy_text = get_field('privacy_text');
                                 <div class="ml-8 md:order-1 md:ml-0 md:w-full md:mb-4">
                                     <input type="checkbox" name="privacy-policy" required>
                                     <label class="body-small-regular ml-2.5 md:text-[0.75rem]" for="privacy-policy">
-                                        <?php esc_html_e('Aš sutinku su', '_tw'); ?>
+                                        <?php esc_html('Aš sutinku su'); ?>
                                         <a href="<?php echo esc_url(get_permalink(get_page_by_path('privatumo-politika'))); ?>"
                                             target="_blank">
-                                            <?php esc_html_e('Privatumo Politika', '_tw'); ?>
+                                            <?php esc_html('Privatumo Politika'); ?>
                                         </a>
-                                        <?php esc_html_e('*', '_tw'); ?>
+                                        <?php esc_html('*'); ?>
                                     </label>
                                 </div>
                             </div>

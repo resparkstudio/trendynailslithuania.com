@@ -21,6 +21,26 @@ body {
 	border-radius: 10px;
 }
 
+.round-15 {
+	border-radius: 15px;
+}
+
+.white-button {
+	@apply bg-transparent text-deep-dark-gray uppercase body-small-medium round-9 border-[0.7px] border-deep-dark-gray;
+}
+
+.white-button:hover {
+	@apply bg-deep-dark-gray text-white;
+}
+
+.black-button {
+	@apply bg-deep-dark-gray text-white uppercase body-small-medium round-9 border-[0.7px] border-white;
+}
+
+.black-button:hover {
+	@apply bg-transparent text-deep-dark-gray;
+}
+
 /* --------------------------------- Sidebar */
 
 #sidebar-close-link span {

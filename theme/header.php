@@ -29,7 +29,7 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
 		<?php wp_body_open(); ?>
 
 		<div id="page" class="relative">
-			<a href="#content" class="sr-only"><?php esc_html_e('Skip to content', '_tw'); ?></a>
+			<a href="#content" class="sr-only"><?php esc_html('Skip to content'); ?></a>
 
 			<header
 				class="fixed w-full site-header flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 z-10 bg-white md:z-30">
@@ -297,7 +297,7 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
 				<div
 					class="sidebar-footer px-12 pb-11 md:px-8 md:pb-6 flex flex-col justify-end row-span-3 md:row-span-2 gap-5">
 					<p class="w-full md:font-normal md:text-[0.75rem] body-small-light">
-						<?php esc_html_e('Sekite mūsų naujienas!', '_tw'); ?>
+						<?php esc_html('Sekite mūsų naujienas!'); ?>
 					</p>
 					<div class="flex gap-4 w-full">
 						<?php if ($facebook_link): ?>
