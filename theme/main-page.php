@@ -58,7 +58,7 @@ get_header();
                     <div class="absolute inset-0 flex items-end justify-start">
 
                         <div
-                            class="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-t from-black/100 via-black/50 to-transparent/0 opacity-20 pointer-events-none round-15">
+                            class="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-t from-deep-dark-gray/100 via-deep-dark-gray/50 to-transparent/0 opacity-20 pointer-events-none round-15">
                         </div>
 
                         <div class="relative z-10 pl-9 pb-16 w-full md:mb-10 md:px-5">
