@@ -61,24 +61,25 @@ get_header();
                             class="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-t from-black/100 via-black/50 to-transparent/0 opacity-20 pointer-events-none round-15">
                         </div>
 
-                        <div class="relative z-10 pl-9 pb-16 w-full">
+                        <div class="relative z-10 pl-9 pb-16 w-full md:mb-10 md:px-5">
 
                             <div class="text-left">
                                 <?php if ($heading): ?>
-                                    <h1 class="text-white heading-xl md:text-4xl font-semibold mb-2.5">
+                                    <h1
+                                        class="text-white heading-xl md:text-4xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
                                         <?php echo esc_html($heading); ?>
                                     </h1>
                                 <?php endif; ?>
 
                                 <?php if ($hero_description): ?>
-                                    <p class="text-white text-sm md:text-lg mb-7 body-small-regular">
+                                    <p class="text-white text-sm md:text-lg mb-7 body-small-regular md:mb-6">
                                         <?php echo esc_html($hero_description); ?>
                                     </p>
                                 <?php endif; ?>
 
                                 <?php if ($read_more_button_text): ?>
                                     <a href="#"
-                                        class="inline-block white-button border-white hover:border-deep-dark-gray text-white py-4 px-12 outline-1">
+                                        class="inline-block white-button border-white hover:border-deep-dark-gray text-white py-4 px-12 text-center sm:w-full">
                                         <?php echo esc_html($read_more_button_text); ?>
                                     </a>
                                 <?php endif; ?>
