@@ -90,6 +90,10 @@ body {
 	@apply right-[-1.21875rem] z-20;
 }
 
+.swiper-container .swiper-wrapper {
+	@apply h-auto;
+}
+
 /* --------------------------------- Sidebar */
 
 #sidebar-close-link span {

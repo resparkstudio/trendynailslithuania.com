@@ -240,9 +240,39 @@ function add_noindex_to_specific_templates()
 add_action('wp_head', 'add_noindex_to_specific_templates');
 
 // WOOCOMMERCE
-
+// add woocommerce theme support
 function _tw_add_woocommerce_support()
 {
 	add_theme_support('woocommerce');
 }
 add_action('after_setup_theme', '_tw_add_woocommerce_support');
+
+// Add popular products checkbox to woo settings
+function add_popular_product_checkbox()
+{
+	global $woocommerce, $post;
+	echo '<div class="options_group">';
+
+	// Checkbox
+	woocommerce_wp_checkbox(
+		array(
+			'id' => '_populiariausi',
+			'label' => __('Populiariausi', 'woocommerce'),
+			'description' => __('Pažymėkite šią parinktį, jei produktas turėtų būti rodomas skyriuje "Populiariausi".', 'woocommerce')
+		)
+	);
+
+	echo '</div>';
+}
+
+// Save checkbox
+function save_popular_product_checkbox($post_id)
+{
+	$populiariausi = isset($_POST['_populiariausi']) ? 'yes' : 'no';
+	update_post_meta($post_id, '_populiariausi', $populiariausi);
+}
+
+add_action('woocommerce_process_product_meta', 'save_popular_product_checkbox');
+add_action('woocommerce_product_options_general_product_data', 'add_popular_product_checkbox');
+
+
