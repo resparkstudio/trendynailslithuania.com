@@ -415,7 +415,7 @@ get_header();
                         if ($thumbnail_url):
                             ?>
                             <div class="col-span-4 lg:col-span-6 md:col-span-12">
-                                <div class="aspect-square object-center w-full">
+                                <div class="aspect-square md:aspect-[361/220] object-center w-full">
                                     <div class="w-full relative round-12">
                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                             alt="<?php echo esc_attr($category->name); ?>"
@@ -600,9 +600,39 @@ get_header();
                 <div id="blog-section" class="mb-28 md:mb-20"></div>
             <?php endif; ?>
 
-            <?php if ($about_heading_1 || $about_description_1 || $about_heading_2 || $about_description_2): ?>
-                <div id="about-section" class="mb-28 md:mb-20"></div>
+            <?php if ($about_heading_1 || $about_description_1 || $about_image_1 || $about_heading_2 || $about_description_2 || $about_image_2): ?>
+                <div id="about-section" class="mb-28 md:mb-20 grid grid-cols-12">
+                    <?php if ($about_image_1): ?>
+                        <div class="col-span-6 md:col-span-12 aspect-[670/507] w-full relative">
+                            <img class="w-full h-full object-cover" src="<?php echo esc_url($about_image_1); ?>">
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($about_heading_1 || $about_description_1): ?>
+                        <div
+                            class="col-span-6 md:col-span-12 bg-light-gray px-16 pt-8 pb-28 flex flex-col justify-end min-h-[365px] h-full">
+                            <h3 class="text-lg font-bold mb-4"><?php echo $about_heading_1 ?></h3>
+                            <p class="text-base leading-relaxed"><?php echo $about_description_1 ?></p>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($about_heading_2 || $about_description_2): ?>
+                        <div
+                            class="col-span-6 md:col-span-12 bg-light-gray px-16 pt-8 pb-28 flex flex-col justify-end min-h-[365px] h-full">
+                            <h3 class="text-lg font-bold mb-4"><?php echo $about_heading_2 ?></h3>
+                            <p class="text-base leading-relaxed"><?php echo $about_description_2 ?></p>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($about_image_2): ?>
+                        <div class="col-span-6 md:col-span-12 aspect-[670/507] w-full relative">
+                            <img class="w-full h-full object-cover" src="<?php echo esc_url($about_image_2); ?>">
+                        </div>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
+
+
 
             <?php if ($follow_us_heading || $instagram_url): ?>
                 <div id="instagram-section"></div>
