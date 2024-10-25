@@ -239,7 +239,7 @@ function add_noindex_to_specific_templates()
 }
 add_action('wp_head', 'add_noindex_to_specific_templates');
 
-// WOOCOMMERCE
+//----------------------------------- WOOCOMMERCE
 // add woocommerce theme support
 function _tw_add_woocommerce_support()
 {
@@ -276,3 +276,46 @@ add_action('woocommerce_process_product_meta', 'save_popular_product_checkbox');
 add_action('woocommerce_product_options_general_product_data', 'add_popular_product_checkbox');
 
 
+// Add "category display in main page" field to product category settings
+// Add checkbox to the category edit screen
+function add_popular_category_checkbox($term)
+{
+	// Get the current value of the meta field
+	$checked = get_term_meta($term->term_id, '_display_in_section', true);
+	?>
+	<tr class="form-field">
+		<th scope="row" valign="top"><label for="_display_in_section"><?php _e('Rodyti tituliniame puslapyje'); ?></label>
+		</th>
+		<td>
+			<input type="checkbox" name="_display_in_section" id="_display_in_section" value="yes" <?php checked($checked, 'yes'); ?> />
+			<p class="description">
+				<?php _e('Pažymėkite šią parinktį, jeigu norite, kad ši kategorija būtų rotoma titiliniame puslapyje, kategorijų skiltyje.', 'woocommerce'); ?>
+			</p>
+		</td>
+	</tr>
+	<?php
+}
+
+// Add checkbox to the add new category screen
+function add_popular_category_checkbox_new($term)
+{
+	?>
+	<div class="form-field">
+		<label for="_display_in_section"><?php _e('Rodyti tituliniame puslapyje'); ?></label>
+		<input type="checkbox" name="_display_in_section" id="_display_in_section" value="yes" />
+		<p class="description">
+			<?php _e('Pažymėkite šią parinktį, jeigu norite, kad ši kategorija būtų rotoma titiliniame puslapyje, kategorijų skiltyje.', 'woocommerce'); ?>
+		</p>
+	</div>
+	<?php
+}
+
+function save_popular_category_checkbox($term_id)
+{
+	$display = isset($_POST['_display_in_section']) ? 'yes' : 'no';
+	update_term_meta($term_id, '_display_in_section', $display);
+}
+add_action('product_cat_edit_form_fields', 'add_popular_category_checkbox', 10, 2);
+add_action('product_cat_add_form_fields', 'add_popular_category_checkbox_new', 10, 2);
+add_action('edited_product_cat', 'save_popular_category_checkbox', 10, 2);
+add_action('create_product_cat', 'save_popular_category_checkbox', 10, 2);

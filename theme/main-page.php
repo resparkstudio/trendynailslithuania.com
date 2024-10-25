@@ -44,7 +44,7 @@ get_header();
     <main id="main">
         <div id="page-content" class="flex flex-col mx-12 md:mx-4">
             <?php if ($hero_image || $hero_image_mobile || $heading || $hero_description || $read_more_button_text): ?>
-                <div id="hero-section" class="relative w-full round-15 overflow-hidden">
+                <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
                     <?php if ($hero_image && $hero_image_mobile): ?>
                         <img class="w-full h-auto round-15 block md:hidden" src="<?php echo esc_url($hero_image); ?>"
                             alt="Hero Image" />
@@ -78,8 +78,7 @@ get_header();
                                 <?php endif; ?>
 
                                 <?php if ($read_more_button_text): ?>
-                                    <a href="#"
-                                        class="inline-block white-button border-white hover:border-deep-dark-gray text-white py-4 px-12 text-center sm:w-full">
+                                    <a href="#" class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
                                         <?php echo esc_html($read_more_button_text); ?>
                                     </a>
                                 <?php endif; ?>
@@ -113,7 +112,7 @@ get_header();
             $sale_product_loop = new WP_Query($args);
             ?>
             <?php if ($sale_product_loop->have_posts() && $sale_heading): ?>
-                <div id="sale-section">
+                <div id="sale-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
                             <?php echo esc_html($sale_heading); ?>
@@ -251,7 +250,7 @@ get_header();
             $new_product_loop = new WP_Query($args);
             ?>
             <?php if ($new_product_loop->have_posts() && $new_products_heading): ?>
-                <div id="new-products-section">
+                <div id="new-products-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
                             <?php echo esc_html($new_products_heading); ?>
@@ -392,9 +391,51 @@ get_header();
                 </div>
             <?php endif; ?>
 
-            <?php if ($product_category_image_1 || $product_category_image_2 || $product_category_image_3 || $product_category_image_4 || $product_category_image_5 || $product_category_image_6): ?>
-                <!-- or no categories-->
-                <div id="categories-section"></div>
+            <?php
+            // Categories section
+            $product_categories = get_terms(array(
+                'taxonomy' => 'product_cat',
+                'hide_empty' => true, // Only show categories with products
+                'meta_query' => array(
+                    array(
+                        'key' => '_display_in_section',
+                        'value' => 'yes',
+                        'compare' => '='
+                    ),
+                )
+            ));
+            ?>
+
+            <?php if (!empty($product_categories) && !is_wp_error($product_categories)): ?>
+                <div id="categories-section" class="mb-28 md:mb-20 grid grid-cols-12 gap-4">
+                    <?php foreach ($product_categories as $category):
+                        $thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
+                        $thumbnail_url = wp_get_attachment_url($thumbnail_id);
+
+                        if ($thumbnail_url):
+                            ?>
+                            <div class="col-span-4 lg:col-span-6 md:col-span-12">
+                                <div class="aspect-square object-center w-full">
+                                    <div class="w-full relative round-12">
+                                        <img src="<?php echo esc_url($thumbnail_url); ?>"
+                                            alt="<?php echo esc_attr($category->name); ?>"
+                                            class="round-12 w-full h-full object-cover">
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-t from-deep-dark-gray/100 via-deep-dark-gray/50 to-transparent/0 opacity-20 pointer-events-none round-15">
+                                        </div>
+                                        <div class="px-5 absolute bottom-5 right-0 w-full">
+                                            <a href="<?php echo get_term_link($category); ?>"
+                                                class="py-3 white-button-white-text inline-block w-full text-center">
+                                                <?php echo esc_html($category->name); ?>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
             <?php endif; ?>
 
             <!-- Popular product section -->
@@ -415,7 +456,7 @@ get_header();
             $popular_product_loop = new WP_Query($args);
             ?>
             <?php if ($popular_products_heading): ?> <!-- or no popular products-->
-                <div id="popular-products-section">
+                <div id="popular-products-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
                             <?php echo esc_html($popular_products_heading); ?>
@@ -556,11 +597,11 @@ get_header();
             <?php endif; ?>
 
             <?php if ($blog_heading): ?> <!-- or no blogs-->
-                <div id="blog-section"></div>
+                <div id="blog-section" class="mb-28 md:mb-20"></div>
             <?php endif; ?>
 
             <?php if ($about_heading_1 || $about_description_1 || $about_heading_2 || $about_description_2): ?>
-                <div id="about-section"></div>
+                <div id="about-section" class="mb-28 md:mb-20"></div>
             <?php endif; ?>
 
             <?php if ($follow_us_heading || $instagram_url): ?>

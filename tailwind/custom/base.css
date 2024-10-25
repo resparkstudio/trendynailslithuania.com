@@ -32,16 +32,27 @@ body {
 }
 
 /* Buttons */
-.white-button {
-	@apply bg-transparent text-deep-dark-gray uppercase body-small-medium round-9 border-[0.7px] border-deep-dark-gray;
+.white-button-white-text {
+	@apply bg-transparent text-white uppercase body-small-medium round-9 border-[0.7px] border-white;
+	transition: background-color 0.2s ease;
 }
 
-.white-button:hover {
+.white-button-white-text:hover {
+	@apply text-deep-dark-gray bg-white;
+}
+
+.white-button-black-text {
+	@apply bg-transparent text-deep-dark-gray uppercase body-small-medium round-9 border-[0.7px] border-deep-dark-gray;
+	transition: background-color 0.2s ease;
+}
+
+.white-button-black-text:hover {
 	@apply bg-deep-dark-gray text-white;
 }
 
 .black-button {
 	@apply bg-deep-dark-gray text-white uppercase body-small-medium round-9 border-[0.7px] border-deep-dark-gray;
+	transition: background-color 0.2s ease;
 }
 
 .black-button:hover {
