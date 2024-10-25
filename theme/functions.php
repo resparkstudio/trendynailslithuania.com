@@ -153,9 +153,9 @@ add_action('widgets_init', '_tw_widgets_init');
  */
 function _tw_scripts()
 {
-	wp_enqueue_style('_tw-style', get_stylesheet_uri(), array(), _TW_VERSION);
-	wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper/swiper-bundle.min.css');
 
+	wp_enqueue_style('_tw-style', get_stylesheet_uri(), array(), _TW_VERSION);
+	wp_enqueue_style('swiper-css', get_theme_root_uri() . '/_tw/node_modules/swiper/swiper-bundle.min.css');
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array(), _TW_VERSION, true);
 

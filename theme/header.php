@@ -114,7 +114,6 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
 					</svg>
 				</a> -->
 
-					<!-- Favorites (Heart) Icon -->
 					<a href="<?php echo esc_url(home_url('/favorites')); ?>" id="favorites-icon">
 						<svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
