@@ -105,6 +105,28 @@ body {
 	@apply h-auto;
 }
 
+/* --------------------------------- About Section Mouse Hover */
+
+.mouse-hover-overlay:hover {
+	cursor: none;
+}
+
+.custom-cursor {
+	@apply leading-[1.1rem] text-[0.875rem] fixed top-0 left-0 flex items-center justify-center pointer-events-none z-[1000] text-center rounded-full text-deep-dark-gray;
+	border: 0.5px solid #201f1f;
+	font-weight: normal;
+	background-color: transparent;
+	opacity: 0;
+	transform: translate(-50%, -50%) scale(0); /* Initial scale set to 0 */
+	transition: opacity 0.2s ease;
+	width: 7rem;
+	height: 7rem;
+}
+
+.mouse-hover-overlay:hover .custom-cursor {
+	opacity: 1;
+}
+
 /* --------------------------------- Sidebar */
 
 #sidebar-close-link span {

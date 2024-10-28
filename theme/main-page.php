@@ -9,7 +9,7 @@ $hero_image = get_field('hero_image');
 $hero_image_mobile = get_field('hero_image_mobile');
 $heading = get_field('heading');
 $hero_description = get_field('hero_description');
-$read_more_button_text = get_field('read_more_button_text');
+
 
 $sale_heading = get_field('sale_heading');
 
@@ -36,6 +36,7 @@ $blog_heading = get_field('blog_heading');
 $follow_us_heading = get_field('follow_us_heading');
 $instagram_url = get_field('instagram_url', $soc_media_page_id);
 
+$read_more_button_text = get_field('read_more_button_text');
 $more_button_text = get_field('more_button_text');
 
 get_header();
@@ -461,19 +462,21 @@ get_header();
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
                             <?php echo esc_html($popular_products_heading); ?>
                         </h3>
-                        <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                            <a class="flex gap-3" href="#">
-                                <span><?php echo esc_html($more_button_text); ?></span>
-                                <div class="flex items-center">
-                                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
-                                            fill="#201F1F" />
-                                    </svg>
-                                </div>
-                            </a>
-                        </div>
+                        <?php if ($more_button_text): ?>
+                            <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
+                                <a class="flex gap-3" href="#">
+                                    <span><?php echo esc_html($more_button_text); ?></span>
+                                    <div class="flex items-center">
+                                        <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                                fill="#201F1F" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="relative">
@@ -601,32 +604,73 @@ get_header();
             <?php endif; ?>
 
             <?php if ($about_heading_1 || $about_description_1 || $about_image_1 || $about_heading_2 || $about_description_2 || $about_image_2): ?>
-                <div id="about-section" class="mb-28 md:mb-20 grid grid-cols-12">
+                <div id="about-section" class="mb-28 md:mb-20 grid grid-cols-12 relative">
+                    <a href="<?php echo get_permalink(28); ?>"
+                        class="mouse-hover-overlay h-full w-full absolute inset-0 z-10 lg:hidden"></a>
                     <?php if ($about_image_1): ?>
-                        <div class="col-span-6 md:col-span-12 aspect-[670/507] w-full relative">
-                            <img class="w-full h-full object-cover" src="<?php echo esc_url($about_image_1); ?>">
+                        <div class="col-span-6 lg:col-span-12 aspect-[670/507] w-full relative h-full order-1">
+                            <img class="w-full h-full object-cover rounded-tl-[12px] lg:rounded-t-[12px]"
+                                src="<?php echo esc_url($about_image_1); ?>">
                         </div>
                     <?php endif; ?>
 
                     <?php if ($about_heading_1 || $about_description_1): ?>
                         <div
-                            class="col-span-6 md:col-span-12 bg-light-gray px-16 pt-8 pb-28 flex flex-col justify-end min-h-[365px] h-full">
-                            <h3 class="text-lg font-bold mb-4"><?php echo $about_heading_1 ?></h3>
-                            <p class="text-base leading-relaxed"><?php echo $about_description_1 ?></p>
+                            class="text-deep-dark-gray rounded-tr-[12px] lg:rounded-tr-[0px] lg:z-1 col-span-6 lg:col-span-12 bg-light-gray px-16 pt-8 pb-28 lg:justify-space-between lg:pt-10 lg:pb-14 flex flex-col justify-end min-h-[365px] lg:min-h-[0px] h-full lg:h-auto order-2 lg:px-5">
+                            <h3 class="heading-md mb-4 lg:mb-5 lg:text-[1.125rem] lg:leading-[1.375rem]">
+                                <?php echo $about_heading_1 ?>
+                            </h3>
+                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8"><?php echo $about_description_1 ?>
+                            </p>
+                            <?php if ($read_more_button_text): ?>
+                                <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
+                                    <a class="flex gap-3" href="#">
+                                        <span><?php echo esc_html($read_more_button_text); ?></span>
+                                        <div class="flex items-center">
+                                            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                                    fill="#201F1F" />
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
 
                     <?php if ($about_heading_2 || $about_description_2): ?>
                         <div
-                            class="col-span-6 md:col-span-12 bg-light-gray px-16 pt-8 pb-28 flex flex-col justify-end min-h-[365px] h-full">
-                            <h3 class="text-lg font-bold mb-4"><?php echo $about_heading_2 ?></h3>
-                            <p class="text-base leading-relaxed"><?php echo $about_description_2 ?></p>
+                            class="text-deep-dark-gray rounded-bl-[12px] lg:rounded-b-[12px] col-span-6 lg:z-2 lg:col-span-12 lg:py-10 bg-light-gray px-16 pt-8 pb-28 flex flex-col justify-end lg:justify-space-between min-h-[365px] lg:min-h-[0px] h-full lg:h-auto order-3 lg:order-4 lg:px-5 lg:relative lg:top-[-1rem]">
+                            <h3 class="heading-md mb-4 lg:mb-5 lg:text-[1.125rem] lg:leading-[1.375rem]">
+                                <?php echo $about_heading_2 ?>
+                            </h3>
+                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8"><?php echo $about_description_2 ?>
+                            </p>
+                            <?php if ($read_more_button_text): ?>
+                                <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
+                                    <a class="flex gap-3" href="#">
+                                        <span><?php echo esc_html($read_more_button_text); ?></span>
+                                        <div class="flex items-center">
+                                            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                                    fill="#201F1F" />
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
 
                     <?php if ($about_image_2): ?>
-                        <div class="col-span-6 md:col-span-12 aspect-[670/507] w-full relative">
-                            <img class="w-full h-full object-cover" src="<?php echo esc_url($about_image_2); ?>">
+                        <div
+                            class="col-span-6 lg:col-span-12 aspect-[670/507] w-full relative h-full order-4 lg:order-3 lg:relative lg:top-[-1rem]">
+                            <img class="w-full h-full object-cover rounded-br-[12px] lg:rounded-t-[12px] lg:rounded-br-[0px]"
+                                src="<?php echo esc_url($about_image_2); ?>">
                         </div>
                     <?php endif; ?>
                 </div>
