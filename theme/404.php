@@ -18,7 +18,7 @@ get_header();
 			<span
 				class="w-full text-center text-deep-dark-gray mt-2.5 heading-md md:text-[1.125rem] md:leading-[1.375rem]"><?php echo esc_html_e('Atsiprašome, šis puslapis neegzistuoja', '_tw') ?>
 			</span>
-			<a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>"
+			<a href="<?php echo get_permalink(get_page_by_path('titulinis')->ID); ?>"
 				class="mt-8 btn text-center bg-deep-dark-gray text-white py-4 px-24 sm:px-0 round-9 uppercase body-small-medium sm:w-full">
 				<?php esc_html_e('Grįžti į pagrindinį', "_tw"); ?>
 			</a>

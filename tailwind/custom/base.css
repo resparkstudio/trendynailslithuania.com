@@ -149,6 +149,25 @@ body {
 	opacity: 1;
 }
 
+/* --------------------------------- Single product */
+
+.product-gallery-swiper img {
+	@apply h-full; /* Overriding woocommerce default height style */
+}
+
+#product-section .product-gallery-swiper-pagination {
+	bottom: 0;
+	left: 0;
+}
+
+#product-section .swiper-pagination-bullet {
+	@apply bg-mid-gray m-0 inline-block;
+}
+
+#product-section .swiper-pagination-bullet-active {
+	@apply bg-deep-dark-gray;
+}
+
 /* --------------------------------- Sidebar */
 
 #sidebar-close-link span {
