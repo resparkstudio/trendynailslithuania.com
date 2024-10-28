@@ -27,7 +27,7 @@ $bottom_image_description = get_field('bottom_image_description');
 
 ?>
 <section id="primary" class="mb-36 md:mb-28">
-    <main id="main">
+    <main id="main" class="max-w-[87.5rem] mx-auto w-full">
         <div id="page-content" class="flex flex-col gap-20 md:gap-16">
             <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
                 <div id="hero-section" class="mx-4 relative round-15">

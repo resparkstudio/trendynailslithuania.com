@@ -41,7 +41,7 @@ $more_button_text = get_field('more_button_text');
 get_header();
 ?>
 <section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
-    <main id="main">
+    <main id="main" class="max-w-[87.5rem] mx-auto w-full">
         <div id="page-content" class="flex flex-col mx-12 md:mx-4">
             <?php if ($hero_image || $hero_image_mobile || $heading || $hero_description || $read_more_button_text): ?>
                 <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">

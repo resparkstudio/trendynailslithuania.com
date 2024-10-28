@@ -7,7 +7,7 @@ $heading = get_field('heading');
 $policy_text = get_field('policy_text');
 ?>
 <section id="primary" class="mb-36 md:mb-28 mt-5 md:mt-2.5">
-    <main id="main">
+    <main id="main" class="max-w-[87.5rem] mx-auto w-full">
         <div id="page-content" class="flex flex-col gap-12 md:gap-10 mx-12 md:mx-4">
             <header id="heading-section" class="w-full">
                 <?php if ($heading): ?>

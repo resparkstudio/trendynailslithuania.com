@@ -20,7 +20,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 
 <footer id="site-footer" class="bg-black text-white pt-20 pb-4 md:pt-14 md:pb-4 mb:px-4 mt-auto">
 	<div
-		class="container grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular mb-10 md:grid-cols-1 md:px-4 md:gap-0">
+		class="max-w-[87.5rem] mx-auto w-full grid grid-cols-12 gap-4 px-12 lg:px-8 sm:px-4 body-small-regular mb-10 md:grid-cols-1 md:px-4 md:gap-0">
 		<!-- 1st Div: Spans columns 1-3 -->
 		<div class="col-span-3 md:col-span-1 md:mb-10">
 			<div class="site-logo flex flex-none justify-items-center mx-auto pb-5 md:pb-7">
@@ -255,8 +255,8 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 
 	<div class="container block mx-auto text-center md:px-4">
 
-		<p class="text-gray-dark block body-extra-small-light md:text-left">
-			&copy; <span id="currentYear"></span> <?php esc_html('Trendy Nails Lithuania'); ?>
+		<p class="text-dark-gray block body-extra-small-light md:text-left">
+			&copy; <span id="currentYear"></span> <?php echo esc_html('Trendy Nails Lithuania'); ?>
 		</p>
 
 	</div>
