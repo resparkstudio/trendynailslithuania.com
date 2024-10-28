@@ -624,7 +624,7 @@ get_header();
                             </p>
                             <?php if ($read_more_button_text): ?>
                                 <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
-                                    <a class="flex gap-3" href="#">
+                                    <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
                                         <span><?php echo esc_html($read_more_button_text); ?></span>
                                         <div class="flex items-center">
                                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
@@ -650,7 +650,7 @@ get_header();
                             </p>
                             <?php if ($read_more_button_text): ?>
                                 <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
-                                    <a class="flex gap-3" href="#">
+                                    <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
                                         <span><?php echo esc_html($read_more_button_text); ?></span>
                                         <div class="flex items-center">
                                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
