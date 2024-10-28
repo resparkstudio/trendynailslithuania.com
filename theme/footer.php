@@ -36,13 +36,13 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 			<ul class="mt-4 space-y-2.5 mb-7">
 				<?php if ($phone_number): ?>
 					<li>
-						<a href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo esc_html($phone_number); ?></a>
+						<a href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo wp_kses_post($phone_number); ?></a>
 					</li>
 				<?php endif; ?>
 
 				<?php if ($email): ?>
 					<li>
-						<a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
+						<a href="mailto:<?php echo esc_attr($email); ?>"><?php echo wp_kses_post($email); ?></a>
 					</li>
 				<?php endif; ?>
 			</ul>
@@ -74,7 +74,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 			<div class="flex justify-between items-center md:cursor-pointer md-footer-toggle-menu">
 				<?php if ($shop_menu_heading): ?>
 					<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
-						<?php echo esc_html($shop_menu_heading); ?>
+						<?php echo wp_kses_post($shop_menu_heading); ?>
 					</h2>
 				<?php endif; ?>
 				<svg class="menu-icon-rotate hidden w-3.5 h-3.5  md:inline-block" xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +101,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 			<div class="flex justify-between items-center md:cursor-pointer md-footer-toggle-menu">
 				<?php if ($info_menu_heading): ?>
 					<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">
-						<?php echo esc_html($info_menu_heading); ?>
+						<?php echo wp_kses_post($info_menu_heading); ?>
 					</h2>
 				<?php endif; ?>
 				<svg class="menu-icon-rotate hidden w-3.5 h-3.5 md:inline-block" xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 		<!-- 4th Div: Spans columns 10-12 -->
 		<div class="col-start-10 col-span-3 pb-10 md:col-span-1 md:pb-0">
 			<?php if ($subscribe_heading): ?>
-				<h2 class="uppercase body-normal-medium mb-6 md:mb-5"><?php echo esc_html($subscribe_heading); ?></h2>
+				<h2 class="uppercase body-normal-medium mb-6 md:mb-5"><?php echo wp_kses_post($subscribe_heading); ?></h2>
 			<?php endif; ?>
 
 			<?php if ($subscribe_description): ?>
@@ -256,7 +256,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 	<div class="container block mx-auto text-center md:px-4">
 
 		<p class="text-dark-gray block body-extra-small-light md:text-left">
-			&copy; <span id="currentYear"></span> <?php echo esc_html('Trendy Nails Lithuania'); ?>
+			&copy; <span id="currentYear"></span> <?php echo wp_kses_post('Trendy Nails Lithuania'); ?>
 		</p>
 
 	</div>

@@ -22,7 +22,7 @@ $privacy_text = get_field('privacy_text');
             <div class="w-full mb-16 md:mb-5">
                 <header id="heading-section">
                     <?php if ($heading): ?>
-                        <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo esc_html($heading); ?></h1>
+                        <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post($heading); ?></h1>
                     <?php endif; ?>
                 </header>
                 <?php if ($description): ?>
@@ -35,12 +35,13 @@ $privacy_text = get_field('privacy_text');
                     <ul class="mb-7">
                         <?php if ($phone_number): ?>
                             <li class="mb-6 md:mb-4"><a
-                                    href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo esc_html($phone_number); ?></a>
+                                    href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo wp_kses_post($phone_number); ?></a>
                             </li>
                         <?php endif; ?>
 
                         <?php if ($email): ?>
-                            <li><a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></li>
+                            <li><a href="mailto:<?php echo esc_attr($email); ?>"><?php echo wp_kses_post($email); ?></a>
+                            </li>
                         <?php endif; ?>
                     </ul>
 
@@ -104,7 +105,7 @@ $privacy_text = get_field('privacy_text');
                             <div
                                 class="text-sm text-dark-gray body-extra-small-regular w-full text-end md:text-[0.75rem] md:text-start md:font-light">
                                 <?php if ($mandatory_text): ?>
-                                    <?php echo esc_html($mandatory_text); ?>
+                                    <?php echo wp_kses_post($mandatory_text); ?>
                                 <?php endif; ?>
                             </div>
                             <div class="col-span-3 flex w-full items-center md:flex-wrap">
@@ -113,12 +114,12 @@ $privacy_text = get_field('privacy_text');
                                 <div class="ml-8 md:order-1 md:ml-0 md:w-full md:mb-4">
                                     <input type="checkbox" name="privacy-policy" required>
                                     <label class="body-small-regular ml-2.5 md:text-[0.75rem]" for="privacy-policy">
-                                        <?php echo esc_html('Aš sutinku su'); ?>
+                                        <?php echo wp_kses_post('Aš sutinku su'); ?>
                                         <a href="<?php echo esc_url(get_permalink(get_page_by_path('privatumo-politika'))); ?>"
                                             target="_blank">
-                                            <?php echo esc_html('Privatumo Politika'); ?>
+                                            <?php echo wp_kses_post('Privatumo Politika'); ?>
                                         </a>
-                                        <?php echo esc_html('*'); ?>
+                                        <?php echo wp_kses_post('*'); ?>
                                     </label>
                                 </div>
                             </div>

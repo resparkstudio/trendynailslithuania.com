@@ -34,10 +34,13 @@ $about_image_2 = get_field('about_image_2');
 $blog_heading = get_field('blog_heading');
 
 $follow_us_heading = get_field('follow_us_heading');
-$instagram_url = get_field('instagram_url', $soc_media_page_id);
+$instagram_link = get_field('instagram_link', $soc_media_page_id);
+$instagram_button_text = get_field('instagram_button_text');
+$instagram_gallery = get_field('instagram_gallery');
 
 $read_more_button_text = get_field('read_more_button_text');
 $more_button_text = get_field('more_button_text');
+
 
 get_header();
 ?>
@@ -68,19 +71,19 @@ get_header();
                                 <?php if ($heading): ?>
                                     <h1
                                         class="text-white heading-xl md:text-4xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
-                                        <?php echo esc_html($heading); ?>
+                                        <?php echo wp_kses_post($heading); ?>
                                     </h1>
                                 <?php endif; ?>
 
                                 <?php if ($hero_description): ?>
                                     <p class="text-white text-sm md:text-lg mb-7 body-small-regular md:mb-6">
-                                        <?php echo esc_html($hero_description); ?>
+                                        <?php echo wp_kses_post($hero_description); ?>
                                     </p>
                                 <?php endif; ?>
 
                                 <?php if ($read_more_button_text): ?>
                                     <a href="#" class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
-                                        <?php echo esc_html($read_more_button_text); ?>
+                                        <?php echo wp_kses_post($read_more_button_text); ?>
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -116,11 +119,11 @@ get_header();
                 <div id="sale-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                            <?php echo esc_html($sale_heading); ?>
+                            <?php echo wp_kses_post($sale_heading); ?>
                         </h3>
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
                             <a class="flex gap-3" href="#">
-                                <span><?php echo esc_html($more_button_text); ?></span>
+                                <span><?php echo wp_kses_post($more_button_text); ?></span>
                                 <div class="flex items-center">
                                     <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -191,7 +194,7 @@ get_header();
                                                 $categories = get_the_terms($product->get_id(), 'product_cat');
                                                 if (!empty($categories) && !is_wp_error($categories)) {
                                                     $category = $categories[0];
-                                                    echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . esc_html($category->name) . '</a>';
+                                                    echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
                                                 }
                                                 ?>
 
@@ -254,11 +257,11 @@ get_header();
                 <div id="new-products-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                            <?php echo esc_html($new_products_heading); ?>
+                            <?php echo wp_kses_post($new_products_heading); ?>
                         </h3>
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
                             <a class="flex gap-3" href="#">
-                                <span><?php echo esc_html($more_button_text); ?></span>
+                                <span><?php echo wp_kses_post($more_button_text); ?></span>
                                 <div class="flex items-center">
                                     <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -350,7 +353,7 @@ get_header();
                                                 $categories = get_the_terms($product->get_id(), 'product_cat');
                                                 if (!empty($categories) && !is_wp_error($categories)) {
                                                     $category = $categories[0];
-                                                    echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . esc_html($category->name) . '</a>';
+                                                    echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
                                                 }
                                                 ?>
 
@@ -427,7 +430,7 @@ get_header();
                                         <div class="px-5 absolute bottom-5 right-0 w-full">
                                             <a href="<?php echo get_term_link($category); ?>"
                                                 class="py-3 white-button-white-text inline-block w-full text-center">
-                                                <?php echo esc_html($category->name); ?>
+                                                <?php echo wp_kses_post($category->name); ?>
                                             </a>
                                         </div>
 
@@ -460,12 +463,12 @@ get_header();
                 <div id="popular-products-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                            <?php echo esc_html($popular_products_heading); ?>
+                            <?php echo wp_kses_post($popular_products_heading); ?>
                         </h3>
                         <?php if ($more_button_text): ?>
                             <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
                                 <a class="flex gap-3" href="#">
-                                    <span><?php echo esc_html($more_button_text); ?></span>
+                                    <span><?php echo wp_kses_post($more_button_text); ?></span>
                                     <div class="flex items-center">
                                         <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -557,7 +560,7 @@ get_header();
                                                 $categories = get_the_terms($product->get_id(), 'product_cat');
                                                 if (!empty($categories) && !is_wp_error($categories)) {
                                                     $category = $categories[0];
-                                                    echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . esc_html($category->name) . '</a>';
+                                                    echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
                                                 }
                                                 ?>
 
@@ -600,7 +603,26 @@ get_header();
             <?php endif; ?>
 
             <?php if ($blog_heading): ?> <!-- or no blogs-->
-                <div id="blog-section" class="mb-28 md:mb-20"></div>
+                <div id="blog-section" class="mb-28 md:mb-20">
+                    <div class="flex justify-between w-full mb-7">
+                        <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
+                            <?php echo wp_kses_post($blog_heading); ?>
+                        </h3>
+                        <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
+                            <a class="flex gap-3" href="#">
+                                <span><?php echo wp_kses_post($more_button_text); ?></span>
+                                <div class="flex items-center">
+                                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                            fill="#201F1F" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             <?php endif; ?>
 
             <?php if ($about_heading_1 || $about_description_1 || $about_image_1 || $about_heading_2 || $about_description_2 || $about_image_2): ?>
@@ -618,14 +640,15 @@ get_header();
                         <div
                             class="text-deep-dark-gray rounded-tr-[12px] lg:rounded-tr-[0px] lg:z-1 col-span-6 lg:col-span-12 bg-light-gray px-16 pt-8 pb-28 lg:justify-space-between lg:pt-10 lg:pb-14 flex flex-col justify-end min-h-[365px] lg:min-h-[0px] h-full lg:h-auto order-2 lg:px-5">
                             <h3 class="heading-md mb-4 lg:mb-5 lg:text-[1.125rem] lg:leading-[1.375rem]">
-                                <?php echo $about_heading_1 ?>
+                                <?php echo wp_kses_post($about_heading_1) ?>
                             </h3>
-                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8"><?php echo $about_description_1 ?>
+                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8">
+                                <?php echo wp_kses_post($about_description_1) ?>
                             </p>
                             <?php if ($read_more_button_text): ?>
                                 <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
                                     <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
-                                        <span><?php echo esc_html($read_more_button_text); ?></span>
+                                        <span><?php echo wp_kses_post($read_more_button_text); ?></span>
                                         <div class="flex items-center">
                                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -644,14 +667,15 @@ get_header();
                         <div
                             class="text-deep-dark-gray rounded-bl-[12px] lg:rounded-b-[12px] col-span-6 lg:z-2 lg:col-span-12 lg:py-10 bg-light-gray px-16 pt-8 pb-28 flex flex-col justify-end lg:justify-space-between min-h-[365px] lg:min-h-[0px] h-full lg:h-auto order-3 lg:order-4 lg:px-5 lg:relative lg:top-[-1rem]">
                             <h3 class="heading-md mb-4 lg:mb-5 lg:text-[1.125rem] lg:leading-[1.375rem]">
-                                <?php echo $about_heading_2 ?>
+                                <?php echo wp_kses_post($about_heading_2) ?>
                             </h3>
-                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8"><?php echo $about_description_2 ?>
+                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8">
+                                <?php echo wp_kses_post($about_description_2) ?>
                             </p>
                             <?php if ($read_more_button_text): ?>
                                 <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
                                     <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
-                                        <span><?php echo esc_html($read_more_button_text); ?></span>
+                                        <span><?php echo wp_kses_post($read_more_button_text); ?></span>
                                         <div class="flex items-center">
                                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -677,10 +701,54 @@ get_header();
             <?php endif; ?>
 
 
+            <!-- TODO add check if there are gallery items -->
+            <?php if ($follow_us_heading || $instagram_link || $instagram_button_text): ?>
+                <div id="instagram-section" class="grid grid-cols-12 gap-4">
+                    <div
+                        class="col-span-2 lg:col-span-3 md:col-span-12 flex flex-col w-full justify-center md:flex-nowrap md:flex-row md:mb-8">
+                        <?php if ($follow_us_heading): ?>
+                            <h3
+                                class="w-full heading-md text-deep-dark-gray mb-6 md:mb-0 md:text-[1.125rem] md:leading-[1.375rem] md:max-w-32">
+                                <?php echo wp_kses_post($follow_us_heading); ?>
+                            </h3>
+                        <?php endif; ?>
+                        <?php if ($instagram_link && $instagram_button_text): ?>
+                            <div class="w-full h-auto md:flex md:justify-end md:items-center">
+                                <a class="white-button-black-text px-6 py-4 normal-case body-normal-regular md:px-7 md:font-normal md:text-[1.125rem] md:leading-[1.375rem] "
+                                    target="_blank" href="<?php echo esc_url($instagram_link); ?>">
+                                    <?php echo wp_kses_post($instagram_button_text); ?>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col-span-10 lg:col-span-9 md:col-span-12">
+                        <?php if (!empty($instagram_gallery)): ?>
+                            <div class="instagram-gallery-swiper">
+                                <div class="swiper-wrapper">
+                                    <?php foreach ($instagram_gallery as $image_url): ?>
+                                        <div class="swiper-slide round-12">
+                                            <img src="<?php echo esc_url($image_url); ?>" alt="Instagram Image"
+                                                class="instagram-image w-full h-auto object-cover aspect-square round-12">
+                                            <a class="instagram-image-overlay flex round-12 absolute inset-0 left-0 top-0 w-full h-full bg-black/[.32] justify-center items-center"
+                                                href="<?php echo esc_url($instagram_link); ?>" target="_blank">
+                                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.51451 3.14844C8.34263 3.14844 9.85156 4.65737 9.85156 6.48549C9.85156 8.34263 8.34263 9.82254 6.51451 9.82254C4.65737 9.82254 3.17746 8.34263 3.17746 6.48549C3.17746 4.65737 4.65737 3.14844 6.51451 3.14844ZM6.51451 8.66183C7.70424 8.66183 8.66183 7.70424 8.66183 6.48549C8.66183 5.29576 7.70424 4.33817 6.51451 4.33817C5.29576 4.33817 4.33817 5.29576 4.33817 6.48549C4.33817 7.70424 5.32478 8.66183 6.51451 8.66183ZM10.7511 3.03237C10.7511 3.46763 10.4029 3.81585 9.96763 3.81585C9.53237 3.81585 9.18415 3.46763 9.18415 3.03237C9.18415 2.5971 9.53237 2.24888 9.96763 2.24888C10.4029 2.24888 10.7511 2.5971 10.7511 3.03237ZM12.9565 3.81585C13.0145 4.88951 13.0145 8.11049 12.9565 9.18415C12.8984 10.2288 12.6663 11.1283 11.9118 11.9118C11.1574 12.6663 10.2288 12.8984 9.18415 12.9565C8.11049 13.0145 4.88951 13.0145 3.81585 12.9565C2.77121 12.8984 1.87165 12.6663 1.08817 11.9118C0.333705 11.1283 0.101562 10.2288 0.0435268 9.18415C-0.0145089 8.11049 -0.0145089 4.88951 0.0435268 3.81585C0.101562 2.77121 0.333705 1.84263 1.08817 1.08817C1.87165 0.333705 2.77121 0.101562 3.81585 0.0435268C4.88951 -0.0145089 8.11049 -0.0145089 9.18415 0.0435268C10.2288 0.101562 11.1574 0.333705 11.9118 1.08817C12.6663 1.84263 12.8984 2.77121 12.9565 3.81585ZM11.5636 10.3158C11.9118 9.47433 11.8248 7.44308 11.8248 6.48549C11.8248 5.55692 11.9118 3.52567 11.5636 2.65513C11.3315 2.10379 10.8962 1.63951 10.3449 1.43638C9.47433 1.08817 7.44308 1.17522 6.51451 1.17522C5.55692 1.17522 3.52567 1.08817 2.68415 1.43638C2.10379 1.66853 1.66853 2.10379 1.43638 2.65513C1.08817 3.52567 1.17522 5.55692 1.17522 6.48549C1.17522 7.44308 1.08817 9.47433 1.43638 10.3158C1.66853 10.8962 2.10379 11.3315 2.68415 11.5636C3.52567 11.9118 5.55692 11.8248 6.51451 11.8248C7.44308 11.8248 9.47433 11.9118 10.3449 11.5636C10.8962 11.3315 11.3605 10.8962 11.5636 10.3158Z"
+                                                        fill="white" />
+                                                </svg>
 
-            <?php if ($follow_us_heading || $instagram_url): ?>
-                <div id="instagram-section"></div>
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
             <?php endif; ?>
+
+
         </div><!-- .page-content -->
     </main><!-- #main -->
 </section><!-- #primary -->

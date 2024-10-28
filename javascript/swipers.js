@@ -16,14 +16,28 @@ document.addEventListener('DOMContentLoaded', function () {
 			1279: {
 				slidesPerView: 4,
 			},
-			1023: {
-				slidesPerView: 3,
-			},
 			767: {
-				slidesPerView: 2,
+				slidesPerView: 3,
 			},
 			1: {
 				slidesPerView: 2,
+			},
+		},
+	});
+
+	const gallerySwiper = new Swiper('.instagram-gallery-swiper', {
+		loop: false,
+		spaceBetween: 16,
+		slidesPerView: 3.5,
+		breakpoints: {
+			1023: {
+				slidesPerView: 3.5,
+			},
+			767: {
+				slidesPerView: 2.6,
+			},
+			1: {
+				slidesPerView: 2.2,
 			},
 		},
 	});

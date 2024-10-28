@@ -1,4 +1,4 @@
 import './header.js';
 import './footer.js';
-import './swiper.js';
+import './swipers.js';
 import './hover-circle.js';
