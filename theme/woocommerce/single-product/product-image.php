@@ -1,0 +1,39 @@
+<?php
+/**
+ * Single Product Image with Swiper Integration
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product/product-image.php.
+ */
+
+defined('ABSPATH') || exit;
+
+global $product;
+
+// Get the main product image and gallery images
+$post_thumbnail_id = $product->get_image_id();
+$attachment_ids = $product->get_gallery_image_ids();
+?>
+
+<div class="woocommerce-product-gallery product-gallery-swiper col-span-6">
+	<!-- Swiper Wrapper -->
+	<div class="swiper-wrapper">
+		<!-- Main Product Image -->
+		<?php if ($post_thumbnail_id): ?>
+			<div class="swiper-slide">
+				<?php echo wp_get_attachment_image($post_thumbnail_id, 'large', false, ['class' => 'w-full object-cover rounded-lg']); ?>
+			</div>
+		<?php endif; ?>
+
+		<!-- Product Gallery Images -->
+		<?php if ($attachment_ids): ?>
+			<?php foreach ($attachment_ids as $attachment_id): ?>
+				<div class="swiper-slide">
+					<?php echo wp_get_attachment_image($attachment_id, 'large', false, ['class' => 'w-full object-cover rounded-lg']); ?>
+				</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
+
+	<!-- Swiper Pagination -->
+	<div class="product-gallery-swiper-pagination swiper-pagination"></div>
+</div>

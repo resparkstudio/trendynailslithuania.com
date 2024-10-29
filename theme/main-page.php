@@ -242,7 +242,7 @@ get_header();
             $new_product_days = 30;
             $args = array(
                 'post_type' => 'product',
-                'posts_per_page' => 10,
+                'posts_per_page' => 20,
                 'orderby' => 'date',
                 'order' => 'DESC',
                 'date_query' => array(
@@ -279,30 +279,10 @@ get_header();
                         <div class="relative swiper-container overflow-hidden">
                             <div id="product-swiper-wrapper" class="swiper-wrapper">
                                 <?php
-                                $args = array(
-                                    'post_type' => 'product',
-                                    'posts_per_page' => 10,
-                                    'meta_query' => array(
-                                        'relation' => 'OR',
-                                        array(
-                                            'key' => '_sale_price',
-                                            'value' => 0,
-                                            'compare' => '>',
-                                            'type' => 'NUMERIC'
-                                        ),
-                                        array(
-                                            'key' => '_min_variation_sale_price',
-                                            'value' => 0,
-                                            'compare' => '>',
-                                            'type' => 'NUMERIC'
-                                        )
-                                    )
-                                );
-                                $new_product_loop = new WP_Query($args);
+
                                 if ($new_product_loop->have_posts()):
                                     while ($new_product_loop->have_posts()):
                                         $new_product_loop->the_post();
-                                        global $product;
                                         ?>
                                         <div class="swiper-slide">
                                             <div class="relative product-card flex flex-col">

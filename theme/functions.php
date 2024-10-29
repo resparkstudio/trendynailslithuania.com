@@ -265,6 +265,12 @@ function add_popular_product_checkbox()
 	echo '</div>';
 }
 
+// remove breadcrumbs
+remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+// Remove the "On Sale" badge from its default position
+remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
+
+
 // Save checkbox
 function save_popular_product_checkbox($post_id)
 {
