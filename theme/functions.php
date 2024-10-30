@@ -269,6 +269,17 @@ function add_popular_product_checkbox()
 remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 // Remove the "On Sale" badge from its default position
 remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
+add_filter('woocommerce_product_tabs', 'remove_product_tabs', 98);
+// Remove product meta (Category, SKU) from single product pages
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+
+function remove_product_tabs($tabs)
+{
+	unset($tabs['description']);            // Remove the description tab
+	unset($tabs['additional_information']); // Remove the additional information tab
+	unset($tabs['reviews']);                // Remove the reviews tab
+	return $tabs;
+}
 
 
 // Save checkbox

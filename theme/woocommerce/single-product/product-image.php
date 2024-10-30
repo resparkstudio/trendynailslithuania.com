@@ -14,26 +14,28 @@ $post_thumbnail_id = $product->get_image_id();
 $attachment_ids = $product->get_gallery_image_ids();
 ?>
 
-<div class="woocommerce-product-gallery product-gallery-swiper col-span-6">
+<div class="woocommerce-product-gallery product-gallery-swiper col-span-6 overflow-hidden relative">
 	<!-- Swiper Wrapper -->
 	<div class="swiper-wrapper">
 		<!-- Main Product Image -->
 		<?php if ($post_thumbnail_id): ?>
-			<div class="swiper-slide">
-				<?php echo wp_get_attachment_image($post_thumbnail_id, 'large', false, ['class' => 'w-full object-cover rounded-lg']); ?>
+			<div class="swiper-slide aspect-[663/725] object-center w-full relative">
+				<?php echo wp_get_attachment_image($post_thumbnail_id, 'large', false, ['class' => 'w-full h-full object-cover rounded-lg']); ?>
 			</div>
 		<?php endif; ?>
 
 		<!-- Product Gallery Images -->
 		<?php if ($attachment_ids): ?>
 			<?php foreach ($attachment_ids as $attachment_id): ?>
-				<div class="swiper-slide">
-					<?php echo wp_get_attachment_image($attachment_id, 'large', false, ['class' => 'w-full object-cover rounded-lg']); ?>
+				<div class="swiper-slide aspect-[663/725] object-center w-full relative">
+					<?php echo wp_get_attachment_image($attachment_id, 'large', false, ['class' => 'w-full h-full object-cover rounded-lg']); ?>
 				</div>
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</div>
 
 	<!-- Swiper Pagination -->
-	<div class="product-gallery-swiper-pagination swiper-pagination"></div>
+	<div id="single-product-gallery-swiper-pagination"
+		class="z-10 product-gallery-swiper-pagination pb-5 px-5 gap-2 absolute flex justify-end">
+	</div>
 </div>

@@ -155,17 +155,27 @@ body {
 	@apply h-full; /* Overriding woocommerce default height style */
 }
 
-#product-section .product-gallery-swiper-pagination {
+#single-product-gallery-swiper-pagination {
 	bottom: 0;
 	left: 0;
 }
 
-#product-section .swiper-pagination-bullet {
+#single-product-gallery-swiper-pagination .swiper-pagination-bullet {
 	@apply bg-mid-gray m-0 inline-block;
 }
 
-#product-section .swiper-pagination-bullet-active {
+#single-product-gallery-swiper-pagination .swiper-pagination-bullet-active {
 	@apply bg-deep-dark-gray;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.quantity-input {
+	-moz-appearance: textfield;
 }
 
 /* --------------------------------- Sidebar */

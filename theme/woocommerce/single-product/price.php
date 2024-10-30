@@ -15,11 +15,24 @@
  * @version 3.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
 global $product;
 
 ?>
-<p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>"><?php echo $product->get_price_html(); ?></p>
+<?php if ($product->is_on_sale()): ?>
+	<div class='price text-deep-dark-gray flex'>
+		<div class="body-normal-semibold pr-2.5">
+			<span class="woocommerce-Price-amount amount body-normal-semibold"><?php echo $product->get_sale_price() ?>
+			</span>
+			<span class="woocommerce-Price-currencySymbol"><?php echo get_woocommerce_currency_symbol() ?>
+			</span>
+		</div>
+		<del class="body-small-regular text-mid-gray flex items-center md:text-medium md:text-[0.9375rem]"><?php echo wc_price($product->get_regular_price()); ?>
+		</del>
+	</div>
+<?php else: ?>
+	<div class='price text-deep-dark-gray body-normal-semibold'><?php echo $product->get_price_html(); ?></span>
+	<?php endif; ?>
