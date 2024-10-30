@@ -39,36 +39,40 @@ if (post_password_required()) {
 
 			<div class="product-additional-info">
 				<?php if ($usage_conditions): ?>
-					<div class="flex flex-nowrap">
-						<h3 class="uppercase text-black grow"><?php echo wp_kses_post($usage_conditions['label']); ?></h3>
-						<div class="plus-icon-wrap grow-0 flex justify-center items-center">
-							<div class="plus-stripe-h flex justify-center items-center">
+					<div class="info-expand flex flex-nowrap cursor-pointer z-30 bg-white">
+						<h3 class="uppercase text-black grow flex items-center mb-4">
+							<?php echo wp_kses_post($usage_conditions['label']); ?>
+						</h3>
+						<div class="plus-icon-wrap grow-0 flex justify-center items-center relative p-4">
+							<div class="plus-stripe-h flex absolute">
 								<svg width="7" height="2" viewBox="0 0 7 2" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M0.896 0.632H6.412V1.584H0.896V0.632Z" fill="black" />
 								</svg>
 							</div>
-							<div class="plus-stripe-v flex justify-center items-center">
+							<div class="plus-stripe-v flex absolute rotate-90">
 								<svg width="7" height="2" viewBox="0 0 7 2" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M0.896 0.632H6.412V1.584H0.896V0.632Z" fill="black" />
 								</svg>
 							</div>
 						</div>
 					</div>
-					<div class="product-usage-conditions body-small-regular text-deep-dark-gray">
+					<div class="info-text body-small-regular text-deep-dark-gray hidden">
 						<?php echo wp_kses_post($usage_conditions['value']); ?>
 					</div>
 				<?php endif; ?>
 
 				<?php if ($ingredients): ?>
-					<h3 class="uppercase text-black"><?php echo wp_kses_post($ingredients['label']); ?></h3>
-					<div class="product-ingredients body-small-regular text-deep-dark-gray">
-						<?php echo wp_kses_post($ingredients['value']); ?>
+					<div class="info-expand flex flex-nowrap cursor-pointer z-20 bg-white">
+						<h3 class="uppercase text-black my-4"><?php echo wp_kses_post($ingredients['label']); ?></h3>
+						<div class="info-text body-small-regular text-deep-dark-gray">
+							<?php echo wp_kses_post($ingredients['value']); ?>
+						</div>
 					</div>
 				<?php endif; ?>
 
 				<?php if ($shipping): ?>
-					<h3 class="uppercase text-black"><?php echo wp_kses_post($shipping['label']); ?></h3>
-					<div class="product-shipping body-small-regular text-deep-dark-gray">
+					<h3 class="uppercase text-black my-4"><?php echo wp_kses_post($shipping['label']); ?></h3>
+					<div class="info-text body-small-regular text-deep-dark-gray">
 						<?php echo wp_kses_post($shipping['value']); ?>
 					</div>
 				<?php endif; ?>
