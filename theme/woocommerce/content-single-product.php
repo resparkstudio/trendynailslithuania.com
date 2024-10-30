@@ -23,6 +23,7 @@ if (post_password_required()) {
 		?>
 
 		<div class="col-span-6 pl-16">
+
 			<?php
 			do_action('woocommerce_single_product_summary'); // Product summary section
 			?>

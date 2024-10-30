@@ -5,13 +5,17 @@ defined( 'ABSPATH' ) || exit;
 $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 'woocommerce' ), wp_strip_all_tags( $args['product_name'] ) ) : esc_html__( 'Quantity', 'woocommerce' );
 
 ?>
-<div class="flex items-center border border-gray-300 rounded-lg overflow-hidden w-24">
-    <button type="button" class="minus px-3 py-2 text-gray-600 hover:bg-gray-100 focus:outline-none" onclick="this.nextElementSibling.stepDown()">-</button>
+<div class="flex items-center border-[0.7px] round-9 py-3 border-deep-dark-gray justify-center overflow-hidden grow-0 ">
+    <button type="button" class="minus focus:outline-none flex items-center justify-center pl-5 text-[1.5rem] text-deep-dark-gray" onclick="this.nextElementSibling.stepDown()">
+    <span>
+            <?php echo wp_kses_post("-") ?>
+    </span>
+    </button>
     <input
         type="<?php echo esc_attr( $type ); ?>"
         <?php echo $readonly ? 'readonly="readonly"' : ''; ?>
         id="<?php echo esc_attr( $input_id ); ?>"
-        class="quantity-input w-10 text-center text-base focus:outline-none"
+        class="quantity-input text-center text-base focus:outline-none body-normal-semibold text-[1.5rem] text-deep-dark-gray"
         name="<?php echo esc_attr( $input_name ); ?>"
         value="<?php echo esc_attr( $input_value ); ?>"
         aria-label="<?php esc_attr_e( 'Product quantity', 'woocommerce' ); ?>"
@@ -25,7 +29,13 @@ $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 
             autocomplete="<?php echo esc_attr( isset( $autocomplete ) ? $autocomplete : 'on' ); ?>"
         <?php endif; ?>
     />
-    <button type="button" class="plus px-3 py-2 text-gray-600 hover:bg-gray-100 focus:outline-none" onclick="this.previousElementSibling.stepUp()">+</button>
+    <button type="button" class="plus focus:outline-none flex items-center justify-center pr-5 text-[1.5rem] text-deep-dark-gray" onclick="this.previousElementSibling.stepUp()">
+        <span>
+            <?php echo wp_kses_post("+") ?>
+    </span>
+    </button>
 </div>
+
+
 
 <?php

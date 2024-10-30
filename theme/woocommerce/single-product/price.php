@@ -23,7 +23,7 @@ global $product;
 
 ?>
 <?php if ($product->is_on_sale()): ?>
-	<div class='price text-deep-dark-gray flex'>
+	<div class='price text-deep-dark-gray flex mt-5 mb-8'>
 		<div class="body-normal-semibold pr-2.5">
 			<span class="woocommerce-Price-amount amount body-normal-semibold"><?php echo $product->get_sale_price() ?>
 			</span>
