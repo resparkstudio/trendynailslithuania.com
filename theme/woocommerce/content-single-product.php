@@ -24,7 +24,7 @@ if (post_password_required()) {
 		do_action('woocommerce_before_single_product_summary'); // Product gallery section
 		?>
 
-		<div class="col-span-6 pl-16">
+		<div class="col-span-6 pl-16 pt-28">
 
 			<?php
 			do_action('woocommerce_single_product_summary'); // Product summary section
@@ -37,58 +37,67 @@ if (post_password_required()) {
 			$shipping = get_field_object('product_shipping');
 			?>
 
-			<div class="product-additional-info">
+			<div class="product-additional-info overflow-hidden">
 				<?php if ($usage_conditions): ?>
-					<div class="info-expand flex flex-nowrap cursor-pointer z-30 bg-white">
-						<h3 class="uppercase text-black grow flex items-center mb-4">
+					<div
+						class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer z-10 bg-white">
+						<h3 class="uppercase text-black grow flex items-center">
 							<?php echo wp_kses_post($usage_conditions['label']); ?>
 						</h3>
-						<div class="plus-icon-wrap grow-0 flex justify-center items-center relative p-4">
-							<div class="plus-stripe-h flex absolute">
-								<svg width="7" height="2" viewBox="0 0 7 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0.896 0.632H6.412V1.584H0.896V0.632Z" fill="black" />
-								</svg>
-							</div>
-							<div class="plus-stripe-v flex absolute rotate-90">
-								<svg width="7" height="2" viewBox="0 0 7 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0.896 0.632H6.412V1.584H0.896V0.632Z" fill="black" />
-								</svg>
-							</div>
+						<div class="plus-icon-wrap grow-0 flex justify-center items-center relative w-3 h-3">
+							<div class="plus-stripe-h absolute w-full h-[0.1rem] bg-black"></div>
+							<div class="plus-stripe-v absolute h-full w-[0.1rem] bg-black "></div>
 						</div>
 					</div>
-					<div class="info-text body-small-regular text-deep-dark-gray hidden">
-						<?php echo wp_kses_post($usage_conditions['value']); ?>
+					<div class="info-text body-small-regular text-deep-dark-gray hidden pb-4">
+						<p class="pb-7 pt-4"><?php echo wp_kses_post($usage_conditions['value']); ?></p>
 					</div>
 				<?php endif; ?>
 
 				<?php if ($ingredients): ?>
-					<div class="info-expand flex flex-nowrap cursor-pointer z-20 bg-white">
-						<h3 class="uppercase text-black my-4"><?php echo wp_kses_post($ingredients['label']); ?></h3>
-						<div class="info-text body-small-regular text-deep-dark-gray">
-							<?php echo wp_kses_post($ingredients['value']); ?>
+					<div
+						class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer z-10 bg-white pt-4">
+						<h3 class="uppercase text-black grow flex items-center">
+							<?php echo wp_kses_post($ingredients['label']); ?>
+						</h3>
+						<div class="plus-icon-wrap grow-0 flex justify-center items-center relative w-3 h-3">
+							<div class="plus-stripe-h absolute w-full h-[0.1rem] bg-black"></div>
+							<div class="plus-stripe-v absolute h-full w-[0.1rem] bg-black "></div>
 						</div>
+					</div>
+					<div class="info-text body-small-regular text-deep-dark-gray hidden pb-4">
+						<p class="pb-7 pt-4"><?php echo wp_kses_post($ingredients['value']); ?></p>
 					</div>
 				<?php endif; ?>
 
 				<?php if ($shipping): ?>
-					<h3 class="uppercase text-black my-4"><?php echo wp_kses_post($shipping['label']); ?></h3>
-					<div class="info-text body-small-regular text-deep-dark-gray">
-						<?php echo wp_kses_post($shipping['value']); ?>
+					<div
+						class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer z-10 bg-white pt-4">
+						<h3 class="uppercase text-black grow flex items-center">
+							<?php echo wp_kses_post($shipping['label']); ?>
+						</h3>
+						<div class="plus-icon-wrap grow-0 flex justify-center items-center relative w-3 h-3">
+							<div class="plus-stripe-h absolute w-full h-[0.1rem] bg-black"></div>
+							<div class="plus-stripe-v absolute h-full w-[0.1rem] bg-black "></div>
+						</div>
+					</div>
+					<div class="info-text body-small-regular text-deep-dark-gray hidden pb-4 ">
+						<p class="pb-7 pt-4"><?php echo wp_kses_post($shipping['value']); ?></p>
 					</div>
 				<?php endif; ?>
 
 				<?php if ($product->get_sku()): ?>
-					<div class="product-meta-info mt-4 text-sm">
-						<div class="product-sku">Produkto kodas:
-							<?php esc_html($product->get_sku()) ?>'
+					<div class="product-meta-info mt-4 text-sm bg-white z-40 relative body-extra-small-regular text-black">
+						<div class="product-sku">
+							<?php esc_kses_post("Produkto kodas: " . $product->get_sku()) ?>'
 						</div>
 					</div>
 				<?php endif; ?>
 
 				<?php $categories = wc_get_product_category_list($product->get_id(), ', '); ?>
 				<?php if ($categories): ?>
-					<div>
-						<div class="product-category">Kategorija: <?php wp_kses_post($categories) ?></div>
+					<div class="z-40 relative bg-white  text-black" body-extra-small-regular>
+						<div class="product-category "><?php wp_kses_post("Kategorija: " . $categories) ?></div>
 					<?php endif; ?>
 				</div>
 			</div>

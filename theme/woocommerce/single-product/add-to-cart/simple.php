@@ -49,7 +49,7 @@ if ($product->is_in_stock()): ?>
 			?>
 			<button id="single-product-add-to-cart" type="submit" name="add-to-cart"
 				value="<?php echo esc_attr($product->get_id()); ?>"
-				class="single_add_to_cart_button black-button grow py-3<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"><?php echo esc_html("Į krepšelį"); ?></button>
+				class="single_add_to_cart_button black-button grow py-2<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"><?php echo esc_html("Į krepšelį"); ?></button>
 		</div>
 		<?php do_action('woocommerce_after_add_to_cart_button'); ?>
 	</form>

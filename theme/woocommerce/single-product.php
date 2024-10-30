@@ -11,7 +11,7 @@ get_header('shop'); ?>
 
 do_action('woocommerce_before_main_content');
 ?>
-<div class="max-w-[87.5rem] mx-auto w-full px-12 md:px-4 mb-40 md:mb-32 mt-5 md:mt-0">
+<div id="single-product-page" class="max-w-[87.5rem] mx-auto w-full px-12 md:px-4 mb-40 md:mb-32 mt-5 md:mt-0">
 	<?php while (have_posts()): ?>
 		<?php the_post(); ?>
 

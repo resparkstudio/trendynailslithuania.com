@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
 $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 'woocommerce' ), wp_strip_all_tags( $args['product_name'] ) ) : esc_html__( 'Quantity', 'woocommerce' );
 
 ?>
-<div class="flex items-center border-[0.7px] round-9 py-3 border-deep-dark-gray justify-center overflow-hidden grow-0 ">
+<div class="flex items-center border-[0.7px] round-9 py-2 border-deep-dark-gray justify-center overflow-hidden grow-0 ">
     <button type="button" class="minus focus:outline-none flex items-center justify-center pl-5 text-[1.5rem] text-deep-dark-gray" onclick="this.nextElementSibling.stepDown()">
     <span>
             <?php echo wp_kses_post("-") ?>

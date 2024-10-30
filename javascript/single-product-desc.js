@@ -1,50 +1,69 @@
 import gsap from 'gsap';
+import { ExpoScaleEase } from 'gsap/EasePack';
+import { CustomEase } from 'gsap/CustomEase';
+gsap.registerPlugin(ExpoScaleEase);
+gsap.registerPlugin(CustomEase);
 
-const expandElement = document.querySelector('.info-expand');
-const infoTextElement = document.querySelector('.info-text');
-const plusStripeV = document.querySelector('.plus-stripe-v');
-const plusStripeH = document.querySelector('.plus-stripe-h');
+const expandElements = document.querySelectorAll('.info-expand');
+const infoTextElements = document.querySelectorAll('.info-text');
 
-let isExpanded = false;
+expandElements.forEach((expandElement, index) => {
+	const infoTextElement = infoTextElements[index];
+	const plusIconWrap = expandElement.querySelector('.plus-icon-wrap');
+	const plusStripeV = plusIconWrap.querySelector('.plus-stripe-v');
 
-expandElement.addEventListener('click', () => {
-	isExpanded = !isExpanded;
+	let isExpanded = false;
 
-	if (isExpanded) {
-		infoTextElement.classList.remove('hidden');
+	expandElement.addEventListener('click', () => {
+		isExpanded = !isExpanded;
 
-		gsap.fromTo(
-			infoTextElement,
-			{ height: 0, opacity: 0 },
-			{ height: 'auto', opacity: 1, ease: 'power2.out', duration: 0.6 }
-		);
+		if (isExpanded) {
+			infoTextElement.classList.remove('hidden');
 
-		gsap.to(plusStripeV, {
-			rotation: 180,
-			opacity: 0,
-			ease: 'power2.out',
-			duration: 0.6,
-		});
-		gsap.to(plusStripeH, {
-			rotation: 180,
-			ease: 'power2.out',
-			duration: 0.6,
-		});
-	} else {
-		gsap.to(infoTextElement, {
-			height: 0,
-			opacity: 0,
-			ease: 'power2.in',
-			duration: 0.6,
-			onComplete: () => infoTextElement.classList.add('hidden'),
-		});
+			gsap.fromTo(
+				infoTextElement,
+				{ height: 0, opacity: 0, paddingBottom: 0, y: 20 },
+				{
+					height: 'auto',
+					opacity: 1,
+					y: 0,
+					ease: 'power1.out',
+					duration: 0.4,
+				}
+			);
 
-		gsap.to(plusStripeV, {
-			rotation: 90,
-			opacity: 1,
-			ease: 'power2.in',
-			duration: 0.6,
-		});
-		gsap.to(plusStripeH, { rotation: 0, ease: 'power2.in', duration: 0.6 });
-	}
+			gsap.to(plusIconWrap, {
+				rotation: 180,
+				ease: 'power1.out',
+				duration: 0.4,
+			});
+			gsap.to(plusStripeV, {
+				opacity: 0,
+				ease: 'power1.out',
+				duration: 0.4,
+			});
+		} else {
+			gsap.to(infoTextElement, {
+				height: 0,
+				opacity: 0,
+				y: 20,
+				ease: 'power1.out',
+				duration: 0.5,
+				onComplete: () => {
+					infoTextElement.classList.add('hidden');
+				},
+			});
+
+			gsap.to(plusIconWrap, {
+				rotation: 0,
+				ease: 'power1.out',
+				duration: 0.5,
+			});
+			gsap.to(plusStripeV, {
+				opacity: 1,
+				ease: 'power1.out',
+				duration: 0.5,
+			});
+		}
+	});
 });

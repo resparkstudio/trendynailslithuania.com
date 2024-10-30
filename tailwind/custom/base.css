@@ -119,6 +119,12 @@ body {
 	@apply w-auto flex-shrink-0;
 }
 
+#single-product-page .swiper-wrapper,
+#single-product-page .swiper-slide,
+#single-product-page .product-gallery-swiper {
+	height: auto;
+}
+
 #instagram-section .swiper-slide:hover .instagram-image-overlay {
 	opacity: 1;
 }
@@ -150,10 +156,6 @@ body {
 }
 
 /* --------------------------------- Single product */
-
-.product-gallery-swiper img {
-	@apply h-full; /* Overriding woocommerce default height style */
-}
 
 #single-product-gallery-swiper-pagination {
 	bottom: 0;
