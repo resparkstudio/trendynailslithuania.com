@@ -15,6 +15,8 @@ if (post_password_required()) {
 	echo get_the_password_form(); // WPCS: XSS ok.
 	return;
 }
+
+
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
 	<div class="grid grid-cols-12">
@@ -30,30 +32,44 @@ if (post_password_required()) {
 
 			<?php
 			// Custom Sections for Product Information
-			$usage_conditions = get_field('product_usage_conditions');
-			$ingredients = get_field('product_ingredients');
-			$shipping = get_field('product_shipping');
+			$usage_conditions = get_field_object('product_usage_conditions');
+			$ingredients = get_field_object('product_ingredients');
+			$shipping = get_field_object('product_shipping');
 			?>
 
 			<div class="product-additional-info">
 				<?php if ($usage_conditions): ?>
-					<h3>NAUDOJIMAS IR LAIKYMO SĄLYGOS</h3>
-					<div class="product-usage-conditions">
-						<?php echo wp_kses_post($usage_conditions); ?>
+					<div class="flex flex-nowrap">
+						<h3 class="uppercase text-black grow"><?php echo wp_kses_post($usage_conditions['label']); ?></h3>
+						<div class="plus-icon-wrap grow-0 flex justify-center items-center">
+							<div class="plus-stripe-h flex justify-center items-center">
+								<svg width="7" height="2" viewBox="0 0 7 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0.896 0.632H6.412V1.584H0.896V0.632Z" fill="black" />
+								</svg>
+							</div>
+							<div class="plus-stripe-v flex justify-center items-center">
+								<svg width="7" height="2" viewBox="0 0 7 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0.896 0.632H6.412V1.584H0.896V0.632Z" fill="black" />
+								</svg>
+							</div>
+						</div>
+					</div>
+					<div class="product-usage-conditions body-small-regular text-deep-dark-gray">
+						<?php echo wp_kses_post($usage_conditions['value']); ?>
 					</div>
 				<?php endif; ?>
 
 				<?php if ($ingredients): ?>
-					<h3>SUDĖTIS</h3>
-					<div class="product-ingredients">
-						<?php echo wp_kses_post($ingredients); ?>
+					<h3 class="uppercase text-black"><?php echo wp_kses_post($ingredients['label']); ?></h3>
+					<div class="product-ingredients body-small-regular text-deep-dark-gray">
+						<?php echo wp_kses_post($ingredients['value']); ?>
 					</div>
 				<?php endif; ?>
 
 				<?php if ($shipping): ?>
-					<h3>PRISTATYMAS</h3>
-					<div class="product-shipping">
-						<?php echo wp_kses_post($shipping); ?>
+					<h3 class="uppercase text-black"><?php echo wp_kses_post($shipping['label']); ?></h3>
+					<div class="product-shipping body-small-regular text-deep-dark-gray">
+						<?php echo wp_kses_post($shipping['value']); ?>
 					</div>
 				<?php endif; ?>
 
