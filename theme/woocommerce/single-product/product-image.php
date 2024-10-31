@@ -24,10 +24,10 @@ $is_discounted = $product->is_on_sale();
 ?>
 
 <div
-	class="woocommerce-product-gallery aspect-[663/725] inline-block product-gallery-swiper col-span-6 overflow-hidden relative">
+	class="woocommerce-product-gallery aspect-[663/725] inline-block product-gallery-swiper col-span-6 overflow-hidden relative lg:col-span-12">
 
 	<?php if ($is_new_product || $is_discounted): ?>
-		<div class="absolute top-0 left-0 flex flex-col gap-5 mt-7 ml-7 z-10">
+		<div class="absolute top-0 left-0 flex flex-col gap-2.5 mt-7 ml-7 lg:mt-3 lg:ml-3 z-10 lg:gap-2">
 			<?php if ($is_new_product): ?>
 				<div class="bg-white inline-flex items-center rounded-md px-2 py-1 w-fit">
 					<span class="uppercase body-extra-small-regular text-deep-dark-gray">

@@ -36,13 +36,14 @@ $related_products_query = new WP_Query($args);
 
 if ($related_products_query->have_posts()): ?>
 
-	<section class="relative mt-28">
+	<section class="relative mt-28 lg:mt-16">
 		<div class="flex justify-between w-full mb-7">
-			<h3 class="heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem] grow w-full">
+			<h3 class="heading-md text-deep-dark-gray lg:text-[1.125rem] lg:leading-[1.375rem] grow w-full">
 				<?php echo wp_kses_post("Jums taip pat gali patikti"); ?>
 			</h3>
-			<div class="flex flex-nowrap justify-end items-center body-small-regular uppercase text-deep-dark-gray grow-0">
-				<a class="flex gap-3" href="#">
+			<div
+				class="flex flex-nowrap justify-end items-center body-small-regular uppercase text-deep-dark-gray grow-0 lg:text-[0.75rem] lg:leading-[1.125rem]">
+				<a class="flex gap-3 justify-center items-center" href="#">
 					<span class="uppercase"><?php echo wp_kses_post("Daugiau"); ?></span>
 					<div class="flex items-center">
 						<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +66,7 @@ if ($related_products_query->have_posts()): ?>
 							$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
 							?>
 
-							<div class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3">
+							<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
 								<a href="<?php the_permalink(); ?>" class="w-full">
 									<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
 										class="w-full h-full object-cover rounded-lg">
@@ -79,7 +80,7 @@ if ($related_products_query->have_posts()): ?>
 									</svg>
 								</a>
 								<a href="?add-to-cart=<?php echo esc_attr(get_the_ID()); ?>"
-									class="add-item-icon absolute bottom-5 right-5 z-10 p-4 md:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
+									class="add-item-icon absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
 									<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
 										<path d="M6.678 0.69V11.91H5.424V0.69H6.678ZM0.452 5.728H11.65V6.872H0.452V5.728Z"
@@ -88,7 +89,7 @@ if ($related_products_query->have_posts()): ?>
 								</a>
 							</div>
 
-							<a href="<?php the_permalink(); ?>" class="product-title body-normal-regular mb-2.5 md:mb-7">
+							<a href="<?php the_permalink(); ?>" class="product-title body-normal-regular mb-2.5 lg:mb-7">
 								<?php the_title(); ?>
 							</a>
 
@@ -139,11 +140,12 @@ $new_product_loop = new WP_Query($args);
 <?php if ($new_product_loop->have_posts()): ?>
 	<section id="new-products-section" class="mt-20 relative">
 		<div class="flex justify-between w-full mb-7">
-			<h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
+			<h3 class="w-full heading-md text-deep-dark-gray lg:text-[1.125rem] lg:leading-[1.375rem]">
 				<?php echo wp_kses_post("Naujienos"); ?>
 			</h3>
-			<div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-				<a class="flex gap-3" href="#">
+			<div
+				class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray  lg:text-[0.75rem] lg:leading-[1.125rem]">
+				<a class="flex gap-3 justify-center items-center" href="#">
 					<span><?php echo wp_kses_post("Daugiau"); ?></span>
 					<div class="flex items-center">
 						<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,7 +175,7 @@ $new_product_loop = new WP_Query($args);
 									$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
 									?>
 
-									<div class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3">
+									<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
 										<a class="w-full" href="<?php the_permalink(); ?>">
 											<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
 												class="w-full h-full object-cover rounded-lg">
@@ -190,7 +192,7 @@ $new_product_loop = new WP_Query($args);
 
 										<div class="absolute bottom-5 right-5 z-10">
 											<a href="?add-to-cart=<?php echo $product->get_id(); ?>"
-												class="add-item-icon flex items-center justify-center p-4 md:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
+												class="add-item-icon flex items-center justify-center p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
 												<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 													xmlns="http://www.w3.org/2000/svg">
 													<mask id="path-1-inside-1_46_159" fill="white">
@@ -213,12 +215,12 @@ $new_product_loop = new WP_Query($args);
 									$categories = get_the_terms($product->get_id(), 'product_cat');
 									if (!empty($categories) && !is_wp_error($categories)) {
 										$category = $categories[0];
-										echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
+										echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 lg:mb-2">' . wp_kses_post($category->name) . '</a>';
 									}
 									?>
 
 									<a href="<?php the_permalink(); ?>">
-										<p class="product-title text-wrap body-normal-regular mb-2.5 md:mb-7">
+										<p class="product-title text-wrap body-normal-regular mb-2.5 lg:mb-7">
 											<?php the_title(); ?>
 										</p>
 									</a>

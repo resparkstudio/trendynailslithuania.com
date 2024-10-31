@@ -159,6 +159,12 @@ function _tw_scripts()
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array(), _TW_VERSION, true);
 
+	// Localize the script with the AJAX URL for WooCommerce
+	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
+		'ajax_url' => admin_url('admin-ajax.php'),
+		'cart_url' => wc_get_cart_url(),
+	));
+
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
@@ -346,3 +352,31 @@ function display_full_product_description()
 	echo '</div>';
 }
 add_action('woocommerce_single_product_summary', 'display_full_product_description', 25);
+
+
+function custom_ajax_add_to_cart()
+{
+	$product_id = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['product_id']));
+	$quantity = empty($_POST['quantity']) ? 1 : wc_stock_amount($_POST['quantity']);
+	$product_sku = empty($_POST['product_sku']) ? '' : sanitize_text_field($_POST['product_sku']);
+	$passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $quantity);
+
+	if ($passed_validation && WC()->cart->add_to_cart($product_id, $quantity)) {
+		do_action('woocommerce_ajax_added_to_cart', $product_id);
+
+		// Send success response
+		wp_send_json(array(
+			'success' => true,
+			'product_id' => $product_id
+		));
+	} else {
+		wp_send_json(array(
+			'error' => true,
+			'message' => __('Could not add to cart.', 'woocommerce')
+		));
+	}
+
+	wp_die(); // Required to end AJAX request
+}
+add_action('wp_ajax_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');

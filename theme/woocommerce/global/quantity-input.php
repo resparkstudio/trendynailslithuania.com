@@ -6,7 +6,7 @@ $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 
 
 ?>
 <div class="flex items-center border-[0.7px] round-9 py-2 border-deep-dark-gray justify-center overflow-hidden grow-0 ">
-    <button type="button" class="minus focus:outline-none flex items-center justify-center pl-5 text-[1.5rem] text-deep-dark-gray" onclick="this.nextElementSibling.stepDown()">
+    <button type="button" class="minus focus:outline-none flex items-center justify-center pl-5 lg:pl-4 text-[1.5rem] text-deep-dark-gray" onclick="this.nextElementSibling.stepDown()">
     <span>
             <?php echo wp_kses_post("-") ?>
     </span>
@@ -15,7 +15,7 @@ $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 
         type="<?php echo esc_attr( $type ); ?>"
         <?php echo $readonly ? 'readonly="readonly"' : ''; ?>
         id="<?php echo esc_attr( $input_id ); ?>"
-        class="quantity-input text-center text-base focus:outline-none body-normal-semibold text-[1.5rem] text-deep-dark-gray"
+        class="quantity-input w-14 lg:w-10 text-center focus:outline-none body-normal-semibold text-[1.5rem] text-deep-dark-gray"
         name="<?php echo esc_attr( $input_name ); ?>"
         value="<?php echo esc_attr( $input_value ); ?>"
         aria-label="<?php esc_attr_e( 'Product quantity', 'woocommerce' ); ?>"
@@ -29,7 +29,7 @@ $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 
             autocomplete="<?php echo esc_attr( isset( $autocomplete ) ? $autocomplete : 'on' ); ?>"
         <?php endif; ?>
     />
-    <button type="button" class="plus focus:outline-none flex items-center justify-center pr-5 text-[1.5rem] text-deep-dark-gray" onclick="this.previousElementSibling.stepUp()">
+    <button type="button" class="plus focus:outline-none flex items-center justify-center pr-5 lg:pr-4 text-[1.5rem] text-deep-dark-gray" onclick="this.previousElementSibling.stepUp()">
         <span>
             <?php echo wp_kses_post("+") ?>
     </span>

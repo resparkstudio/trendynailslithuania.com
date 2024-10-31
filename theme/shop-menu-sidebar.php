@@ -119,7 +119,8 @@ $instagram_link = get_field('instagram_link', $soc_media_page_id);
         ?>
     </nav>
 
-    <div class="sidebar-footer px-12 pb-11 md:px-8 md:pb-6 flex flex-col justify-end row-span-3 md:row-span-2 gap-5">
+    <div
+        class="sidebar-footer px-12 pb-11 md:px-8 md:pb-6 flex flex-col justify-end row-span-3 md:row-span-2 gap-2.5 md:gap-2">
         <p class="w-full md:font-normal md:text-[0.75rem] body-small-light">
             <?php echo wp_kses_post('Sekite mūsų naujienas!'); ?>
         </p>

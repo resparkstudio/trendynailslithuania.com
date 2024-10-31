@@ -1,4 +1,4 @@
-<h3 class="text-deep-dark-gray heading-md mb-1"><?php the_title(); ?></h3>
+<h3 class="text-deep-dark-gray heading-md mb-1 lg:text-[1.125rem] lg:leading-[1.375rem]"><?php the_title(); ?></h3>
 
 <?php
 global $product;

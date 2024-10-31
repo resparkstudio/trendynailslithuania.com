@@ -24,7 +24,7 @@ if (post_password_required()) {
 		do_action('woocommerce_before_single_product_summary'); // Product gallery section
 		?>
 
-		<div class="col-span-6 pl-16 pt-28">
+		<div class="col-span-6 pl-16 pt-28 lg:pl-0 lg:pt-7 lg:col-span-12">
 
 			<?php
 			do_action('woocommerce_single_product_summary'); // Product summary section
@@ -50,7 +50,7 @@ if (post_password_required()) {
 							</div>
 						</div>
 						<div class="info-text overflow-hidden body-small-regular text-deep-dark-gray hidden pb-4 bg-white">
-							<p class="pb-7 pt-4 "><?php echo wp_kses_post($usage_conditions['value']); ?></p>
+							<p class="pb-7 pt-4 lg:pt-5 lg:pb-6"><?php echo wp_kses_post($usage_conditions['value']); ?></p>
 						</div>
 					</div>
 				<?php endif; ?>
@@ -90,7 +90,7 @@ if (post_password_required()) {
 				<?php endif; ?>
 
 				<?php if ($product->get_sku()): ?>
-					<div class="product-meta-info mt-7 text-sm overflow-hidden relative">
+					<div class="product-meta-info mt-7 mb-2 lg:mt-6 text-sm overflow-hidden relative">
 						<div class="product-sku body-extra-small-regular text-black">
 							<?php echo wp_kses_post("Produkto kodas: " . $product->get_sku()) ?>
 						</div>
