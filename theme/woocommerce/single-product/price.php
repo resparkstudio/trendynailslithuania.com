@@ -34,5 +34,8 @@ global $product;
 		</del>
 	</div>
 <?php else: ?>
-	<div class='price text-deep-dark-gray body-normal-semibold'><?php echo $product->get_price_html(); ?></span>
-	<?php endif; ?>
+	<div class="price text-deep-dark-gray body-normal-semibold mt-5 mb-8">
+		<span class="woocommerce-Price-amount amount body-normal-semibold"> <?php echo $product->get_price_html(); ?>
+		</span>
+	</div>
+<?php endif; ?>
