@@ -3,9 +3,8 @@
 $facebook_link = get_field('facebook_link', 'option');
 $instagram_link = get_field('instagram_link', 'option');
 ?>
-<!-- Sidebar -->
 <aside id="shop-sidebar"
-    class="shop-sidebar flex-col fixed left-0 w-[16.5rem] md:w-[14.25rem] h-svh bg-black text-white body-small-regular hidden z-40 pt-20 md:pt-[3.75rem] grid-rows-12">
+    class="shop-sidebar fixed left-0 w-[16.5rem] md:w-[14.25rem] h-svh bg-black text-white body-small-regular hidden z-40 pt-20 md:pt-[3.75rem] grid-rows-12">
     <nav id="desktop-sidebar-navigation"
         class="main-navigation body-small-regular text-white flex flex-col md:hidden row-span-9 pl-12 pr-4 py-9">
         <?php
@@ -16,7 +15,6 @@ $instagram_link = get_field('instagram_link', 'option');
             $menu_items = wp_get_nav_menu_items($menu_id);
             $menu_items_by_parent = [];
 
-            // Organize menu items by parent ID
             foreach ($menu_items as $item) {
                 $menu_items_by_parent[$item->menu_item_parent][] = $item;
             }
@@ -48,7 +46,7 @@ $instagram_link = get_field('instagram_link', 'option');
                     echo '</a>';
 
                     if ($has_children) {
-                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden">'; // Apply submenu and hidden classes here
+                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden">';
                         display_menu_items($item->ID, $menu_items_by_parent, true);
                         echo '</ul>';
                     }
@@ -72,7 +70,6 @@ $instagram_link = get_field('instagram_link', 'option');
             $menu_items = wp_get_nav_menu_items($menu_id);
             $menu_items_by_parent = [];
 
-            // Organize menu items by parent ID
             foreach ($menu_items as $item) {
                 $menu_items_by_parent[$item->menu_item_parent][] = $item;
             }
@@ -104,7 +101,7 @@ $instagram_link = get_field('instagram_link', 'option');
                     echo '</a>';
 
                     if ($has_children) {
-                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden">'; // Similar classes for the submenu
+                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden">';
                         display_mobile_menu_items($item->ID, $menu_items_by_parent, true);
                         echo '</ul>';
                     }

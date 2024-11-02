@@ -182,6 +182,21 @@ body {
 
 /* --------------------------------- Sidebar */
 
+/* Fix sidebar position according to wpadminbar */
+body.admin-bar #shop-sidebar,
+body.admin-bar #cart-sidebar {
+	padding-bottom: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar #shop-sidebar,
+	body.admin-bar #cart-sidebar {
+		padding-bottom: 46px;
+	}
+}
+
+/* Left shop menu sidebar */
+
 #sidebar-close-link span {
 	display: inline-block;
 	position: relative;
@@ -205,16 +220,7 @@ body {
 	transform-origin: bottom left;
 }
 
-/* Fix sidebar position according to wpadminbar */
-body.admin-bar #shop-sidebar {
-	padding-bottom: 32px;
-}
-
-@media screen and (max-width: 782px) {
-	body.admin-bar #shop-sidebar {
-		padding-bottom: 46px;
-	}
-}
+/* Right cart sidebar */
 
 /* ----------------------------------- Footer */
 footer {
