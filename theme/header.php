@@ -43,11 +43,8 @@ Template Name: Header
 						echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative gap-11">';
 
 						foreach ($menu_items as $index => &$item) {
-							$classes = 'flex items-center gap-1 cursor-pointer';
-							$item_title = $item->title;
-
 							if ($index === 0) {
-								$item->title = '<p class = "link-hover">' . $item_title . '</p>' . '
+								$item->title = '<p class = "link-hover">' . $item->title . '</p>' . '
 								<div class="flex items-center">
 									<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z" fill="black"/>
@@ -56,7 +53,7 @@ Template Name: Header
 							}
 
 							echo '<li class="' . esc_attr(implode(' ', $item->classes)) . '">';
-							echo '<a href="' . esc_url($item->url) . '" class="' . esc_attr($classes) . '">';
+							echo '<a href="' . esc_url($item->url) . '" class="' . 'flex items-center gap-1 cursor-pointer link-hover' . '">';
 							echo $item->title;
 							echo '</a>';
 							echo '</li>';
@@ -170,5 +167,6 @@ Template Name: Header
 				</a>
 			</div>
 
-			<?php get_template_part('shop-menu-sidebar'); ?>
+			<?php get_template_part('template-parts/shop-menu-sidebar'); ?>
+			<?php get_template_part('template-parts/cart-sidebar'); ?>
 			<div id="content" class="pt-20 md:pt-[3.75rem]">
