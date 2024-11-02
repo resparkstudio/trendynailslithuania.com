@@ -7,22 +7,8 @@ $soc_media_page_id = 169;
 
 $hero_image = get_field('hero_image');
 $hero_image_mobile = get_field('hero_image_mobile');
-$heading = get_field('heading');
+$hero_heading = get_field('heading');
 $hero_description = get_field('hero_description');
-
-
-$sale_heading = get_field('sale_heading');
-
-$new_products_heading = get_field('new_products_heading');
-
-$product_category_image_1 = get_field('product_category_image_1');
-$product_category_image_2 = get_field('product_category_image_2');
-$product_category_image_3 = get_field('product_category_image_3');
-$product_category_image_4 = get_field('product_category_image_4');
-$product_category_image_5 = get_field('product_category_image_5');
-$product_category_image_6 = get_field('product_category_image_6');
-
-$popular_products_heading = get_field('popular_products_heading');
 
 $about_heading_1 = get_field('about_heading_1');
 $about_description_1 = get_field('about_description_1');
@@ -31,15 +17,10 @@ $about_heading_2 = get_field('about_heading_2');
 $about_description_2 = get_field('about_description_2');
 $about_image_2 = get_field('about_image_2');
 
-$blog_heading = get_field('blog_heading');
-
 $follow_us_heading = get_field('follow_us_heading');
-$instagram_link = get_field('instagram_link', $soc_media_page_id);
+$instagram_link = get_field('instagram_link', 'option');
 $instagram_button_text = get_field('instagram_button_text');
 $instagram_gallery = get_field('instagram_gallery');
-
-$read_more_button_text = get_field('read_more_button_text');
-$more_button_text = get_field('more_button_text');
 
 
 get_header();
@@ -47,7 +28,7 @@ get_header();
 <section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
     <main id="main" class="max-w-[87.5rem] mx-auto w-full">
         <div id="page-content" class="flex flex-col mx-12 md:mx-4">
-            <?php if ($hero_image || $hero_image_mobile || $heading || $hero_description || $read_more_button_text): ?>
+            <?php if ($hero_image || $hero_image_mobile || $hero_heading || $hero_description): ?>
                 <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
                     <?php if ($hero_image && $hero_image_mobile): ?>
                         <img class="w-full h-auto round-15 block md:hidden" src="<?php echo esc_url($hero_image); ?>"
@@ -68,10 +49,10 @@ get_header();
                         <div class="relative z-10 pl-9 pb-16 w-full md:mb-10 md:px-5">
 
                             <div class="text-left">
-                                <?php if ($heading): ?>
+                                <?php if ($hero_heading): ?>
                                     <h1
                                         class="text-white heading-xl md:text-4xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
-                                        <?php echo wp_kses_post($heading); ?>
+                                        <?php echo wp_kses_post($hero_heading); ?>
                                     </h1>
                                 <?php endif; ?>
 
@@ -81,11 +62,11 @@ get_header();
                                     </p>
                                 <?php endif; ?>
 
-                                <?php if ($read_more_button_text): ?>
-                                    <a href="#" class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
-                                        <?php echo wp_kses_post($read_more_button_text); ?>
-                                    </a>
-                                <?php endif; ?>
+
+                                <a href="#" class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
+                                    <?php echo wp_kses_post("Skaityti daugiau"); ?>
+                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -115,15 +96,15 @@ get_header();
             );
             $sale_product_loop = new WP_Query($args);
             ?>
-            <?php if ($sale_product_loop->have_posts() && $sale_heading): ?>
+            <?php if ($sale_product_loop->have_posts()): ?>
                 <div id="sale-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                            <?php echo wp_kses_post($sale_heading); ?>
+                            <?php echo wp_kses_post("Išpardavimas"); ?>
                         </h3>
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
                             <a class="flex gap-3" href="#">
-                                <span><?php echo wp_kses_post($more_button_text); ?></span>
+                                <span><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
                                     <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -253,15 +234,15 @@ get_header();
             );
             $new_product_loop = new WP_Query($args);
             ?>
-            <?php if ($new_product_loop->have_posts() && $new_products_heading): ?>
+            <?php if ($new_product_loop->have_posts()): ?>
                 <div id="new-products-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                            <?php echo wp_kses_post($new_products_heading); ?>
+                            <?php echo wp_kses_post("Naujienos"); ?>
                         </h3>
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
                             <a class="flex gap-3" href="#">
-                                <span><?php echo wp_kses_post($more_button_text); ?></span>
+                                <span><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
                                     <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -427,39 +408,38 @@ get_header();
             // Query for products marked as "Populiariausi"
             $args = array(
                 'post_type' => 'product',
-                'posts_per_page' => 10, // Change as per your needs
+                'posts_per_page' => 10,
                 'meta_query' => array(
                     array(
                         'key' => '_populiariausi',
                         'value' => 'yes',
-                        'compare' => '=', // Ensure we are checking for exact matches
+                        'compare' => '=',
                     )
                 )
             );
 
             $popular_product_loop = new WP_Query($args);
             ?>
-            <?php if ($popular_products_heading): ?> <!-- or no popular products-->
+            <?php if ($popular_product_loop->have_posts()): ?>
                 <div id="popular-products-section" class="mb-28 md:mb-20">
                     <div class="flex justify-between w-full mb-7">
                         <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                            <?php echo wp_kses_post($popular_products_heading); ?>
+                            <?php echo wp_kses_post("Populiariausi"); ?>
                         </h3>
-                        <?php if ($more_button_text): ?>
-                            <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                                <a class="flex gap-3" href="#">
-                                    <span><?php echo wp_kses_post($more_button_text); ?></span>
-                                    <div class="flex items-center">
-                                        <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
-                                                fill="#201F1F" />
-                                        </svg>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endif; ?>
+
+                        <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
+                            <a class="flex gap-3" href="#">
+                                <span><?php echo wp_kses_post("Daugiau"); ?></span>
+                                <div class="flex items-center">
+                                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                            fill="#201F1F" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="relative">
@@ -582,28 +562,28 @@ get_header();
                 </div>
             <?php endif; ?>
 
-            <?php if ($blog_heading): ?> <!-- or no blogs-->
-                <div id="blog-section" class="mb-28 md:mb-20">
-                    <div class="flex justify-between w-full mb-7">
-                        <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                            <?php echo wp_kses_post($blog_heading); ?>
-                        </h3>
-                        <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                            <a class="flex gap-3" href="#">
-                                <span><?php echo wp_kses_post($more_button_text); ?></span>
-                                <div class="flex items-center">
-                                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
-                                            fill="#201F1F" />
-                                    </svg>
-                                </div>
-                            </a>
-                        </div>
+            <!-- TODO: if no blogs-->
+            <div id="blog-section" class="mb-28 md:mb-20">
+                <div class="flex justify-between w-full mb-7">
+                    <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
+                        <?php echo wp_kses_post("Blogas"); ?>
+                    </h3>
+                    <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
+                        <a class="flex gap-3" href="#">
+                            <span><?php echo wp_kses_post("Daugiau"); ?></span>
+                            <div class="flex items-center">
+                                <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                        fill="#201F1F" />
+                                </svg>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            <?php endif; ?>
+            </div>
+
 
             <?php if ($about_heading_1 || $about_description_1 || $about_image_1 || $about_heading_2 || $about_description_2 || $about_image_2): ?>
                 <div id="about-section" class="mb-28 md:mb-20 grid grid-cols-12 relative">
@@ -625,21 +605,20 @@ get_header();
                             <p class="text-base body-normal-regular leading-relaxed lg:mb-8">
                                 <?php echo wp_kses_post($about_description_1) ?>
                             </p>
-                            <?php if ($read_more_button_text): ?>
-                                <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
-                                    <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
-                                        <span><?php echo wp_kses_post($read_more_button_text); ?></span>
-                                        <div class="flex items-center">
-                                            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
-                                                    fill="#201F1F" />
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endif; ?>
+                            <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
+                                <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
+                                    <span><?php echo wp_kses_post("Skaityti daugiau"); ?></span>
+                                    <div class="flex items-center">
+                                        <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                                fill="#201F1F" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+
                         </div>
                     <?php endif; ?>
 
@@ -652,21 +631,19 @@ get_header();
                             <p class="text-base body-normal-regular leading-relaxed lg:mb-8">
                                 <?php echo wp_kses_post($about_description_2) ?>
                             </p>
-                            <?php if ($read_more_button_text): ?>
-                                <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
-                                    <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
-                                        <span><?php echo wp_kses_post($read_more_button_text); ?></span>
-                                        <div class="flex items-center">
-                                            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
-                                                    fill="#201F1F" />
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endif; ?>
+                            <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
+                                <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
+                                    <span><?php echo wp_kses_post("Skaityti daugiau"); ?></span>
+                                    <div class="flex items-center">
+                                        <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                                fill="#201F1F" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     <?php endif; ?>
 
@@ -680,8 +657,6 @@ get_header();
                 </div>
             <?php endif; ?>
 
-
-            <!-- TODO add check if there are gallery items -->
             <?php if ($follow_us_heading || $instagram_link || $instagram_button_text): ?>
                 <div id="instagram-section" class="grid grid-cols-12 gap-4">
                     <div

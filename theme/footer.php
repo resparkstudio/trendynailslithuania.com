@@ -3,14 +3,13 @@
 Template Name: Footer
 */
 
-$soc_media_page_id = 169;
 $footer_page_id = 178;
 
 $logo_description = get_field('logo_description', $footer_page_id);
-$phone_number = get_field('phone_number', $soc_media_page_id);
-$email = get_field('email', $soc_media_page_id);
-$facebook_link = get_field('facebook_link', $soc_media_page_id);
-$instagram_link = get_field('instagram_link', $soc_media_page_id);
+$phone_number = get_field('phone_number', 'option');
+$email = get_field('email', 'option');
+$facebook_link = get_field('facebook_link', 'option');
+$instagram_link = get_field('instagram_link', 'option');
 $shop_menu_heading = get_field('shop_menu_heading', $footer_page_id);
 $info_menu_heading = get_field('info_menu_heading', $footer_page_id);
 $subscribe_heading = get_field('subscribe_heading', $footer_page_id);

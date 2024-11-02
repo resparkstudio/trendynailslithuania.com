@@ -243,6 +243,22 @@ function add_noindex_to_specific_templates()
 		echo '<meta name="robots" content="noindex, nofollow">';
 	}
 }
+
+//----------------------------------- ACF
+
+if (function_exists('acf_add_options_page')) {
+
+	acf_add_options_page(array(
+		'page_title' => 'Kontaktai',
+		'menu_title' => 'Kontaktai',
+		'menu_slug' => 'contact-general-settings',
+		'capability' => 'edit_posts',
+		'redirect' => false,
+		'icon_url' => 'dashicons-admin-site'
+	));
+
+}
+
 add_action('wp_head', 'add_noindex_to_specific_templates');
 
 //----------------------------------- WOOCOMMERCE

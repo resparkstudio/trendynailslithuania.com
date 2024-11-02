@@ -1,7 +1,7 @@
 <?php
-$soc_media_page_id = 169;
-$facebook_link = get_field('facebook_link', $soc_media_page_id);
-$instagram_link = get_field('instagram_link', $soc_media_page_id);
+
+$facebook_link = get_field('facebook_link', 'option');
+$instagram_link = get_field('instagram_link', 'option');
 ?>
 <!-- Sidebar -->
 <aside id="shop-sidebar"

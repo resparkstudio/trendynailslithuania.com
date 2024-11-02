@@ -4,14 +4,12 @@ Template Name: Contacts
 */
 get_header();
 
-$soc_media_page_id = 169;
-
 $heading = get_field('heading');
 $description = get_field('description');
-$phone_number = get_field('phone_number', $soc_media_page_id);
-$email = get_field('email', $soc_media_page_id);
-$facebook_link = get_field('facebook_link', $soc_media_page_id);
-$instagram_link = get_field('instagram_link', $soc_media_page_id);
+$phone_number = get_field('phone_number', 'option');
+$email = get_field('email', 'option');
+$facebook_link = get_field('facebook_link', 'option');
+$instagram_link = get_field('instagram_link', 'option');
 $mandatory_text = get_field('mandatory_text');
 $privacy_text = get_field('privacy_text');
 
