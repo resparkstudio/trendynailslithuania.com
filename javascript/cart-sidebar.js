@@ -1,17 +1,51 @@
 import gsap from 'gsap';
 
 document.addEventListener('DOMContentLoaded', function () {
-	document.getElementById('cart-icon').addEventListener('click', function () {
-		document
-			.getElementById('cart-sidebar')
-			.classList.toggle('translate-x-full');
-	});
+	const cartIcon = document.getElementById('cart-icon');
+	const sidebar = document.getElementById('cart-sidebar');
+	const overlay = document.getElementById('cart-sidebar-overlay');
+	const closeSidebarButton = document.getElementById('close-sidebar');
 
-	document
-		.getElementById('close-sidebar')
-		.addEventListener('click', function () {
-			document
-				.getElementById('cart-sidebar')
-				.classList.add('translate-x-full');
+	function openSidebar() {
+		overlay.classList.remove('hidden');
+		sidebar.classList.remove('hidden');
+
+		document.body.classList.add('overflow-hidden');
+
+		gsap.to(overlay, {
+			duration: 0.5,
+			opacity: 1,
+			ease: 'power2.out',
 		});
+
+		gsap.fromTo(
+			sidebar,
+			{ x: '100%' },
+			{ x: '0%', duration: 0.5, ease: 'power2.out' }
+		);
+	}
+
+	function closeSidebar() {
+		document.body.classList.remove('overflow-hidden');
+
+		gsap.to(overlay, {
+			duration: 0.5,
+			opacity: 0,
+			ease: 'power2.in',
+			onComplete: () => overlay.classList.add('hidden'),
+		});
+
+		gsap.to(sidebar, {
+			x: '100%',
+			duration: 0.5,
+			ease: 'power2.in',
+			onComplete: () => sidebar.classList.add('hidden'),
+		});
+	}
+
+	cartIcon.addEventListener('click', openSidebar);
+
+	closeSidebarButton.addEventListener('click', closeSidebar);
+
+	overlay.addEventListener('click', closeSidebar);
 });

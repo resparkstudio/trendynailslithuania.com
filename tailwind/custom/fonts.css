@@ -19,7 +19,7 @@
 }
 
 .body-normal-medium {
-	@apply font-normal text-[1rem] leading-[1.25rem] font-sans;
+	@apply font-medium text-[1rem] leading-[1.25rem] font-sans;
 }
 
 .body-normal-semibold {

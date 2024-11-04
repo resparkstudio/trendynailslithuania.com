@@ -24,7 +24,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 <?php if (!WC()->cart->is_empty()): ?>
 
 	<ul
-		class="woocommerce-mini-cart cart_list grow product_list_widget mt-9  flex-1 overflow-auto <?php echo esc_attr($args['list_class']); ?>">
+		class="woocommerce-mini-cart cart_list grow product_list_widget mt-4 flex-1 px-2.5 mx-2.5  overflow-auto <?php echo esc_attr($args['list_class']); ?>">
 		<?php
 		do_action('woocommerce_before_mini_cart_contents');
 
@@ -45,7 +45,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 				$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
 				?>
 				<li
-					class="woocommerce-mini-cart-item pb-3 border-b-[0.5px] border-[#C3C3C3] <?php echo esc_attr(apply_filters('woocommerce_mini_cart_item_class', 'mini_cart_item', $cart_item, $cart_item_key)); ?>">
+					class="woocommerce-mini-cart-item py-5 border-b-[0.5px] border-[#C3C3C3] <?php echo esc_attr(apply_filters('woocommerce_mini_cart_item_class', 'mini_cart_item', $cart_item, $cart_item_key)); ?>">
 					<div class="flex items-start text-deep-dark-gray">
 						<!-- Product Image -->
 						<div class="flex-shrink-0">
@@ -123,8 +123,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 		?>
 	</ul>
 
-	<!-- Cart Totals -->
-	<div class="text-right flex-none">
+	<div class="text-right flex-none px-5">
 		<div class="flex justify-between text-deep-dark-gray mb-4 mt-2">
 			<span class="body-small-light"><?php echo wp_kses_post("Suma") ?></span>
 			<span class="body-normal-regular"><?php echo WC()->cart->get_cart_subtotal(); ?></span>
@@ -132,13 +131,13 @@ do_action('woocommerce_before_mini_cart'); ?>
 
 
 		<div class="flex justify-between text-deep-dark-gray mb-4">
-			<span class="body-small-light">Pristatymas</span>
+			<span class="body-small-light"><?php echo wp_kses_post("Pristatymas") ?></span>
 			<span class="body-normal-regular"><?php echo wc_price(WC()->cart->get_shipping_total()); ?></span>
 		</div>
 
 
 		<div class="flex justify-between pt-2 mt-2 text-deep-dark-gray mb-5">
-			<span class="body-normal-regular">Iš viso</span>
+			<span class="body-normal-regular"><?php echo wp_kses_post("Iš viso") ?></span>
 			<span class="body-normal-medium"><?php echo WC()->cart->get_total(); ?></span>
 		</div>
 
