@@ -154,7 +154,7 @@ Template Name: Header
 			<div class="fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
 				<a href="#" id="sidebar-close-link" class="invisible gap-1">
 					<span class="inline-block">
-						Parduotuvė
+						<?php echo wp_kses_post("Parduotuvė") ?>
 					</span>
 					<div class="flex items-center">
 						<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none"

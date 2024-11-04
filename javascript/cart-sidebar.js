@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	function openSidebar() {
 		overlay.classList.remove('hidden');
 		sidebar.classList.remove('hidden');
-
 		document.body.classList.add('overflow-hidden');
 
 		gsap.to(overlay, {
@@ -43,9 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	cartIcon.addEventListener('click', openSidebar);
+	function handleCartIconClick() {
+		if (window.innerWidth > 767) {
+			openSidebar();
+		} else {
+			window.location.href = checkoutData.checkoutUrl;
+		}
+	}
 
+	cartIcon.addEventListener('click', handleCartIconClick);
 	closeSidebarButton.addEventListener('click', closeSidebar);
-
 	overlay.addEventListener('click', closeSidebar);
 });

@@ -165,6 +165,10 @@ function _tw_scripts()
 		'cart_url' => wc_get_cart_url(),
 	));
 
+	wp_localize_script('_tw-script', 'checkoutData', [
+		'checkoutUrl' => esc_url(wc_get_checkout_url())
+	]);
+
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}

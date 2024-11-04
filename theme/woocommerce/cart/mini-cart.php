@@ -136,15 +136,15 @@ do_action('woocommerce_before_mini_cart'); ?>
 		</div>
 
 
-		<div class="flex justify-between pt-2 mt-2 text-deep-dark-gray mb-5">
+		<div class="flex justify-between text-deep-dark-gray mb-5">
 			<span class="body-normal-regular"><?php echo wp_kses_post("Iš viso") ?></span>
 			<span class="body-normal-medium"><?php echo WC()->cart->get_total(); ?></span>
 		</div>
 
-		<button class="w-full black-button uppercase py-3 mb-6"><?php echo wp_kses_post("Pirkti") ?></button>
+		<a class="w-full block black-button uppercase py-3 mb-6 text-center"
+			href="<?php echo esc_url(wc_get_checkout_url()); ?>"><?php echo wp_kses_post("Pirkti") ?></a>
 	</div>
-<?php else: ?>
-	<p class="woocommerce-mini-cart__empty-message"><?php echo wp_kses_post("Krepšelis tuščias") ?></p>
+
 <?php endif; ?>
 
 <?php do_action('woocommerce_after_mini_cart'); ?>
