@@ -79,8 +79,9 @@ if ($related_products_query->have_posts()): ?>
 											stroke="#201F1F" stroke-width="0.7" stroke-linecap="round" fill="none" />
 									</svg>
 								</a>
-								<a href="?add-to-cart=<?php echo esc_attr(get_the_ID()); ?>"
-									class="add-item-icon absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
+
+								<a data-product_id=<?php echo $product->get_id(); ?>
+									class="add-item-icon add-to-cart-swiper-btn cursor-pointer absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
 									<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
 										<path d="M6.678 0.69V11.91H5.424V0.69H6.678ZM0.452 5.728H11.65V6.872H0.452V5.728Z"
@@ -191,8 +192,8 @@ $new_product_loop = new WP_Query($args);
 										</a>
 
 										<div class="absolute bottom-5 right-5 z-10">
-											<a href="?add-to-cart=<?php echo $product->get_id(); ?>"
-												class="add-item-icon flex items-center justify-center p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
+											<a data-product_id=<?php echo $product->get_id(); ?>
+												class="add-item-icon add-to-cart-swiper-btn cursor-pointer flex items-center justify-center p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
 												<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 													xmlns="http://www.w3.org/2000/svg">
 													<mask id="path-1-inside-1_46_159" fill="white">

@@ -43,7 +43,7 @@ if ($product->is_in_stock()): ?>
 
 			<!-- Updated button with data-product_id and data-quantity attributes -->
 			<button id="single-product-add-to-cart" type="submit" name="add-to-cart"
-				data-product_id="<?php echo esc_attr($product->get_id()); ?>" data-quantity="1"
+				data-product_id="<?php echo esc_attr($product->get_id()); ?>"
 				class="add_to_cart_button single_add_to_cart_button black-button grow py-2<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>">
 				<?php echo esc_html("Į krepšelį"); ?>
 			</button>
