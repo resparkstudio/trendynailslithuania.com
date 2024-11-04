@@ -10,6 +10,10 @@ body {
 	flex-direction: column;
 }
 
+.notification-banner-shadow {
+	box-shadow: 0px 0px 5.7px rgba(0, 0, 0, 0.07);
+}
+
 /* Radius */
 .round-5 {
 	border-radius: 5px;
