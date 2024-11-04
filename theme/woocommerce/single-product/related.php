@@ -58,17 +58,18 @@ if ($related_products_query->have_posts()): ?>
 		<div class="swiper-container overflow-hidden">
 			<div class="swiper-wrapper">
 				<?php while ($related_products_query->have_posts()):
-					$related_products_query->the_post(); ?>
+					$related_products_query->the_post();
+					$related_product_id = get_the_ID();
+					$related_product_name = get_the_title();
+					$thumbnail_id = get_post_thumbnail_id($related_product_id);
+					$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+					?>
 					<div class="swiper-slide">
 						<div class="product-card flex flex-col">
-							<?php
-							$thumbnail_id = get_post_thumbnail_id(get_the_ID());
-							$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
-							?>
-
 							<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
 								<a href="<?php the_permalink(); ?>" class="w-full">
-									<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
+									<img src="<?php echo esc_url($thumbnail_url); ?>"
+										alt="<?php echo esc_attr($related_product_name); ?>"
 										class="w-full h-full object-cover rounded-lg">
 								</a>
 								<a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
@@ -80,7 +81,9 @@ if ($related_products_query->have_posts()): ?>
 									</svg>
 								</a>
 
-								<a data-product_id=<?php echo $product->get_id(); ?>
+								<!-- Updated Add to Cart Button with correct product ID and name -->
+								<a data-product_id="<?php echo esc_attr($related_product_id); ?>"
+									data-product_name="<?php echo esc_attr($related_product_name); ?>"
 									class="add-item-icon add-to-cart-swiper-btn cursor-pointer absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
 									<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +94,7 @@ if ($related_products_query->have_posts()): ?>
 							</div>
 
 							<a href="<?php the_permalink(); ?>" class="product-title body-normal-regular mb-2.5 lg:mb-7">
-								<?php the_title(); ?>
+								<?php echo esc_html($related_product_name); ?>
 							</a>
 
 							<div class="product-price">
@@ -122,6 +125,7 @@ if ($related_products_query->have_posts()): ?>
 	<?php wp_reset_postdata(); ?>
 <?php endif; ?>
 
+
 <!-- New Products Section -->
 <?php
 $new_product_days = 30;
@@ -136,9 +140,10 @@ $args = array(
 		),
 	),
 );
-$new_product_loop = new WP_Query($args);
+
+$new_products_query = new WP_Query($args);
 ?>
-<?php if ($new_product_loop->have_posts()): ?>
+<?php if ($new_products_query->have_posts()): ?>
 	<section id="new-products-section" class="mt-20 relative">
 		<div class="flex justify-between w-full mb-7">
 			<h3 class="w-full heading-md text-deep-dark-gray lg:text-[1.125rem] lg:leading-[1.375rem]">
@@ -165,14 +170,17 @@ $new_product_loop = new WP_Query($args);
 				<div id="product-swiper-wrapper" class="swiper-wrapper">
 					<?php
 
-					if ($new_product_loop->have_posts()):
-						while ($new_product_loop->have_posts()):
-							$new_product_loop->the_post();
+					if ($new_products_query->have_posts()):
+						while ($new_products_query->have_posts()):
+							$new_products_query->the_post();
 							?>
 							<div class="swiper-slide">
 								<div class="relative product-card flex flex-col">
 									<?php
-									$thumbnail_id = get_post_thumbnail_id($product->get_id());
+									$new_products_query->the_post();
+									$new_product_id = get_the_ID();
+									$new_product_name = get_the_title();
+									$thumbnail_id = get_post_thumbnail_id($new_product_id);
 									$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
 									?>
 
@@ -192,7 +200,8 @@ $new_product_loop = new WP_Query($args);
 										</a>
 
 										<div class="absolute bottom-5 right-5 z-10">
-											<a data-product_id=<?php echo $product->get_id(); ?>
+											<a data-product_id="<?php echo esc_attr($new_product_id); ?>"
+												data-product_name="<?php echo esc_attr($new_product_name); ?>"
 												class="add-item-icon add-to-cart-swiper-btn cursor-pointer flex items-center justify-center p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
 												<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 													xmlns="http://www.w3.org/2000/svg">

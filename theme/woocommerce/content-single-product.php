@@ -90,7 +90,7 @@ if (post_password_required()) {
 				<?php endif; ?>
 
 				<?php if ($product->get_sku()): ?>
-					<div class="product-meta-info mt-7 mb-2 lg:mt-6 text-sm overflow-hidden relative">
+					<div class="product-meta-info mt-7 lg:mt-6 text-sm overflow-hidden relative">
 						<div class="product-sku body-extra-small-regular text-black">
 							<?php echo wp_kses_post("Produkto kodas: " . $product->get_sku()) ?>
 						</div>
@@ -100,7 +100,7 @@ if (post_password_required()) {
 				<?php $categories = wc_get_product_category_list($product->get_id(), ', '); ?>
 				<?php if ($categories): ?>
 					<div class="relative overflow-hidden">
-						<div class="product-category text-black body-extra-small-regular">
+						<div class="product-category text-black body-extra-small-regular mt-2">
 							<?php echo wp_kses_post("Kategorija: " . $categories) ?>
 						</div>
 					</div>

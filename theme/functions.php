@@ -412,4 +412,8 @@ add_action('wp_ajax_nopriv_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
 add_action('wp_ajax_custom_update_mini_cart', 'custom_update_mini_cart');
 add_action('wp_ajax_nopriv_custom_update_mini_cart', 'custom_update_mini_cart');
 
+// remove woocommerce styles
+add_filter('woocommerce_enqueue_styles', '__return_empty_array');
+
+
 
