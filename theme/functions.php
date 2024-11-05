@@ -397,47 +397,50 @@ function custom_ajax_add_to_cart()
 
 function custom_update_mini_cart()
 {
-	// Start output buffering for the cart contents
 	ob_start();
-	wc_get_template('cart/mini-cart-contents.php'); // This should generate only the cart items HTML
-	$mini_cart_contents = ob_get_clean();
+	woocommerce_mini_cart();
+	$mini_cart = ob_get_clean();
 
-	// Start output buffering for the cart totals
-	ob_start();
-	wc_get_template('cart/mini-cart-totals.php'); // This should generate only the totals section HTML
-	$mini_cart_totals = ob_get_clean();
-
-	// Send a JSON response with separate contents and totals
 	wp_send_json_success([
-		'mini_cart_contents' => $mini_cart_contents,
-		'mini_cart_totals' => $mini_cart_totals,
+		'mini_cart' => $mini_cart,
 		'cart_count' => WC()->cart->get_cart_contents_count(),
 	]);
 }
 
+
 function custom_ajax_remove_from_cart()
 {
+	// Check if cart item key is set
 	$cart_item_key = isset($_POST['cart_item_key']) ? sanitize_text_field($_POST['cart_item_key']) : '';
 
-	if (!$cart_item_key) {
-		wp_send_json_error(array('message' => 'Invalid cart item key.'));
+	// Attempt to remove the item from the cart
+	if ($cart_item_key && WC()->cart->remove_cart_item($cart_item_key)) {
+		// Recalculate totals after item removal
+		WC()->cart->calculate_totals();
+
+		// Capture updated mini-cart HTML to send in response
+		ob_start();
+		woocommerce_mini_cart();
+		$mini_cart = ob_get_clean();
+
+		wp_send_json_success([
+			'mini_cart' => $mini_cart,
+			'cart_count' => WC()->cart->get_cart_contents_count(),
+		]);
+	} else {
+		wp_send_json_error(['message' => __('Failed to remove item from cart.', 'woocommerce')]);
 	}
 
-	WC()->cart->remove_cart_item($cart_item_key);
-
-	wp_send_json_success(array(
-		'cart_count' => WC()->cart->get_cart_contents_count(),
-		'mini_cart' => wc_get_template_html('mini-cart.php'), // Customize this if needed
-	));
+	wp_die();
 }
+
 
 add_action('wp_ajax_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
 add_action('wp_ajax_nopriv_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
 add_action('wp_ajax_custom_update_mini_cart', 'custom_update_mini_cart');
 add_action('wp_ajax_nopriv_custom_update_mini_cart', 'custom_update_mini_cart');
-add_action('wp_ajax_custom_ajax_remove_from_cart', 'custom_ajax_remove_from_cart');
-add_action('wp_ajax_nopriv_custom_ajax_remove_from_cart', 'custom_ajax_remove_from_cart');
-
+add_action('wp_ajax_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
+add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 

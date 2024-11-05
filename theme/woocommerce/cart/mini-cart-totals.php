@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
         <span><?php echo wp_kses_post("Iš viso") ?></span>
         <span><?php echo WC()->cart->get_total(); ?></span>
     </div>
-    <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="block black-button text-center uppercase py-3 mb-6">
+    <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="block black-button text-center uppercase py-3 mb-10">
         <?php echo wp_kses_post("Pirkti") ?>
     </a>
 </div>
