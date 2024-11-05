@@ -70,7 +70,7 @@ if ($related_products_query->have_posts()): ?>
 								<a href="<?php the_permalink(); ?>" class="w-full">
 									<img src="<?php echo esc_url($thumbnail_url); ?>"
 										alt="<?php echo esc_attr($related_product_name); ?>"
-										class="w-full h-full object-cover rounded-lg">
+										class="w-full h-full object-cover round-12">
 								</a>
 								<a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
 									<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
@@ -81,7 +81,6 @@ if ($related_products_query->have_posts()): ?>
 									</svg>
 								</a>
 
-								<!-- Updated Add to Cart Button with correct product ID and name -->
 								<a data-product_id="<?php echo esc_attr($related_product_id); ?>"
 									data-product_name="<?php echo esc_attr($related_product_name); ?>"
 									class="add-item-icon add-to-cart-swiper-btn cursor-pointer absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
@@ -187,7 +186,7 @@ $new_products_query = new WP_Query($args);
 									<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
 										<a class="w-full" href="<?php the_permalink(); ?>">
 											<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
-												class="w-full h-full object-cover rounded-lg">
+												class="w-full h-full object-cover round-12">
 										</a>
 
 										<a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">

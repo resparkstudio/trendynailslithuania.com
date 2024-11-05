@@ -443,8 +443,10 @@ add_action('wp_ajax_custom_update_mini_cart', 'custom_update_mini_cart');
 add_action('wp_ajax_nopriv_custom_update_mini_cart', 'custom_update_mini_cart');
 add_action('wp_ajax_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
 add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
+
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
+
 
 // Remove WooCommerce sale flash
 remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
@@ -453,8 +455,6 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30
 
 
 // Product archive
-
-// AJAX handler for filtering and sorting products
 function filter_products()
 {
 	$filter = $_GET['filter'] ?? 'all';
@@ -526,3 +526,11 @@ function filter_products()
 add_action('wp_ajax_filter_products', 'filter_products');
 add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 
+
+// Remove WooCommerce Notices Wrapper
+function remove_woocommerce_notices()
+{
+	remove_action('woocommerce_before_main_content', 'woocommerce_output_all_notices', 10);
+}
+add_action('wp', 'remove_woocommerce_notices');
+add_filter('woocommerce_cart_item_removed_notice_type', '__return_false');
