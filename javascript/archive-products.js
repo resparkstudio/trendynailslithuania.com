@@ -1,41 +1,37 @@
 document.addEventListener('DOMContentLoaded', function () {
-	const filterButtons = document.querySelectorAll('.filter-button');
 	const sortDropdown = document.querySelector('.orderby');
 
-	filterButtons.forEach((button) => {
-		button.addEventListener('click', function () {
-			const filter = this.getAttribute('data-filter');
-			const orderby = sortDropdown.value;
+	// Get the current category from the URL path
+	const currentCategory = window.location.pathname.includes(
+		'/product-category/'
+	)
+		? window.location.pathname.split('/product-category/')[1].split('/')[0]
+		: '';
 
-			// Remove active class from all buttons and add it to the clicked button
-			filterButtons.forEach((btn) => btn.classList.remove('link-active'));
-			this.classList.add('link-active');
-
-			// Fetch products based on selected filter and orderby
-			fetchFilteredProducts(filter, orderby);
-		});
-	});
-
+	// Listen for changes in the sorting dropdown
 	sortDropdown.addEventListener('change', function () {
 		const orderby = this.value;
-		const activeFilter =
-			document
-				.querySelector('.filter-button.link-active')
-				?.getAttribute('data-filter') || 'all';
-		fetchFilteredProducts(activeFilter, orderby);
+		const url = new URL(window.location.href);
+		url.searchParams.set('orderby', orderby);
+
+		// Update URL without reloading the page
+		window.history.pushState({}, '', url);
+
+		// Fetch sorted products via AJAX, including category
+		fetchSortedProducts(orderby, currentCategory);
 	});
 
-	function fetchFilteredProducts(filter, orderby) {
+	function fetchSortedProducts(orderby, category) {
 		const productList = document.getElementById('product-list');
 		const productCount = document.querySelector('.product-count');
-		productList.innerHTML = '';
+		productList.innerHTML = ''; // Clear current products
 
-		const url = `${ajax_product_archive_params.ajax_url}?action=filter_products&filter=${filter}&orderby=${orderby}`;
+		// AJAX URL for sorting, including category and sorting parameters
+		const ajaxUrl = `${ajax_product_archive_params.ajax_url}?action=filter_products&orderby=${orderby}&category=${category}`;
 
-		fetch(url)
+		fetch(ajaxUrl)
 			.then((response) => response.json())
 			.then((data) => {
-				// Update the product list and product count
 				productList.innerHTML = data.products;
 				productCount.innerHTML = data.product_count;
 			})

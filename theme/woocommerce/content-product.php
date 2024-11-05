@@ -45,9 +45,18 @@ if (empty($product) || !$product->is_visible()) {
 			</svg>
 		</a>
 	</div>
+	<?php
+	$categories = get_the_terms($product->get_id(), 'product_cat');
+	if (!empty($categories) && !is_wp_error($categories)) {
+		$category = $categories[0];
+		echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
+	}
+	?>
+
 	<a href="<?php the_permalink(); ?>" class="product-title body-normal-regular mb-2.5 lg:mb-7">
 		<?php woocommerce_template_loop_product_title(); ?>
 	</a>
+
 	<div class="product-price">
 		<?php woocommerce_template_loop_price(); ?>
 	</div>

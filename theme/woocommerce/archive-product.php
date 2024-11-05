@@ -12,6 +12,19 @@ defined('ABSPATH') || exit;
 get_header('shop');
 
 do_action('woocommerce_before_main_content');
+
+$current_url = home_url(add_query_arg(null, null)); // Get the current full URL
+
+// Base Shop URL (Rodyti viską)
+$shop_url = esc_url(get_permalink(wc_get_page_id('shop')));
+$all_active = ($current_url == $shop_url) ? 'link-active' : '';
+
+// Specific Filter URLs
+$new_products_url = esc_url(add_query_arg('filter', 'naujienos', $shop_url));
+$sale_url = esc_url(add_query_arg('filter', 'sale', $shop_url));
+$new_products_active = ($current_url == $new_products_url) ? 'link-active' : '';
+$sale_active = ($current_url == $sale_url) ? 'link-active' : '';
+
 ?>
 <div class="max-w-[87.5rem] mx-auto">
     <div class="mx-12 md:mx-4 mb-36 md:mb-32 mt-5 md:mt-2.5">
@@ -19,22 +32,28 @@ do_action('woocommerce_before_main_content');
             <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Parduotuvė"); ?></h1>
         </header>
 
-        <!-- Dynamic Filter Menu -->
         <div
             class="flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5 border-b-[0.5px] border-dark-gray mb-12 md:mb-6">
-            <button class="link-active filter-button link-hover whitespace-nowrap" data-filter="all">Rodyti
-                viską</button>
-            <button class="filter-button link-hover whitespace-nowrap" data-filter="naujienos">Naujienos</button>
-            <button class="filter-button link-hover whitespace-nowrap" data-filter="sale">Išpardavimas</button>
+            <a href="<?php echo $shop_url; ?>"
+                class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>">Rodyti viską</a>
+
+            <a href="<?php echo $new_products_url; ?>"
+                class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>">Naujienos</a>
+
+            <a href="<?php echo $sale_url; ?>"
+                class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>">Išpardavimas</a>
 
             <?php
-            // Generate category filters dynamically
             $product_categories = get_terms('product_cat', array('hide_empty' => true));
             foreach ($product_categories as $category) {
-                echo '<button class="filter-button link-hover whitespace-nowrap" data-filter="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</button>';
+                $category_url = esc_url(get_term_link($category));
+                $category_active = ($current_url == $category_url) ? 'link-active' : '';
+
+                echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
             }
             ?>
         </div>
+
 
         <!-- Product Count and Sorting Dropdown -->
         <div class="flex justify-between items-center mb-8 md:mb-10">

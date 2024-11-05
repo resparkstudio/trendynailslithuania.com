@@ -453,48 +453,44 @@ remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_produ
 remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
-
 // Product archive
+// Handle sorting via AJAX
 function filter_products()
 {
-	$filter = $_GET['filter'] ?? 'all';
-	$orderby = $_GET['orderby'] ?? 'date';
+	$orderby = $_GET['orderby'] ?? 'popularity';
+	$category = $_GET['category'] ?? ''; // Capture category from AJAX request
 
 	$args = array(
 		'post_type' => 'product',
 		'posts_per_page' => -1,
-		'orderby' => $orderby,
-		'order' => 'ASC',
 	);
 
-	if ($filter == 'naujienos') {
-		$args['date_query'] = array(
-			array(
-				'after' => '30 days ago',
-			),
-		);
-	} elseif ($filter == 'sale') {
-		$args['meta_query'] = array(
-			array(
-				'key' => '_sale_price',
-				'value' => 0,
-				'compare' => '>',
-				'type' => 'NUMERIC',
-			),
-		);
-	} elseif ($filter != 'all') {
+	// Apply sorting logic based on orderby
+	if ($orderby === 'price-asc') {
+		$args['orderby'] = 'meta_value_num';
+		$args['meta_key'] = '_price';
+		$args['order'] = 'ASC';
+	} elseif ($orderby === 'price-desc') {
+		$args['orderby'] = 'meta_value_num';
+		$args['meta_key'] = '_price';
+		$args['order'] = 'DESC';
+	} else {
+		$args['orderby'] = $orderby;
+		$args['order'] = 'ASC';
+	}
+
+	// Apply category filter if provided
+	if (!empty($category)) {
 		$args['tax_query'] = array(
 			array(
 				'taxonomy' => 'product_cat',
 				'field' => 'slug',
-				'terms' => $filter,
+				'terms' => $category,
 			),
 		);
 	}
 
 	ob_start();
-
-	// Query products
 	$query = new WP_Query($args);
 	if ($query->have_posts()) {
 		woocommerce_product_loop_start();
@@ -510,7 +506,7 @@ function filter_products()
 	$product_content = ob_get_clean();
 	wp_reset_postdata();
 
-	// Product count with correct pluralization
+	// Get product count
 	ob_start();
 	$total = $query->found_posts;
 	include locate_template('woocommerce/loop/result-count.php');
@@ -525,6 +521,32 @@ function filter_products()
 }
 add_action('wp_ajax_filter_products', 'filter_products');
 add_action('wp_ajax_nopriv_filter_products', 'filter_products');
+
+// Function to modify WooCommerce archive query based on URL parameters
+function modify_woocommerce_archive_query($query)
+{
+	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category())) {
+		$orderby = $_GET['orderby'] ?? 'popularity';
+
+		// Apply sorting based on the orderby parameter
+		if ($orderby === 'price-asc') {
+			$query->set('orderby', 'meta_value_num');
+			$query->set('meta_key', '_price');
+			$query->set('order', 'ASC');
+		} elseif ($orderby === 'price-desc') {
+			$query->set('orderby', 'meta_value_num');
+			$query->set('meta_key', '_price');
+			$query->set('order', 'DESC');
+		} else {
+			$query->set('orderby', $orderby);
+			$query->set('order', 'ASC');
+		}
+	}
+}
+add_action('pre_get_posts', 'modify_woocommerce_archive_query');
+
+
+
 
 
 // Remove WooCommerce Notices Wrapper
