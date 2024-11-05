@@ -22,6 +22,9 @@ $instagram_link = get_field('instagram_link', 'option');
 $instagram_button_text = get_field('instagram_button_text');
 $instagram_gallery = get_field('instagram_gallery');
 
+$sale_url = esc_url(add_query_arg('filter', 'sale', get_permalink(wc_get_page_id('shop'))));
+$new_products_url = esc_url(add_query_arg('filter', 'naujienos', get_permalink(wc_get_page_id('shop'))));
+$shop_url = esc_url(get_permalink(wc_get_page_id('shop')));
 
 get_header();
 ?>
@@ -103,7 +106,7 @@ get_header();
                             <?php echo wp_kses_post("Išpardavimas"); ?>
                         </h3>
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                            <a class="flex gap-3" href="#">
+                            <a class="flex gap-3" href="<?php echo $sale_url ?>">
                                 <span><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
                                     <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
@@ -241,7 +244,7 @@ get_header();
                             <?php echo wp_kses_post("Naujienos"); ?>
                         </h3>
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                            <a class="flex gap-3" href="#">
+                            <a class="flex gap-3" href="<?php echo $new_products_url ?>">
                                 <span><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
                                     <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
@@ -429,7 +432,7 @@ get_header();
                         </h3>
 
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                            <a class="flex gap-3" href="#">
+                            <a class="flex gap-3" href="<?php echo $shop_url ?>">
                                 <span><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
                                     <svg width="6" height="10" viewBox="0 0 6 10" fill="none"

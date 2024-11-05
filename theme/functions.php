@@ -546,9 +546,6 @@ function modify_woocommerce_archive_query($query)
 add_action('pre_get_posts', 'modify_woocommerce_archive_query');
 
 
-
-
-
 // Remove WooCommerce Notices Wrapper
 function remove_woocommerce_notices()
 {
@@ -556,3 +553,18 @@ function remove_woocommerce_notices()
 }
 add_action('wp', 'remove_woocommerce_notices');
 add_filter('woocommerce_cart_item_removed_notice_type', '__return_false');
+
+
+
+// Remove pagination controls from WooCommerce
+remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
+
+
+// Remove pagination and load all products in WooCommerce archives
+function load_all_products_in_archive($query)
+{
+	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
+		$query->set('posts_per_page', -1); // Load all products
+	}
+}
+add_action('pre_get_posts', 'load_all_products_in_archive');
