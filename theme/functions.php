@@ -163,6 +163,8 @@ function _tw_scripts()
 		'ajax_url' => admin_url('admin-ajax.php')
 	));
 
+	wp_localize_script('_tw-script', 'ajax_product_archive_params', array('ajax_url' => admin_url('admin-ajax.php')));
+
 	wp_localize_script('_tw-script', 'checkoutData', [
 		'checkoutUrl' => esc_url(wc_get_checkout_url())
 	]);
@@ -444,5 +446,83 @@ add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_ca
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
+// Remove WooCommerce sale flash
+remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
+remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
+remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
+
+// Product archive
+
+// AJAX handler for filtering and sorting products
+function filter_products()
+{
+	$filter = $_GET['filter'] ?? 'all';
+	$orderby = $_GET['orderby'] ?? 'date';
+
+	$args = array(
+		'post_type' => 'product',
+		'posts_per_page' => -1,
+		'orderby' => $orderby,
+		'order' => 'ASC',
+	);
+
+	if ($filter == 'naujienos') {
+		$args['date_query'] = array(
+			array(
+				'after' => '30 days ago',
+			),
+		);
+	} elseif ($filter == 'sale') {
+		$args['meta_query'] = array(
+			array(
+				'key' => '_sale_price',
+				'value' => 0,
+				'compare' => '>',
+				'type' => 'NUMERIC',
+			),
+		);
+	} elseif ($filter != 'all') {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'product_cat',
+				'field' => 'slug',
+				'terms' => $filter,
+			),
+		);
+	}
+
+	ob_start();
+
+	// Query products
+	$query = new WP_Query($args);
+	if ($query->have_posts()) {
+		woocommerce_product_loop_start();
+		while ($query->have_posts()) {
+			$query->the_post();
+			wc_get_template_part('content', 'product');
+		}
+		woocommerce_product_loop_end();
+	} else {
+		echo '<p>No products found.</p>';
+	}
+
+	$product_content = ob_get_clean();
+	wp_reset_postdata();
+
+	// Product count with correct pluralization
+	ob_start();
+	$total = $query->found_posts;
+	include locate_template('woocommerce/loop/result-count.php');
+	$product_count = ob_get_clean();
+
+	// Return JSON response
+	wp_send_json(array(
+		'products' => $product_content,
+		'product_count' => $product_count,
+	));
+	wp_die();
+}
+add_action('wp_ajax_filter_products', 'filter_products');
+add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 
