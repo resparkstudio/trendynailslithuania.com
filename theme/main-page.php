@@ -34,8 +34,8 @@ get_header();
             <?php if ($hero_image || $hero_image_mobile || $hero_heading || $hero_description): ?>
                 <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
                     <?php if ($hero_image && $hero_image_mobile): ?>
-                        <img class="w-full h-auto round-15 block md:hidden" src="<?php echo esc_url($hero_image); ?>"
-                            alt="Hero Image" />
+                        <img class="w-full h-auto round-15 block md:hidden aspect-[1401/581]"
+                            src="<?php echo esc_url($hero_image); ?>" alt="Hero Image" />
                         <img class="w-full h-auto round-15 hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
                             alt="Hero Image Mobile" />
                     <?php elseif ($hero_image): ?>
@@ -275,7 +275,7 @@ get_header();
                                                 $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
                                                 ?>
 
-                                                <div class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3">
+                                                <div class="aspect-[324/365] w-full relative mb-4 md:mb-3">
                                                     <a class="w-full" href="<?php the_permalink(); ?>">
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"

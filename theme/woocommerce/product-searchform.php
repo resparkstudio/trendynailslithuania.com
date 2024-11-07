@@ -21,9 +21,9 @@ if (!defined('ABSPATH')) {
 
 ?>
 <form role="search" method="get"
-	class="woocommerce-product-search max-w-[73.4375rem]  flex flex-wrap items-center bg-white round-5 w-full shadow-sm p-4"
+	class="woocommerce-product-search max-w-[73.4375rem]  flex flex-wrap items-center bg-white round-5 w-full shadow-sm px-5"
 	action="<?php echo esc_url(home_url('/')); ?>">
-	<div class="flex w-full">
+	<div class="flex w-full pt-4 pb-4">
 		<button type="submit" class="mr-2 text-gray-500 grow-0">
 			<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<mask id="path-1-inside-1_71_1554" fill="white">
@@ -47,5 +47,5 @@ if (!defined('ABSPATH')) {
 
 		<input type="hidden" name="post_type" value="product" />
 	</div>
-	<div id="product-search-results" class="mt-2 block bg-white w-full"></div>
+	<div id="product-search-results" class="block bg-white w-full"></div>
 </form>

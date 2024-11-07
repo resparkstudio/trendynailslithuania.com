@@ -3,9 +3,16 @@ document.addEventListener('DOMContentLoaded', function () {
 		'woocommerce-product-search-field-0'
 	);
 	const resultsContainer = document.getElementById('product-search-results');
+	const searchButton = document.querySelector('button[type="submit"]'); // Select the search button
+
+	// Disable the button initially
+	searchButton.disabled = true;
 
 	searchInput.addEventListener('input', function () {
 		const query = searchInput.value;
+
+		// Enable or disable the search button based on the input
+		searchButton.disabled = query.length === 0;
 
 		if (query.length > 0) {
 			fetchProducts(query);
@@ -28,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function displayResults(data) {
-		const resultsContainer = document.getElementById(
-			'product-search-results'
-		);
 		resultsContainer.innerHTML = data.html; // Inject the HTML directly
+
+		// Enable or disable the button based on whether products were found
+		searchButton.disabled = !data.has_results;
 	}
 });

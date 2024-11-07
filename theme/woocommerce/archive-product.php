@@ -35,13 +35,13 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
         <div
             class="flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5 border-b-[0.5px] border-dark-gray mb-12 md:mb-6">
             <a href="<?php echo $shop_url; ?>"
-                class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>">Rodyti viską</a>
+                class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>"><?php echo wp_kses_post("Rodyti viską") ?></a>
 
             <a href="<?php echo $new_products_url; ?>"
-                class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>">Naujienos</a>
+                class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>"><?php echo wp_kses_post("Naujienos") ?></a>
 
             <a href="<?php echo $sale_url; ?>"
-                class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>">Išpardavimas</a>
+                class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>"><?php echo wp_kses_post("Išpardavimas") ?></a>
 
             <?php
             $product_categories = get_terms('product_cat', array('hide_empty' => true));

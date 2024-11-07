@@ -582,7 +582,7 @@ add_action('wp_ajax_nopriv_fetch_products', 'fetch_products_callback');
 function fetch_products_callback()
 {
 	if (empty($_GET['query'])) {
-		wp_send_json(['html' => '<p class=" text-mid-gray p-2 body-normal-regular">Produktų nerasta</p>']);
+		wp_send_json(['html' => '<p class="text-mid-gray pb-4 body-normal-regular">Produktų nerasta</p>', 'has_results' => false]);
 		return;
 	}
 
@@ -705,9 +705,9 @@ function fetch_products_callback()
 		$products = $product_data;
 		include locate_template('template-parts/search-results.php');
 		$html = ob_get_clean();
-		wp_send_json(['html' => $html]);
+		wp_send_json(['html' => $html, 'has_results' => true]);
 	} else {
-		wp_send_json(['html' => '<p class=" text-mid-gray p-2 body-normal-regular">Produktų nerasta</p>']);
+		wp_send_json(['html' => '<p class="text-mid-gray pb-4 body-normal-regular">Produktų nerasta</p>', 'has_results' => false]);
 	}
 
 	exit;
