@@ -3,8 +3,7 @@ import gsap from 'gsap';
 document.addEventListener('DOMContentLoaded', function () {
 	const headerSearchIcon = document.getElementById('search-icon');
 	const searchBoxContainer = document.getElementById('search-form-container');
-	const searchInputText =
-		document.getElementsByClassName('search-input-text')[0];
+	const searchInput = document.getElementsByClassName('search-input-text')[0];
 	let searchToggle = false;
 	initSearchBox();
 
@@ -41,10 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			y: 0,
 			ease: 'power2.out',
 			onComplete: () => {
-				searchInputText.focus();
-				searchInputText.setSelectionRange(
-					searchInputText.value.length,
-					searchInputText.value.length
+				searchInput.focus();
+				searchInput.setSelectionRange(
+					searchInput.value.length,
+					searchInput.value.length
 				);
 			},
 		});
@@ -59,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			onComplete: () => {
 				searchBoxContainer.classList.add('hidden');
 				searchBoxContainer.classList.remove('flex');
-				searchInputText.blur();
+				searchInput.blur();
 			},
 		});
 	}

@@ -169,6 +169,11 @@ function _tw_scripts()
 		'checkoutUrl' => esc_url(wc_get_checkout_url())
 	]);
 
+	wp_localize_script('_tw-script', 'ajax_product_archive_params', array(
+		'ajax_url' => admin_url('admin-ajax.php'),
+		'action' => 'fetch_products'
+	));
+
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
@@ -568,3 +573,142 @@ function load_all_products_in_archive($query)
 	}
 }
 add_action('pre_get_posts', 'load_all_products_in_archive');
+
+
+// AJAX searchbox funtionality
+add_action('wp_ajax_fetch_products', 'fetch_products_callback');
+add_action('wp_ajax_nopriv_fetch_products', 'fetch_products_callback');
+
+function fetch_products_callback()
+{
+	if (empty($_GET['query'])) {
+		wp_send_json(['html' => '<p class=" text-mid-gray p-2 body-normal-regular">Produktų nerasta</p>']);
+		return;
+	}
+
+	$query = sanitize_text_field($_GET['query']);
+	$product_data = [];
+	$product_ids = [];
+
+	// 1. Search by Product Name
+	$name_args = [
+		'post_type' => 'product',
+		'posts_per_page' => 10,
+		'post_status' => 'publish',
+		's' => $query,
+	];
+
+	$name_query = new WP_Query($name_args);
+	if ($name_query->have_posts()) {
+		while ($name_query->have_posts()) {
+			$name_query->the_post();
+			$id = get_the_ID();
+			if (!in_array($id, $product_ids)) {
+				$product_ids[] = $id;
+				$product_data[] = [
+					'id' => $id,
+					'name' => get_the_title(),
+					'link' => get_permalink(),
+				];
+			}
+		}
+	}
+	wp_reset_postdata();
+
+	// 2. Search by Product Category
+	$category_terms = get_terms([
+		'taxonomy' => 'product_cat',
+		'name__like' => $query,
+		'fields' => 'ids',
+	]);
+
+	if (!is_wp_error($category_terms) && !empty($category_terms)) {
+		$category_args = [
+			'post_type' => 'product',
+			'posts_per_page' => 10,
+			'post_status' => 'publish',
+			'tax_query' => [
+				[
+					'taxonomy' => 'product_cat',
+					'field' => 'term_id',
+					'terms' => $category_terms,
+					'operator' => 'IN',
+				],
+			],
+		];
+
+		$category_query = new WP_Query($category_args);
+		if ($category_query->have_posts()) {
+			while ($category_query->have_posts()) {
+				$category_query->the_post();
+				$id = get_the_ID();
+				if (!in_array($id, $product_ids)) {
+					$product_ids[] = $id;
+					$product_data[] = [
+						'id' => $id,
+						'name' => get_the_title(),
+						'link' => get_permalink(),
+					];
+				}
+			}
+		}
+		wp_reset_postdata();
+	}
+
+	// 3. Search by Product Attributes
+	$attribute_taxonomies = wc_get_attribute_taxonomies();
+	foreach ($attribute_taxonomies as $taxonomy) {
+		$attribute_name = 'pa_' . $taxonomy->attribute_name;
+		$attribute_terms = get_terms([
+			'taxonomy' => $attribute_name,
+			'name__like' => $query,
+			'fields' => 'ids',
+		]);
+
+		if (!is_wp_error($attribute_terms) && !empty($attribute_terms)) {
+			$attribute_args = [
+				'post_type' => 'product',
+				'posts_per_page' => 10,
+				'post_status' => 'publish',
+				'tax_query' => [
+					[
+						'taxonomy' => $attribute_name,
+						'field' => 'term_id',
+						'terms' => $attribute_terms,
+						'operator' => 'IN',
+					],
+				],
+			];
+
+			$attribute_query = new WP_Query($attribute_args);
+			if ($attribute_query->have_posts()) {
+				while ($attribute_query->have_posts()) {
+					$attribute_query->the_post();
+					$id = get_the_ID();
+					if (!in_array($id, $product_ids)) {
+						$product_ids[] = $id;
+						$product_data[] = [
+							'id' => $id,
+							'name' => get_the_title(),
+							'link' => get_permalink(),
+						];
+					}
+				}
+			}
+			wp_reset_postdata();
+		}
+	}
+
+	// 4. Return results if any products are found
+	if (!empty($product_data)) {
+		ob_start();
+		$products = $product_data;
+		include locate_template('template-parts/search-results.php');
+		$html = ob_get_clean();
+		wp_send_json(['html' => $html]);
+	} else {
+		wp_send_json(['html' => '<p class=" text-mid-gray p-2 body-normal-regular">Produktų nerasta</p>']);
+	}
+
+	exit;
+}
