@@ -6,3 +6,4 @@ import './single-product-desc.js';
 import './ajax-add-to-cart.js';
 import './cart-sidebar.js';
 import './archive-products.js';
+import './search-box.js';

@@ -564,7 +564,7 @@ remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
 function load_all_products_in_archive($query)
 {
 	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
-		$query->set('posts_per_page', -1); // Load all products
+		$query->set('posts_per_page', -1);
 	}
 }
 add_action('pre_get_posts', 'load_all_products_in_archive');
