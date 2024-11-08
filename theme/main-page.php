@@ -121,7 +121,7 @@ get_header();
                     </div>
 
                     <div class="relative">
-                        <div class="relative swiper-container overflow-hidden">
+                        <div class="relative swiper-container sale-swiper-container overflow-hidden">
                             <div id="product-swiper-wrapper" class="swiper-wrapper">
                                 <?php
                                 if ($sale_product_loop->have_posts()):
@@ -210,14 +210,16 @@ get_header();
                             </div>
                         </div>
 
-                        <div class="product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
+                        <div
+                            class="sale-nav-button-prev product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M-6.95394e-07 5L5.25394 10L6 9.29L4.19264 7.58L1.48161 5L4.19264 2.42L5.98949 0.71L5.24343 -3.30706e-08L-6.95394e-07 5Z"
                                     fill="black" />
                             </svg>
                         </div>
-                        <div class="product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
+                        <div
+                            class="sale-nav-button-next product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
@@ -268,7 +270,7 @@ get_header();
 
                     <div class="relative">
 
-                        <div class="relative swiper-container overflow-hidden">
+                        <div class="relative swiper-container new-products-swiper-container overflow-hidden">
                             <div id="product-swiper-wrapper" class="swiper-wrapper">
                                 <?php
 
@@ -357,14 +359,16 @@ get_header();
                             </div>
                         </div>
 
-                        <div class="product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
+                        <div
+                            class="product-nav-button-prev new-products-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M-6.95394e-07 5L5.25394 10L6 9.29L4.19264 7.58L1.48161 5L4.19264 2.42L5.98949 0.71L5.24343 -3.30706e-08L-6.95394e-07 5Z"
                                     fill="black" />
                             </svg>
                         </div>
-                        <div class="product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
+                        <div
+                            class="product-nav-button-next new-products-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
@@ -467,7 +471,7 @@ get_header();
 
                     <div class="relative">
 
-                        <div class="relative swiper-container overflow-hidden">
+                        <div class="relative swiper-container popular-products-swiper-container overflow-hidden">
                             <div id="product-swiper-wrapper" class="swiper-wrapper">
                                 <?php
                                 $args = array(
@@ -574,14 +578,16 @@ get_header();
                             </div>
                         </div>
 
-                        <div class="product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
+                        <div
+                            class="product-nav-button-prev popular-products-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M-6.95394e-07 5L5.25394 10L6 9.29L4.19264 7.58L1.48161 5L4.19264 2.42L5.98949 0.71L5.24343 -3.30706e-08L-6.95394e-07 5Z"
                                     fill="black" />
                             </svg>
                         </div>
-                        <div class="product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
+                        <div
+                            class="product-nav-button-next popular-products-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"

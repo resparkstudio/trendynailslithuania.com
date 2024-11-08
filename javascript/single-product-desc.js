@@ -1,8 +1,4 @@
 import gsap from 'gsap';
-import { ExpoScaleEase } from 'gsap/EasePack';
-import { CustomEase } from 'gsap/CustomEase';
-gsap.registerPlugin(ExpoScaleEase);
-gsap.registerPlugin(CustomEase);
 
 const expandElements = document.querySelectorAll('.info-expand');
 const infoTextElements = document.querySelectorAll('.info-text');
