@@ -147,7 +147,7 @@ Template Name: Header
 				</div>
 
 				<div id="search-form-container"
-					class="hidden absolute px-12 md:px-4 left-0 top-24 w-full justify-center z-10">
+					class="hidden absolute px-12 md:px-4 left-0 top-24 md:top-14 w-full justify-center z-10">
 					<?php if (function_exists('get_product_search_form')): ?>
 						<?php get_product_search_form(); ?>
 					<?php endif; ?>
