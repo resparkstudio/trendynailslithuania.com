@@ -10,7 +10,11 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
     if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key)) {
         $product_name = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
         $thumbnail_id = $_product->get_image_id();
-        $product_image_url = wp_get_attachment_url($thumbnail_id);
+        if ($thumbnail_id) {
+            $product_image_url = wp_get_attachment_url($thumbnail_id);
+        } else {
+            $product_image_url = wp_get_attachment_url(7);
+        }
         $product_price = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
         $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
         ?>
@@ -18,13 +22,12 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
             <div class="flex items-start text-deep-dark-gray">
                 <!-- Product Image -->
                 <div class="flex-shrink-0">
-                    <?php if ($product_image_url && $product_permalink): ?>
-                        <a href="<?php echo esc_url($product_permalink); ?>"
-                            class="block aspect-[78/100] max-w-24 w-full relative mr-6">
-                            <img src="<?php echo esc_url($product_image_url); ?>" alt="<?php echo esc_attr($product_name); ?>"
-                                class="w-full h-full object-cover" />
-                        </a>
-                    <?php endif; ?>
+
+                    <a href="<?php echo esc_url($product_permalink); ?>"
+                        class="block aspect-[78/100] max-w-24 w-full relative mr-6">
+                        <img src="<?php echo esc_url($product_image_url); ?>" alt="<?php echo esc_attr($product_name); ?>"
+                            class="w-full h-full object-cover" />
+                    </a>
                 </div>
 
                 <!-- Product Details (Name, Attributes, Price, Quantity) -->

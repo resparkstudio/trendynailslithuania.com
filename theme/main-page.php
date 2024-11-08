@@ -133,11 +133,16 @@ get_header();
                                             <div class="relative product-card flex flex-col">
                                                 <?php
                                                 $thumbnail_id = get_post_thumbnail_id($product->get_id());
-                                                $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                                                if ($thumbnail_id) {
+                                                    $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                                                } else {
+                                                    $thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
+                                                }
                                                 ?>
 
                                                 <div class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3">
                                                     <a class="w-full" href="<?php the_permalink(); ?>">
+
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
                                                             class="w-full h-full object-cover rounded-lg">
@@ -272,7 +277,11 @@ get_header();
                                             <div class="relative product-card flex flex-col">
                                                 <?php
                                                 $thumbnail_id = get_post_thumbnail_id($product->get_id());
-                                                $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                                                if ($thumbnail_id) {
+                                                    $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                                                } else {
+                                                    $thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
+                                                }
                                                 ?>
 
                                                 <div class="aspect-[324/365] w-full relative mb-4 md:mb-3">
@@ -379,7 +388,11 @@ get_header();
                 <div id="categories-section" class="mb-28 md:mb-20 grid grid-cols-12 gap-4">
                     <?php foreach ($product_categories as $category):
                         $thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
-                        $thumbnail_url = wp_get_attachment_url($thumbnail_id);
+                        if ($thumbnail_id) {
+                            $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                        } else {
+                            $thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
+                        }
 
                         if ($thumbnail_url):
                             ?>
@@ -479,7 +492,11 @@ get_header();
                                             <div class="relative product-card flex flex-col">
                                                 <?php
                                                 $thumbnail_id = get_post_thumbnail_id($product->get_id());
-                                                $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                                                if ($thumbnail_id) {
+                                                    $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                                                } else {
+                                                    $thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
+                                                }
                                                 ?>
 
                                                 <div class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3">

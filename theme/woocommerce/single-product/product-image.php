@@ -9,16 +9,13 @@ defined('ABSPATH') || exit;
 
 global $product;
 
-// Get the main product image and gallery images
 $post_thumbnail_id = $product->get_image_id();
 $attachment_ids = $product->get_gallery_image_ids();
 
-// Calculate if the product is "new" (published within the last 30 days)
 $product_date = new DateTime($product->get_date_created());
 $date_diff = (new DateTime())->diff($product_date)->days;
 $is_new_product = $date_diff <= 30;
 
-// Check if the product is on sale (has a discount)
 $is_discounted = $product->is_on_sale();
 
 ?>
@@ -50,6 +47,10 @@ $is_discounted = $product->is_on_sale();
 		<?php if ($post_thumbnail_id): ?>
 			<div class="swiper-slide aspect-[663/725] object-center w-full inline-block h-auto">
 				<?php echo wp_get_attachment_image($post_thumbnail_id, 'large', false, ['class' => 'w-full h-auto object-cover rounded-lg aspect-[663/725]']); ?>
+			</div>
+		<?php else: ?>
+			<div class="swiper-slide aspect-[663/725] object-center w-full inline-block h-auto">
+				<?php echo wp_get_attachment_image(7, 'large', false, ['class' => 'w-full h-auto object-cover rounded-lg aspect-[663/725]']); ?>
 			</div>
 		<?php endif; ?>
 

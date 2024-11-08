@@ -15,7 +15,6 @@ if (!$product) {
 	return;
 }
 
-// Get current product categories
 $categories = wp_get_post_terms($product->get_id(), 'product_cat');
 $category_ids = wp_list_pluck($categories, 'term_id');
 
@@ -62,7 +61,11 @@ if ($related_products_query->have_posts()): ?>
 					$related_product_id = get_the_ID();
 					$related_product_name = get_the_title();
 					$thumbnail_id = get_post_thumbnail_id($related_product_id);
-					$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+					if ($thumbnail_id) {
+						$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+					} else {
+						$thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
+					}
 					?>
 					<div class="swiper-slide">
 						<div class="product-card flex flex-col">
@@ -131,6 +134,7 @@ $new_product_days = 30;
 $args = array(
 	'post_type' => 'product',
 	'posts_per_page' => 8,
+	'post__not_in' => array($product->get_id()),
 	'orderby' => 'date',
 	'order' => 'DESC',
 	'date_query' => array(
@@ -180,7 +184,11 @@ $new_products_query = new WP_Query($args);
 									$new_product_id = get_the_ID();
 									$new_product_name = get_the_title();
 									$thumbnail_id = get_post_thumbnail_id($new_product_id);
-									$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+									if ($thumbnail_id) {
+										$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+									} else {
+										$thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
+									}
 									?>
 
 									<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">

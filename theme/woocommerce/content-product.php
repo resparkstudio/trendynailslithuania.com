@@ -28,7 +28,16 @@ if (empty($product) || !$product->is_visible()) {
 <li <?php wc_product_class('product-card flex flex-col col-span-3 lg:col-span-4 md:col-span-6', $product); ?>>
 	<div class="aspect-[324/365] w-full relative mb-4 lg:mb-3">
 		<a href="<?php the_permalink(); ?>" class="w-full">
-			<?php echo get_the_post_thumbnail($product->get_id(), 'medium', ['class' => 'w-full h-full object-cover round-12']); ?>
+			<?php
+			$thumbnail_id = get_post_thumbnail_id($product->get_id());
+			if ($thumbnail_id) {
+				// Display product's own thumbnail
+				echo wp_get_attachment_image($thumbnail_id, 'medium', false, ['class' => 'w-full h-full object-cover round-12']);
+			} else {
+				// Display default image if no thumbnail exists
+				echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-full object-cover round-12']);
+			}
+			?>
 		</a>
 		<a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
 			<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
