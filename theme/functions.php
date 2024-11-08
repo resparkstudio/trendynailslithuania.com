@@ -245,7 +245,7 @@ add_action('template_redirect', 'redirect_site_settings_page');
 
 
 // Make some templates not indexible by the browsers
-// TODO if actuallly not appearing in search
+// TODO check if actuallly not appearing in search
 function add_noindex_to_specific_templates()
 {
 	if (is_page_template('soc-media.php') || is_page_template('footer.php')) {
