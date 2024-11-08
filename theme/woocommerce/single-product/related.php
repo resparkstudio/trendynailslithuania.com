@@ -75,7 +75,9 @@ if ($related_products_query->have_posts()): ?>
 										alt="<?php echo esc_attr($related_product_name); ?>"
 										class="w-full h-full object-cover round-12">
 								</a>
-								<a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
+								<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10"
+									data-action="add_to_wishlist" data-product_id="<?php echo esc_attr($related_product_id); ?>"
+									data-product_name="<?php echo esc_attr($related_product_name); ?>">
 									<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
 										<path
@@ -197,7 +199,10 @@ $new_products_query = new WP_Query($args);
 												class="w-full h-full object-cover round-12">
 										</a>
 
-										<a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
+										<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10"
+											data-action="add_to_wishlist"
+											data-product_id="<?php echo esc_attr($related_product_id); ?>"
+											data-product_name="<?php echo esc_attr($related_product_name); ?>">
 											<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
 												xmlns="http://www.w3.org/2000/svg">
 												<path

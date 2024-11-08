@@ -153,32 +153,38 @@ add_action('widgets_init', '_tw_widgets_init');
  */
 function _tw_scripts()
 {
-
+	// Enqueue main stylesheet
 	wp_enqueue_style('_tw-style', get_stylesheet_uri(), array(), _TW_VERSION);
+
+	// Enqueue Swiper CSS if needed
 	wp_enqueue_style('swiper-css', get_theme_root_uri() . '/_tw/node_modules/swiper/swiper-bundle.min.css');
 
-	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array(), _TW_VERSION, true);
+	// Enqueue main script file
+	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
 
+	// Localize script for AJAX Add to Cart and Add to Wishlist actions
 	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
 		'ajax_url' => admin_url('admin-ajax.php')
 	));
 
-	wp_localize_script('_tw-script', 'ajax_product_archive_params', array('ajax_url' => admin_url('admin-ajax.php')));
-
-	wp_localize_script('_tw-script', 'checkoutData', [
-		'checkoutUrl' => esc_url(wc_get_checkout_url())
-	]);
-
+	// Localize additional AJAX parameters for other functionality (e.g., product archive)
 	wp_localize_script('_tw-script', 'ajax_product_archive_params', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'action' => 'fetch_products'
 	));
 
-	if (is_singular() && comments_open() && get_option('thread_comments')) {
-		wp_enqueue_script('comment-reply');
-	}
+	// Localize checkout data for the checkout URL
+	wp_localize_script('_tw-script', 'checkoutData', [
+		'checkoutUrl' => esc_url(wc_get_checkout_url())
+	]);
+
+	wp_localize_script('_tw-script', 'ajax_wishlist_params', array(
+		'ajax_url' => admin_url('admin-ajax.php'),
+	));
 }
+
 add_action('wp_enqueue_scripts', '_tw_scripts');
+
 
 /**
  * Enqueue the block editor script.
@@ -414,7 +420,6 @@ function custom_update_mini_cart()
 	]);
 }
 
-
 function custom_ajax_remove_from_cart()
 {
 	// Check if cart item key is set
@@ -452,11 +457,11 @@ add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_ca
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
-
 // Remove WooCommerce sale flash
 remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
 remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+
 
 // Product archive
 // Handle sorting via AJAX
@@ -712,3 +717,108 @@ function fetch_products_callback()
 
 	exit;
 }
+
+
+// Custom function to add product to wishlist
+function custom_add_to_wishlist()
+{
+	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+
+	if ($product_id === 0) {
+		wp_send_json_error(['message' => __('Klaida: produktas neegzistuoja', '_tw')]);
+		wp_die();
+	}
+
+	$product = wc_get_product($product_id);
+	$product_name = $product ? $product->get_name() : '';
+
+	if (is_user_logged_in()) {
+		$user_id = get_current_user_id();
+		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
+
+		if (in_array($product_id, $wishlist)) {
+			wp_send_json_error(['message' => sprintf(__('%s jau yra norų sąraše', '_tw'), $product_name)]);
+			wp_die();
+		}
+
+		$wishlist[] = $product_id;
+		update_user_meta($user_id, '_custom_user_wishlist', $wishlist);
+	} else {
+		if (!isset($_SESSION)) {
+			session_start();
+		}
+
+		$wishlist = isset($_SESSION['guest_wishlist']) ? $_SESSION['guest_wishlist'] : [];
+
+		if (in_array($product_id, $wishlist)) {
+			wp_send_json_error(['message' => sprintf(__('%s jau yra norų sąraše', '_tw'), $product_name)]);
+			wp_die();
+		}
+
+		$wishlist[] = $product_id;
+		$_SESSION['guest_wishlist'] = $wishlist;
+	}
+
+	wp_send_json_success(['message' => sprintf(__('%s sėkmingai pridėtas į norų sarašą.', '_tw'), $product_name)]);
+	wp_die();
+}
+
+
+add_action('wp_ajax_custom_add_to_wishlist', 'custom_add_to_wishlist');
+add_action('wp_ajax_nopriv_custom_add_to_wishlist', 'custom_add_to_wishlist');
+
+// Helper function to get current user's wishlist
+function custom_get_wishlist()
+{
+	if (is_user_logged_in()) {
+		$user_id = get_current_user_id();
+		return get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
+	} elseif (isset($_SESSION['guest_wishlist'])) {
+		return $_SESSION['guest_wishlist'];
+	}
+	return [];
+}
+
+function custom_remove_from_wishlist()
+{
+	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+
+	if ($product_id === 0) {
+		wp_send_json_error(['message' => __('Klaida: produktas neegzistuoja', '_tw')]);
+		wp_die();
+	}
+
+	if (is_user_logged_in()) {
+		$user_id = get_current_user_id();
+		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
+
+		if (!in_array($product_id, $wishlist)) {
+			wp_send_json_error(['message' => __('Produktas nėra norų sąraše', '_tw')]);
+			wp_die();
+		}
+
+		$wishlist = array_diff($wishlist, [$product_id]);
+		update_user_meta($user_id, '_custom_user_wishlist', $wishlist);
+	} else {
+		if (!isset($_SESSION)) {
+			session_start();
+		}
+
+		$wishlist = $_SESSION['guest_wishlist'] ?? [];
+
+		if (!in_array($product_id, $wishlist)) {
+			wp_send_json_error(['message' => __('Produktas nėra norų sąraše', '_tw')]);
+			wp_die();
+		}
+
+		$_SESSION['guest_wishlist'] = array_diff($wishlist, [$product_id]);
+	}
+
+	wp_send_json_success();
+	wp_die();
+}
+
+add_action('wp_ajax_custom_remove_from_wishlist', 'custom_remove_from_wishlist');
+add_action('wp_ajax_nopriv_custom_remove_from_wishlist', 'custom_remove_from_wishlist');
+
+

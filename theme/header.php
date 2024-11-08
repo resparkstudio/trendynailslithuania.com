@@ -100,7 +100,7 @@ Template Name: Header
 							</svg>
 						</a>
 
-						<a href="<?php echo esc_url(home_url('/favorites')); ?>" id="favorites-icon">
+						<a href="<?php echo esc_url(home_url('/noru-sarasas')); ?>" id="favorites-icon">
 							<svg width="18" height="16" viewBox="0 0 18 16" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
 								<path
