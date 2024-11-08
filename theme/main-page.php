@@ -148,7 +148,10 @@ get_header();
                                                             class="w-full h-full object-cover rounded-lg">
                                                     </a>
 
-                                                    <a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
+                                                    <a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
+                                                        data-action="add_to_wishlist"
+                                                        data-product_id="<?php echo esc_attr(get_the_ID()); ?>"
+                                                        data-product_name="<?php echo esc_attr(get_the_title()); ?>">
                                                         <svg width="20" height="18" viewBox="0 0 20 18" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -291,7 +294,10 @@ get_header();
                                                             class="w-full h-full object-cover rounded-lg">
                                                     </a>
 
-                                                    <a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
+                                                    <a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
+                                                        data-action="add_to_wishlist"
+                                                        data-product_id="<?php echo esc_attr(get_the_ID()); ?>"
+                                                        data-product_name="<?php echo esc_attr(get_the_title()); ?>">
                                                         <svg width="20" height="18" viewBox="0 0 20 18" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -505,8 +511,10 @@ get_header();
                                                             alt="<?php the_title(); ?>"
                                                             class="w-full h-full object-cover rounded-lg">
                                                     </a>
-
-                                                    <a href="#" class="shop-heart-icon absolute top-5 right-5 z-10">
+                                                    <a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
+                                                        data-action="add_to_wishlist"
+                                                        data-product_id="<?php echo esc_attr(get_the_ID()); ?>"
+                                                        data-product_name="<?php echo esc_attr(get_the_title()); ?>">
                                                         <svg width="20" height="18" viewBox="0 0 20 18" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path

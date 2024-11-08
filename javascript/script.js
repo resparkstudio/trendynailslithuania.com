@@ -7,5 +7,5 @@ import './ajax-add-to-cart.js';
 import './cart-sidebar.js';
 import './archive-products.js';
 import './search-box.js';
-import './search-ajax.js';
-import './wishlist.js';
+import './ajax-search.js';
+import './ajax-wishlist.js';

@@ -821,4 +821,24 @@ function custom_remove_from_wishlist()
 add_action('wp_ajax_custom_remove_from_wishlist', 'custom_remove_from_wishlist');
 add_action('wp_ajax_nopriv_custom_remove_from_wishlist', 'custom_remove_from_wishlist');
 
+// Register AJAX actions for logged-in and guest users
+add_action('wp_ajax_get_wishlist_count', 'get_wishlist_count');
+add_action('wp_ajax_nopriv_get_wishlist_count', 'get_wishlist_count');
+
+// AJAX handler to return wishlist count
+function get_wishlist_count()
+{
+	if (is_user_logged_in()) {
+		$user_id = get_current_user_id();
+		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
+	} else {
+		if (!session_id())
+			session_start();
+		$wishlist = $_SESSION['guest_wishlist'] ?? [];
+	}
+
+	$count = count($wishlist);
+	wp_send_json_success(['wishlist_count' => $count]);
+}
+
 
