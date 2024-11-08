@@ -42,7 +42,8 @@ if ($related_products_query->have_posts()): ?>
 			</h3>
 			<div
 				class="flex flex-nowrap justify-end items-center body-small-regular uppercase text-deep-dark-gray grow-0 lg:text-[0.75rem] lg:leading-[1.125rem]">
-				<a class="flex gap-3 justify-center items-center" href="#">
+				<a class="flex gap-3 justify-center items-center"
+					href="<?php echo esc_url(get_term_link($categories[0])); ?>">
 					<span class="uppercase"><?php echo wp_kses_post("Daugiau"); ?></span>
 					<div class="flex items-center">
 						<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +171,8 @@ $new_products_query = new WP_Query($args);
 			</h3>
 			<div
 				class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray lg:text-[0.75rem] lg:leading-[1.125rem]">
-				<a class="flex gap-3 justify-center items-center" href="#">
+				<a class="flex gap-3 justify-center items-center"
+					href="<?php echo esc_url(home_url('/parduotuve/?filter=naujienos')); ?>">
 					<span><?php echo wp_kses_post("Daugiau"); ?></span>
 					<div class="flex items-center">
 						<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
