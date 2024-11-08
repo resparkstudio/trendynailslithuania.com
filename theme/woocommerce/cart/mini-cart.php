@@ -23,7 +23,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 		?>
 	</ul>
 
-	<div id="mini-cart-totals" class="text-right px-5">
+	<div id="mini-cart-totals" class="text-right px-5 pt-2">
 		<?php
 		wc_get_template('cart/mini-cart-totals.php');
 		?>

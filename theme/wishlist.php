@@ -66,10 +66,20 @@ $wishlist_items = custom_get_wishlist();
                                     $category = $categories[0];
                                     echo '<a href="' . esc_url(get_term_link($category)) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . esc_html($category->name) . '</a>';
                                 }
+                                $product_name = $product->get_name();
+                                $attributes = $product->get_attributes();
+                                $attribute_text = '';
+
+                                // Format attributes as "attribute value attribute name"
+                                foreach ($attributes as $attribute) {
+                                    $attribute_name = wc_attribute_label($attribute->get_name());
+                                    $attribute_value = implode(', ', $attribute->get_options());
+                                    $attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
+                                }
                                 ?>
                                 <a href="<?php echo esc_url(get_permalink($product_id)); ?>"
                                     class="product-title body-normal-regular mb-2.5 lg:mb-7">
-                                    <?php echo esc_html($product->get_name()); ?>
+                                    <?php echo esc_html($product_name . $attribute_text); ?>
                                 </a>
                                 <div class="product-price">
                                     <?php woocommerce_template_loop_price(); ?>

@@ -8,7 +8,18 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
     $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
 
     if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key)) {
-        $product_name = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
+        $product_name = $_product->get_name();
+        $attributes = $_product->get_attributes();
+        $attribute_text = '';
+
+        foreach ($attributes as $attribute) {
+            $attribute_name = wc_attribute_label($attribute->get_name());
+            $attribute_value = implode(', ', $attribute->get_options());
+            $attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
+        }
+
+        $formatted_product_name = $product_name . $attribute_text;
+
         $thumbnail_id = $_product->get_image_id();
         if ($thumbnail_id) {
             $product_image_url = wp_get_attachment_url($thumbnail_id);
@@ -34,10 +45,12 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                 <div class="flex-1 mr-4">
                     <div class="mb-2">
                         <?php if (empty($product_permalink)): ?>
-                            <span class="body-small-regular"><?php echo wp_kses_post($product_name); ?></span>
+                            <span class="body-small-regular"><?php echo wp_kses_post($formatted_product_name); ?></span>
                         <?php else: ?>
-                            <a href="<?php echo esc_url($product_permalink); ?>"><?php echo wp_kses_post($product_name); ?></a>
+                            <a
+                                href="<?php echo esc_url($product_permalink); ?>"><?php echo wp_kses_post($formatted_product_name); ?></a>
                         <?php endif; ?>
+
 
                         <div class="body-normal-semibold">
                             <?php echo wc_get_formatted_cart_item_data($cart_item); ?>
