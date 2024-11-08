@@ -95,4 +95,16 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 		}
 	);
+
+	const instagramGallerySwiper = new Swiper('.instagram-gallery-swiper', {
+		modules: [Pagination],
+		spaceBetween: 16,
+		slidesPerView: 3.5,
+		breakpoints: {
+			1279: { slidesPerView: 3.5 },
+			1023: { slidesPerView: 3.5 },
+			767: { slidesPerView: 2.6 },
+			1: { slidesPerView: 2.2 },
+		},
+	});
 });

@@ -188,11 +188,26 @@ get_header();
                                                     $category = $categories[0];
                                                     echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
                                                 }
+
+                                                $attributes = $product->get_attributes();
+                                                $attributes_text = '';
+
+                                                foreach ($attributes as $attribute) {
+                                                    $attribute_name = wc_attribute_label($attribute->get_name());
+                                                    $attribute_values = $product->get_attribute($attribute->get_name());
+
+                                                    if (!empty($attribute_values)) {
+                                                        $attributes_text .= $attribute_values . ' <span class="lowercase">' . strtolower($attribute_name) . '</span> ';
+                                                    }
+                                                }
                                                 ?>
 
                                                 <a href="<?php the_permalink(); ?>">
                                                     <p class="product-title text-wrap body-normal-regular mb-2.5 md:mb-7">
                                                         <?php the_title(); ?>
+                                                        <?php if ($attributes_text): ?>
+                                                            <?php echo trim($attributes_text); ?>
+                                                        <?php endif; ?>
                                                     </p>
                                                 </a>
 
@@ -337,11 +352,26 @@ get_header();
                                                     $category = $categories[0];
                                                     echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
                                                 }
+
+                                                $attributes = $product->get_attributes();
+                                                $attributes_text = '';
+
+                                                foreach ($attributes as $attribute) {
+                                                    $attribute_name = wc_attribute_label($attribute->get_name());
+                                                    $attribute_values = $product->get_attribute($attribute->get_name());
+
+                                                    if (!empty($attribute_values)) {
+                                                        $attributes_text .= $attribute_values . ' <span class="lowercase">' . strtolower($attribute_name) . '</span> ';
+                                                    }
+                                                }
                                                 ?>
 
                                                 <a href="<?php the_permalink(); ?>">
                                                     <p class="product-title text-wrap body-normal-regular mb-2.5 md:mb-7">
                                                         <?php the_title(); ?>
+                                                        <?php if ($attributes_text): ?>
+                                                            <?php echo trim($attributes_text); ?>
+                                                        <?php endif; ?>
                                                     </p>
                                                 </a>
 
@@ -556,13 +586,29 @@ get_header();
                                                     $category = $categories[0];
                                                     echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 md:mb-2">' . wp_kses_post($category->name) . '</a>';
                                                 }
+
+                                                $attributes = $product->get_attributes();
+                                                $attributes_text = '';
+
+                                                foreach ($attributes as $attribute) {
+                                                    $attribute_name = wc_attribute_label($attribute->get_name());
+                                                    $attribute_values = $product->get_attribute($attribute->get_name());
+
+                                                    if (!empty($attribute_values)) {
+                                                        $attributes_text .= $attribute_values . ' <span class="lowercase">' . strtolower($attribute_name) . '</span> ';
+                                                    }
+                                                }
                                                 ?>
 
                                                 <a href="<?php the_permalink(); ?>">
                                                     <p class="product-title text-wrap body-normal-regular mb-2.5 md:mb-7">
                                                         <?php the_title(); ?>
+                                                        <?php if ($attributes_text): ?>
+                                                            <?php echo trim($attributes_text); ?>
+                                                        <?php endif; ?>
                                                     </p>
                                                 </a>
+
 
                                                 <div class="product-price">
                                                     <?php woocommerce_template_loop_price(); ?>

@@ -60,13 +60,25 @@ if ($related_products_query->have_posts()): ?>
 					$related_products_query->the_post();
 					$related_product_id = get_the_ID();
 					$related_product_name = get_the_title();
-					$thumbnail_id = get_post_thumbnail_id($related_product_id);
-					if ($thumbnail_id) {
-						$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
-					} else {
-						$thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
+
+					// Gather product attributes
+					$product_obj = wc_get_product($related_product_id);
+					$attributes = $product_obj->get_attributes();
+					$attribute_text = '';
+
+					// Format attributes as "attribute name: attribute value"
+					foreach ($attributes as $attribute) {
+						$attribute_name = wc_attribute_label($attribute->get_name());
+						$attribute_value = implode(', ', $attribute->get_options());
+						$attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
+
 					}
+
+					// Get thumbnail URL
+					$thumbnail_id = get_post_thumbnail_id($related_product_id);
+					$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'full')[0] : wp_get_attachment_image_src(7, 'full')[0];
 					?>
+
 					<div class="swiper-slide">
 						<div class="product-card flex flex-col">
 							<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
@@ -98,7 +110,7 @@ if ($related_products_query->have_posts()): ?>
 							</div>
 
 							<a href="<?php the_permalink(); ?>" class="product-title body-normal-regular mb-2.5 lg:mb-7">
-								<?php echo esc_html($related_product_name); ?>
+								<?php echo esc_html($related_product_name . $attribute_text); ?>
 							</a>
 
 							<div class="product-price">
@@ -157,7 +169,7 @@ $new_products_query = new WP_Query($args);
 				<?php echo wp_kses_post("Naujienos"); ?>
 			</h3>
 			<div
-				class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray  lg:text-[0.75rem] lg:leading-[1.125rem]">
+				class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray lg:text-[0.75rem] lg:leading-[1.125rem]">
 				<a class="flex gap-3 justify-center items-center" href="#">
 					<span><?php echo wp_kses_post("Daugiau"); ?></span>
 					<div class="flex items-center">
@@ -172,39 +184,44 @@ $new_products_query = new WP_Query($args);
 		</div>
 
 		<div class="relative">
-
 			<div class="relative swiper-container overflow-hidden new-products-swiper-container">
 				<div id="product-swiper-wrapper" class="swiper-wrapper">
 					<?php
-
 					if ($new_products_query->have_posts()):
 						while ($new_products_query->have_posts()):
 							$new_products_query->the_post();
+							$new_product_id = get_the_ID();
+							$new_product_name = get_the_title();
+
+							// Gather product attributes
+							$product_obj = wc_get_product($new_product_id);
+							$attributes = $product_obj->get_attributes();
+							$attribute_text = '';
+
+							// Format attributes as "attribute value attribute name"
+							foreach ($attributes as $attribute) {
+								$attribute_name = wc_attribute_label($attribute->get_name());
+								$attribute_value = implode(', ', $attribute->get_options());
+								$attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
+							}
+
+							// Get thumbnail URL
+							$thumbnail_id = get_post_thumbnail_id($new_product_id);
+							$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'full')[0] : wp_get_attachment_image_src(7, 'full')[0];
 							?>
+
 							<div class="swiper-slide">
 								<div class="relative product-card flex flex-col">
-									<?php
-									$new_products_query->the_post();
-									$new_product_id = get_the_ID();
-									$new_product_name = get_the_title();
-									$thumbnail_id = get_post_thumbnail_id($new_product_id);
-									if ($thumbnail_id) {
-										$thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
-									} else {
-										$thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
-									}
-									?>
-
 									<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
 										<a class="w-full" href="<?php the_permalink(); ?>">
-											<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
+											<img src="<?php echo esc_url($thumbnail_url); ?>"
+												alt="<?php echo esc_attr($new_product_name); ?>"
 												class="w-full h-full object-cover round-12">
 										</a>
 
 										<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
-											data-action="add_to_wishlist"
-											data-product_id="<?php echo esc_attr($related_product_id); ?>"
-											data-product_name="<?php echo esc_attr($related_product_name); ?>">
+											data-action="add_to_wishlist" data-product_id="<?php echo esc_attr($new_product_id); ?>"
+											data-product_name="<?php echo esc_attr($new_product_name); ?>">
 											<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
 												xmlns="http://www.w3.org/2000/svg">
 												<path
@@ -234,28 +251,14 @@ $new_products_query = new WP_Query($args);
 										</div>
 									</div>
 
-
-									<?php
-									$categories = get_the_terms($product->get_id(), 'product_cat');
-									if (!empty($categories) && !is_wp_error($categories)) {
-										$category = $categories[0];
-										echo '<a href="' . get_term_link($category) . '" class="product-category body-small-semibold text-black mb-1 lg:mb-2">' . wp_kses_post($category->name) . '</a>';
-									}
-									?>
-
-									<a href="<?php the_permalink(); ?>">
-										<p class="product-title text-wrap body-normal-regular mb-2.5 lg:mb-7">
-											<?php the_title(); ?>
-										</p>
+									<a href="<?php the_permalink(); ?>" class="product-title body-normal-regular mb-2.5 lg:mb-7">
+										<?php echo esc_html($new_product_name . $attribute_text); ?>
 									</a>
 
 									<div class="product-price">
 										<?php woocommerce_template_loop_price(); ?>
 									</div>
-
-
 								</div>
-
 							</div>
 						<?php endwhile;
 						wp_reset_postdata();
