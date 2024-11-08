@@ -38,8 +38,7 @@ $wishlist_items = custom_get_wishlist();
                                         alt="<?php echo esc_attr($product->get_name()); ?>"
                                         class="w-full h-full object-cover round-12">
                                 </a>
-                                <a href="#"
-                                    class="shop-heart-icon filled-heart remove-from-wishlist-btn absolute top-5 right-5 z-10"
+                                <a class="shop-heart-icon cursor-pointer filled-heart remove-from-wishlist-btn absolute top-5 right-5 z-10"
                                     data-product_id="<?php echo esc_attr($product_id); ?>"
                                     data-product_name="<?php echo esc_attr($product->get_name()); ?>">
                                     <svg width="20" height="18" viewBox="0 0 20 18" fill="none"

@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
 					);
 				} else {
 					createNotification(
-						response.data.message || 'Failed to add to cart.',
+						response.data.message || 'Nepavyko pridėti į krepšelį',
 						false
 					);
 				}
 			},
 			error: function () {
 				createNotification(
-					'Error occurred while adding the product to cart.',
+					'Įvyko klaida bandant pridėti į krepšelį.',
 					false
 				);
 			},
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	function removeFromCart(cartItemKey) {
+	function removeFromCart(cartItemKey, productName) {
 		jQuery.ajax({
 			url: ajax_add_to_cart_params.ajax_url,
 			type: 'POST',
@@ -65,20 +65,20 @@ document.addEventListener('DOMContentLoaded', function () {
 					jQuery('#mini-cart-contents').html(response.data.mini_cart);
 					cartCountElement.textContent = response.data.cart_count;
 					createNotification(
-						'Item successfully removed from cart.',
+						`${productName} sėkmingai pašalintas iš krepšelio.`,
 						true
 					);
 				} else {
 					createNotification(
 						response.data.message ||
-							'Failed to remove item from cart.',
+							'Nepavyko pašalinti į krepšelį',
 						false
 					);
 				}
 			},
 			error: function () {
 				createNotification(
-					'Error occurred while removing the item from the cart.',
+					'Įvyko klaida bandant pašalinti iš norų sąrašo.',
 					false
 				);
 			},
@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	jQuery(document).on('click', '.remove_from_cart_button', function (event) {
 		event.preventDefault();
 		const cartItemKey = jQuery(this).data('cart_item_key');
-		removeFromCart(cartItemKey);
+		const productName = jQuery(this).data('product_name');
+		removeFromCart(cartItemKey, productName);
 	});
 });
