@@ -9,25 +9,23 @@
 
 defined('ABSPATH') || exit;
 
-get_header('shop');
+get_header();
 
 do_action('woocommerce_before_main_content');
 
-$current_url = home_url(add_query_arg(null, null)); // Get the current full URL
+$current_url = home_url(add_query_arg(null, null));
 
-// Base Shop URL (Rodyti viską)
 $shop_url = esc_url(get_permalink(wc_get_page_id('shop')));
 $all_active = ($current_url == $shop_url) ? 'link-active' : '';
 
-// Specific Filter URLs
 $new_products_url = esc_url(add_query_arg('filter', 'naujienos', $shop_url));
 $sale_url = esc_url(add_query_arg('filter', 'sale', $shop_url));
 $new_products_active = ($current_url == $new_products_url) ? 'link-active' : '';
 $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
 
 ?>
-<div class="max-w-[87.5rem] mx-auto">
-    <div class="mx-12 md:mx-4 mb-36 md:mb-32 mt-5 md:mt-2.5">
+<section id="primary" class="max-w-[87.5rem] mx-auto w-full">
+    <main id="main" class="mx-12 md:mx-4 mb-36 md:mb-32 mt-5 md:mt-2.5">
         <header id="heading-section mb-4">
             <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Parduotuvė"); ?></h1>
         </header>
@@ -54,8 +52,6 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
             ?>
         </div>
 
-
-        <!-- Product Count and Sorting Dropdown -->
         <div class="flex justify-between items-center mb-8 md:mb-10">
             <div class="product-count text-deep-dark-gray body-extra-small-regular">
                 <?php woocommerce_result_count(); ?>
@@ -63,7 +59,6 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
 
             <div class="product-sorting">
                 <?php
-                // WooCommerce sorting dropdown
                 woocommerce_catalog_ordering();
                 ?>
             </div>
@@ -94,9 +89,9 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
         </div>
 
         <?php do_action('woocommerce_after_main_content'); ?>
-    </div>
+        </div>
 
-</div>
+</section>
 
 
 <?php get_footer(); ?>

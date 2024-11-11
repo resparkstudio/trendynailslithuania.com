@@ -12,7 +12,6 @@ get_header();
 
 <section id="primary">
 	<main id="main">
-
 		<?php if (have_posts()): ?>
 
 			<header class="page-header">
