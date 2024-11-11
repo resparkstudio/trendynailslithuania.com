@@ -10,35 +10,32 @@
 get_header();
 ?>
 
-<section id="primary">
-	<main id="main">
+<section id="primary" class="max-w-[87.5rem] mx-auto w-full">
+	<main id="main" class="mx-12 md:mx-4 mb-36 md:mb-32 mt-5 md:mt-2.5">
+		<header id="heading-section mb-4">
+			<h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Blogas"); ?></h1>
+		</header>
 		<?php
-		/* Start the Loop */
 		while (have_posts()):
 			the_post();
-			get_template_part('template-parts/content/content', 'single');
+			?>
+			<article id="post-<?php the_ID(); ?>" <?php post_class("w-full"); ?>>
+				<!-- Post Title -->
+				<header class="">
+					<h1 class="text-3xl font-bold text-black"><?php the_title(); ?></h1>
+				</header>
 
-			if (is_singular('post')) {
-				// Previous/next post navigation.
-				the_post_navigation(
-					array(
-						'next_text' => '<span aria-hidden="true">' . __('Next Post', '_tw') . '</span> ' .
-							'<span class="sr-only">' . __('Next post:', '_tw') . '</span> <br/>' .
-							'<span>%title</span>',
-						'prev_text' => '<span aria-hidden="true">' . __('Previous Post', '_tw') . '</span> ' .
-							'<span class="sr-only">' . __('Previous post:', '_tw') . '</span> <br/>' .
-							'<span>%title</span>',
-					)
-				);
-			}
+				<!-- Post Content -->
+				<div class="">
+					<?php the_content(); ?>
+				</div>
 
-			// If comments are open, or we have at least one comment, load
-			// the comment template.
-			if (comments_open() || get_comments_number()) {
-				comments_template();
-			}
+				<footer class="">
 
-			// End the loop.
+				</footer>
+			</article>
+
+			<?php
 		endwhile;
 		?>
 

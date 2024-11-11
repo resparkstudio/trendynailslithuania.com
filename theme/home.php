@@ -28,14 +28,28 @@ get_header();
             <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>"
                 class="filter-button link-active link-hover whitespace-nowrap"><?php echo wp_kses_post("Rodyti viską") ?></a>
             <?php
+            $uncategorized = null;
             $blog_categories = get_categories(array('hide_empty' => true));
-            foreach ($blog_categories as $category) {
-                $category_url = esc_url(get_category_link($category->term_id));
-                $category_active = (is_category($category->term_id)) ? 'link-active' : '';
 
-                echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+            foreach ($blog_categories as $category) {
+                if ($category->slug === 'uncategorized') {
+                    $uncategorized = $category;
+                } else {
+                    $category_url = esc_url(get_category_link($category->term_id));
+                    $category_active = (is_category($category->term_id)) ? 'link-active' : '';
+
+                    echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+                }
+            }
+
+            if ($uncategorized) {
+                $uncategorized_url = esc_url(get_category_link($uncategorized->term_id));
+                $uncategorized_active = (is_category($uncategorized->term_id)) ? 'link-active' : '';
+
+                echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
             }
             ?>
+
         </div>
 
         <?php if (have_posts()): ?>
@@ -52,23 +66,27 @@ get_header();
                     ?>
 
                     <article id="post-<?php the_ID(); ?>" <?php post_class("$col_span_class lg:col-span-6 md:col-span-12 blog-post mb-5 md:mb-3"); ?>>
-
-                        <!-- Post Thumbnail with Conditional Aspect Ratio -->
                         <?php if (has_post_thumbnail()): ?>
-                            <div
-                                class="post-thumbnail mb-5 lg:aspect-[664/434] md:aspect-[361/270] <?php echo $aspect_ratio_class; ?>">
-                                <?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover round-12')); ?>
-                            </div>
+                            <a href="<?php the_permalink(); ?>">
+                                <div
+                                    class="post-thumbnail mb-5 lg:aspect-[664/434] md:aspect-[361/270] <?php echo $aspect_ratio_class; ?>">
+                                    <?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover round-12')); ?>
+                                </div>
+                            </a>
                         <?php else: ?>
-                            <div
-                                class="post-thumbnail mb-5 lg:aspect-[664/434] md:aspect-[361/270] <?php echo $aspect_ratio_class; ?>">
-                                <?php echo wp_get_attachment_image(7, 'large', false, array('class' => 'w-full h-full object-cover round-12')); ?>
-                            </div>
+                            <a href="<?php the_permalink(); ?>">
+                                <div
+                                    class="post-thumbnail mb-5 lg:aspect-[664/434] md:aspect-[361/270] <?php echo $aspect_ratio_class; ?>">
+                                    <?php echo wp_get_attachment_image(7, 'large', false, array('class' => 'w-full h-full object-cover round-12')); ?>
+                                </div>
+                            </a>
                         <?php endif; ?>
 
                         <!-- Post Title -->
                         <div class="mb-4 heading-sm md:text-[1rem]">
-                            <h4 class="text-deep-dark-gray"><?php the_title(); ?></h4>
+                            <a href="<?php the_permalink(); ?>">
+                                <h4 class="text-deep-dark-gray"><?php the_title(); ?></h4>
+                            </a>
                         </div>
 
                         <!-- "Daugiau" Button -->

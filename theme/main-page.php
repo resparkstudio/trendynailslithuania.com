@@ -327,7 +327,7 @@ get_header();
                                                     <div class="absolute bottom-5 right-5 z-10">
                                                         <a data-product_id="<?php echo esc_attr($product->get_id()); ?>"
                                                             data-product_name="<?php echo esc_attr($product->get_name()); ?>"
-                                                            class="add_to_cart_button add-item-icon add-to-cart-swiper-btn  flex items-center justify-center p-4 md:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
+                                                            class="add_to_cart_button add-item-icon add-to-cart-swiper-btn cursor-pointer flex items-center justify-center p-4 md:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <mask id="path-1-inside-1_46_159" fill="white">

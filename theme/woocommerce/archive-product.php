@@ -42,14 +42,28 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
                 class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>"><?php echo wp_kses_post("Išpardavimas") ?></a>
 
             <?php
+            $uncategorized = null;
             $product_categories = get_terms('product_cat', array('hide_empty' => true));
-            foreach ($product_categories as $category) {
-                $category_url = esc_url(get_term_link($category));
-                $category_active = ($current_url == $category_url) ? 'link-active' : '';
 
-                echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+            foreach ($product_categories as $category) {
+                if ($category->slug === 'uncategorized') {
+                    $uncategorized = $category;
+                } else {
+                    $category_url = esc_url(get_term_link($category));
+                    $category_active = ($current_url == $category_url) ? 'link-active' : '';
+
+                    echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+                }
+            }
+
+            if ($uncategorized) {
+                $uncategorized_url = esc_url(get_term_link($uncategorized));
+                $uncategorized_active = ($current_url == $uncategorized_url) ? 'link-active' : '';
+
+                echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
             }
             ?>
+
         </div>
 
         <div class="flex justify-between items-center mb-8 md:mb-10">
