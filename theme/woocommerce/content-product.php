@@ -31,10 +31,8 @@ if (empty($product) || !$product->is_visible()) {
 			<?php
 			$thumbnail_id = get_post_thumbnail_id($product->get_id());
 			if ($thumbnail_id) {
-				// Display product's own thumbnail
 				echo wp_get_attachment_image($thumbnail_id, 'medium', false, ['class' => 'w-full h-full object-cover round-12']);
 			} else {
-				// Display default image if no thumbnail exists
 				echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-full object-cover round-12']);
 			}
 			?>
