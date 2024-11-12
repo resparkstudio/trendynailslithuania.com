@@ -107,4 +107,16 @@ document.addEventListener('DOMContentLoaded', function () {
 			1: { slidesPerView: 2.2 },
 		},
 	});
+
+	const relatedPostsSwiper = new Swiper('.related-posts-swiper-container', {
+		modules: [Pagination],
+		loop: false,
+		slidesPerView: 3,
+		spaceBetween: 16,
+		breakpoints: {
+			1279: { slidesPerView: 3 },
+			767: { slidesPerView: 2 },
+			1: { slidesPerView: 1 },
+		},
+	});
 });

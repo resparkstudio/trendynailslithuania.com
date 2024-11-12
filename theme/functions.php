@@ -843,15 +843,3 @@ function get_wishlist_count()
 
 // -------------------------------------- Blog
 
-function wrap_images_with_div($content)
-{
-	$pattern = '/<img(.*?)\/>/i';
-
-	$replacement = '<div class="my-custom-image-wrapper flex justify-center mb-8"><img$1 /></div>';
-
-	$content = preg_replace($pattern, $replacement, $content);
-
-	return $content;
-}
-
-add_filter('the_content', 'wrap_images_with_div');

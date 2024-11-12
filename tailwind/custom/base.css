@@ -243,3 +243,7 @@ footer {
 .menu-icon-flipped-90 {
 	transform: rotate(90deg);
 }
+
+.single-post-content img {
+	@apply round-15 w-full;
+}
