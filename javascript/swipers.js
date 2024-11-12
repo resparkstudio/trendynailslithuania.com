@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		breakpoints: {
 			1279: { slidesPerView: 3 },
 			767: { slidesPerView: 2 },
-			1: { slidesPerView: 1 },
+			1: { slidesPerView: 1.3 },
 		},
 	});
 });

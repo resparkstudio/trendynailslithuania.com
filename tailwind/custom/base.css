@@ -245,5 +245,5 @@ footer {
 }
 
 .single-post-content img {
-	@apply round-15 w-full;
+	@apply round-15 w-full aspect-[663/434] object-cover object-center my-2;
 }
