@@ -45,19 +45,34 @@ Template Name: Header
 							echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative gap-11">';
 
 							foreach ($menu_items as $index => &$item) {
+								// Get the current URL for comparison
+								$current_url = home_url(add_query_arg([], $wp->request));
+								$is_active = (untrailingslashit($item->url) === untrailingslashit($current_url)) ? 'link-active' : '';
+
 								if ($index === 0) {
-									$item->title = '<p class = "link-hover">' . $item->title . '</p>' . '
-								<div class="flex items-center">
-									<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z" fill="black"/>
-									</svg>
-								</div>';
+									// For the first item, apply the link-active class to the <p> element
+									$item->title = '<p class="link-hover ' . esc_attr($is_active) . '">' . $item->title . '</p>' . '
+					<div class="flex items-center">
+						<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z" fill="black"/>
+						</svg>
+					</div>';
 								}
 
 								echo '<li class="' . esc_attr(implode(' ', $item->classes)) . '">';
-								echo '<a href="' . esc_url($item->url) . '" class="' . 'flex items-center gap-1 cursor-pointer link-hover' . '">';
-								echo $item->title;
-								echo '</a>';
+
+								// For the first item, we use the modified $item->title with <p> tag
+								if ($index === 0) {
+									echo '<a href="' . esc_url($item->url) . '" class="flex items-center gap-1 cursor-pointer">';
+									echo $item->title; // Includes the <p> element with link-hover and link-active if applicable
+									echo '</a>';
+								} else {
+									// For other items, apply the link-active class to the <a> tag
+									echo '<a href="' . esc_url($item->url) . '" class="flex items-center gap-1 cursor-pointer link-hover ' . esc_attr($is_active) . '">';
+									echo $item->title;
+									echo '</a>';
+								}
+
 								echo '</li>';
 							}
 
@@ -65,6 +80,7 @@ Template Name: Header
 						}
 						?>
 					</nav>
+
 
 					<div class="mobile-shop-link hidden md:block md:mr-9 cursor-pointer">
 						<svg width="18" height="8" viewBox="0 0 18 8" fill="none" xmlns="http://www.w3.org/2000/svg">

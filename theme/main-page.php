@@ -65,10 +65,11 @@ get_header();
                                     </p>
                                 <?php endif; ?>
 
-
-                                <a href="#" class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
+                                <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>"
+                                    class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
                                     <?php echo wp_kses_post("Skaityti daugiau"); ?>
                                 </a>
+
 
                             </div>
                         </div>
