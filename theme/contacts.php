@@ -4,14 +4,10 @@ Template Name: Contacts
 */
 get_header();
 
-$heading = get_field('heading');
-$description = get_field('description');
 $phone_number = get_field('phone_number', 'option');
 $email = get_field('email', 'option');
 $facebook_link = get_field('facebook_link', 'option');
 $instagram_link = get_field('instagram_link', 'option');
-$mandatory_text = get_field('mandatory_text');
-$privacy_text = get_field('privacy_text');
 
 ?>
 <section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
@@ -19,13 +15,13 @@ $privacy_text = get_field('privacy_text');
         <div id="page-content" class="flex flex-col mx-12 md:mx-4">
             <div class="w-full mb-16 md:mb-5">
                 <header id="heading-section">
-                    <?php if ($heading): ?>
-                        <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post($heading); ?></h1>
-                    <?php endif; ?>
+                    <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo get_the_title(); ?></h1>
                 </header>
-                <?php if ($description): ?>
-                    <p class="w-full body-normal-regular text-deep-dark-gray"><?php echo esc_textarea($description); ?></p>
-                <?php endif; ?>
+
+                <p class="w-full body-normal-regular text-deep-dark-gray">
+                    <?php echo esc_textarea("Turite klausimų? Susisiekite su mumis. Užpildykite formą ir mes kuo greičiau Jums atsakysime."); ?>
+                </p>
+
             </div>
 
             <div id="form-section" class=" grid grid-cols-12 gap-4">
@@ -102,19 +98,20 @@ $privacy_text = get_field('privacy_text');
                         <div class="flex flex-wrap gap-5 mt-2.5 md:mt-4">
                             <div
                                 class="text-sm text-dark-gray body-extra-small-regular w-full text-end md:text-[0.75rem] md:text-start md:font-light">
-                                <?php if ($mandatory_text): ?>
-                                    <?php echo wp_kses_post($mandatory_text); ?>
-                                <?php endif; ?>
+
+                                <?php echo wp_kses_post("* Šis laukas yra privalomas."); ?>
+
                             </div>
                             <div class="col-span-3 flex w-full items-center md:flex-wrap">
                                 <button type="submit" name="cf-submit"
-                                    class="black-button py-4 px-24 round-9 body-small-medium col-span-3 md:order-2 md:w-full md:px-0">Siųsti</button>
+                                    class="black-button py-4 px-24 round-9 body-small-medium col-span-3 md:order-2 md:w-full md:px-0">
+                                    <?php echo wp_kses_post("Siųsti"); ?></button>
                                 <div class="ml-8 md:order-1 md:ml-0 md:w-full md:mb-4">
                                     <input type="checkbox" name="privacy-policy" required>
                                     <label class="body-small-regular ml-2.5 md:text-[0.75rem]" for="privacy-policy">
                                         <?php echo wp_kses_post('Aš sutinku su'); ?>
-                                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('privatumo-politika'))); ?>"
-                                            target="_blank">
+                                        <a class="link-hover"
+                                            href="<?php echo esc_url(get_permalink(get_page_by_path('privatumo-politika'))); ?>">
                                             <?php echo wp_kses_post('Privatumo Politika'); ?>
                                         </a>
                                         <?php echo wp_kses_post('*'); ?>
