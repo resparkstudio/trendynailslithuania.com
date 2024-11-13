@@ -69,8 +69,6 @@ get_header();
                                     class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
                                     <?php echo wp_kses_post("Skaityti daugiau"); ?>
                                 </a>
-
-
                             </div>
                         </div>
                     </div>
