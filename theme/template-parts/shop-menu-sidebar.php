@@ -6,7 +6,7 @@ $instagram_link = get_field('instagram_link', 'option');
 <aside id="shop-sidebar"
     class="shop-sidebar fixed left-0 w-[16.5rem] md:w-[14.25rem] h-svh bg-black text-white body-small-regular hidden z-40 md:z-[29] pt-20 md:pt-[3.75rem] grid-rows-12">
     <nav id="desktop-sidebar-navigation"
-        class="main-navigation body-small-regular text-white flex flex-col md:hidden row-span-9 pl-12 pr-4 py-9">
+        class="main-navigation body-small-regular text-white flex flex-col md:hidden row-span-9 pl-12 py-9">
         <?php
         $locations = get_nav_menu_locations();
 
@@ -19,7 +19,7 @@ $instagram_link = get_field('instagram_link', 'option');
                 $menu_items_by_parent[$item->menu_item_parent][] = $item;
             }
 
-            echo '<ul id="primary-sidebar-menu" class="flex flex-col main-menu-fluid-spacing gap-5 overflow-auto pr-4">';
+            echo '<ul id="primary-sidebar-menu" class="flex flex-col main-menu-fluid-spacing gap-5 overflow-auto pr-8">';
 
             function display_menu_items($parent_id, $menu_items_by_parent, $is_submenu = false)
             {
@@ -27,11 +27,15 @@ $instagram_link = get_field('instagram_link', 'option');
                     return;
                 }
 
-                foreach ($menu_items_by_parent[$parent_id] as $item) {
+                foreach ($menu_items_by_parent[$parent_id] as $index => $item) {
                     $classes = 'flex items-center justify-between cursor-pointer sidebar-toggle-menu';
                     $has_children = isset($menu_items_by_parent[$item->ID]);
 
                     echo '<li>';
+
+                    // Check if the item is a product category
+                    $is_product_category = ($item->type === 'taxonomy' && $item->object === 'product_cat');
+
                     echo '<a href="' . esc_url($item->url) . '" class="' . esc_attr($classes) . '" data-has-children="' . ($has_children ? 'true' : 'false') . '">';
                     echo '<div class="flex-grow">' . '<span class="link-hover">' . $item->title . '</span>' . '</div>';
 
@@ -46,7 +50,14 @@ $instagram_link = get_field('instagram_link', 'option');
                     echo '</a>';
 
                     if ($has_children) {
-                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden">';
+                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden pl-2">';
+
+                        // Add "Visi produktai" link only if it's a product category and only at the first submenu level
+                        if ($is_product_category && !$is_submenu) {
+                            echo '<li><a href="' . esc_url($item->url) . '" class="">Visi produktai</a></li>';
+                        }
+
+                        // Recursive call to display nested submenu items
                         display_menu_items($item->ID, $menu_items_by_parent, true);
                         echo '</ul>';
                     }
@@ -61,9 +72,8 @@ $instagram_link = get_field('instagram_link', 'option');
         ?>
     </nav>
 
-
     <nav id="mobile-sidebar-navigation"
-        class="main-navigation body-small-regular text-white flex-col hidden md:flex row-span-10 pt-6 pl-8 pr-10">
+        class="main-navigation body-small-regular text-white flex-col hidden md:flex row-span-10 pt-6 pl-8">
         <?php
         if (isset($locations['mobile-sidebar-menu'])) {
             $menu_id = $locations['mobile-sidebar-menu'];
@@ -76,7 +86,7 @@ $instagram_link = get_field('instagram_link', 'option');
 
             echo '<ul id="mobile-primary-menu" class="flex flex-col overflow-y-auto overflow-x-hidden main-menu-fluid-spacing gap-5 pr-10">';
 
-            function display_mobile_menu_items($parent_id, $menu_items_by_parent, $is_submenu = false)
+            function display_mobile_menu_items($parent_id, $menu_items_by_parent, $is_submenu = false, $depth = 1)
             {
                 if (!isset($menu_items_by_parent[$parent_id])) {
                     return;
@@ -87,28 +97,40 @@ $instagram_link = get_field('instagram_link', 'option');
                     $has_children = isset($menu_items_by_parent[$item->ID]);
 
                     echo '<li>';
+
+                    // Check if the item is a product category
+                    $is_product_category = ($item->type === 'taxonomy' && $item->object === 'product_cat');
+
                     echo '<a href="' . esc_url($item->url) . '" class="' . esc_attr($classes) . '" data-has-children="' . ($has_children ? 'true' : 'false') . '">';
-                    echo '<div class="flex-grow">' . '<span class="link-hover">' . $item->title . '</span>' . '</div>';
+                    echo '<div class="flex-grow"><span class="link-hover">' . $item->title . '</span></div>';
 
                     if ($has_children) {
                         echo '<div class="icon flex items-center justify-end">
-                        <svg class="sidebar-more-icon menu-icon-rotate" width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 4.5L0.621716 0L0 0.639L1.50613 2.178L3.76532 4.5L1.50613 6.822L0.00875641 8.361L0.630473 9L5 4.5Z" fill="white"/>
-                        </svg>
-                    </div>';
+                            <svg class="sidebar-more-icon menu-icon-rotate" width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 4.5L0.621716 0L0 0.639L1.50613 2.178L3.76532 4.5L1.50613 6.822L0.00875641 8.361L0.630473 9L5 4.5Z" fill="white"/>
+                            </svg>
+                        </div>';
                     }
 
                     echo '</a>';
 
                     if ($has_children) {
-                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden">';
-                        display_mobile_menu_items($item->ID, $menu_items_by_parent, true);
+                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden pl-2">';
+
+                        // Add "Visi produktai" link only if it's a product category and only within the first 2 levels
+                        if ($is_product_category && $depth <= 2) {
+                            echo '<li><a href="' . esc_url($item->url) . '" class="">Visi produktai</a></li>';
+                        }
+
+                        // Recursive call to display nested submenu items, incrementing the depth
+                        display_mobile_menu_items($item->ID, $menu_items_by_parent, true, $depth + 1);
                         echo '</ul>';
                     }
 
                     echo '</li>';
                 }
             }
+
 
             display_mobile_menu_items(0, $menu_items_by_parent);
             echo '</ul>';
