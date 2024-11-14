@@ -255,11 +255,11 @@ footer {
 /* Contact form */
 
 .wpcf7-text {
-	@apply w-full p-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray;
+	@apply w-full p-3 round-9 border border-mid-gray body-small-light text-deep-dark-gray;
 }
 
 .wpcf7-textarea {
-	@apply w-full min-h-32 max-h-72 p-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray;
+	@apply w-full min-h-32 max-h-72 p-3 round-9 border border-mid-gray body-small-light text-deep-dark-gray;
 }
 
 .wpcf7-form {
@@ -286,4 +286,8 @@ footer {
 .wpcf7-spinner,
 .wpcf7-not-valid-tip {
 	@apply hidden;
+}
+
+.wpcf7-form-control {
+	@apply placeholder:text-deep-dark-gray placeholder:font-light placeholder:text-[0.875rem];
 }

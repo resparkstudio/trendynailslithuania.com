@@ -1088,7 +1088,7 @@ footer {
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(195 195 195 / var(--tw-border-opacity));
-  padding: 1rem;
+  padding: 0.75rem;
   --tw-text-opacity: 1;
   color: rgb(32 31 31 / var(--tw-text-opacity));
   font-family: "Albert Sans", sans-serif;
@@ -1105,7 +1105,7 @@ footer {
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(195 195 195 / var(--tw-border-opacity));
-  padding: 1rem;
+  padding: 0.75rem;
   --tw-text-opacity: 1;
   color: rgb(32 31 31 / var(--tw-text-opacity));
   font-family: "Albert Sans", sans-serif;
@@ -1189,6 +1189,20 @@ footer {
 .wpcf7-spinner,
 .wpcf7-not-valid-tip {
   display: none;
+}
+
+.wpcf7-form-control::-moz-placeholder {
+  font-size: 0.875rem;
+  font-weight: 300;
+  --tw-text-opacity: 1;
+  color: rgb(32 31 31 / var(--tw-text-opacity));
+}
+
+.wpcf7-form-control::placeholder {
+  font-size: 0.875rem;
+  font-weight: 300;
+  --tw-text-opacity: 1;
+  color: rgb(32 31 31 / var(--tw-text-opacity));
 }
 
 /**
