@@ -12,3 +12,4 @@ import './ajax-wishlist.js';
 import './contact-form.js';
 import './product-image-hover.js';
 import './ajax-product-archive-load.js';
+import './shop-menu-dynamic-padding.js';

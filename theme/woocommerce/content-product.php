@@ -28,22 +28,18 @@ if (empty($product) || !$product->is_visible()) {
 <li <?php wc_product_class('product-card flex flex-col col-span-3 lg:col-span-4 md:col-span-6', $product); ?>>
 	<div class="aspect-[324/365] w-full relative mb-4 lg:mb-3 product-image-container">
 		<?php
-		// Get the main product thumbnail
 		$thumbnail_id = get_post_thumbnail_id($product->get_id());
 		$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'medium')[0] : wp_get_attachment_image_src(7, 'medium')[0];
 
-		// Get the first gallery image if available
 		$gallery_image_ids = $product->get_gallery_image_ids();
 		$first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'medium')[0] : '';
 		?>
 
 		<a href="<?php the_permalink(); ?>" class="w-full">
-			<!-- Original Image -->
 			<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
 				class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
 				style="position: relative; opacity: 1;">
 
-			<!-- Gallery Image (displayed on hover) -->
 			<?php if ($first_gallery_image_url): ?>
 				<img src="<?php echo esc_url($first_gallery_image_url); ?>" alt="<?php the_title(); ?> - Gallery"
 					class="w-full h-full object-cover rounded-lg gallery-image"

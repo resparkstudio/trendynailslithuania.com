@@ -560,7 +560,6 @@ function load_initial_products_in_archive($query)
 }
 add_action('pre_get_posts', 'load_initial_products_in_archive');
 
-
 // Function to modify WooCommerce archive query based on URL parameters
 function modify_woocommerce_archive_query($query)
 {
@@ -593,18 +592,23 @@ function load_more_products_ajax()
 		'post_type' => 'product',
 		'posts_per_page' => 10,
 		'paged' => $page,
+		'no_found_rows' => true,
+		'post_status' => 'publish',
 	];
 
-	if ($category) {
+	// Add category filter if specified
+	if (!empty($category)) {
 		$args['tax_query'] = [
 			[
 				'taxonomy' => 'product_cat',
 				'field' => 'slug',
 				'terms' => $category,
+				'operator' => 'IN',
 			],
 		];
 	}
 
+	// Run query
 	$query = new WP_Query($args);
 
 	if ($query->have_posts()) {
@@ -621,6 +625,7 @@ function load_more_products_ajax()
 }
 add_action('wp_ajax_load_more_products', 'load_more_products_ajax');
 add_action('wp_ajax_nopriv_load_more_products', 'load_more_products_ajax');
+
 
 
 

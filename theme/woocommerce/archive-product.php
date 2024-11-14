@@ -13,8 +13,11 @@ get_header();
 
 do_action('woocommerce_before_main_content');
 
-$current_url = home_url(add_query_arg(null, null));
+// Get the current category slug if on a category archive page
+$current_category = get_queried_object();
+$category_slug = (isset($current_category->slug) && $current_category->taxonomy === 'product_cat') ? esc_attr($current_category->slug) : '';
 
+$current_url = home_url(add_query_arg(null, null));
 $shop_url = esc_url(get_permalink(wc_get_page_id('shop')));
 $all_active = ($current_url == $shop_url) ? 'link-active' : '';
 
@@ -22,49 +25,84 @@ $new_products_url = esc_url(add_query_arg('filter', 'naujienos', $shop_url));
 $sale_url = esc_url(add_query_arg('filter', 'sale', $shop_url));
 $new_products_active = ($current_url == $new_products_url) ? 'link-active' : '';
 $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
-
 ?>
+
 <section id="primary" class="max-w-[87.5rem] mx-auto w-full">
     <main id="main" class="mx-12 md:mx-4 mb-36 md:mb-32 mt-5 md:mt-2.5">
         <header id="heading-section mb-4">
             <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Parduotuvė"); ?></h1>
         </header>
 
-        <div
-            class="flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5 border-b-[0.5px] border-dark-gray mb-12 md:mb-6">
-            <a href="<?php echo $shop_url; ?>"
-                class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>"><?php echo wp_kses_post("Rodyti viską") ?></a>
+        <div class="border-b-[0.5px] border-dark-gray mb-12 md:mb-6 overflow-x-auto">
+            <!-- Main Categories Section -->
+            <div
+                class="shop-archive-nav-menu flex gap-8 md:gap-6 body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5">
+                <!-- Main Category Links -->
+                <a href="<?php echo $shop_url; ?>"
+                    class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>"><?php echo wp_kses_post("Rodyti viską") ?></a>
+                <a href="<?php echo $new_products_url; ?>"
+                    class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>"><?php echo wp_kses_post("Naujienos") ?></a>
+                <a href="<?php echo $sale_url; ?>"
+                    class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>"><?php echo wp_kses_post("Išpardavimas") ?></a>
 
-            <a href="<?php echo $new_products_url; ?>"
-                class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>"><?php echo wp_kses_post("Naujienos") ?></a>
+                <?php
+                $uncategorized = null;
+                $product_categories = get_terms('product_cat', array('hide_empty' => true, 'parent' => 0));
+                $current_category_id = get_queried_object_id();
 
-            <a href="<?php echo $sale_url; ?>"
-                class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>"><?php echo wp_kses_post("Išpardavimas") ?></a>
+                foreach ($product_categories as $category) {
+                    if ($category->slug === 'uncategorized') {
+                        $uncategorized = $category;
+                    } else {
+                        $category_url = esc_url(get_term_link($category));
+                        $category_active = ($current_category_id == $category->term_id) ? 'link-active' : '';
+                        echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+                    }
+                }
+
+                if ($uncategorized) {
+                    $uncategorized_url = esc_url(get_term_link($uncategorized));
+                    $uncategorized_active = ($current_url == $uncategorized_url) ? 'link-active' : '';
+                    echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
+                }
+                ?>
+            </div>
 
             <?php
-            $uncategorized = null;
-            $product_categories = get_terms('product_cat', array('hide_empty' => true));
+            $padding_left = 2;
+            if ($current_category_id) {
+                $ancestors = get_ancestors($current_category_id, 'product_cat');
+                $ancestors = array_reverse($ancestors); // Start from the topmost ancestor
+            
+                foreach ($ancestors as $ancestor_id) {
+                    display_subcategories($ancestor_id, $current_category_id, $padding_left);
+                }
 
-            foreach ($product_categories as $category) {
-                if ($category->slug === 'uncategorized') {
-                    $uncategorized = $category;
-                } else {
-                    $category_url = esc_url(get_term_link($category));
-                    $category_active = ($current_url == $category_url) ? 'link-active' : '';
+                display_subcategories($current_category_id, $current_category_id, $padding_left);
+            }
 
-                    echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+            function display_subcategories($parent_id, $active_category_id, $padding_left)
+            {
+
+                $subcategories = get_terms('product_cat', array('parent' => $parent_id, 'hide_empty' => true));
+
+                if (!empty($subcategories)) {
+                    echo '<div class="shop-archive-nav-menu flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5">';
+
+                    foreach ($subcategories as $subcategory) {
+                        $subcategory_url = esc_url(get_term_link($subcategory));
+                        $subcategory_active = ($active_category_id == $subcategory->term_id) ? 'link-active' : '';
+
+                        echo '<a href="' . $subcategory_url . '" class="filter-button link-hover whitespace-nowrap ' . $subcategory_active . '">' . esc_html($subcategory->name) . '</a>';
+                    }
+
+                    echo '</div>';
                 }
             }
-
-            if ($uncategorized) {
-                $uncategorized_url = esc_url(get_term_link($uncategorized));
-                $uncategorized_active = ($current_url == $uncategorized_url) ? 'link-active' : '';
-
-                echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
-            }
             ?>
-
         </div>
+
+
 
         <div class="flex justify-between items-center mb-8 md:mb-10">
             <div class="product-count text-deep-dark-gray body-extra-small-regular">
@@ -78,7 +116,8 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
             </div>
         </div>
 
-        <div id="product-list">
+        <!-- Products list with dynamic category data attribute -->
+        <div id="product-list" class="products" data-category="<?php echo $category_slug; ?>">
             <?php
             if (woocommerce_product_loop()) {
                 do_action('woocommerce_before_shop_loop');
@@ -106,6 +145,5 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
         </div>
 
 </section>
-
 
 <?php get_footer(); ?>
