@@ -26,16 +26,29 @@ if (empty($product) || !$product->is_visible()) {
 ?>
 
 <li <?php wc_product_class('product-card flex flex-col col-span-3 lg:col-span-4 md:col-span-6', $product); ?>>
-	<div class="aspect-[324/365] w-full relative mb-4 lg:mb-3">
+	<div class="aspect-[324/365] w-full relative mb-4 lg:mb-3 product-image-container">
+		<?php
+		// Get the main product thumbnail
+		$thumbnail_id = get_post_thumbnail_id($product->get_id());
+		$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'medium')[0] : wp_get_attachment_image_src(7, 'medium')[0];
+
+		// Get the first gallery image if available
+		$gallery_image_ids = $product->get_gallery_image_ids();
+		$first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'medium')[0] : '';
+		?>
+
 		<a href="<?php the_permalink(); ?>" class="w-full">
-			<?php
-			$thumbnail_id = get_post_thumbnail_id($product->get_id());
-			if ($thumbnail_id) {
-				echo wp_get_attachment_image($thumbnail_id, 'medium', false, ['class' => 'w-full h-full object-cover round-12']);
-			} else {
-				echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-full object-cover round-12']);
-			}
-			?>
+			<!-- Original Image -->
+			<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
+				class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
+				style="position: relative; opacity: 1;">
+
+			<!-- Gallery Image (displayed on hover) -->
+			<?php if ($first_gallery_image_url): ?>
+				<img src="<?php echo esc_url($first_gallery_image_url); ?>" alt="<?php the_title(); ?> - Gallery"
+					class="w-full h-full object-cover rounded-lg gallery-image"
+					style="position: absolute; top: 0; left: 0; opacity: 0;">
+			<?php endif; ?>
 		</a>
 		<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
 			data-action="add_to_wishlist" data-product_id="<?php echo esc_attr(get_the_ID()); ?>"

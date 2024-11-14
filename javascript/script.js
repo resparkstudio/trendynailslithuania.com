@@ -11,3 +11,4 @@ import './ajax-search.js';
 import './ajax-wishlist.js';
 import './contact-form.js';
 import './product-image-hover.js';
+import './ajax-product-archive-load.js';

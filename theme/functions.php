@@ -181,6 +181,10 @@ function _tw_scripts()
 	wp_localize_script('_tw-script', 'ajax_wishlist_params', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 	));
+
+	wp_localize_script('infinite-scroll', 'woocommerce_params', array(
+		'ajax_url' => admin_url('admin-ajax.php'),
+	));
 }
 
 add_action('wp_enqueue_scripts', '_tw_scripts');
@@ -532,13 +536,37 @@ function filter_products()
 add_action('wp_ajax_filter_products', 'filter_products');
 add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 
+
+// Remove WooCommerce Notices Wrapper
+function remove_woocommerce_notices()
+{
+	remove_action('woocommerce_before_main_content', 'woocommerce_output_all_notices', 10);
+}
+add_action('wp', 'remove_woocommerce_notices');
+add_filter('woocommerce_cart_item_removed_notice_type', '__return_false');
+
+
+
+// Remove pagination controls from WooCommerce
+remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
+
+
+// Limit initial products per page in WooCommerce archives for infinite scroll
+function load_initial_products_in_archive($query)
+{
+	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
+		$query->set('posts_per_page', 16);
+	}
+}
+add_action('pre_get_posts', 'load_initial_products_in_archive');
+
+
 // Function to modify WooCommerce archive query based on URL parameters
 function modify_woocommerce_archive_query($query)
 {
 	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category())) {
 		$orderby = $_GET['orderby'] ?? 'popularity';
 
-		// Apply sorting based on the orderby parameter
 		if ($orderby === 'price-asc') {
 			$query->set('orderby', 'meta_value_num');
 			$query->set('meta_key', '_price');
@@ -555,29 +583,45 @@ function modify_woocommerce_archive_query($query)
 }
 add_action('pre_get_posts', 'modify_woocommerce_archive_query');
 
-
-// Remove WooCommerce Notices Wrapper
-function remove_woocommerce_notices()
+// AJAX handler to load more products on scroll
+function load_more_products_ajax()
 {
-	remove_action('woocommerce_before_main_content', 'woocommerce_output_all_notices', 10);
-}
-add_action('wp', 'remove_woocommerce_notices');
-add_filter('woocommerce_cart_item_removed_notice_type', '__return_false');
+	$page = isset($_POST['page']) ? intval($_POST['page']) : 2;
+	$category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
 
+	$args = [
+		'post_type' => 'product',
+		'posts_per_page' => 10,
+		'paged' => $page,
+	];
 
-
-// Remove pagination controls from WooCommerce
-remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
-
-
-// Remove pagination and load all products in WooCommerce archives
-function load_all_products_in_archive($query)
-{
-	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
-		$query->set('posts_per_page', -1);
+	if ($category) {
+		$args['tax_query'] = [
+			[
+				'taxonomy' => 'product_cat',
+				'field' => 'slug',
+				'terms' => $category,
+			],
+		];
 	}
+
+	$query = new WP_Query($args);
+
+	if ($query->have_posts()) {
+		while ($query->have_posts()) {
+			$query->the_post();
+			wc_get_template_part('content', 'product');
+		}
+	} else {
+		echo 0;
+	}
+
+	wp_reset_postdata();
+	wp_die();
 }
-add_action('pre_get_posts', 'load_all_products_in_archive');
+add_action('wp_ajax_load_more_products', 'load_more_products_ajax');
+add_action('wp_ajax_nopriv_load_more_products', 'load_more_products_ajax');
+
 
 
 // AJAX searchbox funtionality

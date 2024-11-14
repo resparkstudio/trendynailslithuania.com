@@ -82,11 +82,6 @@ get_header();
 								</a>
 							</div>
 						</div>
-
-
-						<?php
-
-						?>
 						<div class="related-posts-swiper-container swiper-container overflow-hidden">
 							<div class="swiper-wrapper">
 								<?php while ($related_posts->have_posts()):
