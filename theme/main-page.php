@@ -142,7 +142,7 @@ get_header();
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover rounded-lg original-image"
+                                                            class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg original-image"
                                                             style="position: relative; opacity: 1;">
 
                                                         <?php if ($first_gallery_image_url): ?>
@@ -312,13 +312,13 @@ get_header();
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
+                                                            class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg original-image"
                                                             style="position: relative; opacity: 1;">
 
                                                         <?php if ($first_gallery_image_url): ?>
                                                             <img src="<?php echo esc_url($first_gallery_image_url); ?>"
                                                                 alt="<?php the_title(); ?> - Gallery"
-                                                                class="w-full h-full object-cover rounded-lg gallery-image"
+                                                                class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg gallery-image"
                                                                 style="position: absolute; top: 0; left: 0; opacity: 0;">
                                                         <?php endif; ?>
                                                     </a>
@@ -555,7 +555,7 @@ get_header();
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover rounded-lg original-image"
+                                                            class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg original-image"
                                                             style="position: relative; opacity: 1;">
 
                                                         <?php if ($first_gallery_image_url): ?>
@@ -664,75 +664,77 @@ get_header();
                 </div>
             <?php endif; ?>
 
-            <!-- TODO: if no blogs-->
-            <div id="blog-section" class="mb-28 md:mb-20">
-                <div class="flex justify-between w-full mb-7">
-                    <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
-                        <?php echo wp_kses_post("Blogas"); ?>
-                    </h3>
-                    <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                        <a class="flex gap-3"
-                            href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">
-                            <span><?php echo wp_kses_post("Daugiau"); ?></span>
-                            <div class="flex items-center">
-                                <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
-                                        fill="#201F1F" />
-                                </svg>
-                            </div>
-                        </a>
+            <?php
+            $latest_posts_query = new WP_Query([
+                'post_type' => 'post',
+                'posts_per_page' => 9,
+                'orderby' => 'date',
+                'order' => 'DESC'
+            ]);
+            ?>
+            <?php if ($latest_posts_query->have_posts()): ?>
+                <div id="blog-section" class="mb-28 md:mb-20">
+                    <div class="flex justify-between w-full mb-7">
+                        <h3 class="w-full heading-md text-deep-dark-gray md:text-[1.125rem] md:leading-[1.375rem]">
+                            <?php echo wp_kses_post("Blogas"); ?>
+                        </h3>
+                        <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
+                            <a class="flex gap-3"
+                                href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">
+                                <span><?php echo wp_kses_post("Daugiau"); ?></span>
+                                <div class="flex items-center">
+                                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                            fill="#201F1F" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="related-posts-swiper-container swiper-container overflow-hidden">
+                        <div class="swiper-wrapper">
+                            <?php
+
+                            while ($latest_posts_query->have_posts()):
+                                $latest_posts_query->the_post();
+                                ?>
+                                <div class="swiper-slide">
+                                    <article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
+                                        <a href="<?php the_permalink(); ?>" class="related-post-thumbnail block mb-5">
+                                            <?php if (has_post_thumbnail()): ?>
+                                                <?php the_post_thumbnail('medium', ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
+                                            <?php else: ?>
+                                                <?php echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
+                                            <?php endif; ?>
+                                        </a>
+
+                                        <p class="related-post-title mb-4 heading-sm text-deep-dark-gray">
+                                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                        </p>
+                                        <a class="flex gap-3" href="<?php the_permalink(); ?>">
+                                            <span
+                                                class="body-small-regular uppercase text-deep-dark-gray"><?php echo wp_kses_post("Daugiau"); ?></span>
+                                            <div class="flex items-center">
+                                                <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
+                                                        fill="#201F1F" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </article>
+                                </div>
+                            <?php endwhile;
+                            wp_reset_postdata(); ?>
+                        </div>
                     </div>
                 </div>
-
-
-                <div class="related-posts-swiper-container swiper-container overflow-hidden">
-                    <div class="swiper-wrapper">
-                        <?php
-                        $latest_posts_query = new WP_Query([
-                            'post_type' => 'post',
-                            'posts_per_page' => 9,
-                            'orderby' => 'date',
-                            'order' => 'DESC'
-                        ]);
-
-                        while ($latest_posts_query->have_posts()):
-                            $latest_posts_query->the_post();
-                            ?>
-                            <div class="swiper-slide">
-                                <article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
-                                    <a href="<?php the_permalink(); ?>" class="related-post-thumbnail block mb-5">
-                                        <?php if (has_post_thumbnail()): ?>
-                                            <?php the_post_thumbnail('medium', ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
-                                        <?php else: ?>
-                                            <?php echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
-                                        <?php endif; ?>
-                                    </a>
-
-                                    <p class="related-post-title mb-4 heading-sm text-deep-dark-gray">
-                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                    </p>
-                                    <a class="flex gap-3" href="<?php the_permalink(); ?>">
-                                        <span
-                                            class="body-small-regular uppercase text-deep-dark-gray"><?php echo wp_kses_post("Daugiau"); ?></span>
-                                        <div class="flex items-center">
-                                            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
-                                                    fill="#201F1F" />
-                                            </svg>
-                                        </div>
-                                    </a>
-                                </article>
-                            </div>
-                        <?php endwhile;
-                        wp_reset_postdata(); ?>
-                    </div>
-                </div>
-            </div>
-
+            <?php endif; ?>
 
 
             <?php if ($about_heading_1 || $about_description_1 || $about_image_1 || $about_heading_2 || $about_description_2 || $about_image_2): ?>

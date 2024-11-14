@@ -49,7 +49,6 @@ get_header();
 				$current_post_categories = wp_get_post_categories($current_post_id);
 				$args = [
 					'post_type' => 'post',
-					'posts_per_page' => 8,
 					'post__not_in' => [$current_post_id],
 					'category__in' => $current_post_categories,
 				];
