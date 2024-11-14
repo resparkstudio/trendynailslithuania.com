@@ -119,4 +119,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			1: { slidesPerView: 1.3 },
 		},
 	});
+
+	const productGallerySwiper = new Swiper('.product-gallery-swiper', {
+		modules: [Pagination],
+		loop: false,
+		slidesPerView: 1,
+		spaceBetween: 16,
+		pagination: {
+			el: '.product-gallery-swiper-pagination',
+			clickable: true,
+		},
+	});
 });

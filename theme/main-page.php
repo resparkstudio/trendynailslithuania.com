@@ -131,20 +131,26 @@ get_header();
                                         <div class="swiper-slide">
                                             <div class="relative product-card flex flex-col">
                                                 <?php
+                                                $gallery_image_ids = $product->get_gallery_image_ids();
                                                 $thumbnail_id = get_post_thumbnail_id($product->get_id());
-                                                if ($thumbnail_id) {
-                                                    $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
-                                                } else {
-                                                    $thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
-                                                }
+                                                $thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'full')[0] : wp_get_attachment_image_src(7, 'full')[0];
+                                                $first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
                                                 ?>
 
-                                                <div class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3">
+                                                <div class=" w-full relative mb-4 md:mb-3 product-image-container">
                                                     <a class="w-full" href="<?php the_permalink(); ?>">
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover rounded-lg">
+                                                            class="w-full h-full object-cover rounded-lg original-image"
+                                                            style="position: relative; opacity: 1;">
+
+                                                        <?php if ($first_gallery_image_url): ?>
+                                                            <img src="<?php echo esc_url($first_gallery_image_url); ?>"
+                                                                alt="<?php the_title(); ?> - Gallery"
+                                                                class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg gallery-image"
+                                                                style="position: absolute; top: 0; left: 0; opacity: 0;">
+                                                        <?php endif; ?>
                                                     </a>
 
                                                     <a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
@@ -295,19 +301,26 @@ get_header();
                                         <div class="swiper-slide">
                                             <div class="relative product-card flex flex-col">
                                                 <?php
+                                                $gallery_image_ids = $product->get_gallery_image_ids();
                                                 $thumbnail_id = get_post_thumbnail_id($product->get_id());
-                                                if ($thumbnail_id) {
-                                                    $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
-                                                } else {
-                                                    $thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
-                                                }
+                                                $thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'full')[0] : wp_get_attachment_image_src(7, 'full')[0];
+                                                $first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
                                                 ?>
 
-                                                <div class="aspect-[324/365] w-full relative mb-4 md:mb-3">
+                                                <div class=" w-full relative mb-4 md:mb-3 product-image-container">
                                                     <a class="w-full" href="<?php the_permalink(); ?>">
+
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover rounded-lg">
+                                                            class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
+                                                            style="position: relative; opacity: 1;">
+
+                                                        <?php if ($first_gallery_image_url): ?>
+                                                            <img src="<?php echo esc_url($first_gallery_image_url); ?>"
+                                                                alt="<?php the_title(); ?> - Gallery"
+                                                                class="w-full h-full object-cover rounded-lg gallery-image"
+                                                                style="position: absolute; top: 0; left: 0; opacity: 0;">
+                                                        <?php endif; ?>
                                                     </a>
 
                                                     <a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
@@ -530,19 +543,27 @@ get_header();
                                         <div class="swiper-slide">
                                             <div class="relative product-card flex flex-col">
                                                 <?php
+                                                $gallery_image_ids = $product->get_gallery_image_ids();
                                                 $thumbnail_id = get_post_thumbnail_id($product->get_id());
-                                                if ($thumbnail_id) {
-                                                    $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
-                                                } else {
-                                                    $thumbnail_url = wp_get_attachment_image_src(7, 'full')[0];
-                                                }
+                                                $thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'full')[0] : wp_get_attachment_image_src(7, 'full')[0];
+                                                $first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
                                                 ?>
 
-                                                <div class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3">
+                                                <div
+                                                    class="aspect-[324/365] object-center w-full relative mb-4 md:mb-3 product-image-container">
                                                     <a class="w-full" href="<?php the_permalink(); ?>">
+
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover rounded-lg">
+                                                            class="w-full h-full object-cover rounded-lg original-image"
+                                                            style="position: relative; opacity: 1;">
+
+                                                        <?php if ($first_gallery_image_url): ?>
+                                                            <img src="<?php echo esc_url($first_gallery_image_url); ?>"
+                                                                alt="<?php the_title(); ?> - Gallery"
+                                                                class="w-full h-full rounded-lg gallery-image object-cover object-center aspect-[324/365]"
+                                                                style="position: absolute; top: 0; left: 0; opacity: 0;">
+                                                        <?php endif; ?>
                                                     </a>
                                                     <a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
                                                         data-action="add_to_wishlist"

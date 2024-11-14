@@ -42,15 +42,15 @@ $is_discounted = $product->is_on_sale();
 		</div>
 	<?php endif; ?>
 
-	<div class="swiper-wrapper aspect-[663/725] w-full relative inline-block h-auto">
+	<div class="swiper-wrapper w-full relative inline-block h-auto">
 		<!-- Main Product Image -->
 		<?php if ($post_thumbnail_id): ?>
 			<div class="swiper-slide aspect-[663/725] object-center w-full inline-block h-auto">
-				<?php echo wp_get_attachment_image($post_thumbnail_id, 'large', false, ['class' => 'w-full h-auto object-cover rounded-lg aspect-[663/725]']); ?>
+				<?php echo wp_get_attachment_image($post_thumbnail_id, 'large', false, ['class' => 'w-full h-auto object-cover object-center rounded-lg aspect-[663/725]']); ?>
 			</div>
 		<?php else: ?>
 			<div class="swiper-slide aspect-[663/725] object-center w-full inline-block h-auto">
-				<?php echo wp_get_attachment_image(7, 'large', false, ['class' => 'w-full h-auto object-cover rounded-lg aspect-[663/725]']); ?>
+				<?php echo wp_get_attachment_image(7, 'large', false, ['class' => 'w-full h-auto object-cover object-center rounded-lg aspect-[663/725]']); ?>
 			</div>
 		<?php endif; ?>
 
@@ -58,7 +58,7 @@ $is_discounted = $product->is_on_sale();
 		<?php if ($attachment_ids): ?>
 			<?php foreach ($attachment_ids as $attachment_id): ?>
 				<div class="swiper-slide aspect-[663/725] object-center w-full inline-block h-auto">
-					<?php echo wp_get_attachment_image($attachment_id, 'large', false, ['class' => 'w-full h-auto object-cover rounded-lg aspect-[663/725]']); ?>
+					<?php echo wp_get_attachment_image($attachment_id, 'large', false, ['class' => 'w-full h-auto object-cover rounded-lg aspect-[663/725] object-center']); ?>
 				</div>
 			<?php endforeach; ?>
 		<?php endif; ?>

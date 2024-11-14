@@ -62,12 +62,10 @@ if ($related_products_query->have_posts()): ?>
 					$related_product_id = get_the_ID();
 					$related_product_name = get_the_title();
 
-					// Gather product attributes
 					$product_obj = wc_get_product($related_product_id);
 					$attributes = $product_obj->get_attributes();
 					$attribute_text = '';
 
-					// Format attributes as "attribute name: attribute value"
 					foreach ($attributes as $attribute) {
 						$attribute_name = wc_attribute_label($attribute->get_name());
 						$attribute_value = implode(', ', $attribute->get_options());
@@ -75,18 +73,29 @@ if ($related_products_query->have_posts()): ?>
 
 					}
 
-					// Get thumbnail URL
 					$thumbnail_id = get_post_thumbnail_id($related_product_id);
 					$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'full')[0] : wp_get_attachment_image_src(7, 'full')[0];
 					?>
 
 					<div class="swiper-slide">
 						<div class="product-card flex flex-col">
-							<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
-								<a href="<?php the_permalink(); ?>" class="w-full">
-									<img src="<?php echo esc_url($thumbnail_url); ?>"
-										alt="<?php echo esc_attr($related_product_name); ?>"
-										class="w-full h-full object-cover round-12">
+							<div class="w-full relative mb-4 lg:mb-3 product-image-container">
+								<?php
+								$gallery_image_ids = $product->get_gallery_image_ids();
+								$first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
+								?>
+								<a class="w-full" href="<?php the_permalink(); ?>">
+
+									<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
+										class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
+										style="position: relative; opacity: 1;">
+
+									<?php if ($first_gallery_image_url): ?>
+										<img src="<?php echo esc_url($first_gallery_image_url); ?>"
+											alt="<?php the_title(); ?> - Gallery"
+											class="w-full h-full object-cover rounded-lg gallery-image"
+											style="position: absolute; top: 0; left: 0; opacity: 0;">
+									<?php endif; ?>
 								</a>
 								<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
 									data-action="add_to_wishlist" data-product_id="<?php echo esc_attr($related_product_id); ?>"
@@ -214,11 +223,23 @@ $new_products_query = new WP_Query($args);
 
 							<div class="swiper-slide">
 								<div class="relative product-card flex flex-col">
-									<div class="aspect-[324/365] object-center w-full relative mb-4 lg:mb-3">
+									<div class="w-full relative mb-4 lg:mb-3 product-image-container">
+										<?php
+										$gallery_image_ids = $product->get_gallery_image_ids();
+										$first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
+										?>
 										<a class="w-full" href="<?php the_permalink(); ?>">
-											<img src="<?php echo esc_url($thumbnail_url); ?>"
-												alt="<?php echo esc_attr($new_product_name); ?>"
-												class="w-full h-full object-cover round-12">
+
+											<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
+												class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
+												style="position: relative; opacity: 1;">
+
+											<?php if ($first_gallery_image_url): ?>
+												<img src="<?php echo esc_url($first_gallery_image_url); ?>"
+													alt="<?php the_title(); ?> - Gallery"
+													class="w-full h-full object-cover rounded-lg gallery-image"
+													style="position: absolute; top: 0; left: 0; opacity: 0;">
+											<?php endif; ?>
 										</a>
 
 										<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer"
