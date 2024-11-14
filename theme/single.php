@@ -88,11 +88,13 @@ get_header();
 									$related_posts->the_post(); ?>
 									<div class="swiper-slide">
 										<article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
-											<?php if (has_post_thumbnail()): ?>
-												<a href="<?php the_permalink(); ?>" class="related-post-thumbnail block mb-5">
+											<a href="<?php the_permalink(); ?>" class="related-post-thumbnail block mb-5">
+												<?php if (has_post_thumbnail()): ?>
 													<?php the_post_thumbnail('medium', ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
-												</a>
-											<?php endif; ?>
+												<?php else: ?>
+													<?php echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
+												<?php endif; ?>
+											</a>
 											<p class="related-post-title mb-4 heading-sm text-deep-dark-gray">
 												<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 											</p>
