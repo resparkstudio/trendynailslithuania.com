@@ -38,7 +38,7 @@ if (post_password_required()) {
 			?>
 
 			<div class="product-additional-info overflow-hidden">
-				<?php if ($usage_conditions): ?>
+				<?php if (!empty($usage_conditions['value'])): ?>
 					<div class="relative pb-3.5 z-30">
 						<div class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer">
 							<h3 class="uppercase text-black grow flex items-center">
@@ -55,7 +55,7 @@ if (post_password_required()) {
 					</div>
 				<?php endif; ?>
 
-				<?php if ($ingredients): ?>
+				<?php if (!empty($ingredients['value'])): ?>
 					<div class="relative pb-3.5 z-20">
 						<div class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer">
 							<h3 class="uppercase text-black grow flex items-center">
@@ -72,7 +72,7 @@ if (post_password_required()) {
 					</div>
 				<?php endif; ?>
 
-				<?php if ($shipping): ?>
+				<?php if (!empty($shipping['value'])): ?>
 					<div class="relative z-10">
 						<div class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer">
 							<h3 class="uppercase text-black grow flex items-center">

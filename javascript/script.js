@@ -9,3 +9,4 @@ import './archive-products.js';
 import './search-box.js';
 import './ajax-search.js';
 import './ajax-wishlist.js';
+import './contact-form.js';

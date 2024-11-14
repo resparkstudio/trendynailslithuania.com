@@ -841,5 +841,4 @@ function get_wishlist_count()
 	wp_send_json_success(['wishlist_count' => $count]);
 }
 
-// -------------------------------------- Blog
-
+// -------------------------------------- Contact form

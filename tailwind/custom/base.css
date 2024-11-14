@@ -19,6 +19,10 @@ body {
 	border-radius: 5px;
 }
 
+.round-7 {
+	border-radius: 7px;
+}
+
 .round-9 {
 	border-radius: 9px;
 }
@@ -246,4 +250,40 @@ footer {
 
 .single-post-content img {
 	@apply round-15 w-full aspect-[663/434] object-cover object-center my-2;
+}
+
+/* Contact form */
+
+.wpcf7-text {
+	@apply w-full p-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray;
+}
+
+.wpcf7-textarea {
+	@apply w-full min-h-32 max-h-72 p-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray;
+}
+
+.wpcf7-form {
+	@apply grid grid-cols-2 gap-4 md:gap-2.5;
+}
+
+.wpcf7-list-item {
+	@apply m-0;
+}
+
+.wpcf7-submit {
+	@apply black-button py-4 px-24 round-9 body-small-medium col-span-3 md:order-2 md:w-full md:px-0 cursor-pointer;
+}
+
+.contact-form-footer p {
+	@apply md:w-full md:order-2 relative;
+}
+
+.wpcf7-spinner {
+	@apply mx-2;
+}
+
+.wpcf7-response-output,
+.wpcf7-spinner,
+.wpcf7-not-valid-tip {
+	@apply hidden;
 }
