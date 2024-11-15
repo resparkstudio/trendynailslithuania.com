@@ -13,7 +13,6 @@ get_header();
 
 do_action('woocommerce_before_main_content');
 
-// Get the current category slug if on a category archive page
 $current_category = get_queried_object();
 $category_slug = (isset($current_category->slug) && $current_category->taxonomy === 'product_cat') ? esc_attr($current_category->slug) : '';
 
@@ -33,65 +32,81 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
             <h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Parduotuvė"); ?></h1>
         </header>
 
+
         <div class="border-b-[0.5px] border-dark-gray mb-12 md:mb-6 overflow-x-auto">
-            <!-- Main Categories Section -->
             <div
                 class="shop-archive-nav-menu flex gap-8 md:gap-6 body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5">
-                <!-- Main Category Links -->
                 <a href="<?php echo $shop_url; ?>"
-                    class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>"><?php echo wp_kses_post("Rodyti viską") ?></a>
+                    class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>">
+                    <?php echo wp_kses_post("Rodyti viską") ?>
+                </a>
                 <a href="<?php echo $new_products_url; ?>"
-                    class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>"><?php echo wp_kses_post("Naujienos") ?></a>
+                    class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>">
+                    <?php echo wp_kses_post("Naujienos") ?>
+                </a>
                 <a href="<?php echo $sale_url; ?>"
-                    class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>"><?php echo wp_kses_post("Išpardavimas") ?></a>
+                    class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>">
+                    <?php echo wp_kses_post("Išpardavimas") ?>
+                </a>
 
                 <?php
                 $uncategorized = null;
                 $product_categories = get_terms('product_cat', array('hide_empty' => true, 'parent' => 0));
                 $current_category_id = get_queried_object_id();
 
+                $active_category_ids = $current_category_id ? array_merge(get_ancestors($current_category_id, 'product_cat'), [$current_category_id]) : [];
+
                 foreach ($product_categories as $category) {
                     if ($category->slug === 'uncategorized') {
                         $uncategorized = $category;
                     } else {
                         $category_url = esc_url(get_term_link($category));
-                        $category_active = ($current_category_id == $category->term_id) ? 'link-active' : '';
+                        $category_active = in_array($category->term_id, $active_category_ids) ? 'link-active' : '';
                         echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
                     }
                 }
 
                 if ($uncategorized) {
                     $uncategorized_url = esc_url(get_term_link($uncategorized));
-                    $uncategorized_active = ($current_url == $uncategorized_url) ? 'link-active' : '';
+                    $uncategorized_active = in_array($uncategorized->term_id, $active_category_ids) ? 'link-active' : '';
                     echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
                 }
                 ?>
             </div>
 
             <?php
-            $padding_left = 2;
             if ($current_category_id) {
-                $ancestors = get_ancestors($current_category_id, 'product_cat');
-                $ancestors = array_reverse($ancestors); // Start from the topmost ancestor
-            
-                foreach ($ancestors as $ancestor_id) {
-                    display_subcategories($ancestor_id, $current_category_id, $padding_left);
-                }
-
-                display_subcategories($current_category_id, $current_category_id, $padding_left);
+                $active_category_ids = array_merge(get_ancestors($current_category_id, 'product_cat'), [$current_category_id]);
+                display_hierarchy($current_category_id, $active_category_ids);
             }
 
-            function display_subcategories($parent_id, $active_category_id, $padding_left)
+            function display_hierarchy($category_id, $active_category_ids, $depth = 0)
             {
+                $ancestors = get_ancestors($category_id, 'product_cat');
+                $ancestors = array_reverse($ancestors);
 
+                foreach ($ancestors as $ancestor_id) {
+                    display_subcategories($ancestor_id, $active_category_ids, $depth);
+                    $depth++;
+                }
+
+                display_subcategories($category_id, $active_category_ids, $depth);
+            }
+
+            function display_subcategories($parent_id, $active_category_ids, $depth)
+            {
                 $subcategories = get_terms('product_cat', array('parent' => $parent_id, 'hide_empty' => true));
 
                 if (!empty($subcategories)) {
-                    echo '<div class="shop-archive-nav-menu flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5">';
+                    // Calculate padding class based on depth
+                    $padding_left = 2 + ($depth * 2);
+                    $padding_class = 'pl-' . $padding_left;
+
+                    echo '<div class="shop-archive-nav-menu flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5 ' . esc_attr($padding_class) . '">';
 
                     foreach ($subcategories as $subcategory) {
                         $subcategory_url = esc_url(get_term_link($subcategory));
-                        $subcategory_active = ($active_category_id == $subcategory->term_id) ? 'link-active' : '';
+                        $subcategory_active = in_array($subcategory->term_id, $active_category_ids) ? 'link-active' : '';
 
                         echo '<a href="' . $subcategory_url . '" class="filter-button link-hover whitespace-nowrap ' . $subcategory_active . '">' . esc_html($subcategory->name) . '</a>';
                     }
@@ -99,6 +114,7 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
                     echo '</div>';
                 }
             }
+
             ?>
         </div>
 
@@ -116,7 +132,6 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
             </div>
         </div>
 
-        <!-- Products list with dynamic category data attribute -->
         <div id="product-list" class="products" data-category="<?php echo $category_slug; ?>">
             <?php
             if (woocommerce_product_loop()) {
