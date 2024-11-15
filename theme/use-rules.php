@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Privacy Policy
+Template Name: Use Rules
 */
 get_header();
 ?>
@@ -13,7 +13,6 @@ get_header();
             <div class="flex justify-center">
                 <div id="privacy-policy-text" class="max-w-2xl text-deep-dark-gray body-normal-regular">
                     <?php
-                    // Output the content from the WordPress editor.
                     the_content();
                     ?>
                 </div>

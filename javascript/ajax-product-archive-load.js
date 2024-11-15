@@ -1,10 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
 	let page = 2; // Start with page 2 as page 1 loads initially
 	let loading = false;
+
 	const container = document.querySelector('ul.products'); // Target the ul.products element
-	const category = container
-		.closest('#product-list')
-		.getAttribute('data-category'); // Set this dynamically if you have a category-specific attribute
+
+	// Check if container exists to avoid errors
+	if (!container) {
+		console.warn(
+			"Container element 'ul.products' not found. Exiting script."
+		);
+		return;
+	}
+
+	const productList = container.closest('#product-list');
+	const category = productList
+		? productList.getAttribute('data-category')
+		: null; // Set this dynamically if it exists
 
 	// Scroll handler function to be removed if no more products are available
 	const loadMoreOnScroll = () => {
@@ -50,5 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
+	// Add the scroll event listener only if the container exists
 	window.addEventListener('scroll', loadMoreOnScroll);
 });

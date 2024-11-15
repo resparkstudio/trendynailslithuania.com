@@ -244,24 +244,14 @@ function theme_setup()
 add_action('after_setup_theme', 'theme_setup');
 
 // Prevent from accesing to certain pages
-function redirect_site_settings_page()
-{
-	if (is_page('footeris') || is_page('socialine-medija')) {
-		wp_redirect(get_permalink(get_page_by_path('titulinis')->ID));
-		exit;
-	}
-}
-add_action('template_redirect', 'redirect_site_settings_page');
-
-
-// Make some templates not indexible by the browsers
-// TODO check if actuallly not appearing in search
-function add_noindex_to_specific_templates()
-{
-	if (is_page_template('soc-media.php') || is_page_template('footer.php')) {
-		echo '<meta name="robots" content="noindex, nofollow">';
-	}
-}
+// function redirect_site_settings_page()
+// {
+// 	if (is_page('footeris') || is_page('socialine-medija')) {
+// 		wp_redirect(get_permalink(get_page_by_path('titulinis')->ID));
+// 		exit;
+// 	}
+// }
+// add_action('template_redirect', 'redirect_site_settings_page');
 
 //----------------------------------- ACF
 
@@ -277,8 +267,6 @@ if (function_exists('acf_add_options_page')) {
 	));
 
 }
-
-add_action('wp_head', 'add_noindex_to_specific_templates');
 
 //----------------------------------- WOOCOMMERCE
 // add woocommerce theme support
@@ -890,4 +878,11 @@ function get_wishlist_count()
 	wp_send_json_success(['wishlist_count' => $count]);
 }
 
-// -------------------------------------- Contact form
+add_action('woocommerce_register_post', 'validate_privacy_policy_checkbox', 10, 3);
+function validate_privacy_policy_checkbox($username, $email, $validation_errors)
+{
+	if (!isset($_POST['privacy_policy'])) {
+		$validation_errors->add('privacy_policy_error', __('Norėdami užsiregistruoti, turite sutikti su privatumo politika.', 'woocommerce'));
+	}
+	return $validation_errors;
+}

@@ -254,8 +254,9 @@ footer {
 
 /* Contact form */
 
-.wpcf7-text {
-	@apply w-full p-3 round-9 border border-mid-gray body-small-light text-deep-dark-gray;
+.wpcf7-text,
+.form-input {
+	@apply w-full p-3 round-9 border border-mid-gray body-small-light text-deep-dark-gray placeholder:text-deep-dark-gray placeholder:font-light;
 }
 
 .wpcf7-textarea {

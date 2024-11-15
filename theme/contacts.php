@@ -8,7 +8,6 @@ $phone_number = get_field('phone_number', 'option');
 $email = get_field('email', 'option');
 $facebook_link = get_field('facebook_link', 'option');
 $instagram_link = get_field('instagram_link', 'option');
-
 ?>
 <section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
     <main id="main" class="max-w-[87.5rem] mx-auto w-full">

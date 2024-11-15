@@ -1083,7 +1083,8 @@ footer {
 
 /* Contact form */
 
-.wpcf7-text {
+.wpcf7-text,
+.form-input {
   width: 100%;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -1096,6 +1097,19 @@ footer {
   font-weight: 300;
   line-height: 1.125rem;
   border-radius: 9px;
+}
+
+.wpcf7-text::-moz-placeholder, .form-input::-moz-placeholder {
+  font-weight: 300;
+  --tw-text-opacity: 1;
+  color: rgb(32 31 31 / var(--tw-text-opacity));
+}
+
+.wpcf7-text::placeholder,
+.form-input::placeholder {
+  font-weight: 300;
+  --tw-text-opacity: 1;
+  color: rgb(32 31 31 / var(--tw-text-opacity));
 }
 
 .wpcf7-textarea {
@@ -1214,6 +1228,10 @@ footer {
  * line). This is meant to simplify the process of integrating styles from
  * JavaScript components or WordPress plugins.
  */
+
+.\!container {
+  width: 100% !important;
+}
 
 .container {
   width: 100%;
@@ -1992,8 +2010,16 @@ footer {
   grid-column: span 4 / span 4;
 }
 
+.col-span-5 {
+  grid-column: span 5 / span 5;
+}
+
 .col-span-6 {
   grid-column: span 6 / span 6;
+}
+
+.col-span-7 {
+  grid-column: span 7 / span 7;
 }
 
 .col-span-8 {
@@ -2051,6 +2077,10 @@ footer {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
 }
 
 .mb-1 {
@@ -2129,6 +2159,10 @@ footer {
   margin-left: 2.5rem;
 }
 
+.ml-12 {
+  margin-left: 3rem;
+}
+
 .ml-7 {
   margin-left: 1.75rem;
 }
@@ -2155,6 +2189,10 @@ footer {
 
 .mt-11 {
   margin-top: 2.75rem;
+}
+
+.mt-12 {
+  margin-top: 3rem;
 }
 
 .mt-16 {
@@ -2259,6 +2297,10 @@ footer {
 
 .aspect-\[670\/507\] {
   aspect-ratio: 670/507;
+}
+
+.aspect-\[712\/646\] {
+  aspect-ratio: 712/646;
 }
 
 .aspect-\[78\/100\] {
@@ -2380,6 +2422,10 @@ footer {
 
 .max-w-\[43\.125rem\] {
   max-width: 43.125rem;
+}
+
+.max-w-\[43\.75rem\] {
+  max-width: 43.75rem;
 }
 
 .max-w-\[6\.25rem\] {
@@ -2634,6 +2680,11 @@ footer {
   border-radius: 0.375rem;
 }
 
+.rounded-l-\[15px\] {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
 .rounded-l-\[6px\] {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
@@ -2853,6 +2904,10 @@ footer {
 
 .pb-16 {
   padding-bottom: 4rem;
+}
+
+.pb-20 {
+  padding-bottom: 5rem;
 }
 
 .pb-28 {
@@ -3493,6 +3548,10 @@ footer {
     margin-top: 1.25rem;
   }
 
+  .md\:mt-7 {
+    margin-top: 1.75rem;
+  }
+
   .md\:mt-8 {
     margin-top: 2rem;
   }
@@ -3555,6 +3614,10 @@ footer {
 
   .md\:max-w-\[20\.375rem\] {
     max-width: 20.375rem;
+  }
+
+  .md\:max-w-full {
+    max-width: 100%;
   }
 
   .md\:cursor-pointer {
@@ -3643,6 +3706,10 @@ footer {
 
   .md\:pb-0 {
     padding-bottom: 0px;
+  }
+
+  .md\:pb-32 {
+    padding-bottom: 8rem;
   }
 
   .md\:pb-4 {
