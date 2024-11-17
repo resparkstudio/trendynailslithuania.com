@@ -18,28 +18,33 @@
  */
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+	exit;
 }
+
+$allowed_html = array(
+	'a' => array(
+		'href' => array(),
+		'class' => array(),
+	),
+);
+
 ?>
-
-
 <p>
 	<?php
 	printf(
-		/* translators: 1: user display name 2: logout url */
-		wp_kses(__('Hello %1$s (not %1$s? <a href="%2$s">Log out</a>)', 'woocommerce'), $allowed_html),
+		wp_kses(__('Sveiki, %1$s (ne %1$s? <a class = "link-hover" href="%2$s">Atsijungti</a>)', 'woocommerce'), $allowed_html),
 		'<strong>' . esc_html($current_user->display_name) . '</strong>',
 		esc_url(wc_logout_url())
 	);
 	?>
 </p>
+<br>
 <p>
 	<?php
-	/* translators: 1: Orders URL 2: Address URL 3: Account URL. */
-	$dashboard_desc = __('From your account dashboard you can view your <a href="%1$s">recent orders</a>, manage your <a href="%2$s">billing address</a>, and <a href="%3$s">edit your password and account details</a>.', 'woocommerce');
+	$dashboard_desc = __('Iš savo paskyros pagrindinio meniu galite peržiūrėti savo <a class = "link-hover" href="%1$s">naujausius užsakymus</a>, tvarkyti savo <a class = "link-hover" href="%2$s">atsiskaitymo adresą</a> ir <a class = "link-hover" href="%3$s">redaguoti savo slaptažodį ir paskyros duomenis</a>.', 'woocommerce');
 	if (wc_shipping_enabled()) {
-		/* translators: 1: Orders URL 2: Addresses URL 3: Account URL. */
-		$dashboard_desc = __('From your account dashboard you can view your <a href="%1$s">recent orders</a>, manage your <a href="%2$s">shipping and billing addresses</a>, and <a href="%3$s">edit your password and account details</a>.', 'woocommerce');
+
+		$dashboard_desc = __('Iš savo paskyros pagrindino meniu galite peržiūrėti savo <a class = "link-hover" href="%1$s">naujausius užsakymus</a>, tvarkyti savo <a class = "link-hover" href="%2$s">pristatymo ir atsiskaitymo adresus</a> ir <a class = "link-hover" href="%3$s">redaguoti savo slaptažodį ir paskyros duomenis</a>.', 'woocommerce');
 	}
 	printf(
 		wp_kses($dashboard_desc, $allowed_html),
@@ -49,6 +54,7 @@ if (!defined('ABSPATH')) {
 	);
 	?>
 </p>
+
 
 <?php
 /**

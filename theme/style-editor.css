@@ -636,6 +636,7 @@ footer {
 
 /* Contact form */
 
+.custom-my-account .woocommerce .input-text,
 .wpcf7-text,
 .form-input {
   width: 100%;
@@ -652,17 +653,18 @@ footer {
   border-radius: 9px;
 }
 
-.wpcf7-text::-moz-placeholder, .form-input::-moz-placeholder {
+.custom-my-account .woocommerce .input-text::-moz-placeholder, .wpcf7-text::-moz-placeholder, .form-input::-moz-placeholder {
   font-weight: 300;
   --tw-text-opacity: 1;
-  color: rgb(32 31 31 / var(--tw-text-opacity));
+  color: rgb(195 195 195 / var(--tw-text-opacity));
 }
 
+.custom-my-account .woocommerce .input-text::placeholder,
 .wpcf7-text::placeholder,
 .form-input::placeholder {
   font-weight: 300;
   --tw-text-opacity: 1;
-  color: rgb(32 31 31 / var(--tw-text-opacity));
+  color: rgb(195 195 195 / var(--tw-text-opacity));
 }
 
 .wpcf7-textarea {
@@ -799,18 +801,57 @@ footer {
   max-width: 87.5rem;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(32 31 31 / var(--tw-text-opacity));
+  font-family: "Albert Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
 }
 
 .woocommerce-MyAccount-content {
-  grid-column: span 8 / span 8;
-  margin-top: 2rem;
+  grid-column: span 9 / span 9;
+  margin-top: 2.5rem;
   margin-right: 3rem;
+}
+
+@media (max-width: 1023px) {
+  .woocommerce-MyAccount-content {
+    grid-column: span 8 / span 8;
+  }
 }
 
 @media (max-width: 767px) {
   .woocommerce-MyAccount-content {
+    grid-column: span 7 / span 7;
+    margin-top: 0.5rem;
     margin-right: 1rem;
   }
+}
+
+@media (max-width: 639px) {
+  .woocommerce-MyAccount-content {
+    grid-column: span 6 / span 6;
+  }
+}
+
+/* My account */
+
+.custom-my-account .woocommerce .form-row {
+  margin-bottom: 0.5rem;
+}
+
+.custom-my-account .woocommerce .form-row label {
+  margin-bottom: 0.25rem;
+  display: block;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+}
+
+.custom-my-account .woocommerce-notices-wrapper {
+  margin-bottom: 1rem;
 }
 
 /**
@@ -1777,6 +1818,10 @@ footer {
   margin-right: 1.5rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -1809,6 +1854,10 @@ footer {
   margin-top: 7rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
 .mt-4 {
   margin-top: 1rem;
 }
@@ -1819,6 +1868,10 @@ footer {
 
 .mt-56 {
   margin-top: 14rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .mt-7 {
@@ -3029,6 +3082,10 @@ footer {
     grid-column: span 12 / span 12;
   }
 
+  .md\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
   .md\:col-span-6 {
     grid-column: span 6 / span 6;
   }
@@ -3390,6 +3447,10 @@ footer {
 }
 
 @media (max-width: 639px) {
+  .sm\:col-span-6 {
+    grid-column: span 6 / span 6;
+  }
+
   .sm\:w-full {
     width: 100%;
   }
