@@ -41,7 +41,7 @@ body {
 
 /* Buttons */
 .white-button-white-text {
-	@apply bg-transparent text-white uppercase body-small-medium round-9 border-[0.7px] border-mid-gray;
+	@apply bg-transparent text-white uppercase body-small-medium round-9 border-[0.7px] border-white;
 	transition: background-color 0.2s ease;
 }
 
@@ -55,7 +55,7 @@ body {
 }
 
 .white-button-black-text:hover {
-	@apply bg-deep-dark-gray text-white;
+	@apply bg-deep-dark-gray text-white border-deep-dark-gray;
 }
 
 .black-button {
@@ -330,4 +330,18 @@ footer {
 
 .custom-my-account .woocommerce-notices-wrapper {
 	@apply mb-4;
+}
+
+/* checkout */
+
+.woocommerce-notices-wrapper {
+	@apply hidden;
+}
+
+.checkout-form-input {
+	@apply w-full py-2 px-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray placeholder:text-mid-gray placeholder:font-light;
+}
+
+.checkout-form-label {
+	@apply block pl-3 body-small-regular mb-1;
 }

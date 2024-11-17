@@ -6,11 +6,28 @@
  *
  * @package _tw
  */
-
 ?>
+<div class="mt-5 md:mt-2.5"><?php
+if (function_exists('is_checkout') && is_checkout()) {
+	?>
+		<div class="mb-48 mt-5 md:mb-28 md:mt-2.5">
+			<div class="max-w-[87.5rem] mx-auto w-full">
+				<div class="mx-12 md:mx-4">
+					<header id="heading-section">
+						<h1 class="w-full heading-md text-deep-dark-gray mb-12 md:mb-7"><?php echo get_the_title(); ?></h1>
+					</header>
+					<?php
+}
+?>
+				<?php the_content(); ?>
+				<?php
 
-<div class="mt-5 md:mt-2.5">
-
-	<?php the_content(); ?>
-
+				if (function_exists('is_checkout') && is_checkout()) {
+					?>
+				</div>
+			</div>
+		</div>
+		<?php
+				}
+				?>
 </div>
