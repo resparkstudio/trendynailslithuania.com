@@ -21,7 +21,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
 			<?php if ($action === 'login'): ?>
 
 				<div class="w-full max-w-[43.75rem] md:max-w-full pb-36 md:pb-32">
-					<h2 class="heading-md text-deep-dark-gray"><?php esc_html_e('Prisijunkite', 'woocommerce'); ?></h2>
+					<h1 class="heading-md text-deep-dark-gray"><?php esc_html_e('Prisijunkite', 'woocommerce'); ?></h1>
 					<div class="ml-12 md:ml-0 mt-12 md:mt-7">
 						<p class="woocommerce-RegisterLink text-deep-dark-gray body-normal-regular block mb-7">
 							<?php esc_html_e("Neturite paskyros?", 'woocommerce'); ?> <a class="link-hover"
@@ -81,7 +81,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
 			<?php elseif ($action === 'register' && get_option('woocommerce_enable_myaccount_registration') === 'yes'): ?>
 
 				<div class="w-full max-w-[43.75rem] md:max-w-full pb-36 md:pb-32">
-					<h2 class="heading-md text-deep-dark-gray"><?php esc_html_e('Registruokitės', 'woocommerce'); ?></h2>
+					<h1 class="heading-md text-deep-dark-gray"><?php esc_html_e('Registruokitės', 'woocommerce'); ?></h1>
 					<div class="ml-12 md:ml-0 mt-12 md:mt-7">
 						<p class="woocommerce-LoginLink body-normal-regular block mb-7">
 							<?php esc_html_e("Turie paskyrą?", 'woocommerce'); ?> <a class="link-hover"

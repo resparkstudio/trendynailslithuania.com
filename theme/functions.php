@@ -886,3 +886,27 @@ function validate_privacy_policy_checkbox($username, $email, $validation_errors)
 	}
 	return $validation_errors;
 }
+
+add_filter('woocommerce_account_menu_items', 'custom_woocommerce_account_menu_items');
+function custom_woocommerce_account_menu_items($items)
+{
+	// Rename specific menu items
+	$items['dashboard'] = 'Pagrindinis';
+	$items['orders'] = 'Mano užsakymai';
+	$items['downloads'] = 'Atsisiuntimai';
+	$items['edit-address'] = 'Mano adresai';
+	$items['edit-account'] = 'Paskyros nustatymai';
+	$items['customer-logout'] = 'Atsijungti';
+
+	return $items;
+}
+
+
+add_filter('body_class', 'add_my_account_body_class');
+function add_my_account_body_class($classes)
+{
+	if (is_account_page() && is_user_logged_in()) {
+		$classes[] = 'custom-my-account';
+	}
+	return $classes;
+}

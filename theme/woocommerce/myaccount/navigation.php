@@ -15,23 +15,33 @@
  * @version 9.3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-do_action( 'woocommerce_before_account_navigation' );
+do_action('woocommerce_before_account_navigation');
 ?>
 
-<nav class="woocommerce-MyAccount-navigation" aria-label="<?php esc_html_e( 'Account pages', 'woocommerce' ); ?>">
-	<ul>
-		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
-				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>>
-					<?php echo esc_html( $label ); ?>
-				</a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-</nav>
+<div class="w-full col-span-4">
+	<div class="ml-12 md:ml-4">
+		<header id="heading-section">
+			<h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Mano paskyra"); ?></h1>
+		</header>
+		<nav class="woocommerce-MyAccount-navigation" aria-label="<?php esc_html_e('Account pages', 'woocommerce'); ?>">
+			<ul class="space-y-2">
+				<?php foreach (wc_get_account_menu_items() as $endpoint => $label): ?>
+					<li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
+						<a class="link-hover" href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>" <?php echo wc_is_current_account_menu_item($endpoint) ? 'aria-current="page"' : ''; ?>>
+							<?php echo esc_html($label); ?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</nav>
+	</div>
+</div>
 
-<?php do_action( 'woocommerce_after_account_navigation' ); ?>
+
+
+
+<?php do_action('woocommerce_after_account_navigation'); ?>

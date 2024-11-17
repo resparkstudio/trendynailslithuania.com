@@ -9,8 +9,8 @@
 
 ?>
 
-<article class="mt-5 md:mt-2.5">
+<div class="mt-5 md:mt-2.5">
 
 	<?php the_content(); ?>
 
-</article>
+</div>

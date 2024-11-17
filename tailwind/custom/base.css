@@ -306,3 +306,13 @@ footer {
 .woocommerce-form .nsl-container .nsl-container-buttons a {
 	@apply w-full m-0;
 }
+
+/* My account */
+
+.custom-my-account .woocommerce {
+	@apply grid grid-cols-12 gap-4 max-w-[87.5rem] mx-auto w-full;
+}
+
+.woocommerce-MyAccount-content {
+	@apply col-span-8 mt-8 mb-28 mr-12 md:mr-4;
+}
