@@ -793,6 +793,7 @@ footer {
 .custom-my-account .woocommerce {
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 7rem;
   display: grid;
   width: 100%;
   max-width: 87.5rem;
@@ -803,7 +804,6 @@ footer {
 .woocommerce-MyAccount-content {
   grid-column: span 8 / span 8;
   margin-top: 2rem;
-  margin-bottom: 7rem;
   margin-right: 3rem;
 }
 
@@ -3122,6 +3122,10 @@ footer {
     margin-left: 0px;
   }
 
+  .md\:ml-4 {
+    margin-left: 1rem;
+  }
+
   .md\:mr-9 {
     margin-right: 2.25rem;
   }
@@ -3148,10 +3152,6 @@ footer {
 
   .md\:mt-8 {
     margin-top: 2rem;
-  }
-
-  .md\:ml-4 {
-    margin-left: 1rem;
   }
 
   .md\:block {
