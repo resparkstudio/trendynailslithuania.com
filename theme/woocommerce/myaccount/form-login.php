@@ -20,7 +20,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
 		<div class="flex w-full justify-end col-span-5 md:col-span-12">
 			<?php if ($action === 'login'): ?>
 
-				<div class="w-full max-w-[43.75rem] md:max-w-full pb-20 md:pb-32">
+				<div class="w-full max-w-[43.75rem] md:max-w-full pb-36 md:pb-32">
 					<h2 class="heading-md text-deep-dark-gray"><?php esc_html_e('Prisijunkite', 'woocommerce'); ?></h2>
 					<div class="ml-12 md:ml-0 mt-12 md:mt-7">
 						<p class="woocommerce-RegisterLink text-deep-dark-gray body-normal-regular block mb-7">
@@ -66,7 +66,10 @@ do_action('woocommerce_before_customer_login_form'); ?>
 								name="login"
 								value="<?php esc_attr_e('Log in', 'woocommerce'); ?>"><?php esc_html_e('Prisijungti', 'woocommerce'); ?></button>
 
+							<p class="block text-center w-full py-5 body-small-light"><?php echo wp_kses_post("arba") ?></p>
+
 							<?php echo do_shortcode('[nextend_social_login provider="facebook"]') ?>
+							<?php echo do_shortcode('[nextend_social_login provider="google"]') ?>
 
 							<?php do_action('woocommerce_login_form_end'); ?>
 						</form>
@@ -77,7 +80,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
 
 			<?php elseif ($action === 'register' && get_option('woocommerce_enable_myaccount_registration') === 'yes'): ?>
 
-				<div class="w-full max-w-[43.75rem] md:max-w-full pb-20 md:pb-32">
+				<div class="w-full max-w-[43.75rem] md:max-w-full pb-36 md:pb-32">
 					<h2 class="heading-md text-deep-dark-gray"><?php esc_html_e('Registruokitės', 'woocommerce'); ?></h2>
 					<div class="ml-12 md:ml-0 mt-12 md:mt-7">
 						<p class="woocommerce-LoginLink body-normal-regular block mb-7">
@@ -138,7 +141,10 @@ do_action('woocommerce_before_customer_login_form'); ?>
 								</button>
 							</p>
 
+							<p class="block text-center w-full py-5 body-small-light"><?php echo wp_kses_post("arba") ?></p>
+
 							<?php echo do_shortcode('[nextend_social_login provider="facebook"]') ?>
+							<?php echo do_shortcode('[nextend_social_login provider="google"]') ?>
 
 							<?php do_action('woocommerce_register_form_end'); ?>
 						</form>

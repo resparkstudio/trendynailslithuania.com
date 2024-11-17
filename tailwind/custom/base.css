@@ -41,7 +41,7 @@ body {
 
 /* Buttons */
 .white-button-white-text {
-	@apply bg-transparent text-white uppercase body-small-medium round-9 border-[0.7px] border-white;
+	@apply bg-transparent text-white uppercase body-small-medium round-9 border-[0.7px] border-mid-gray;
 	transition: background-color 0.2s ease;
 }
 
@@ -50,7 +50,7 @@ body {
 }
 
 .white-button-black-text {
-	@apply bg-transparent text-deep-dark-gray uppercase body-small-medium round-9 border-[0.7px] border-deep-dark-gray;
+	@apply bg-transparent text-deep-dark-gray uppercase body-small-medium round-9 border-[0.7px] border-mid-gray;
 	transition: background-color 0.2s ease;
 }
 
@@ -291,4 +291,18 @@ footer {
 
 .wpcf7-form-control {
 	@apply placeholder:text-deep-dark-gray placeholder:font-light placeholder:text-[0.875rem];
+}
+
+/* Social buttons */
+
+.nsl-container {
+	@apply w-full;
+}
+
+#customer_login div.nsl-container.nsl-container-block .nsl-container-buttons {
+	@apply w-full p-0;
+}
+
+.woocommerce-form .nsl-container .nsl-container-buttons a {
+	@apply w-full m-0;
 }
