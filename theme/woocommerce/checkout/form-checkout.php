@@ -48,21 +48,34 @@ if (!is_user_logged_in()): ?>
 
 		<!-- Middle Column: Shipping and Payment Methods -->
 		<div class="checkout-column checkout-middle col-span-4">
-			<h3><?php esc_html_e('Shipping', '_tw'); ?></h3>
+			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-8">
+				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
+					<?php esc_html_e('Pristatymas', '_tw'); ?>
+				</h3>
+			</div>
 			<?php do_action('woocommerce_checkout_shipping'); ?>
-
-			<h3><?php esc_html_e('Payment', '_tw'); ?></h3>
+			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-8">
+				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
+					<?php esc_html_e('Apmokėjimas', '_tw'); ?>
+				</h3>
+			</div>
 			<?php do_action('woocommerce_checkout_payment'); ?>
 		</div>
 
 		<!-- Right Column: Order Summary -->
 		<div class="checkout-column checkout-right col-span-4">
-			<h3><?php esc_html_e('Order Summary', '_tw'); ?></h3>
-			<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
+			<div class="bg-gray round-9">
 
-			<div id="order_review" class="woocommerce-checkout-review-order">
-				<?php do_action('woocommerce_checkout_order_review'); ?>
+				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
+					<?php esc_html_e('Užsakymo apžvalga', '_tw'); ?>
+				</h3>
+				<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
+
+				<div id="order_review" class="woocommerce-checkout-review-order">
+					<?php do_action('woocommerce_checkout_order_review'); ?>
+				</div>
 			</div>
+
 		</div>
 	</div>
 
