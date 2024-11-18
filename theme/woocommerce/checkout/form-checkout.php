@@ -17,7 +17,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 }
 
 if (!is_user_logged_in()): ?>
-	<p class="woocommerce-LoginLink body-normal-regular block">
+	<p class="woocommerce-LoginLink body-normal-regular block ml-12 md:ml-0 ">
 		<?php esc_html_e("Esate registruotas vartotojas?", 'woocommerce'); ?> <a class="link-hover"
 			href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id')) . '?action=login'); ?>"><?php esc_html_e('Prisijunkite', 'woocommerce'); ?></a>
 	</p>
@@ -38,7 +38,6 @@ if (!is_user_logged_in()): ?>
 				</div>
 				<div class="create-account-section">
 					<?php if (!is_user_logged_in() && $checkout->is_registration_enabled()): ?>
-						<h4><?php esc_html_e('Create an Account', '_tw'); ?></h4>
 						<?php do_action('woocommerce_checkout_create_account'); ?>
 					<?php endif; ?>
 				</div>

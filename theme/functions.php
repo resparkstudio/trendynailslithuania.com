@@ -912,7 +912,6 @@ function remove_dashboard_from_my_account($menu_links)
 	return $menu_links;
 }
 
-
 add_filter('body_class', 'add_my_account_body_class');
 function add_my_account_body_class($classes)
 {
@@ -922,3 +921,59 @@ function add_my_account_body_class($classes)
 	return $classes;
 }
 
+// ---------------------------------- Checkout
+
+
+add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
+
+function customize_checkout_fields($fields)
+{
+	$fields['billing'] = array(
+		'billing_first_name' => $fields['billing']['billing_first_name'],
+		'billing_last_name' => $fields['billing']['billing_last_name'],
+		'billing_email' => $fields['billing']['billing_email'], // Add Email
+		'billing_phone' => $fields['billing']['billing_phone'], // Add Phone
+		'billing_address_1' => $fields['billing']['billing_address_1'], // Street and house number
+		'billing_city' => $fields['billing']['billing_city'], // City
+		'billing_postcode' => $fields['billing']['billing_postcode'], // Postal Code
+	);
+
+	if (!is_user_logged_in()) {
+		$fields['account'] = array(
+			'account_password' => array(
+				'type' => 'password',
+				'label' => __('Slaptažodis', 'woocommerce'),
+				// 'required' => true,
+				'class' => array('form-row-wide'),
+			),
+			'account_password_confirm' => array(
+				'type' => 'password',
+				'label' => __('Patvirtinti slaptažodį', 'woocommerce'),
+				// 'required' => true,
+				'class' => array('form-row-wide'),
+			),
+		);
+	}
+
+	return $fields;
+}
+
+
+function customize_checkout_account_fields($args, $key, $value)
+{
+	if (in_array($key, ['account_password', 'account_password_confirm'])) {
+		if (isset($args['input_class']) && is_array($args['input_class'])) {
+			$args['input_class'][] = 'checkout-form-input';
+		} else {
+			$args['input_class'] = ['checkout-form-input'];
+		}
+
+		if (isset($args['label_class']) && is_array($args['label_class'])) {
+			$args['label_class'][] = 'checkout-form-label';
+		} else {
+			$args['label_class'] = ['checkout-form-label'];
+		}
+	}
+	return $args;
+}
+add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 10, 3);

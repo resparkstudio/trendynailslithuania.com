@@ -31,17 +31,14 @@ defined('ABSPATH') || exit;
 		<?php endif; ?>
 	</div>
 
-
-	<?php do_action('woocommerce_before_checkout_billing_form', $checkout); ?>
-
-	<div class="woocommerce-billing-fields__field-wrapper">
+	<div class="woocommerce-billing-fields__field-wrapper space-y-4">
 		<?php
 		$fields = $checkout->get_checkout_fields('billing');
 
 		$custom_label_class = ['checkout-form-label'];
 		$custom_input_class = ['checkout-form-input'];
 
-		foreach ($fields as $key => &$field) {
+		foreach ($fields as $key => $field) {
 			$field['label_class'] = isset($field['label_class'])
 				? array_merge($field['label_class'], $custom_label_class)
 				: $custom_label_class;
@@ -49,12 +46,13 @@ defined('ABSPATH') || exit;
 			$field['input_class'] = isset($field['input_class'])
 				? array_merge($field['input_class'], $custom_input_class)
 				: $custom_input_class;
-		}
-		foreach ($fields as $key => $field) {
+
 			woocommerce_form_field($key, $field, $checkout->get_value($key));
 		}
 		?>
 	</div>
+
+
 
 	<?php do_action('woocommerce_after_checkout_billing_form', $checkout); ?>
 </div>
