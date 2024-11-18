@@ -1031,22 +1031,25 @@ function customize_checkout_account_fields($args, $key, $value)
 }
 add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 10, 3);
 
-
-add_filter('woocommerce_form_field', 'wphelp_error_tag', 10, 4);
-function wphelp_error_tag($field, $key, $args, $value)
+add_filter('woocommerce_form_field', 'wphelp_error_tag_above_label', 10, 4);
+function wphelp_error_tag_above_label($field, $key, $args, $value)
 {
-	if (strpos($field, '</label>') !== false && $args['required']) {
-		$error = '<span class="error" style="display:none">';
-		$error .= sprintf(__('%s Required field.', 'woocommerce'), $args['label']);
+	if ($args['required']) {
+		$svg = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<circle cx="7" cy="7" r="7" fill="#A81919"/>
+			<path d="M6.09626 3H7.89305L7.70053 8.22034H6.28877L6.09626 3ZM6.99465 11C6.69519 11 6.45277 10.9058 6.26738 10.7175C6.08913 10.5217 6 10.2881 6 10.0169C6 9.73069 6.08913 9.49341 6.26738 9.30509C6.45277 9.11676 6.69519 9.0226 6.99465 9.0226C7.28699 9.0226 7.52584 9.11676 7.71123 9.30509C7.90374 9.49341 8 9.73069 8 10.0169C8 10.2881 7.90374 10.5217 7.71123 10.7175C7.52584 10.9058 7.28699 11 6.99465 11Z" fill="white"/>
+		</svg>
+		';
+		$error = '<span class="error hidden body-extra-small-light text-red flex mb-2.5 leading-[0.9rem] gap-x-1.5 items-center">';
+		$error .= $svg;
+		$error .= '<span>' . sprintf(__('Pirkėjo %s yra būtinas laukelis.', 'woocommerce'), $args['label']) . '</span>';
 		$error .= '</span>';
-		$field = substr_replace($field, $error, strpos($field, '</label>'), 0);
+
+		if (strpos($field, '<label') !== false) {
+			$field = substr_replace($field, $error, strpos($field, '<label'), 0);
+		} else {
+			$field = $error . $field;
+		}
 	}
 	return $field;
-}
-
-add_filter('woocommerce_required_field_error_message', 'custom_required_field_message', 10, 2);
-
-function custom_required_field_message($error_message, $field_label)
-{
-	return sprintf(__('%s yra būtinas laukelis.', 'woocommerce'), $field_label);
 }

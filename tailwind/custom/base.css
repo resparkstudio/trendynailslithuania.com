@@ -397,7 +397,14 @@ footer {
 }
 
 .woocommerce-checkout p.woocommerce-invalid-required-field span.error {
-	color: #ff2a00;
-	display: block !important;
-	font-weight: bold;
+	@apply text-red;
+	display: flex !important;
+}
+
+.checkout .woocommerce-invalid-required-field .checkout-form-input {
+	@apply border-red;
+}
+
+.checkout .woocommerce-invalid-required-field .checkout-form-label {
+	@apply text-red;
 }
