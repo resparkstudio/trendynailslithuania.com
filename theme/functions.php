@@ -929,14 +929,67 @@ add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 function customize_checkout_fields($fields)
 {
 	$fields['billing'] = array(
-		'billing_first_name' => $fields['billing']['billing_first_name'],
-		'billing_last_name' => $fields['billing']['billing_last_name'],
-		'billing_email' => $fields['billing']['billing_email'], // Add Email
-		'billing_phone' => $fields['billing']['billing_phone'], // Add Phone
-		'billing_address_1' => $fields['billing']['billing_address_1'], // Street and house number
-		'billing_city' => $fields['billing']['billing_city'], // City
-		'billing_postcode' => $fields['billing']['billing_postcode'], // Postal Code
+		'billing_first_name' => array_merge(
+			$fields['billing']['billing_first_name'],
+			array(
+				'required' => true,
+				'label' => __('Vardas', 'woocommerce'), // Custom label
+				'priority' => 10 // Adjust order
+			)
+		),
+		'billing_last_name' => array_merge(
+			$fields['billing']['billing_last_name'],
+			array(
+				'required' => true,
+				'label' => __('Pavardė', 'woocommerce'), // Custom label
+				'priority' => 20 // Adjust order
+			)
+		),
+		'billing_email' => array_merge(
+			$fields['billing']['billing_email'],
+			array(
+				'required' => true,
+				'label' => __('El. paštas', 'woocommerce'), // Custom label
+				'priority' => 30 // Adjust order
+			)
+		),
+
+		'billing_phone' => array_merge(
+			$fields['billing']['billing_phone'],
+			array(
+				'required' => true,
+				'label' => __('Telefonas', 'woocommerce'), // Custom label
+				'priority' => 40 // Adjust order
+			)
+		),
+
+		'billing_address_1' => array_merge(
+			$fields['billing']['billing_address_1'],
+			array(
+				'required' => true,
+				'label' => __('Gatvė, namo numeris', 'woocommerce'), // Custom label
+				'placeholder' => __('', 'woocommerce'), // Custom placeholder
+				'priority' => 50 // Adjust order
+			)
+		),
+		'billing_city' => array_merge(
+			$fields['billing']['billing_city'],
+			array(
+				'required' => true,
+				'label' => __('Miestas', 'woocommerce'), // Custom label
+				'priority' => 60 // Adjust order
+			)
+		),
+		'billing_postcode' => array_merge(
+			$fields['billing']['billing_postcode'],
+			array(
+				'required' => true,
+				'label' => __('Pašto kodas', 'woocommerce'), // Custom label
+				'priority' => 70 // Adjust order
+			)
+		),
 	);
+
 
 	if (!is_user_logged_in()) {
 		$fields['account'] = array(
@@ -977,3 +1030,23 @@ function customize_checkout_account_fields($args, $key, $value)
 	return $args;
 }
 add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 10, 3);
+
+
+add_filter('woocommerce_form_field', 'wphelp_error_tag', 10, 4);
+function wphelp_error_tag($field, $key, $args, $value)
+{
+	if (strpos($field, '</label>') !== false && $args['required']) {
+		$error = '<span class="error" style="display:none">';
+		$error .= sprintf(__('%s Required field.', 'woocommerce'), $args['label']);
+		$error .= '</span>';
+		$field = substr_replace($field, $error, strpos($field, '</label>'), 0);
+	}
+	return $field;
+}
+
+add_filter('woocommerce_required_field_error_message', 'custom_required_field_message', 10, 2);
+
+function custom_required_field_message($error_message, $field_label)
+{
+	return sprintf(__('%s yra būtinas laukelis.', 'woocommerce'), $field_label);
+}
