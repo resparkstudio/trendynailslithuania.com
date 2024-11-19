@@ -38,6 +38,7 @@ module.exports = {
 				'dark-gray': '#747474',
 				pink: '#E5D7D1',
 				red: '#A81919',
+				'discount-gray': '#797979',
 			},
 		},
 	},

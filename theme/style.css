@@ -2209,10 +2209,6 @@ footer {
   top: 1.25rem;
 }
 
-.top-6 {
-  top: 1.5rem;
-}
-
 .z-10 {
   z-index: 10;
 }
@@ -2289,6 +2285,10 @@ footer {
   grid-column: span 8 / span 8;
 }
 
+.col-span-9 {
+  grid-column: span 9 / span 9;
+}
+
 .col-start-10 {
   grid-column-start: 10;
 }
@@ -2340,6 +2340,11 @@ footer {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .mb-0 {
@@ -2424,6 +2429,10 @@ footer {
 
 .ml-12 {
   margin-left: 3rem;
+}
+
+.ml-6 {
+  margin-left: 1.5rem;
 }
 
 .ml-7 {
@@ -2666,6 +2675,10 @@ footer {
   width: 16.5rem;
 }
 
+.w-\[2\.5rem\] {
+  width: 2.5rem;
+}
+
 .w-\[8\.625rem\] {
   width: 8.625rem;
 }
@@ -2732,6 +2745,10 @@ footer {
 }
 
 .flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.shrink-0 {
   flex-shrink: 0;
 }
 
@@ -2894,6 +2911,11 @@ footer {
        column-gap: 1rem;
 }
 
+.gap-x-2 {
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
+}
+
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1rem * var(--tw-space-x-reverse));
@@ -2956,6 +2978,10 @@ footer {
 
 .text-wrap {
   text-wrap: wrap;
+}
+
+.rounded-\[46px\] {
+  border-radius: 46px;
 }
 
 .rounded-full {
@@ -3197,6 +3223,11 @@ footer {
   padding-bottom: 2.25rem;
 }
 
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -3241,6 +3272,10 @@ footer {
   padding-left: 3rem;
 }
 
+.pl-14 {
+  padding-left: 3.5rem;
+}
+
 .pl-16 {
   padding-left: 4rem;
 }
@@ -3279,6 +3314,10 @@ footer {
 
 .pr-2\.5 {
   padding-right: 0.625rem;
+}
+
+.pr-3 {
+  padding-right: 0.75rem;
 }
 
 .pr-4 {
@@ -3343,6 +3382,10 @@ footer {
 
 .text-\[0\.9375rem\] {
   font-size: 0.9375rem;
+}
+
+.text-\[1\.3rem\] {
+  font-size: 1.3rem;
 }
 
 .text-\[1\.5rem\] {
@@ -3433,8 +3476,17 @@ footer {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-discount-gray {
+  --tw-text-opacity: 1;
+  color: rgb(121 121 121 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
+}
+
+.line-through {
+  text-decoration-line: line-through;
 }
 
 .opacity-20 {
@@ -3572,6 +3624,10 @@ footer {
 
   .lg\:mb-8 {
     margin-bottom: 2rem;
+  }
+
+  .lg\:ml-0 {
+    margin-left: 0px;
   }
 
   .lg\:ml-3 {

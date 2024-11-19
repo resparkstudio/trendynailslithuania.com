@@ -28,7 +28,7 @@ if (!is_user_logged_in()): ?>
 
 	<div class="checkout-columns grid grid-cols-12 gap-4">
 		<!-- Left Column: Buyer Details -->
-		<div class="checkout-column checkout-left col-span-4">
+		<div class="checkout-column checkout-left col-span-4 ml-12 md:ml-0">
 
 			<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 
@@ -47,7 +47,7 @@ if (!is_user_logged_in()): ?>
 		</div>
 
 		<!-- Middle Column: Shipping and Payment Methods -->
-		<div class="checkout-column checkout-middle col-span-4">
+		<div class="checkout-column checkout-middle col-span-4 ml-6">
 			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7">
 				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
 					<?php esc_html_e('Pristatymas', '_tw'); ?>
@@ -67,7 +67,7 @@ if (!is_user_logged_in()): ?>
 		</div>
 
 		<!-- Right Column: Order Summary -->
-		<div class="checkout-column checkout-right col-span-4">
+		<div class="checkout-column checkout-right col-span-4 pl-14 lg:ml-0">
 			<div class="bg-gray round-9">
 
 				<h3 class="heading-sm text-deep-dark-gray body-normal-medium p-5">

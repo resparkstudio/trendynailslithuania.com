@@ -18,7 +18,7 @@
 
 defined('ABSPATH') || exit;
 ?>
-<div class="woocommerce-billing-fields ml-12 md:ml-0 text-deep-dark-gray">
+<div class="woocommerce-billing-fields  text-deep-dark-gray">
 	<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7">
 		<?php if (wc_ship_to_billing_address_only() && WC()->cart->needs_shipping()): ?>
 			<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">

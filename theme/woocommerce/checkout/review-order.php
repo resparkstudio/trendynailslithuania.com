@@ -17,11 +17,14 @@
 
 defined('ABSPATH') || exit;
 ?>
-<div class="cart-summary px-5 py-4">
+<div class="cart-summary">
 
-	<?php wc_get_template('checkout/checkout-product-list.php'); ?>
-	<?php wc_get_template('checkout/cart-summary-details.php'); ?>
-
+	<div class="bg-white px-5">
+		<?php wc_get_template('checkout/checkout-product-list.php'); ?>
+	</div>
+	<div class="px-5">
+		<?php wc_get_template('checkout/cart-summary-details.php'); ?>
+	</div>
 
 	<div class="discount-code">
 		<label for="discount-code">Įveskite nuolaidos kodą:</label>

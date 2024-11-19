@@ -30,23 +30,20 @@ if (!function_exists('WC')) {
     }
     $formatted_product_name = $product_name . $attribute_text;
     ?>
-    <div class="cart-item flex" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
-        <div>
-            <div class="product-thumbnail mr-4 relative max-w-[6.25rem]">
-                <?php if ($thumbnail_src): ?>
-                    <img class="w-full h-auto object-cover object-center aspect-[81/100] round-7"
-                        src="<?php echo esc_url($thumbnail_src[0]); ?>" alt="<?php echo esc_attr($product_name); ?>" />
-                <?php else: ?>
-                    <img class="w-full h-auto object-cover object-center aspect-[81/100] round-7"
-                        src="<?php echo esc_url(wc_placeholder_img_src()); ?>"
-                        alt="<?php esc_attr_e('Placeholder Image', 'woocommerce'); ?>" />
-                <?php endif; ?>
-            </div>
+    <div class="cart-item grid grid-cols-12 py-4" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
+        <div class="product-thumbnail mr-4 relative max-w-[6.25rem] shrink-0 col-span-4">
+            <?php if ($thumbnail_src): ?>
+                <img class="w-full h-auto object-cover object-center aspect-[81/100] round-7"
+                    src="<?php echo esc_url($thumbnail_src[0]); ?>" alt="<?php echo esc_attr($product_name); ?>" />
+            <?php else: ?>
+                <img class="w-full h-auto object-cover object-center aspect-[81/100] round-7"
+                    src="<?php echo esc_url(wc_placeholder_img_src()); ?>"
+                    alt="<?php esc_attr_e('Placeholder Image', 'woocommerce'); ?>" />
+            <?php endif; ?>
         </div>
-        <div>
-
-            <div class="product-details flex">
-                <div class="product-name body-small-medium mr-2">
+        <div class="flex flex-col justify-between col-span-8">
+            <div class="product-details flex justify-between">
+                <div class="product-name body-small-medium deep-dark-gray mr-2">
                     <?php if ($product_permalink): ?>
                         <a
                             href="<?php echo esc_url($product_permalink); ?>"><?php echo esc_html($formatted_product_name); ?></a>
@@ -54,7 +51,8 @@ if (!function_exists('WC')) {
                         <?php echo esc_html($formatted_product_name); ?>
                     <?php endif; ?>
                 </div>
-                <button class="remove-item flex items-start" data-remove-item="<?php echo esc_attr($cart_item_key); ?>"
+                <button class="remove-item flex h-auto items-start"
+                    data-remove-item="<?php echo esc_attr($cart_item_key); ?>"
                     data-product_name="<?php echo esc_attr($product_name); ?>">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_209_1212)">
@@ -73,39 +71,34 @@ if (!function_exists('WC')) {
                     </svg>
                 </button>
             </div>
-            <div class="flex">
+            <div class="flex justify-between gap-3">
                 <div class="product-quantity">
                     <div
-                        class="flex items-center border-[0.7px] round-9 py-2 border-deep-dark-gray justify-center overflow-hidden grow-0">
+                        class="flex items-center border-[0.7px] rounded-[46px] py-0.5 border-deep-dark-gray justify-center overflow-hidden grow-0">
                         <button type="button"
-                            class="minus focus:outline-none flex items-center justify-center pl-5 lg:pl-4 text-[1.5rem] text-deep-dark-gray custom-minus"
+                            class="minus focus:outline-none flex items-center justify-center pl-3 text-[1.3rem] text-deep-dark-gray custom-minus"
                             data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
-                            <span>-</span>
+                            <span><?php echo wp_kses_post("-"); ?></span>
                         </button>
                         <input type="number" id="quantity_<?php echo esc_attr($cart_item_key); ?>"
-                            class="quantity-input ajax-cart-quantity w-14 lg:w-10 text-center focus:outline-none body-normal-semibold text-[1.5rem] text-deep-dark-gray"
+                            class="quantity-input ajax-cart-quantity w-[2.5rem] text-center focus:outline-none body-normal-semibold text-[1.3rem] text-deep-dark-gray"
                             name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]"
                             value="<?php echo esc_attr($cart_item['quantity']); ?>" size="4" min="1" step="1"
                             data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>" inputmode="numeric"
                             autocomplete="off">
                         <button type="button"
-                            class="plus focus:outline-none flex items-center justify-center pr-5 lg:pr-4 text-[1.5rem] text-deep-dark-gray custom-plus"
+                            class="plus focus:outline-none flex items-center justify-center pr-3 text-[1.3rem] text-deep-dark-gray custom-plus"
                             data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
-                            <span>+</span>
+                            <span><?php echo wp_kses_post("+"); ?></span>
                         </button>
                     </div>
                 </div>
-                <div class="product-price">
+                <div class="product-price flex gap-x-2 flex-wrap justify-end">
+                    <span class="tex-deep-dark-gray body-small-semibold flex items-end">
+                        <?php echo wc_price($_product->get_regular_price()); ?></span>
                     <?php if ($_product->is_on_sale()): ?>
-                        <span class="regular-price"></span>
-                        <?php echo wc_price($_product->get_regular_price()); ?>
-                        </span>
-                        <span class="sale-price">
+                        <span class="sale-price line-through text-discount-gray body-small-medium flex items-end">
                             <?php echo wc_price($_product->get_sale_price()); ?>
-                        </span>
-                    <?php else: ?>
-                        <span class="regular-price">
-                            <?php echo wc_price($_product->get_regular_price()); ?>
                         </span>
                     <?php endif; ?>
                 </div>
