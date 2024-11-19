@@ -18,9 +18,8 @@
 defined('ABSPATH') || exit;
 ?>
 <div class="cart-summary">
-	<div class="cart-items bg-white px-5 py-4">
-		<?php wc_get_template('checkout/checkout-product-list.php'); ?>
-	</div>
+
+	<?php wc_get_template('checkout/checkout-product-list.php'); ?>
 	<?php wc_get_template('checkout/cart-summary-details.php'); ?>
 
 

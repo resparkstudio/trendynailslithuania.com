@@ -1762,6 +1762,10 @@ footer {
   top: 1.25rem;
 }
 
+.top-6 {
+  top: 1.5rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -2131,12 +2135,12 @@ footer {
   aspect-ratio: 78/100;
 }
 
-.aspect-square {
-  aspect-ratio: 1 / 1;
-}
-
 .aspect-\[81\/100\] {
   aspect-ratio: 81/100;
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
 }
 
 .h-20 {
@@ -2270,10 +2274,6 @@ footer {
 
 .max-w-none {
   max-width: none;
-}
-
-.max-w-\[\] {
-  max-width: ;
 }
 
 .flex-1 {
