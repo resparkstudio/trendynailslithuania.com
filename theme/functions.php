@@ -1191,3 +1191,54 @@ function redirect_empty_cart_checkout()
 		exit;
 	}
 }
+
+add_action('wp_ajax_apply_discount_code', 'apply_discount_code');
+add_action('wp_ajax_nopriv_apply_discount_code', 'apply_discount_code');
+
+function apply_discount_code()
+{
+	if (!isset($_POST['discount_code'])) {
+		wp_send_json_error(['message' => 'Nuolaidos kodas nepateiktas']);
+	}
+
+	$discount_code = sanitize_text_field($_POST['discount_code']);
+
+
+	$coupon = new WC_Coupon($discount_code);
+
+	if ($coupon->get_id()) { // Coupon exists and is valid
+		$current_applied_code = WC()->session->get('applied_discount_code');
+
+		if ($current_applied_code !== $discount_code) {
+			if (!empty($current_applied_code)) {
+				WC()->cart->remove_coupon($current_applied_code); // Remove the previous coupon
+			}
+
+			WC()->session->set('applied_discount_code', $discount_code);
+			WC()->cart->apply_coupon($discount_code); // Apply the new coupon
+
+			wp_send_json_success(['message' => 'Nuolaidos kodas pritaikytas sėkmingai!']);
+		} else {
+			wp_send_json_success(['message' => 'Nuolaidos kodas jau pritaikytas.']);
+		}
+	} else {
+		wp_send_json_error(['message' => 'Toks nuolaidos kodas neegzistuoja.']);
+	}
+
+	wp_die();
+}
+
+
+add_action('wp_ajax_fetch_cart_summary', 'fetch_cart_summary');
+add_action('wp_ajax_nopriv_fetch_cart_summary', 'fetch_cart_summary');
+
+function fetch_cart_summary()
+{
+	ob_start();
+	wc_get_template('checkout/cart-summary-details.php');
+	$cart_summary = ob_get_clean();
+
+	wp_send_json_success([
+		'cart_summary' => $cart_summary,
+	]);
+}
