@@ -26,12 +26,12 @@ defined('ABSPATH') || exit;
 		<?php wc_get_template('checkout/cart-summary-details.php'); ?>
 	</div>
 
-	<div class="discount-code">
-		<label for="discount-code"><?php echo wp_kses_post("Įveskite nuolaidos kodą:") ?></label>
-		<div class="discount-input-wrapper" style="display: flex; align-items: center; gap: 10px;">
-			<input type="text" id="discount-code" name="discount-code"
-				style="flex-grow: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" />
-			<button type="button" class="apply-discount-button"
+	<div class="discount-code w-full px-5 ">
+		<label class="inline-block mb-4"
+			for="discount-code"><?php echo wp_kses_post("Įveskite nuolaidos kodą:") ?></label>
+		<div class="discount-input-wrapper mb-5 flex justify-between relative">
+			<input class="checkout-form-input" type="text" id="discount-code" name="discount-code" />
+			<button type="button" class="apply-discount-button absolute inset-y-0 right-4"
 				style="background: none; border: none; cursor: pointer; padding: 0;">
 				<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
@@ -43,12 +43,15 @@ defined('ABSPATH') || exit;
 	</div>
 
 
-	<div class="terms">
-		<label>
-			<input type="checkbox"
-				required><?php echo wp_kses_post("Su el. prekybos taisyklėmis susipažinau ir sutinku") ?>
+	<div class="terms w-full px-5 mb-6">
+		<label class="flex">
+			<input class="input-checkbox " type="checkbox" required>
+			<span class="body-extra-small-light">
+				<?php echo wp_kses_post("Su el. prekybos taisyklėmis susipažinau ir sutinku") ?></span>
 		</label>
 	</div>
 
-	<button class="checkout-button"><?php echo wp_kses_post("Apmokėti") ?></button>
+	<div class="w-full px-5 pb-5">
+		<button class="checkout-button black-button w-full py-3"><?php echo wp_kses_post("Apmokėti") ?></button>
+	</div>
 </div>

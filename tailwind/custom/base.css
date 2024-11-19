@@ -15,7 +15,7 @@ body {
 }
 
 .input-checkbox {
-	@apply appearance-none h-4 w-4 mr-2 inline-block rounded border-mid-gray bg-white focus:ring-mid-gray focus:ring-[0.7px] focus:ring-offset-0;
+	@apply appearance-none h-4 w-4 mr-2 inline-block rounded ring-mid-gray bg-white focus:ring-mid-gray ring-[0.7px] focus:ring-offset-0;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
@@ -362,9 +362,9 @@ footer {
 
 /* checkout */
 
-/* .checkout .woocommerce-NoticeGroup-checkout {
+.checkout .woocommerce-NoticeGroup-checkout {
 	@apply hidden;
-} */
+}
 
 .checkout-form-input,
 .checkout .woocommerce-account-fields .input-text {
@@ -376,7 +376,7 @@ footer {
 }
 
 .checkout .woocommerce-account-fields {
-	@apply ml-12 md:ml-0 text-deep-dark-gray mt-5;
+	@apply text-deep-dark-gray mt-5;
 }
 
 .checkout .woocommerce-account-fields .create-account {
@@ -418,4 +418,18 @@ footer {
 
 .checkout .woocommerce-invalid-required-field .checkout-form-label {
 	@apply text-red;
+}
+
+/* radio */
+.custom-radio {
+	@apply appearance-none rounded-full ring-[0.6px] ring-mid-gray w-4 h-4;
+}
+
+.custom-radio:checked {
+	@apply bg-deep-dark-gray flex justify-center items-center; /* Change outer circle background when checked */
+}
+
+.custom-radio:checked::after {
+	content: "";
+	@apply w-2 h-2 bg-white rounded-full block; /* Inner circle when checked */
 }

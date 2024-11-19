@@ -1036,7 +1036,6 @@ function custom_ajax_remove_from_cart()
 	// Check if cart item key is set
 	$cart_item_key = isset($_POST['cart_item_key']) ? sanitize_text_field($_POST['cart_item_key']) : '';
 
-	// Attempt to remove the item from the cart
 	if ($cart_item_key && WC()->cart->remove_cart_item($cart_item_key)) {
 		// Recalculate totals after item removal
 		WC()->cart->calculate_totals();
@@ -1150,38 +1149,49 @@ function remove_cart_item_handler()
 
 	$cart_item_key = sanitize_text_field($_POST['cart_item_key']);
 
-	if (WC()->cart->remove_cart_item($cart_item_key)) {
+	// Attempt to remove the cart item
+	$removed = WC()->cart->remove_cart_item($cart_item_key);
+
+	if ($removed) {
+		// Recalculate totals and ensure cart updates
 		WC()->cart->calculate_totals();
+		WC()->session->set('cart', WC()->cart->get_cart());
 
-		// Prepare the response data
-		$redirect = WC()->cart->is_empty(); // Check if the cart is empty
+		// Debugging: Check cart contents after removal
+		error_log('Cart contents after removal: ' . print_r(WC()->cart->get_cart(), true));
 
-		// Re-render mini-cart HTML
+		// Re-render templates
 		ob_start();
-		woocommerce_mini_cart();
+		woocommerce_mini_cart(); // Update the mini-cart
 		$mini_cart = ob_get_clean();
 
-		// Re-render product list for checkout
 		ob_start();
-		wc_get_template('checkout/checkout-product-list.php');
+		wc_get_template('checkout/checkout-product-list.php'); // Update the product list
 		$product_list = ob_get_clean();
 
-		// Re-render cart summary
 		ob_start();
-		wc_get_template('checkout/cart-summary-details.php');
+		wc_get_template('checkout/cart-summary-details.php'); // Update the cart summary
 		$cart_summary = ob_get_clean();
+
+		// Check if cart is empty for potential redirect
+		$redirect = WC()->cart->is_empty();
 
 		wp_send_json_success([
 			'cart_count' => WC()->cart->get_cart_contents_count(),
 			'mini_cart' => $mini_cart,
 			'product_list' => $product_list,
 			'cart_summary' => $cart_summary,
-			'redirect' => $redirect, // Ensure this key is included
+			'redirect' => $redirect, // If the cart is empty
 		]);
 	} else {
-		wp_send_json_error(['message' => 'Failed to remove item from cart.']);
+		// Debugging: Log if the item could not be removed
+		error_log('Failed to remove cart item: ' . $cart_item_key);
+		wp_send_json_error(['message' => __('Failed to remove item from cart.', 'woocommerce')]);
 	}
+
+	wp_die();
 }
+
 
 add_action('template_redirect', 'redirect_empty_cart_checkout');
 function redirect_empty_cart_checkout()
@@ -1206,16 +1216,16 @@ function apply_discount_code()
 
 	$coupon = new WC_Coupon($discount_code);
 
-	if ($coupon->get_id()) { // Coupon exists and is valid
+	if ($coupon->get_id()) {
 		$current_applied_code = WC()->session->get('applied_discount_code');
 
 		if ($current_applied_code !== $discount_code) {
 			if (!empty($current_applied_code)) {
-				WC()->cart->remove_coupon($current_applied_code); // Remove the previous coupon
+				WC()->cart->remove_coupon($current_applied_code);
 			}
 
 			WC()->session->set('applied_discount_code', $discount_code);
-			WC()->cart->apply_coupon($discount_code); // Apply the new coupon
+			WC()->cart->apply_coupon($discount_code);
 
 			wp_send_json_success(['message' => 'Nuolaidos kodas pritaikytas sėkmingai!']);
 		} else {

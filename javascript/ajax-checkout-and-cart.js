@@ -7,31 +7,32 @@ document.addEventListener('DOMContentLoaded', function () {
 	function updateAllCarts(response) {
 		if (response.success) {
 			if (response.data.mini_cart) {
-				jQuery('#mini-cart-contents').html(response.data.mini_cart); // Update sidebar cart
+				jQuery('#mini-cart-contents').html(response.data.mini_cart); // Update mini-cart
 			}
 
 			if (response.data.product_list) {
-				jQuery('.cart-items').html(response.data.product_list); // Update checkout product list
+				jQuery('.cart-items').html(response.data.product_list); // Update product list
 			}
 
 			if (response.data.cart_summary) {
 				jQuery('.cart-summary-details').html(
 					response.data.cart_summary
-				); // Update checkout summary
+				); // Update cart summary
 			}
 
 			if (response.data.cart_count !== undefined) {
-				cartCountElement.textContent = response.data.cart_count; // Update cart count
+				const cartCountElement = document.getElementById('cart-count');
+				if (cartCountElement) {
+					cartCountElement.textContent = response.data.cart_count; // Update cart count
+				}
+			}
+
+			// If the cart is empty, redirect to homepage
+			if (response.data.redirect) {
+				window.location.href = '/';
 			}
 		} else {
-			console.error(
-				'Nepavyko atnaujinti krepšelio:',
-				response.data.message
-			);
-			createNotification(
-				response.data.message || 'Veiksmas nepavyko.',
-				false
-			);
+			console.error('Error updating cart:', response.data.message);
 		}
 	}
 
