@@ -20,13 +20,36 @@ defined('ABSPATH') || exit;
 ?>
 <div class="woocommerce-shipping-fields">
 	<?php if (true === WC()->cart->needs_shipping()): ?>
+		<div class="shipping-methods">
+			<form method="post" id="shipping-methods-form">
+				<?php
+				$packages = WC()->shipping->get_packages(); // Retrieve shipping packages
+				foreach ($packages as $package_id => $package) {
+					$available_methods = $package['rates']; // Get available shipping methods
+					$chosen_method = isset(WC()->session->get('chosen_shipping_methods')[$package_id]) ? WC()->session->get('chosen_shipping_methods')[$package_id] : '';
 
-		<div class="shipping_address">
-			<?php
-			do_action('woocommerce_review_order_before_shipping');
-			woocommerce_cart_totals_shipping_html();
-			do_action('woocommerce_review_order_after_shipping');
-			?>
+					if (!empty($available_methods)) {
+						foreach ($available_methods as $method_id => $method) {
+							?>
+							<div class="shipping-method">
+								<input type="radio" name="shipping_method[<?php echo esc_attr($package_id); ?>]"
+									id="shipping_method_<?php echo esc_attr($method_id); ?>" value="<?php echo esc_attr($method_id); ?>"
+									<?php checked($chosen_method, $method_id); ?> />
+								<label for="shipping_method_<?php echo esc_attr($method_id); ?>">
+									<?php echo esc_html($method->get_label()); ?>
+									(<?php echo wc_price($method->get_cost()); ?>)
+								</label>
+							</div>
+							<?php
+						}
+					} else {
+						echo '<p>' . esc_html__('No shipping methods available.', 'woocommerce') . '</p>';
+					}
+				}
+				?>
+				<button type="submit" name="save_shipping_methods"
+					class="button"><?php esc_html_e('Save Shipping Method', 'woocommerce'); ?></button>
+			</form>
 		</div>
 	<?php endif; ?>
 </div>

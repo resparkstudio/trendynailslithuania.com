@@ -14,6 +14,29 @@ body {
 	box-shadow: 0px 0px 5.7px rgba(0, 0, 0, 0.07);
 }
 
+.input-checkbox {
+	@apply appearance-none h-4 w-4 mr-2 inline-block rounded border-mid-gray bg-white focus:ring-mid-gray focus:ring-[0.7px] focus:ring-offset-0;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.input-checkbox:checked {
+	@apply bg-mid-gray border-mid-gray;
+	background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.57398 6.33727L4.52141 9.2847C4.70356 9.46685 4.9989 9.46685 5.18105 9.2847L10.7404 3.72539C10.9223 3.54333 10.9223 3.24771 10.7404 3.06574C10.5583 2.88368 10.2628 2.88368 10.0807 3.06574L4.85123 8.29524L2.23362 5.67762C2.05156 5.49565 1.75604 5.49565 1.57398 5.67762C1.39201 5.85968 1.39201 6.1553 1.57398 6.33727Z" fill="white"/></svg>');
+}
+
+/* input[type="radio"] {
+	appearance: none; 
+	width: 20px;
+	height: 20px;
+	border: 2px solid #007bff;
+	border-radius: 50%;
+	outline: none;
+	cursor: pointer;
+	position: relative;
+} */
+
 /* Radius */
 
 .round-3 {
@@ -339,9 +362,9 @@ footer {
 
 /* checkout */
 
-.checkout .woocommerce-NoticeGroup-checkout {
+/* .checkout .woocommerce-NoticeGroup-checkout {
 	@apply hidden;
-}
+} */
 
 .checkout-form-input,
 .checkout .woocommerce-account-fields .input-text {
@@ -382,18 +405,6 @@ footer {
 
 .checkout .woocommerce-account-fields .woocommerce-form__label {
 	@apply mb-3 flex items-center;
-}
-
-.input-checkbox {
-	@apply appearance-none h-4 w-4 mr-2 inline-block rounded border-mid-gray bg-white focus:ring-mid-gray focus:ring-[0.7px] focus:ring-offset-0;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: contain;
-}
-
-.input-checkbox:checked {
-	@apply bg-mid-gray border-mid-gray;
-	background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.57398 6.33727L4.52141 9.2847C4.70356 9.46685 4.9989 9.46685 5.18105 9.2847L10.7404 3.72539C10.9223 3.54333 10.9223 3.24771 10.7404 3.06574C10.5583 2.88368 10.2628 2.88368 10.0807 3.06574L4.85123 8.29524L2.23362 5.67762C2.05156 5.49565 1.75604 5.49565 1.57398 5.67762C1.39201 5.85968 1.39201 6.1553 1.57398 6.33727Z" fill="white"/></svg>');
 }
 
 .woocommerce-checkout p.woocommerce-invalid-required-field span.error {

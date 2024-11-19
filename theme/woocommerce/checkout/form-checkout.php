@@ -48,18 +48,22 @@ if (!is_user_logged_in()): ?>
 
 		<!-- Middle Column: Shipping and Payment Methods -->
 		<div class="checkout-column checkout-middle col-span-4">
-			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-8">
+			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7">
 				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
 					<?php esc_html_e('Pristatymas', '_tw'); ?>
 				</h3>
 			</div>
 			<?php do_action('woocommerce_checkout_shipping'); ?>
-			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-8">
+			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7 mt-11">
 				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
 					<?php esc_html_e('Apmokėjimas', '_tw'); ?>
 				</h3>
 			</div>
-			<?php do_action('woocommerce_checkout_payment'); ?>
+			<div id="payment" class="woocommerce-checkout-payment">
+				<?php if (WC()->cart->needs_payment()): ?>
+					<?php wc_get_template('checkout/payment.php', ['checkout' => $checkout]); ?>
+				<?php endif; ?>
+			</div>
 		</div>
 
 		<!-- Right Column: Order Summary -->

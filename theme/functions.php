@@ -153,27 +153,21 @@ add_action('widgets_init', '_tw_widgets_init');
  */
 function _tw_scripts()
 {
-	// Enqueue main stylesheet
 	wp_enqueue_style('_tw-style', get_stylesheet_uri(), array(), _TW_VERSION);
 
-	// Enqueue Swiper CSS if needed
 	wp_enqueue_style('swiper-css', get_theme_root_uri() . '/_tw/node_modules/swiper/swiper-bundle.min.css');
 
-	// Enqueue main script file
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
 
-	// Localize script for AJAX Add to Cart and Add to Wishlist actions
 	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
 		'ajax_url' => admin_url('admin-ajax.php')
 	));
 
-	// Localize additional AJAX parameters for other functionality (e.g., product archive)
 	wp_localize_script('_tw-script', 'ajax_product_archive_params', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'action' => 'fetch_products'
 	));
 
-	// Localize checkout data for the checkout URL
 	wp_localize_script('_tw-script', 'checkoutData', [
 		'checkoutUrl' => esc_url(wc_get_checkout_url())
 	]);
@@ -1052,4 +1046,69 @@ function wphelp_error_tag_above_label($field, $key, $args, $value)
 		}
 	}
 	return $field;
+}
+
+
+add_action('wp', function () {
+	if (is_checkout()) {
+		remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
+	}
+});
+
+// ajax checkout
+
+// AJAX to update cart quantity
+add_action('wp_ajax_update_cart_quantity', 'update_cart_quantity_handler');
+add_action('wp_ajax_nopriv_update_cart_quantity', 'update_cart_quantity_handler');
+
+function update_cart_quantity_handler()
+{
+	if (!isset($_POST['cart_item_key'], $_POST['quantity']) || !is_numeric($_POST['quantity'])) {
+		wp_send_json_error(['message' => 'Invalid data.']);
+	}
+
+	$cart_item_key = sanitize_text_field($_POST['cart_item_key']);
+	$quantity = (int) $_POST['quantity'];
+
+	if (WC()->cart->set_quantity($cart_item_key, $quantity, true)) {
+		WC()->cart->calculate_totals();
+		wp_send_json_success([
+			'subtotal' => WC()->cart->get_cart_subtotal(),
+			'shipping_total' => WC()->cart->get_shipping_total(),
+			'tax_total' => wc_price(WC()->cart->get_taxes_total()),
+			'total' => WC()->cart->get_total(),
+		]);
+	} else {
+		wp_send_json_error(['message' => 'Failed to update cart.']);
+	}
+}
+
+// AJAX to render cart summary details
+add_action('wp_ajax_get_cart_summary', 'get_cart_summary_handler');
+add_action('wp_ajax_nopriv_get_cart_summary', 'get_cart_summary_handler');
+
+function get_cart_summary_handler()
+{
+	// Ensure WooCommerce functions are loaded and the cart is initialized
+	if (!function_exists('WC') || WC()->cart === null) {
+		wp_send_json_error(['message' => 'Cart not available.']);
+	}
+
+	// Capture output of the cart-summary-details.php template
+	ob_start();
+
+	// Ensure the cart totals are recalculated
+	WC()->cart->calculate_totals();
+
+	// Include the template
+	wc_get_template('checkout/cart-summary-details.php');
+
+	$html = ob_get_clean();
+
+	// Send back the rendered template
+	if (!empty($html)) {
+		wp_send_json_success($html);
+	} else {
+		wp_send_json_error(['message' => 'Failed to render cart summary.']);
+	}
 }
