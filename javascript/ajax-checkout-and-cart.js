@@ -4,40 +4,37 @@ import gsap from 'gsap';
 document.addEventListener('DOMContentLoaded', function () {
 	const cartCountElement = document.getElementById('cart-count');
 
-	// Shared function to update all cart-related elements
 	function updateAllCarts(response) {
 		if (response.success) {
-			// Update mini-cart (sidebar)
 			if (response.data.mini_cart) {
-				jQuery('#mini-cart-contents').html(response.data.mini_cart);
+				jQuery('#mini-cart-contents').html(response.data.mini_cart); // Update sidebar cart
 			}
 
-			// Update checkout product list
 			if (response.data.product_list) {
-				jQuery('.cart-items').html(response.data.product_list);
+				jQuery('.cart-items').html(response.data.product_list); // Update checkout product list
 			}
 
-			// Update checkout cart summary
 			if (response.data.cart_summary) {
 				jQuery('.cart-summary-details').html(
 					response.data.cart_summary
-				);
+				); // Update checkout summary
 			}
 
-			// Update header cart counter
 			if (response.data.cart_count !== undefined) {
-				cartCountElement.textContent = response.data.cart_count;
+				cartCountElement.textContent = response.data.cart_count; // Update cart count
 			}
 		} else {
-			console.error('Cart update failed:', response.data.message);
+			console.error(
+				'Nepavyko atnaujinti krepšelio:',
+				response.data.message
+			);
 			createNotification(
-				response.data.message || 'Action failed.',
+				response.data.message || 'Veiksmas nepavyko.',
 				false
 			);
 		}
 	}
 
-	// Add product to cart
 	function addToCart(productId, quantity, productName) {
 		jQuery.ajax({
 			url: ajax_add_to_cart_params.ajax_url,
@@ -49,28 +46,27 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 			success: function (response) {
 				if (response.success) {
-					updateAllCarts(response); // Sync all carts
+					updateAllCarts(response); // Sinchronizuoti visus krepšelius
 					createNotification(
-						`${productName} successfully added to cart.`,
+						`${productName} sėkmingai pridėtas į krepšelį.`,
 						true
 					);
 				} else {
 					createNotification(
-						response.data.message || 'Failed to add to cart.',
+						response.data.message || 'Nepavyko pridėti į krepšelį.',
 						false
 					);
 				}
 			},
 			error: function () {
 				createNotification(
-					'An error occurred while adding to cart.',
+					'Įvyko klaida bandant pridėti į krepšelį.',
 					false
 				);
 			},
 		});
 	}
 
-	// Update cart quantity
 	function updateCartQuantity(cartItemKey, quantity, $input) {
 		jQuery.ajax({
 			url: ajax_add_to_cart_params.ajax_url,
@@ -81,24 +77,23 @@ document.addEventListener('DOMContentLoaded', function () {
 				quantity: quantity,
 			},
 			beforeSend: function () {
-				$input.prop('disabled', true); // Prevent spamming
+				$input.prop('disabled', true); // Užkirsti kelią spaminimui
 			},
 			success: function (response) {
-				updateAllCarts(response); // Sync all carts
+				updateAllCarts(response); // Sinchronizuoti visus krepšelius
 			},
 			complete: function () {
 				$input.prop('disabled', false);
 			},
 			error: function () {
 				createNotification(
-					'An error occurred while updating cart quantity.',
+					'Įvyko klaida bandant atnaujinti produkto kiekį.',
 					false
 				);
 			},
 		});
 	}
 
-	// Remove product from cart
 	function removeFromCart(cartItemKey, productName, $button) {
 		jQuery.ajax({
 			url: ajax_add_to_cart_params.ajax_url,
@@ -111,15 +106,28 @@ document.addEventListener('DOMContentLoaded', function () {
 				$button.prop('disabled', true); // Prevent spamming
 			},
 			success: function (response) {
-				updateAllCarts(response); // Sync all carts
-				createNotification(
-					`${productName} successfully removed from cart.`,
-					true
-				);
+				if (response.success) {
+					if (response.data.redirect === true) {
+						window.location.href = '/';
+						return false;
+					} else {
+						updateAllCarts(response);
+						createNotification(
+							`${productName} sėkmingai pašalintas iš krepšelio.`,
+							true
+						);
+					}
+				} else {
+					createNotification(
+						response.data.message || 'Nepavyko pašalinti produkto.',
+						false
+					);
+				}
 			},
+
 			error: function () {
 				createNotification(
-					'An error occurred while removing from cart.',
+					'Įvyko klaida bandant pašalinti produktą iš krepšelio.',
 					false
 				);
 			},
@@ -129,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Add event listeners for adding to cart
 	document
 		.querySelectorAll(
 			'#single-product-add-to-cart, .add-to-cart-swiper-btn'
@@ -153,7 +160,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 
-	// Add event listeners for quantity changes in checkout or sidebar
 	jQuery(document).on('change', '.ajax-cart-quantity', function () {
 		const $input = jQuery(this);
 		const cartItemKey = $input.data('cart-item-key');
@@ -162,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		updateCartQuantity(cartItemKey, quantity, $input);
 	});
 
-	// Add event listeners for quantity increment/decrement
 	jQuery(document).on('click', '.custom-minus, .custom-plus', function () {
 		const $button = jQuery(this);
 		const $input = $button.siblings('.ajax-cart-quantity');
@@ -179,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		updateCartQuantity(cartItemKey, quantity, $input);
 	});
 
-	// Add event listeners for removing items
 	jQuery(document).on(
 		'click',
 		'.remove-item, .remove_from_cart_button',

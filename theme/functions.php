@@ -370,75 +370,7 @@ function display_full_product_description()
 }
 add_action('woocommerce_single_product_summary', 'display_full_product_description', 25);
 
-// AJAX cart logic
-function custom_ajax_add_to_cart()
-{
-	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
-	$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
-	$added = false;
-	if ($product_id > 0) {
-		$added = WC()->cart->add_to_cart($product_id, $quantity);
-	}
-
-	if ($added) {
-		wp_send_json_success([
-			'cart_count' => WC()->cart->get_cart_contents_count(),
-			'message' => __('Product added to cart successfully!', 'woocommerce')
-		]);
-	} else {
-		wp_send_json_error([
-			'message' => __('Could not add product to cart.', 'woocommerce')
-		]);
-	}
-	wp_die();
-}
-
-function custom_update_mini_cart()
-{
-	ob_start();
-	woocommerce_mini_cart();
-	$mini_cart = ob_get_clean();
-
-	wp_send_json_success([
-		'mini_cart' => $mini_cart,
-		'cart_count' => WC()->cart->get_cart_contents_count(),
-	]);
-}
-
-function custom_ajax_remove_from_cart()
-{
-	// Check if cart item key is set
-	$cart_item_key = isset($_POST['cart_item_key']) ? sanitize_text_field($_POST['cart_item_key']) : '';
-
-	// Attempt to remove the item from the cart
-	if ($cart_item_key && WC()->cart->remove_cart_item($cart_item_key)) {
-		// Recalculate totals after item removal
-		WC()->cart->calculate_totals();
-
-		// Capture updated mini-cart HTML to send in response
-		ob_start();
-		woocommerce_mini_cart();
-		$mini_cart = ob_get_clean();
-
-		wp_send_json_success([
-			'mini_cart' => $mini_cart,
-			'cart_count' => WC()->cart->get_cart_contents_count(),
-		]);
-	} else {
-		wp_send_json_error(['message' => __('Failed to remove item from cart.', 'woocommerce')]);
-	}
-
-	wp_die();
-}
-
-
-add_action('wp_ajax_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
-add_action('wp_ajax_nopriv_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
-add_action('wp_ajax_custom_update_mini_cart', 'custom_update_mini_cart');
-add_action('wp_ajax_nopriv_custom_update_mini_cart', 'custom_update_mini_cart');
-add_action('wp_ajax_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
-add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
 
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
@@ -1057,9 +989,81 @@ add_action('wp', function () {
 
 // ajax checkout
 
-// AJAX to update cart quantity
-add_action('wp_ajax_update_cart_quantity', 'update_cart_quantity_handler');
-add_action('wp_ajax_nopriv_update_cart_quantity', 'update_cart_quantity_handler');
+function custom_ajax_add_to_cart()
+{
+	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+	$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+
+	$added = false;
+	if ($product_id > 0) {
+		$added = WC()->cart->add_to_cart($product_id, $quantity);
+	}
+
+	if ($added) {
+		// Re-render mini-cart HTML
+		ob_start();
+		woocommerce_mini_cart();
+		$mini_cart = ob_get_clean();
+
+		wp_send_json_success([
+			'cart_count' => WC()->cart->get_cart_contents_count(),
+			'mini_cart' => $mini_cart, // Include the mini-cart HTML
+			'message' => __('Produktas sėkmingai pridėtas į krepšelį!', 'woocommerce'),
+		]);
+	} else {
+		wp_send_json_error([
+			'message' => __('Nepavyko pridėti produkto į krepšelį.', 'woocommerce'),
+		]);
+	}
+	wp_die();
+}
+
+
+function custom_update_mini_cart()
+{
+	ob_start();
+	woocommerce_mini_cart();
+	$mini_cart = ob_get_clean();
+
+	wp_send_json_success([
+		'mini_cart' => $mini_cart,
+		'cart_count' => WC()->cart->get_cart_contents_count(),
+	]);
+}
+
+function custom_ajax_remove_from_cart()
+{
+	// Check if cart item key is set
+	$cart_item_key = isset($_POST['cart_item_key']) ? sanitize_text_field($_POST['cart_item_key']) : '';
+
+	// Attempt to remove the item from the cart
+	if ($cart_item_key && WC()->cart->remove_cart_item($cart_item_key)) {
+		// Recalculate totals after item removal
+		WC()->cart->calculate_totals();
+
+		// Capture updated mini-cart HTML to send in response
+		ob_start();
+		woocommerce_mini_cart();
+		$mini_cart = ob_get_clean();
+
+		wp_send_json_success([
+			'mini_cart' => $mini_cart,
+			'cart_count' => WC()->cart->get_cart_contents_count(),
+		]);
+	} else {
+		wp_send_json_error(['message' => __('Failed to remove item from cart.', 'woocommerce')]);
+	}
+
+	wp_die();
+}
+
+
+add_action('wp_ajax_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
+add_action('wp_ajax_custom_update_mini_cart', 'custom_update_mini_cart');
+add_action('wp_ajax_nopriv_custom_update_mini_cart', 'custom_update_mini_cart');
+add_action('wp_ajax_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
+add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
 
 function update_cart_quantity_handler()
 {
@@ -1072,16 +1076,38 @@ function update_cart_quantity_handler()
 
 	if (WC()->cart->set_quantity($cart_item_key, $quantity, true)) {
 		WC()->cart->calculate_totals();
+
+		// Re-render sidebar mini-cart
+		ob_start();
+		woocommerce_mini_cart();
+		$mini_cart = ob_get_clean();
+
+		// Re-render checkout product list
+		ob_start();
+		wc_get_template('checkout/checkout-product-list.php');
+		$product_list = ob_get_clean();
+
+		// Re-render checkout cart summary
+		ob_start();
+		wc_get_template('checkout/cart-summary-details.php');
+		$cart_summary = ob_get_clean();
+
 		wp_send_json_success([
 			'subtotal' => WC()->cart->get_cart_subtotal(),
 			'shipping_total' => WC()->cart->get_shipping_total(),
 			'tax_total' => wc_price(WC()->cart->get_taxes_total()),
 			'total' => WC()->cart->get_total(),
+			'cart_count' => WC()->cart->get_cart_contents_count(),
+			'mini_cart' => $mini_cart,
+			'product_list' => $product_list,
+			'cart_summary' => $cart_summary,
 		]);
 	} else {
 		wp_send_json_error(['message' => 'Failed to update cart.']);
 	}
 }
+add_action('wp_ajax_update_cart_quantity', 'update_cart_quantity_handler');
+add_action('wp_ajax_nopriv_update_cart_quantity', 'update_cart_quantity_handler');
 
 // AJAX to render cart summary details
 add_action('wp_ajax_get_cart_summary', 'get_cart_summary_handler');
@@ -1118,32 +1144,50 @@ add_action('wp_ajax_nopriv_remove_cart_item', 'remove_cart_item_handler');
 
 function remove_cart_item_handler()
 {
-	// Verify input
 	if (!isset($_POST['cart_item_key'])) {
 		wp_send_json_error(['message' => 'Invalid request.']);
 	}
 
 	$cart_item_key = sanitize_text_field($_POST['cart_item_key']);
 
-	// Remove the item from the cart
 	if (WC()->cart->remove_cart_item($cart_item_key)) {
 		WC()->cart->calculate_totals();
 
-		// Re-render cart items
+		// Prepare the response data
+		$redirect = WC()->cart->is_empty(); // Check if the cart is empty
+
+		// Re-render mini-cart HTML
+		ob_start();
+		woocommerce_mini_cart();
+		$mini_cart = ob_get_clean();
+
+		// Re-render product list for checkout
 		ob_start();
 		wc_get_template('checkout/checkout-product-list.php');
 		$product_list = ob_get_clean();
 
-		// Re-render cart summary details
+		// Re-render cart summary
 		ob_start();
 		wc_get_template('checkout/cart-summary-details.php');
 		$cart_summary = ob_get_clean();
 
 		wp_send_json_success([
+			'cart_count' => WC()->cart->get_cart_contents_count(),
+			'mini_cart' => $mini_cart,
 			'product_list' => $product_list,
 			'cart_summary' => $cart_summary,
+			'redirect' => $redirect, // Ensure this key is included
 		]);
 	} else {
 		wp_send_json_error(['message' => 'Failed to remove item from cart.']);
+	}
+}
+
+add_action('template_redirect', 'redirect_empty_cart_checkout');
+function redirect_empty_cart_checkout()
+{
+	if (is_checkout() && WC()->cart->is_empty()) {
+		wp_safe_redirect(home_url());
+		exit;
 	}
 }

@@ -16,6 +16,7 @@ if (!function_exists('WC')) {
         $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
         $thumbnail = $_product->get_image('woocommerce_thumbnail');
         $attributes = wc_get_formatted_cart_item_data($cart_item, true);
+        $product_name = $_product->get_name(); // Get the product name
         ?>
         <div class="cart-item" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
             <div class="product-thumbnail">
@@ -24,9 +25,9 @@ if (!function_exists('WC')) {
             <div class="product-details">
                 <h3 class="product-name">
                     <?php if ($product_permalink): ?>
-                        <a href="<?php echo esc_url($product_permalink); ?>"><?php echo $_product->get_name(); ?></a>
+                        <a href="<?php echo esc_url($product_permalink); ?>"><?php echo $product_name; ?></a>
                     <?php else: ?>
-                        <?php echo $_product->get_name(); ?>
+                        <?php echo $product_name; ?>
                     <?php endif; ?>
                 </h3>
                 <div class="product-attributes">
@@ -52,9 +53,9 @@ if (!function_exists('WC')) {
                         <span>+</span>
                     </button>
                 </div>
-
             </div>
-            <button class="remove-item" data-remove-item="<?php echo esc_attr($cart_item_key); ?>">
+            <button class="remove-item" data-remove-item="<?php echo esc_attr($cart_item_key); ?>"
+                data-product_name="<?php echo esc_attr($product_name); ?>">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_209_1212)">
                         <path
