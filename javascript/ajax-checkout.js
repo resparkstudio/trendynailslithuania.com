@@ -1,7 +1,5 @@
 jQuery(document).ready(function ($) {
-	console.log('Custom quantity script loaded'); // Debug to ensure script runs
-
-	// Listen for manual input change
+	// Change quantity
 	$(document).on('change', '.ajax-cart-quantity', function () {
 		const $input = $(this);
 		const cartItemKey = $input.data('cart-item-key');
@@ -10,7 +8,6 @@ jQuery(document).ready(function ($) {
 		updateCartQuantity(cartItemKey, newQuantity, $input);
 	});
 
-	// Listen for custom minus button click
 	$(document).on('click', '.custom-minus', function () {
 		const $button = $(this);
 		const $input = $button.siblings('.ajax-cart-quantity');
@@ -22,7 +19,6 @@ jQuery(document).ready(function ($) {
 		updateCartQuantity(cartItemKey, newQuantity, $input);
 	});
 
-	// Listen for custom plus button click
 	$(document).on('click', '.custom-plus', function () {
 		const $button = $(this);
 		const $input = $button.siblings('.ajax-cart-quantity');
@@ -88,4 +84,47 @@ jQuery(document).ready(function ($) {
 			},
 		});
 	}
+	// Remove
+	$(document).on('click', '.remove-item', function (e) {
+		e.preventDefault();
+
+		const $button = $(this);
+		const cartItemKey = $button.data('remove-item');
+
+		if (!cartItemKey) {
+			alert('Unable to identify the item to remove.');
+			return;
+		}
+
+		$.ajax({
+			url: ajax_add_to_cart_params.ajax_url,
+			type: 'POST',
+			data: {
+				action: 'remove_cart_item',
+				cart_item_key: cartItemKey,
+			},
+			beforeSend: function () {
+				$button.prop('disabled', true); // Prevent spamming
+			},
+			success: function (response) {
+				if (response.success) {
+					// Re-render the cart product list
+					$('.cart-items').html(response.data.product_list);
+
+					// Re-render the cart summary details
+					$('.cart-summary-details').html(response.data.cart_summary);
+				} else {
+					alert(
+						response.data.message || 'Failed to remove the item.'
+					);
+				}
+			},
+			error: function () {
+				alert('Something went wrong. Please try again.');
+			},
+			complete: function () {
+				$button.prop('disabled', false);
+			},
+		});
+	});
 });

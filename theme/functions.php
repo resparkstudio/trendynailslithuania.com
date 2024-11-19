@@ -1112,3 +1112,38 @@ function get_cart_summary_handler()
 		wp_send_json_error(['message' => 'Failed to render cart summary.']);
 	}
 }
+
+add_action('wp_ajax_remove_cart_item', 'remove_cart_item_handler');
+add_action('wp_ajax_nopriv_remove_cart_item', 'remove_cart_item_handler');
+
+function remove_cart_item_handler()
+{
+	// Verify input
+	if (!isset($_POST['cart_item_key'])) {
+		wp_send_json_error(['message' => 'Invalid request.']);
+	}
+
+	$cart_item_key = sanitize_text_field($_POST['cart_item_key']);
+
+	// Remove the item from the cart
+	if (WC()->cart->remove_cart_item($cart_item_key)) {
+		WC()->cart->calculate_totals();
+
+		// Re-render cart items
+		ob_start();
+		wc_get_template('checkout/checkout-product-list.php');
+		$product_list = ob_get_clean();
+
+		// Re-render cart summary details
+		ob_start();
+		wc_get_template('checkout/cart-summary-details.php');
+		$cart_summary = ob_get_clean();
+
+		wp_send_json_success([
+			'product_list' => $product_list,
+			'cart_summary' => $cart_summary,
+		]);
+	} else {
+		wp_send_json_error(['message' => 'Failed to remove item from cart.']);
+	}
+}
