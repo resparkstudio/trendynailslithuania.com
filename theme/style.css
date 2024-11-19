@@ -2582,6 +2582,10 @@ footer {
   aspect-ratio: 1 / 1;
 }
 
+.aspect-\[81\/100\] {
+  aspect-ratio: 81/100;
+}
+
 .h-20 {
   height: 5rem;
 }
@@ -2713,6 +2717,10 @@ footer {
 
 .max-w-none {
   max-width: none;
+}
+
+.max-w-\[\] {
+  max-width: ;
 }
 
 .flex-1 {
@@ -3118,6 +3126,10 @@ footer {
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .px-12 {

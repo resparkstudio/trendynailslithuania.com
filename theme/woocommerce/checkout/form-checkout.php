@@ -70,7 +70,7 @@ if (!is_user_logged_in()): ?>
 		<div class="checkout-column checkout-right col-span-4">
 			<div class="bg-gray round-9">
 
-				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
+				<h3 class="heading-sm text-deep-dark-gray body-normal-medium p-5">
 					<?php esc_html_e('Užsakymo apžvalga', '_tw'); ?>
 				</h3>
 				<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>

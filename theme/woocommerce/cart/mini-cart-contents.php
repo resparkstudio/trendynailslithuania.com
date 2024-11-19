@@ -34,10 +34,9 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                 <!-- Product Image -->
                 <div class="flex-shrink-0">
 
-                    <a href="<?php echo esc_url($product_permalink); ?>"
-                        class="block aspect-[78/100] max-w-24 w-full relative mr-6">
+                    <a href="<?php echo esc_url($product_permalink); ?>" class="block max-w-24 w-full relative mr-6">
                         <img src="<?php echo esc_url($product_image_url); ?>" alt="<?php echo esc_attr($product_name); ?>"
-                            class="w-full h-full object-cover" />
+                            class="w-full h-full object-cover object-center aspect-[78/100]" />
                     </a>
                 </div>
 
