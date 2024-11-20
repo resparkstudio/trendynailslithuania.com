@@ -240,16 +240,6 @@ function theme_setup()
 }
 add_action('after_setup_theme', 'theme_setup');
 
-// Prevent from accesing to certain pages
-// function redirect_site_settings_page()
-// {
-// 	if (is_page('footeris') || is_page('socialine-medija')) {
-// 		wp_redirect(get_permalink(get_page_by_path('titulinis')->ID));
-// 		exit;
-// 	}
-// }
-// add_action('template_redirect', 'redirect_site_settings_page');
-
 //----------------------------------- ACF
 
 if (function_exists('acf_add_options_page')) {
@@ -375,8 +365,6 @@ add_action('woocommerce_single_product_summary', 'display_full_product_descripti
 
 
 
-// remove woocommerce styles
-add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
 // Remove WooCommerce sale flash
 remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
@@ -978,13 +966,6 @@ add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 1
 
 
 
-
-add_action('wp', function () {
-	if (is_checkout()) {
-		remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
-	}
-});
-
 // ajax checkout
 
 function custom_ajax_add_to_cart()
@@ -1194,11 +1175,12 @@ function remove_cart_item_handler()
 add_action('template_redirect', 'redirect_empty_cart_checkout');
 function redirect_empty_cart_checkout()
 {
-	if (is_checkout() && WC()->cart->is_empty()) {
+	if (is_checkout() && !is_wc_endpoint_url('order-received') && WC()->cart->is_empty()) {
 		wp_safe_redirect(home_url());
 		exit;
 	}
 }
+
 
 add_action('wp_ajax_apply_discount_code', 'apply_discount_code');
 add_action('wp_ajax_nopriv_apply_discount_code', 'apply_discount_code');
@@ -1251,6 +1233,14 @@ function fetch_cart_summary()
 	]);
 }
 
+
+
+// Unhook default payment section rendering
+// remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
+
+// remove woocommerce styles
+add_filter('woocommerce_enqueue_styles', '__return_empty_array');
+
 // add_filter('gettext', 'gettext_translate_strings', 20, 3);
 
 // function gettext_translate_strings($translated_text, $text, $domain)
@@ -1266,6 +1256,8 @@ function fetch_cart_summary()
 // }
 
 
-// Unhook default payment section rendering
-remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
-
+// add_action('wp', function () {
+// 	if (is_checkout()) {
+// 		remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
+// 	}
+// });
