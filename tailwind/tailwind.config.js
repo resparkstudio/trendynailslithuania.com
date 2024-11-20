@@ -23,6 +23,7 @@ module.exports = {
 			'max-850px': { max: '850px' },
 			md: { max: '767px' },
 			sm: { max: '639px' },
+			'max-360px': { max: '360px' },
 		},
 		extend: {
 			fontFamily: {

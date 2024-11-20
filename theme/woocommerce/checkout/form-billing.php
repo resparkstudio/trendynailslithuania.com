@@ -19,14 +19,14 @@
 defined('ABSPATH') || exit;
 ?>
 <div class="woocommerce-billing-fields  text-deep-dark-gray">
-	<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7">
+	<div class="border-mid-gray border-b-[0.7px] pb-3 mb-5 lg:mb-5">
 		<?php if (wc_ship_to_billing_address_only() && WC()->cart->needs_shipping()): ?>
-			<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
-				<?php esc_html_e('Billing &amp; Shipping', 'woocommerce'); ?>
+			<h3 class="heading-sm text-deep-dark-gray lg:text-[1rem] lg:leading-[1.25rem]">
+				<?php esc_html_e('Pirkėjo duomenys', 'woocommerce'); ?>
 			</h3>
 		<?php else: ?>
-			<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
-				<?php esc_html_e('Billing details', 'woocommerce'); ?>
+			<h3 class="heading-sm text-deep-dark-gray lg:text-[1rem] lg:leading-[1.25rem]">
+				<?php esc_html_e('Pirkėjo duomenys', 'woocommerce'); ?>
 			</h3>
 		<?php endif; ?>
 	</div>
@@ -66,7 +66,8 @@ defined('ABSPATH') || exit;
 					<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" id="createaccount"
 						<?php checked((true === $checkout->get_value('createaccount') || (true === apply_filters('woocommerce_create_account_default_checked', false))), true); ?> type="checkbox"
 						name="createaccount" value="1" />
-					<span><?php esc_html_e('Create an account?', 'woocommerce'); ?></span>
+					<span
+						class="text-black body-small-regular"><?php esc_html_e('Norite sukurti paskyrą?', 'woocommerce'); ?></span>
 				</label>
 			</p>
 
@@ -76,7 +77,8 @@ defined('ABSPATH') || exit;
 
 		<?php if ($checkout->get_checkout_fields('account')): ?>
 
-			<div class="create-account">
+			<div
+				class="create-account flex justify-between gap-x-2 lg:gap-x-4 max-1200px:flex-wrap lg:flex-nowrap max-360px:flex-wrap">
 				<?php foreach ($checkout->get_checkout_fields('account') as $key => $field): ?>
 					<?php woocommerce_form_field($key, $field, $checkout->get_value($key)); ?>
 				<?php endforeach; ?>

@@ -10,14 +10,14 @@ if (!defined('ABSPATH')) {
 
 do_action('woocommerce_before_checkout_form', $checkout);
 
-// If checkout registration is disabled and not logged in, the user cannot checkout.
+
 if (!$checkout->is_registration_enabled() && $checkout->is_registration_required() && !is_user_logged_in()) {
 	echo esc_html(apply_filters('woocommerce_checkout_must_be_logged_in_message', __('You must be logged in to checkout.', 'woocommerce')));
 	return;
 }
 
 if (!is_user_logged_in()): ?>
-	<p class="woocommerce-LoginLink body-normal-regular block ml-12 md:ml-0 ">
+	<p class="woocommerce-LoginLink body-normal-regular block ml-12 lg:ml-0">
 		<?php esc_html_e("Esate registruotas vartotojas?", 'woocommerce'); ?> <a class="link-hover"
 			href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id')) . '?action=login'); ?>"><?php esc_html_e('Prisijunkite', 'woocommerce'); ?></a>
 	</p>
@@ -49,13 +49,13 @@ if (!is_user_logged_in()): ?>
 		<!-- Middle Column: Shipping and Payment Methods -->
 		<div class="checkout-column checkout-middle col-span-4 lg:ml-0 ml-6 lg:col-span-12">
 			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7">
-				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
+				<h3 class="heading-sm text-deep-dark-gray lg:text-[1rem] lg:leading-[1.25rem]">
 					<?php esc_html_e('Pristatymas', '_tw'); ?>
 				</h3>
 			</div>
 			<?php do_action('woocommerce_checkout_shipping'); ?>
-			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7 mt-11">
-				<h3 class="heading-sm text-deep-dark-gray md:text-[1rem] md:leading-[1.25rem]">
+			<div class="border-mid-gray border-b-[0.7px] pb-3 mb-7 mt-11 lg:mt-9">
+				<h3 class="heading-sm text-deep-dark-gray lg:text-[1rem] lg:leading-[1.25rem]">
 					<?php esc_html_e('Apmokėjimas', '_tw'); ?>
 				</h3>
 			</div>
@@ -67,7 +67,7 @@ if (!is_user_logged_in()): ?>
 		</div>
 
 		<!-- Right Column: Order Summary -->
-		<div class="checkout-column checkout-right col-span-4 pl-14 lg:pl-0 lg:col-span-12">
+		<div class="checkout-column checkout-right col-span-4 pl-14 lg:pl-0 lg:col-span-12 lg:mt-9">
 			<div class="bg-gray round-9">
 
 				<h3 class="heading-sm text-deep-dark-gray body-normal-medium p-5">

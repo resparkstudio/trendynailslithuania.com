@@ -24,22 +24,26 @@ $applied_code = WC()->session->get('applied_discount_code');
         </span>
     </p>
     <!-- TO-DO add pvm name whcih is defined in settings. Dont display if no pvm exists -->
-    <?php if (wc_tax_enabled()): ?>
+    <!-- 
         <p class="flex justify-between mb-4">
             <span class="body-small-regular">
-                <?php echo wp_kses_post(__('PVM (21%):')); ?>
+                <?php
+                // echo wp_kses_post(__('PVM (21%):'));
+                ?>
             </span>
             <span class="body-normal-semibold"
-                id="ajax-tax-total"><?php echo wc_price(WC()->cart->get_taxes_total()); ?></span>
-        </p>
-    <?php endif; ?>
+                id="ajax-tax-total"><?php
+                // echo wc_price(WC()->cart->get_taxes_total());
+                ?></span>
+        </p> -->
 
     <?php if (!empty($applied_code)): ?>
         <p class="flex justify-between">
             <span class="body-small-regular">
-                <?php echo wp_kses_post(__('Nuolaidos kodas:')); ?>
+                <?php echo wp_kses_post(__('Nuolaidos kodas: ')); ?>
+                <?php echo esc_html($applied_code); ?>
             </span>
-            <?php echo esc_html($applied_code); ?>
+
             <span
                 class="body-normal-semibold"><?php echo wp_kses_post(__('-')); ?><?php echo wc_price((WC()->cart->subtotal * 0.1)); ?></span>
         </p>

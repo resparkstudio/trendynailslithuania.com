@@ -31,7 +31,7 @@ if (!function_exists('WC')) {
         $formatted_product_name = $product_name . $attribute_text;
         ?>
         <div class="cart-item grid grid-cols-12 py-4" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
-            <div class="product-thumbnail mr-4 relative max-w-[6.25rem] shrink-0 col-span-4">
+            <div class="product-thumbnail mr-4 relative max-w-[6.25rem] shrink-0 col-span-4 lg:col-span-2 md:col-span-3">
                 <?php if ($thumbnail_src): ?>
                     <img class="w-full h-auto object-cover object-center aspect-[81/100] round-7"
                         src="<?php echo esc_url($thumbnail_src[0]); ?>" alt="<?php echo esc_attr($product_name); ?>" />
@@ -41,7 +41,7 @@ if (!function_exists('WC')) {
                         alt="<?php esc_attr_e('Placeholder Image', 'woocommerce'); ?>" />
                 <?php endif; ?>
             </div>
-            <div class="flex flex-col justify-between col-span-8">
+            <div class="flex flex-col justify-between col-span-8 lg:col-span-10 md:col-span-9 ">
                 <div class="product-details flex justify-between">
                     <div class="product-name body-small-medium deep-dark-gray mr-2">
                         <?php if ($product_permalink): ?>
@@ -71,10 +71,10 @@ if (!function_exists('WC')) {
                         </svg>
                     </button>
                 </div>
-                <div class="flex justify-between gap-3">
-                    <div class="product-quantity">
+                <div class="flex justify-between gap-3 max-1200px:flex-wrap max-1200px:mt-3">
+                    <div class="product-quantity max-1200px:order-2">
                         <div
-                            class="flex items-center border-[0.7px] rounded-[46px] py-0.5 border-deep-dark-gray justify-center overflow-hidden grow-0">
+                            class="flex items-center border-[0.7px] rounded-[46px] lg:rounded-[9px] py-0.5 border-deep-dark-gray justify-center overflow-hidden grow-0">
                             <button type="button"
                                 class="minus focus:outline-none flex items-center justify-center pl-3 text-[1.3rem] text-deep-dark-gray custom-minus"
                                 data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
@@ -93,9 +93,8 @@ if (!function_exists('WC')) {
                             </button>
                         </div>
                     </div>
-                    <div class="product-price flex gap-x-2 flex-wrap justify-end">
-
-
+                    <div
+                        class="product-price flex gap-x-2 flex-wrap justify-end max-1200px:justify-start max-1200px:order-2">
                         <?php if ($_product->is_on_sale()): ?>
                             <span class="sale-price text-deep-dark-gray body-small-semibold flex items-end">
                                 <?php echo wc_price($_product->get_sale_price()); ?>

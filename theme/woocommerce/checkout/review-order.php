@@ -19,14 +19,14 @@ defined('ABSPATH') || exit;
 ?>
 <div class="cart-summary">
 
-	<div class="bg-white px-5">
+	<div class="bg-white px-5 lg:px-4">
 		<?php wc_get_template('checkout/checkout-product-list.php'); ?>
 	</div>
-	<div class="px-5 mt-7 mb-8">
+	<div class="px-5 lg:px-4 mt-7 mb-8 lg:mt-5">
 		<?php wc_get_template('checkout/cart-summary-details.php'); ?>
 	</div>
 
-	<div class="discount-code w-full px-5 ">
+	<div class="discount-code w-full px-5 lg:px-4">
 		<label class="inline-block mb-4"
 			for="discount-code"><?php echo wp_kses_post("Įveskite nuolaidos kodą:") ?></label>
 		<div class="discount-input-wrapper mb-5 flex justify-between relative">
@@ -43,7 +43,7 @@ defined('ABSPATH') || exit;
 	</div>
 
 
-	<div class="terms w-full px-5 mb-6">
+	<div class="terms w-full px-5 lg:px-4 mb-6 lg:mb-8">
 		<label class="flex">
 			<input class="input-checkbox " type="checkbox" required>
 			<span class="body-extra-small-light">
@@ -51,7 +51,7 @@ defined('ABSPATH') || exit;
 		</label>
 	</div>
 
-	<div class="w-full px-5 pb-5">
+	<div class="w-full px-5 lg:px-4 pb-5">
 		<button class="checkout-button black-button w-full py-3"><?php echo wp_kses_post("Apmokėti") ?></button>
 	</div>
 </div>

@@ -362,9 +362,9 @@ footer {
 
 /* checkout */
 
-.checkout .woocommerce-NoticeGroup-checkout {
+/* .checkout .woocommerce-NoticeGroup-checkout {
 	@apply hidden;
-}
+} */
 
 .checkout-form-input,
 .checkout .woocommerce-account-fields .input-text {
@@ -377,10 +377,6 @@ footer {
 
 .checkout .woocommerce-account-fields {
 	@apply text-deep-dark-gray mt-5;
-}
-
-.checkout .woocommerce-account-fields .create-account {
-	@apply flex justify-between gap-x-2 max-1200px:flex-wrap;
 }
 
 .checkout .woocommerce-account-fields .create-account .clear {

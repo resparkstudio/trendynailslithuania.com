@@ -541,8 +541,6 @@ add_action('wp_ajax_load_more_products', 'load_more_products_ajax');
 add_action('wp_ajax_nopriv_load_more_products', 'load_more_products_ajax');
 
 
-
-
 // AJAX searchbox funtionality
 add_action('wp_ajax_fetch_products', 'fetch_products_callback');
 add_action('wp_ajax_nopriv_fetch_products', 'fetch_products_callback');
@@ -850,92 +848,92 @@ function add_my_account_body_class($classes)
 // ---------------------------------- Checkout
 
 
-add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
+// add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 
-function customize_checkout_fields($fields)
-{
-	$fields['billing'] = array(
-		'billing_first_name' => array_merge(
-			$fields['billing']['billing_first_name'],
-			array(
-				'required' => true,
-				'label' => __('Vardas', 'woocommerce'), // Custom label
-				'priority' => 10 // Adjust order
-			)
-		),
-		'billing_last_name' => array_merge(
-			$fields['billing']['billing_last_name'],
-			array(
-				'required' => true,
-				'label' => __('Pavardė', 'woocommerce'), // Custom label
-				'priority' => 20 // Adjust order
-			)
-		),
-		'billing_email' => array_merge(
-			$fields['billing']['billing_email'],
-			array(
-				'required' => true,
-				'label' => __('El. paštas', 'woocommerce'), // Custom label
-				'priority' => 30 // Adjust order
-			)
-		),
+// function customize_checkout_fields($fields)
+// {
+// 	$fields['billing'] = array(
+// 		'billing_first_name' => array_merge(
+// 			$fields['billing']['billing_first_name'],
+// 			array(
+// 				'required' => true,
+// 				'label' => __('Vardas', 'woocommerce'), // Custom label
+// 				'priority' => 10 // Adjust order
+// 			)
+// 		),
+// 		'billing_last_name' => array_merge(
+// 			$fields['billing']['billing_last_name'],
+// 			array(
+// 				'required' => true,
+// 				'label' => __('Pavardė', 'woocommerce'), // Custom label
+// 				'priority' => 20 // Adjust order
+// 			)
+// 		),
+// 		'billing_email' => array_merge(
+// 			$fields['billing']['billing_email'],
+// 			array(
+// 				'required' => true,
+// 				'label' => __('El. paštas', 'woocommerce'), // Custom label
+// 				'priority' => 30 // Adjust order
+// 			)
+// 		),
 
-		'billing_phone' => array_merge(
-			$fields['billing']['billing_phone'],
-			array(
-				'required' => true,
-				'label' => __('Telefonas', 'woocommerce'), // Custom label
-				'priority' => 40 // Adjust order
-			)
-		),
+// 		'billing_phone' => array_merge(
+// 			$fields['billing']['billing_phone'],
+// 			array(
+// 				'required' => true,
+// 				'label' => __('Telefonas', 'woocommerce'), // Custom label
+// 				'priority' => 40 // Adjust order
+// 			)
+// 		),
 
-		'billing_address_1' => array_merge(
-			$fields['billing']['billing_address_1'],
-			array(
-				'required' => true,
-				'label' => __('Gatvė, namo numeris', 'woocommerce'), // Custom label
-				'placeholder' => __('', 'woocommerce'), // Custom placeholder
-				'priority' => 50 // Adjust order
-			)
-		),
-		'billing_city' => array_merge(
-			$fields['billing']['billing_city'],
-			array(
-				'required' => true,
-				'label' => __('Miestas', 'woocommerce'), // Custom label
-				'priority' => 60 // Adjust order
-			)
-		),
-		'billing_postcode' => array_merge(
-			$fields['billing']['billing_postcode'],
-			array(
-				'required' => true,
-				'label' => __('Pašto kodas', 'woocommerce'), // Custom label
-				'priority' => 70 // Adjust order
-			)
-		),
-	);
+// 		'billing_address_1' => array_merge(
+// 			$fields['billing']['billing_address_1'],
+// 			array(
+// 				'required' => true,
+// 				'label' => __('Gatvė, namo numeris', 'woocommerce'), // Custom label
+// 				'placeholder' => __('', 'woocommerce'), // Custom placeholder
+// 				'priority' => 50 // Adjust order
+// 			)
+// 		),
+// 		'billing_city' => array_merge(
+// 			$fields['billing']['billing_city'],
+// 			array(
+// 				'required' => true,
+// 				'label' => __('Miestas', 'woocommerce'), // Custom label
+// 				'priority' => 60 // Adjust order
+// 			)
+// 		),
+// 		'billing_postcode' => array_merge(
+// 			$fields['billing']['billing_postcode'],
+// 			array(
+// 				'required' => true,
+// 				'label' => __('Pašto kodas', 'woocommerce'), // Custom label
+// 				'priority' => 70 // Adjust order
+// 			)
+// 		),
+// 	);
 
 
-	if (!is_user_logged_in()) {
-		$fields['account'] = array(
-			'account_password' => array(
-				'type' => 'password',
-				'label' => __('Slaptažodis', 'woocommerce'),
-				// 'required' => true,
-				'class' => array('form-row-wide'),
-			),
-			'account_password_confirm' => array(
-				'type' => 'password',
-				'label' => __('Patvirtinti slaptažodį', 'woocommerce'),
-				// 'required' => true,
-				'class' => array('form-row-wide'),
-			),
-		);
-	}
+// 	if (!is_user_logged_in()) {
+// 		$fields['account'] = array(
+// 			'account_password' => array(
+// 				'type' => 'password',
+// 				'label' => __('Slaptažodis', 'woocommerce'),
+// 				// 'required' => true,
+// 				'class' => array('form-row-wide'),
+// 			),
+// 			'account_password_confirm' => array(
+// 				'type' => 'password',
+// 				'label' => __('Patvirtinti slaptažodį', 'woocommerce'),
+// 				// 'required' => true,
+// 				'class' => array('form-row-wide'),
+// 			),
+// 		);
+// 	}
 
-	return $fields;
-}
+// 	return $fields;
+// }
 
 
 function customize_checkout_account_fields($args, $key, $value)
@@ -966,7 +964,7 @@ function wphelp_error_tag_above_label($field, $key, $args, $value)
 			<path d="M6.09626 3H7.89305L7.70053 8.22034H6.28877L6.09626 3ZM6.99465 11C6.69519 11 6.45277 10.9058 6.26738 10.7175C6.08913 10.5217 6 10.2881 6 10.0169C6 9.73069 6.08913 9.49341 6.26738 9.30509C6.45277 9.11676 6.69519 9.0226 6.99465 9.0226C7.28699 9.0226 7.52584 9.11676 7.71123 9.30509C7.90374 9.49341 8 9.73069 8 10.0169C8 10.2881 7.90374 10.5217 7.71123 10.7175C7.52584 10.9058 7.28699 11 6.99465 11Z" fill="white"/>
 		</svg>
 		';
-		$error = '<span class="error hidden body-extra-small-light text-red flex mb-2.5 leading-[0.9rem] gap-x-1.5 items-center">';
+		$error = '<span class="error hidden body-extra-small-light text-red flex mb-3 leading-[0.9rem] gap-x-1.5 items-center">';
 		$error .= $svg;
 		$error .= '<span>' . sprintf(__('Pirkėjo %s yra būtinas laukelis.', 'woocommerce'), $args['label']) . '</span>';
 		$error .= '</span>';
@@ -1252,3 +1250,17 @@ function fetch_cart_summary()
 		'cart_summary' => $cart_summary,
 	]);
 }
+
+// add_filter('gettext', 'gettext_translate_strings', 20, 3);
+
+// function gettext_translate_strings($translated_text, $text, $domain)
+// {
+// 	if ($translated_text === 'Create an account?' && $domain === 'woocommerce') {
+// 		$translated_text = 'Norite sukurti paskyrą?';
+// 	}
+// 	if ($translated_text === 'Sukurti paskyrą?' && $domain === 'woocommerce') {
+// 		$translated_text = 'Norite sukurti paskyrą?';
+// 	}
+
+// 	return $translated_text;
+// }
