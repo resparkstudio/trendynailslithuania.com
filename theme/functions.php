@@ -159,6 +159,7 @@ function _tw_scripts()
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
 
+	// Localize AJAX parameters for existing features
 	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
 		'ajax_url' => admin_url('admin-ajax.php')
 	));
@@ -176,12 +177,14 @@ function _tw_scripts()
 		'ajax_url' => admin_url('admin-ajax.php'),
 	));
 
-	wp_localize_script('infinite-scroll', 'woocommerce_params', array(
+	wp_localize_script('_tw-script', 'ajax_data', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
+		'checkout_validation_action' => 'validate_checkout_fields',
 	));
 }
 
 add_action('wp_enqueue_scripts', '_tw_scripts');
+
 
 
 /**
@@ -848,92 +851,110 @@ function add_my_account_body_class($classes)
 // ---------------------------------- Checkout
 
 
-// add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
+add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 
-// function customize_checkout_fields($fields)
-// {
-// 	$fields['billing'] = array(
-// 		'billing_first_name' => array_merge(
-// 			$fields['billing']['billing_first_name'],
-// 			array(
-// 				'required' => true,
-// 				'label' => __('Vardas', 'woocommerce'), // Custom label
-// 				'priority' => 10 // Adjust order
-// 			)
-// 		),
-// 		'billing_last_name' => array_merge(
-// 			$fields['billing']['billing_last_name'],
-// 			array(
-// 				'required' => true,
-// 				'label' => __('Pavardė', 'woocommerce'), // Custom label
-// 				'priority' => 20 // Adjust order
-// 			)
-// 		),
-// 		'billing_email' => array_merge(
-// 			$fields['billing']['billing_email'],
-// 			array(
-// 				'required' => true,
-// 				'label' => __('El. paštas', 'woocommerce'), // Custom label
-// 				'priority' => 30 // Adjust order
-// 			)
-// 		),
+function customize_checkout_fields($fields)
+{
+	// Define only the fields you want to show in the order you want
+	$fields['billing'] = array(
+		'billing_first_name' => array(
+			'type' => 'text',
+			'required' => true,
+			'label' => __('Vardas', 'woocommerce'), // Custom label
+			'class' => array('form-row-first'),
+			'priority' => 10, // Adjust order
+		),
+		'billing_last_name' => array(
+			'type' => 'text',
+			'required' => true,
+			'label' => __('Pavardė', 'woocommerce'), // Custom label
+			'class' => array('form-row-last'),
+			'priority' => 20, // Adjust order
+		),
+		'billing_email' => array(
+			'type' => 'email',
+			'required' => true,
+			'label' => __('El. paštas', 'woocommerce'), // Custom label
+			'class' => array('form-row-wide'),
+			'priority' => 30,
+		),
+		'billing_phone' => array(
+			'type' => 'tel',
+			'required' => true,
+			'label' => __('Telefonas', 'woocommerce'), // Custom label
+			'class' => array('form-row-wide'),
+			'priority' => 40,
+		),
+		'billing_address_1' => array(
+			'type' => 'text',
+			'required' => true,
+			'label' => __('Gatvė, namo numeris', 'woocommerce'), // Custom label
+			'placeholder' => __('Įveskite gatvę ir namo numerį', 'woocommerce'),
+			'class' => array('form-row-wide'),
+			'priority' => 50,
+		),
+		'billing_city' => array(
+			'type' => 'text',
+			'required' => true,
+			'label' => __('Miestas', 'woocommerce'), // Custom label
+			'class' => array('form-row-wide'),
+			'priority' => 60,
+		),
+		'billing_postcode' => array(
+			'type' => 'text',
+			'required' => true,
+			'label' => __('Pašto kodas', 'woocommerce'), // Custom label
+			'class' => array('form-row-wide'),
+			'priority' => 70,
+		),
+	);
 
-// 		'billing_phone' => array_merge(
-// 			$fields['billing']['billing_phone'],
-// 			array(
-// 				'required' => true,
-// 				'label' => __('Telefonas', 'woocommerce'), // Custom label
-// 				'priority' => 40 // Adjust order
-// 			)
-// 		),
+	// Remove shipping fields entirely if not needed
+	unset($fields['shipping']);
 
-// 		'billing_address_1' => array_merge(
-// 			$fields['billing']['billing_address_1'],
-// 			array(
-// 				'required' => true,
-// 				'label' => __('Gatvė, namo numeris', 'woocommerce'), // Custom label
-// 				'placeholder' => __('', 'woocommerce'), // Custom placeholder
-// 				'priority' => 50 // Adjust order
-// 			)
-// 		),
-// 		'billing_city' => array_merge(
-// 			$fields['billing']['billing_city'],
-// 			array(
-// 				'required' => true,
-// 				'label' => __('Miestas', 'woocommerce'), // Custom label
-// 				'priority' => 60 // Adjust order
-// 			)
-// 		),
-// 		'billing_postcode' => array_merge(
-// 			$fields['billing']['billing_postcode'],
-// 			array(
-// 				'required' => true,
-// 				'label' => __('Pašto kodas', 'woocommerce'), // Custom label
-// 				'priority' => 70 // Adjust order
-// 			)
-// 		),
-// 	);
+	// Add account creation fields for non-logged-in users
+	if (!is_user_logged_in()) {
+		$fields['account']['account_password'] = array(
+			'type' => 'password',
+			'required' => true,
+			'label' => __('Slaptažodis', 'woocommerce'),
+			'class' => array('form-row-wide'),
+			'priority' => 80,
+		);
+		$fields['account']['account_password_confirm'] = array(
+			'type' => 'password',
+			'required' => true,
+			'label' => __('Patvirtinti slaptažodį', 'woocommerce'),
+			'class' => array('form-row-wide'),
+			'priority' => 90,
+		);
+	}
 
+	return $fields;
+}
 
-// 	if (!is_user_logged_in()) {
-// 		$fields['account'] = array(
-// 			'account_password' => array(
-// 				'type' => 'password',
-// 				'label' => __('Slaptažodis', 'woocommerce'),
-// 				// 'required' => true,
-// 				'class' => array('form-row-wide'),
-// 			),
-// 			'account_password_confirm' => array(
-// 				'type' => 'password',
-// 				'label' => __('Patvirtinti slaptažodį', 'woocommerce'),
-// 				// 'required' => true,
-// 				'class' => array('form-row-wide'),
-// 			),
-// 		);
-// 	}
+// Ensure WooCommerce validation doesn't fail due to removed fields
+add_filter('woocommerce_default_address_fields', 'customize_default_address_fields');
+function customize_default_address_fields($address_fields)
+{
+	// Unset unnecessary fields
+	unset($address_fields['address_2']); // Remove Address Line 2
+	unset($address_fields['state']); // Remove State
+	unset($address_fields['country']); // Remove Country
 
-// 	return $fields;
-// }
+	return $address_fields;
+}
+
+// Ensure WooCommerce does not trigger "Please enter an address" errors
+add_filter('woocommerce_billing_fields', 'fix_billing_validation');
+function fix_billing_validation($fields)
+{
+	// If necessary, force WooCommerce to require only these specific fields
+	if (isset($fields['billing_address_1'])) {
+		$fields['billing_address_1']['required'] = true; // Ensure it's marked as required
+	}
+	return $fields;
+}
 
 
 function customize_checkout_account_fields($args, $key, $value)
@@ -955,28 +976,7 @@ function customize_checkout_account_fields($args, $key, $value)
 }
 add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 10, 3);
 
-add_filter('woocommerce_form_field', 'wphelp_error_tag_above_label', 10, 4);
-function wphelp_error_tag_above_label($field, $key, $args, $value)
-{
-	if ($args['required']) {
-		$svg = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<circle cx="7" cy="7" r="7" fill="#A81919"/>
-			<path d="M6.09626 3H7.89305L7.70053 8.22034H6.28877L6.09626 3ZM6.99465 11C6.69519 11 6.45277 10.9058 6.26738 10.7175C6.08913 10.5217 6 10.2881 6 10.0169C6 9.73069 6.08913 9.49341 6.26738 9.30509C6.45277 9.11676 6.69519 9.0226 6.99465 9.0226C7.28699 9.0226 7.52584 9.11676 7.71123 9.30509C7.90374 9.49341 8 9.73069 8 10.0169C8 10.2881 7.90374 10.5217 7.71123 10.7175C7.52584 10.9058 7.28699 11 6.99465 11Z" fill="white"/>
-		</svg>
-		';
-		$error = '<span class="error hidden body-extra-small-light text-red flex mb-3 leading-[0.9rem] gap-x-1.5 items-center">';
-		$error .= $svg;
-		$error .= '<span>' . sprintf(__('Pirkėjo %s yra būtinas laukelis.', 'woocommerce'), $args['label']) . '</span>';
-		$error .= '</span>';
 
-		if (strpos($field, '<label') !== false) {
-			$field = substr_replace($field, $error, strpos($field, '<label'), 0);
-		} else {
-			$field = $error . $field;
-		}
-	}
-	return $field;
-}
 
 
 add_action('wp', function () {
@@ -1264,3 +1264,8 @@ function fetch_cart_summary()
 
 // 	return $translated_text;
 // }
+
+
+// Unhook default payment section rendering
+remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
+

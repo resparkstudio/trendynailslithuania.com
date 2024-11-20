@@ -42,15 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	function handleCartIconClick() {
-		if (window.innerWidth > 767) {
+	// Toggle sidebar open/close
+	cartIcon.addEventListener('click', function () {
+		if (sidebar.classList.contains('hidden')) {
 			openSidebar();
 		} else {
-			window.location.href = checkoutData.checkoutUrl;
+			closeSidebar();
 		}
-	}
+	});
 
-	cartIcon.addEventListener('click', handleCartIconClick);
 	closeSidebarButton.addEventListener('click', closeSidebar);
 	overlay.addEventListener('click', closeSidebar);
 });

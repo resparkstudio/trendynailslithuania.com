@@ -2,23 +2,16 @@
 /**
  * Review order table
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/checkout/review-order.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 5.2.0
  */
 
 defined('ABSPATH') || exit;
+
+global $woocommerce;
+
 ?>
 <div class="cart-summary">
-
 	<div class="bg-white px-5 lg:px-4">
 		<?php wc_get_template('checkout/checkout-product-list.php'); ?>
 	</div>
@@ -42,16 +35,35 @@ defined('ABSPATH') || exit;
 		</div>
 	</div>
 
-
 	<div class="terms w-full px-5 lg:px-4 mb-6 lg:mb-8">
 		<label class="flex">
-			<input class="input-checkbox " type="checkbox" required>
+			<input class="input-checkbox" type="checkbox" required>
 			<span class="body-extra-small-light">
 				<?php echo wp_kses_post("Su el. prekybos taisyklėmis susipažinau ir sutinku") ?></span>
 		</label>
 	</div>
 
 	<div class="w-full px-5 lg:px-4 pb-5">
-		<button class="checkout-button black-button w-full py-3"><?php echo wp_kses_post("Apmokėti") ?></button>
+		<form id="order_review" method="post">
+			<div id="payment">
+				<div class="form-row">
+					<input type="hidden" name="woocommerce_checkout_place_order" value="1" />
+
+					<?php wc_get_template('checkout/terms.php'); ?>
+
+					<?php do_action('woocommerce_review_order_before_submit'); ?>
+
+					<button type="submit" class="button alt" id="place_order"
+						value="<?php echo esc_attr__('Place Order', 'woocommerce'); ?>"
+						data-value="<?php echo esc_attr__('Place Order', 'woocommerce'); ?>">
+						<?php echo esc_html__('Place Order', 'woocommerce'); ?>
+					</button>
+
+					<?php do_action('woocommerce_review_order_after_submit'); ?>
+
+					<?php wp_nonce_field('woocommerce-process_checkout', 'woocommerce-process-checkout-nonce'); ?>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>

@@ -199,6 +199,6 @@ Template Name: Header
 			<?php get_template_part('template-parts/notification-banner'); ?>
 
 			<?php get_template_part('template-parts/shop-menu-sidebar'); ?>
-			<div id="cart-sidebar-overlay" class="w-full h-full fixed z-[49] bg-black/[0.27] hidden"></div>
+			<div id="cart-sidebar-overlay" class="w-full h-full fixed z-[49] bg-black/[0.27] hidden sm:hidden"></div>
 			<?php get_template_part('template-parts/cart-sidebar'); ?>
 			<div id="content" class="pt-20 md:pt-[3.75rem]">

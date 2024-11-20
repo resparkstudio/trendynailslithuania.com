@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		'.apply-discount-button'
 	);
 
+	if (!discountCodeInput || !applyDiscountButton) {
+		return;
+	}
+
 	applyDiscountButton.addEventListener('click', (e) => {
 		e.preventDefault();
 

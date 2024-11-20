@@ -39,6 +39,14 @@ defined('ABSPATH') || exit;
 		$custom_input_class = ['checkout-form-input'];
 
 		foreach ($fields as $key => $field) {
+			// Render the error placeholder template
+			wc_get_template(
+				'checkout/checkout-error-placeholder.php',
+				[
+					'field_key' => $key,
+				]
+			);
+
 			$field['label_class'] = isset($field['label_class'])
 				? array_merge($field['label_class'], $custom_label_class)
 				: $custom_label_class;
