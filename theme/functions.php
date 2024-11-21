@@ -1241,20 +1241,17 @@ remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
-// add_filter('gettext', 'gettext_translate_strings', 20, 3);
+add_filter('gettext', 'gettext_translate_strings', 20, 3);
 
-// function gettext_translate_strings($translated_text, $text, $domain)
-// {
-// 	if ($translated_text === 'Place order' && $domain === 'woocommerce') {
-// 		$translated_text = 'Apmokėti';
-// 	}
+function gettext_translate_strings($translated_text, $text, $domain)
+{
+	if ($translated_text === 'Prašome pasirinkti atsiėmimo vietą') {
+		$translated_text = 'Pasirinkite paštomatą';
+	}
+	if ($translated_text === 'Search by pickup point name, address...') {
+		$translated_text = 'Ieškokite pagal paėmimo vietos pavadinimą, adresą...';
+	}
 
-// 	return $translated_text;
-// }
 
-
-// add_action('wp', function () {
-// 	if (is_checkout()) {
-// 		remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
-// 	}
-// });
+	return $translated_text;
+}

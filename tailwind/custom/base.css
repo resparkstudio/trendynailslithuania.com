@@ -436,3 +436,46 @@ footer {
 .checkout .woocommerce-invalid-required-field .checkout-form-label {
 	@apply text-red;
 } */
+
+#mp-wc-pickup-point-shipping {
+	@apply w-full pt-5;
+}
+
+#mp-wc-pickup-point-shipping .mp-please-select-location {
+	@apply hidden;
+}
+
+#mp-wc-pickup-point-shipping .select2-container {
+	@apply pl-6;
+}
+
+.select2-selection__arrow b {
+	display: none; /* Hide the default arrow */
+}
+
+.select2-selection__arrow {
+	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20" fill="none"><path d="M5 -4.37114e-07L6.52226e-08 5.25394L0.71 6L2.42 4.19264L5 1.48161L7.58 4.19264L9.29 5.98949L10 5.24343L5 -4.37114e-07Z" fill="black"/><path d="M5 20L10 14.7461L9.29 14L7.58 15.8074L5 18.5184L2.42 15.8074L0.71 14.0105L0 14.7566L5 20Z" fill="black"/></svg>')
+		no-repeat center center;
+	background-size: contain;
+	@apply scale-90;
+}
+
+#mp-wc-pickup-point-shipping .select2-container .select2-selection--single {
+	@apply h-10 flex items-center justify-between border-[0.7px] rounded-[9px];
+}
+
+.select2-container--default
+	.select2-selection--single
+	.select2-selection__arrow {
+	@apply mr-3 relative block;
+}
+
+.select2-container--default
+	.select2-selection--single
+	.select2-selection__rendered {
+	@apply body-small-light text-dark-gray;
+}
+
+.mp-selected-pickup-point-info {
+	@apply hidden;
+}

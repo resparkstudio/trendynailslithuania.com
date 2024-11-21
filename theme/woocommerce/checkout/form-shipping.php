@@ -1,6 +1,7 @@
 <?php
 defined('ABSPATH') || exit;
 ?>
+<?php do_action('woocommerce_before_checkout_shipping_form'); ?>
 <div class="woocommerce-shipping-fields">
 	<?php if (true === WC()->cart->needs_shipping()): ?>
 		<div class="shipping-methods space-y-4">
@@ -13,7 +14,7 @@ defined('ABSPATH') || exit;
 				if (!empty($available_methods)) {
 					foreach ($available_methods as $method_id => $method) {
 						?>
-						<div class="shipping-method flex gap-x-2 items-center text-black">
+						<div class="shipping-method flex flex-wrap gap-x-2 items-center text-black">
 							<input class="custom-radio shrink-0" type="radio"
 								name="shipping_method[<?php echo esc_attr($package_id); ?>]"
 								id="shipping_method_<?php echo esc_attr($method_id); ?>" value="<?php echo esc_attr($method_id); ?>"
@@ -34,3 +35,5 @@ defined('ABSPATH') || exit;
 		</div>
 	<?php endif; ?>
 </div>
+
+<?php do_action('woocommerce_after_checkout_shipping_form'); ?>
