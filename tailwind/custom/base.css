@@ -461,39 +461,36 @@ footer {
 	@apply scale-75;
 }
 
-#mp-wc-pickup-point-shipping .select2-container .select2-selection--single {
+.select2-container .select2-selection--single {
 	@apply h-10 flex items-center justify-between border-[0.7px] rounded-[9px];
 }
 
-#mp-wc-pickup-point-shipping
-	.select2-container--default
+.select2-container--default
 	.select2-selection--single
 	.select2-selection__arrow {
 	@apply mr-3 relative block;
 }
 
-#mp-wc-pickup-point-shipping
-	.select2-container--default
+.select2-container--default
 	.select2-selection--single
 	.select2-selection__rendered {
 	@apply body-small-light  pl-4;
 }
 
-#mp-wc-pickup-point-shipping .mp-selected-pickup-point-info {
+.mp-selected-pickup-point-info {
 	@apply hidden;
 }
 
-#mp-wc-pickup-point-shipping
-	.select2-container--default
+.select2-container--default
 	.select2-results__option--highlighted[aria-selected] {
 	@apply bg-black;
 }
 
-#mp-wc-pickup-point-shipping .select2-container--open .select2-dropdown--below {
+.select2-container--open .select2-dropdown--below {
 	@apply w-full top-[-0.3rem];
 }
 
-#mp-wc-pickup-point-shipping .select2-container--open .select2-dropdown--below {
+.select2-container--open .select2-dropdown--below {
 	@apply rounded-b-[9px];
 }
 
@@ -520,4 +517,11 @@ footer {
 
 .custom-radio-button-container {
 	@apply flex items-center;
+}
+
+/* newsletter */
+
+.newsletter-button {
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
 }

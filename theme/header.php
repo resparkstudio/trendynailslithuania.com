@@ -98,9 +98,9 @@ Template Name: Header
 					</div>
 
 					<!-- Header Icons -->
-					<div class="header-icons flex-1 flex justify-end space-x-6 pl-4 cursor-pointer">
+					<div class="header-icons flex-1 flex justify-end space-x-6 pl-4">
 						<!-- Search Icon -->
-						<a id="search-icon">
+						<a id="search-icon" class="cursor-pointer">
 							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
 								<mask id="path-1-inside-1_192_1896" fill="white">
@@ -193,7 +193,7 @@ Template Name: Header
 					</div>
 				</a>
 			</div>
-
+			<?php get_template_part('template-parts/newsletter-popup'); ?>
 			<?php get_template_part('template-parts/contact-form-modal'); ?>
 
 			<?php get_template_part('template-parts/notification-banner'); ?>
