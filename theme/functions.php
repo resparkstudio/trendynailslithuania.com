@@ -1236,7 +1236,7 @@ function fetch_cart_summary()
 
 
 // Unhook default payment section rendering
-// remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
+remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
 
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');

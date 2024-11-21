@@ -21,11 +21,39 @@ defined('ABSPATH') || exit;
 ?>
 
 <div class="woocommerce-order">
-	<?php if ($order->has_status('failed')): ?>
+	<div class="max-w-[87.5rem] mx-auto w-full">
+		<div class="mx-12 md:mx-4">
+			<div class='flex flex-col justify-center items-center mb-48 mt-44 sm:mt-36 text-deep-dark-gray'>
+				<?php if ($order): ?>
+					<?php $order_number = $order->get_order_number(); ?>
 
+					<?php if ($order->has_status('failed')): ?>
+						<h5 class="heading-md block mb-5 md:text-[1.125rem] md:leading-[1.375rem]">
+							<?php echo esc_html("Jūsų užsakymas #" . $order_number . "nepateiktas"); ?>
+						</h5>
+						<p class="body-normal-medium md:mb-8 mb-11">
+							<?php echo wp_kses_post("Deja, jūsų užsakymas nepavyko. Pabandykite dar kartą arba susisiekite su mumis!"); ?>
+						</p>
+					<?php else: ?>
+						<h5 class="heading-md block mb-5 md:text-[1.125rem] md:leading-[1.375rem]">
+							<?php echo esc_html("Jūsų užsakymas #" . $order_number . " pateiktas"); ?>
+						</h5>
+						<p class="body-normal-medium md:mb-8 mb-11">
+							<?php echo wp_kses_post("Ačiū, kad renkatės mus!"); ?>
+						</p>
+					<?php endif; ?>
 
-	<?php else: ?>
-
-
-	<?php endif; ?>
+					<a class="black-button uppercase px-28 py-3 sm:w-full sm:px-4 sm:flex sm:justify-center sm:items-center"
+						href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>">
+						Į parduotuvę
+					</a>
+				<?php else: ?>
+					<!-- Fallback if no order object is available -->
+					<p class="body-normal-medium md:mb-8 mb-11">
+						<?php echo wp_kses_post("Įvyko klaida. Prašome bandyti dar kartą."); ?>
+					</p>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </div>
