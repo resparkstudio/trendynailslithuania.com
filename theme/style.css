@@ -1494,6 +1494,7 @@ footer {
 } */
 
 #mp-wc-pickup-point-shipping {
+  margin-left: 1.5rem;
   width: 100%;
   padding-top: 1.25rem;
 }
@@ -1502,9 +1503,9 @@ footer {
   display: none;
 }
 
-#mp-wc-pickup-point-shipping .select2-container {
-  padding-left: 1.5rem;
-}
+/* #mp-wc-pickup-point-shipping .select2-container {
+	@apply pl-6;
+} */
 
 .select2-selection__arrow b {
   display: none;
@@ -1515,8 +1516,8 @@ footer {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20" fill="none"><path d="M5 -4.37114e-07L6.52226e-08 5.25394L0.71 6L2.42 4.19264L5 1.48161L7.58 4.19264L9.29 5.98949L10 5.24343L5 -4.37114e-07Z" fill="black"/><path d="M5 20L10 14.7461L9.29 14L7.58 15.8074L5 18.5184L2.42 15.8074L0.71 14.0105L0 14.7566L5 20Z" fill="black"/></svg>')
 		no-repeat center center;
   background-size: contain;
-  --tw-scale-x: .9;
-  --tw-scale-y: .9;
+  --tw-scale-x: .75;
+  --tw-scale-y: .75;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1540,8 +1541,7 @@ footer {
 .select2-container--default
 	.select2-selection--single
 	.select2-selection__rendered {
-  --tw-text-opacity: 1;
-  color: rgb(116 116 116 / var(--tw-text-opacity));
+  padding-left: 1rem;
   font-family: "Albert Sans", sans-serif;
   font-size: 0.875rem;
   font-weight: 300;
@@ -1550,6 +1550,19 @@ footer {
 
 .mp-selected-pickup-point-info {
   display: none;
+}
+
+.select2-container--default
+	.select2-results__option--highlighted[aria-selected] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.select2-container--open .select2-dropdown--below {
+  top: -0.3rem;
+  width: 100%;
+  border-bottom-right-radius: 9px;
+  border-bottom-left-radius: 9px;
 }
 
 /**
