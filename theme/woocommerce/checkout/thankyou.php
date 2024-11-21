@@ -23,6 +23,13 @@ defined('ABSPATH') || exit;
 <div class="woocommerce-order">
 	<div class="max-w-[87.5rem] mx-auto w-full">
 		<div class="mx-12 md:mx-4">
+			<header id="heading-section">
+				<h1
+					class="w-full heading-md text-deep-dark-gray mb-12 lg:mb-7 lg:font-medium lg:text-[1.5rem] lg:leading-[2rem]">
+					<?php echo get_the_title(); ?>
+				</h1>
+			</header>
+
 			<div class='flex flex-col justify-center items-center mb-48 mt-44 sm:mt-36 text-deep-dark-gray'>
 				<?php if ($order): ?>
 					<?php $order_number = $order->get_order_number(); ?>

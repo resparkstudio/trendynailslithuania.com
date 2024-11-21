@@ -2374,6 +2374,10 @@ footer {
   margin-bottom: 2.5rem;
 }
 
+.mb-11 {
+  margin-bottom: 2.75rem;
+}
+
 .mb-12 {
   margin-bottom: 3rem;
 }
@@ -2514,6 +2518,10 @@ footer {
   margin-top: 1rem;
 }
 
+.mt-44 {
+  margin-top: 11rem;
+}
+
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -2536,14 +2544,6 @@ footer {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.mt-44 {
-  margin-top: 11rem;
-}
-
-.mb-11 {
-  margin-bottom: 2.75rem;
 }
 
 .block {
@@ -3209,6 +3209,11 @@ footer {
   padding-right: 6rem;
 }
 
+.px-28 {
+  padding-left: 7rem;
+  padding-right: 7rem;
+}
+
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
@@ -3254,9 +3259,9 @@ footer {
   padding-bottom: 2.25rem;
 }
 
-.px-28 {
-  padding-left: 7rem;
-  padding-right: 7rem;
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .pb-10 {
@@ -4134,10 +4139,6 @@ footer {
     justify-content: flex-end;
   }
 
-  .md\:justify-center {
-    justify-content: center;
-  }
-
   .md\:gap-0 {
     gap: 0px;
   }
@@ -4372,11 +4373,6 @@ footer {
   .sm\:px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
-  }
-
-  .sm\:px-36 {
-    padding-left: 9rem;
-    padding-right: 9rem;
   }
 
   .sm\:pb-\[3\.75rem\] {

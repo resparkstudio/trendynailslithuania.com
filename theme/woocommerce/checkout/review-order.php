@@ -53,10 +53,10 @@ global $woocommerce;
 
 					<?php do_action('woocommerce_review_order_before_submit'); ?>
 
-					<button type="submit" class="button alt" id="place_order"
-						value="<?php echo esc_attr__('Place Order', 'woocommerce'); ?>"
-						data-value="<?php echo esc_attr__('Place Order', 'woocommerce'); ?>">
-						<?php echo esc_html__('Place Order', 'woocommerce'); ?>
+					<button class="black-button uppercase w-full justify-center items-center py-3 px-4" type="submit"
+						class="button alt" id="place_order" value="<?php echo esc_attr__('Apmokėti', 'woocommerce'); ?>"
+						data-value="<?php echo esc_attr__('Apmokėti', 'woocommerce'); ?>">
+						<?php echo esc_html__('Apmokėti', 'woocommerce'); ?>
 					</button>
 
 					<?php do_action('woocommerce_review_order_after_submit'); ?>

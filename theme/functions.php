@@ -1245,11 +1245,8 @@ add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
 // function gettext_translate_strings($translated_text, $text, $domain)
 // {
-// 	if ($translated_text === 'Create an account?' && $domain === 'woocommerce') {
-// 		$translated_text = 'Norite sukurti paskyrą?';
-// 	}
-// 	if ($translated_text === 'Sukurti paskyrą?' && $domain === 'woocommerce') {
-// 		$translated_text = 'Norite sukurti paskyrą?';
+// 	if ($translated_text === 'Place order' && $domain === 'woocommerce') {
+// 		$translated_text = 'Apmokėti';
 // 	}
 
 // 	return $translated_text;

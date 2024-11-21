@@ -68,16 +68,19 @@ defined('ABSPATH') || exit;
 <?php if (!is_user_logged_in() && $checkout->is_registration_enabled()): ?>
 	<div class="woocommerce-account-fields">
 		<?php if (!$checkout->is_registration_required()): ?>
+			<div class="flex">
+				<p class="form-row form-row-wide create-account">
+					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+						<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox"
+							id="createaccount" <?php checked((true === $checkout->get_value('createaccount') || (true === apply_filters('woocommerce_create_account_default_checked', false))), true); ?>
+							type="checkbox" name="createaccount" value="1" />
+						<div class="text-black body-small-regular mb-3">
+							<?php esc_html_e('Norite sukurti paskyrą?', 'woocommerce'); ?>
+						</div>
+					</label>
+				</p>
+			</div>
 
-			<p class="form-row form-row-wide create-account">
-				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-					<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" id="createaccount"
-						<?php checked((true === $checkout->get_value('createaccount') || (true === apply_filters('woocommerce_create_account_default_checked', false))), true); ?> type="checkbox"
-						name="createaccount" value="1" />
-					<span
-						class="text-black body-small-regular"><?php esc_html_e('Norite sukurti paskyrą?', 'woocommerce'); ?></span>
-				</label>
-			</p>
 
 		<?php endif; ?>
 
