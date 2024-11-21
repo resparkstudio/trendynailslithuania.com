@@ -449,6 +449,7 @@ footer {
 	@apply pl-6;
 } */
 
+/* Shipping */
 .select2-selection__arrow b {
 	display: none; /* Hide the default arrow */
 }
@@ -464,31 +465,59 @@ footer {
 	@apply h-10 flex items-center justify-between border-[0.7px] rounded-[9px];
 }
 
-.select2-container--default
+#mp-wc-pickup-point-shipping
+	.select2-container--default
 	.select2-selection--single
 	.select2-selection__arrow {
 	@apply mr-3 relative block;
 }
 
-.select2-container--default
+#mp-wc-pickup-point-shipping
+	.select2-container--default
 	.select2-selection--single
 	.select2-selection__rendered {
 	@apply body-small-light  pl-4;
 }
 
-.mp-selected-pickup-point-info {
+#mp-wc-pickup-point-shipping .mp-selected-pickup-point-info {
 	@apply hidden;
 }
 
-.select2-container--default
+#mp-wc-pickup-point-shipping
+	.select2-container--default
 	.select2-results__option--highlighted[aria-selected] {
 	@apply bg-black;
 }
 
-.select2-container--open .select2-dropdown--below {
+#mp-wc-pickup-point-shipping .select2-container--open .select2-dropdown--below {
 	@apply w-full top-[-0.3rem];
 }
 
-.select2-container--open .select2-dropdown--below {
+#mp-wc-pickup-point-shipping .select2-container--open .select2-dropdown--below {
 	@apply rounded-b-[9px];
+}
+
+/* paysera */
+
+#payment .paysera-payment-method-label .paysera-text {
+	@apply hidden;
+}
+
+#payment .paysera-payment-method-label .paysera-image {
+	@apply border-[0.7px] rounded-[9px] border-mid-gray h-auto px-7 py-2 flex justify-center items-center;
+}
+#payment .paysera-payment-method-label .paysera-image img {
+	@apply object-contain object-center scale-75;
+}
+
+#payment .paysera-payment-method-label {
+	@apply p-0 flex gap-x-2 border-0;
+}
+
+#payment .paysera-payment-method-label input {
+	@apply m-0;
+}
+
+.custom-radio-button-container {
+	@apply flex items-center;
 }

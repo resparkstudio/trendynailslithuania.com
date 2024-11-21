@@ -14,3 +14,4 @@ import './product-image-hover.js';
 import './ajax-product-archive-load.js';
 import './ajax-discount-code.js';
 import './dynamic-shipping-pick-up.js';
+import './dynamic-payment-option.js';
