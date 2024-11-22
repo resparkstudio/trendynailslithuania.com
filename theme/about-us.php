@@ -55,7 +55,7 @@ $bottom_image_description = get_field('bottom_image_description');
 
             <?php if ($description_1): ?>
                 <div id="description-section-1" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
-                    <p class="col-start-7 col-end-12 md:col-start-1"><?php echo esc_textarea($description_1); ?></p>
+                    <div class="col-start-7 col-end-12 md:col-start-1"><?php echo wp_kses_post($description_1); ?></div>
                 </div>
             <?php endif; ?>
 
@@ -83,14 +83,10 @@ $bottom_image_description = get_field('bottom_image_description');
                     <img class="col-span-6 round-10 md:col-span-12 md:row-span-1"
                         src="<?php echo esc_url($bottom_image); ?>" />
                     <div class="col-span-6 flex justify-center items-center ml-10 md:ml-0 md:col-span-12 md:row-span-1">
-                        <p class="body-normal-regular">
-                            <?php echo esc_textarea($bottom_image_description); ?>
-                        </p>
+                        <?php echo wp_kses_post($bottom_image_description); ?>
                     </div>
                 </div>
             <?php endif; ?>
-
-
         </div><!-- .page-content -->
     </main><!-- #main -->
 </section><!-- #primary -->

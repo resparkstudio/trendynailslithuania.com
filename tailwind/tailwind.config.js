@@ -6,11 +6,7 @@ module.exports = {
 		require('./tailwind-typography.config.js'),
 	],
 	content: {
-		files: [
-			'./theme/**/*.php',
-			'./theme/**/*.js',
-			'./css/**/*.css', // Include all the new CSS files
-		],
+		files: ['./theme/**/*.php', './theme/**/*.js', './css/**/*.css'],
 	},
 	theme: {
 		// Desktop-first approach

@@ -54,15 +54,15 @@ get_header();
                             <div class="text-left">
                                 <?php if ($hero_heading): ?>
                                     <h1
-                                        class="text-white heading-xl md:text-4xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
+                                        class="text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
                                         <?php echo wp_kses_post($hero_heading); ?>
                                     </h1>
                                 <?php endif; ?>
 
                                 <?php if ($hero_description): ?>
-                                    <p class="text-white text-sm md:text-lg mb-7 body-small-regular md:mb-6">
+                                    <div class="text-white mb-7 md:mb-6">
                                         <?php echo wp_kses_post($hero_description); ?>
-                                    </p>
+                                    </div>
                                 <?php endif; ?>
 
                                 <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>"
@@ -754,9 +754,9 @@ get_header();
                             <h3 class="heading-md mb-4 lg:mb-5 lg:text-[1.125rem] lg:leading-[1.375rem]">
                                 <?php echo wp_kses_post($about_heading_1) ?>
                             </h3>
-                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8">
+                            <div class="text-base leading-relaxed lg:mb-8">
                                 <?php echo wp_kses_post($about_description_1) ?>
-                            </p>
+                            </div>
                             <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
                                 <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
                                     <span><?php echo wp_kses_post("Skaityti daugiau"); ?></span>
@@ -780,9 +780,9 @@ get_header();
                             <h3 class="heading-md mb-4 lg:mb-5 lg:text-[1.125rem] lg:leading-[1.375rem]">
                                 <?php echo wp_kses_post($about_heading_2) ?>
                             </h3>
-                            <p class="text-base body-normal-regular leading-relaxed lg:mb-8">
+                            <div class="text-base leading-relaxed lg:mb-8">
                                 <?php echo wp_kses_post($about_description_2) ?>
-                            </p>
+                            </div>
                             <div class="hidden lg:flex w-full body-small-regular uppercase text-deep-dark-gray">
                                 <a class="flex gap-3" href="<?php echo get_permalink(28); ?>">
                                     <span><?php echo wp_kses_post("Skaityti daugiau"); ?></span>

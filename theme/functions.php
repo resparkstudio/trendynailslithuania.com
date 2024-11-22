@@ -352,7 +352,7 @@ add_action('create_product_cat', 'save_popular_category_checkbox', 10, 2);
 function display_full_product_description()
 {
 	global $post;
-	echo '<div class="woocommerce-product-description mb-10 body-small-regular text-deep-dark-gray">';
+	echo '<div class="woocommerce-product-description mb-10 text-deep-dark-gray">';
 	echo apply_filters('the_content', $post->post_content); // Display the full description
 	echo '</div>';
 }
@@ -1256,12 +1256,104 @@ function add_account_form_label_class($field, $key, $args, $value)
 
 add_filter('woocommerce_default_address_fields', 'remove_billing_company_field_from_account');
 
-function remove_billing_company_field_from_account($address_fields)
-{
-	// Unset the billing_company field
-	if (isset($address_fields['company'])) {
-		unset($address_fields['company']);
-	}
 
-	return $address_fields;
+
+function replace_block_formats($init_array)
+{
+
+
+	$style_formats = array(
+		array(
+			'title' => 'heading xl',
+			'classes' => 'heading-xl',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'heading lg',
+			'classes' => 'heading-lg',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'heading md',
+			'classes' => 'heading-md',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'heading sm',
+			'classes' => 'heading-sm',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body normal regular',
+			'classes' => 'body-normal-regular',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body normal medium',
+			'classes' => 'body-normal-medium',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body normal semibold',
+			'classes' => 'body-normal-semibold',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body small semibold',
+			'classes' => 'body-small-semibold',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body small medium',
+			'classes' => 'body-small-medium',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body small regular',
+			'classes' => 'body-small-regular',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body small light',
+			'classes' => 'body-small-light',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body extra small regular',
+			'classes' => 'body-extra-small-regular',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+		array(
+			'title' => 'body extra small light',
+			'classes' => 'body-extra-small-light',
+			'block' => 'span',
+			'wrapper' => true,
+		),
+	);
+
+	$init_array['style_formats'] = wp_json_encode($style_formats);
+
+	$init_array['block_formats'] = 'paragraph=p';
+	return $init_array;
 }
+add_filter('tiny_mce_before_init', 'replace_block_formats');
+
+function enable_custom_styles_in_tinymce($buttons)
+{
+	array_push($buttons, 'styleselect');
+	return $buttons;
+}
+add_filter('mce_buttons', 'enable_custom_styles_in_tinymce');
+

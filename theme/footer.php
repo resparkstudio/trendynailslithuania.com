@@ -28,9 +28,9 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 				</a>
 			</div>
 			<?php if ($logo_description): ?>
-				<p class="body-small-light pb-7 body-small">
+				<div class="pb-7">
 					<?php echo wp_kses_post($logo_description); ?>
-				</p>
+				</div>
 			<?php endif; ?>
 			<ul class="mt-4 space-y-2.5 mb-7">
 				<?php if ($phone_number): ?>
@@ -129,9 +129,9 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 			<?php endif; ?>
 
 			<?php if ($subscribe_description): ?>
-				<p class="text-sm mb-5 md:mb-8">
+				<div class="mb-5 md:mb-8">
 					<?php echo wp_kses_post($subscribe_description); ?>
-				</p>
+				</div>
 			<?php endif; ?>
 			<form action="#" method="POST" class="mt-4 mb-9 md:mb-5 w-full">
 				<input type="email" name="email" placeholder="El. paštas"

@@ -49,8 +49,9 @@ if (post_password_required()) {
 								<div class="plus-stripe-v absolute h-full w-[0.1rem] bg-black "></div>
 							</div>
 						</div>
-						<div class="info-text overflow-hidden body-small-regular text-deep-dark-gray hidden pb-4 bg-white">
-							<p class="pb-7 pt-4 lg:pt-5 lg:pb-6"><?php echo wp_kses_post($usage_conditions['value']); ?></p>
+						<div class="info-text overflow-hidden text-deep-dark-gray hidden pb-4 bg-white">
+							<div class="pb-7 pt-4 lg:pt-5 lg:pb-6"><?php echo wp_kses_post($usage_conditions['value']); ?>
+							</div>
 						</div>
 					</div>
 				<?php endif; ?>
@@ -66,8 +67,8 @@ if (post_password_required()) {
 								<div class="plus-stripe-v absolute h-full w-[0.1rem] bg-black "></div>
 							</div>
 						</div>
-						<div class="info-text overflow-hidden body-small-regular text-deep-dark-gray hidden pb-4 ">
-							<p class="pb-7 pt-4 "><?php echo wp_kses_post($ingredients['value']); ?></p>
+						<div class="info-text overflow-hidden  text-deep-dark-gray hidden pb-4 ">
+							<div class="pb-7 pt-4 "><?php echo wp_kses_post($ingredients['value']); ?></div>
 						</div>
 					</div>
 				<?php endif; ?>
@@ -83,8 +84,8 @@ if (post_password_required()) {
 								<div class="plus-stripe-v absolute h-full w-[0.1rem] bg-black "></div>
 							</div>
 						</div>
-						<div class="info-text overflow-hidden body-small-regular text-deep-dark-gray hidden pb-4">
-							<p class="pb-7 pt-4 "><?php echo wp_kses_post($shipping['value']); ?></p>
+						<div class="info-text overflow-hidden text-deep-dark-gray hidden pb-4">
+							<div class="pb-7 pt-4 "><?php echo wp_kses_post($shipping['value']); ?></div>
 						</div>
 					</div>
 				<?php endif; ?>

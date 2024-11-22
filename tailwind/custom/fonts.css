@@ -87,3 +87,7 @@
 	transform: scaleX(1);
 	transform-origin: bottom left;
 }
+
+#content strong {
+	font-weight: 600;
+}
