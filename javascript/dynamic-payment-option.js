@@ -7,7 +7,6 @@ function adjustPayseraOptions() {
 	);
 
 	if (!mainPaymentMethods || !payseraMethod) {
-		console.error('Main payment methods or Paysera method not found.');
 		return;
 	}
 
@@ -23,7 +22,6 @@ function adjustPayseraOptions() {
 		payseraOptions.forEach((option) => {
 			const radioInput = option.querySelector('input[type="radio"]');
 
-			// Ensure the input works as part of the main group
 			if (radioInput) {
 				radioInput.name = 'payment_method';
 				radioInput.classList.add('custom-radio');

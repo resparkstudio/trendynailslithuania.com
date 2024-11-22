@@ -159,7 +159,6 @@ function _tw_scripts()
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
 
-	// Localize AJAX parameters for existing features
 	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
 		'ajax_url' => admin_url('admin-ajax.php')
 	));
@@ -177,10 +176,6 @@ function _tw_scripts()
 		'ajax_url' => admin_url('admin-ajax.php'),
 	));
 
-	wp_localize_script('_tw-script', 'ajax_data', array(
-		'ajax_url' => admin_url('admin-ajax.php'),
-		'checkout_validation_action' => 'validate_checkout_fields',
-	));
 }
 
 add_action('wp_enqueue_scripts', '_tw_scripts');
@@ -793,15 +788,6 @@ function get_wishlist_count()
 	wp_send_json_success(['wishlist_count' => $count]);
 }
 
-add_action('woocommerce_register_post', 'validate_privacy_policy_checkbox', 10, 3);
-function validate_privacy_policy_checkbox($username, $email, $validation_errors)
-{
-	if (!isset($_POST['privacy_policy'])) {
-		$validation_errors->add('privacy_policy_error', __('Norėdami užsiregistruoti, turite sutikti su privatumo politika.', 'woocommerce'));
-	}
-	return $validation_errors;
-}
-
 add_filter('woocommerce_account_menu_items', 'custom_woocommerce_account_menu_items');
 function custom_woocommerce_account_menu_items($items)
 {
@@ -1232,8 +1218,6 @@ function fetch_cart_summary()
 		'cart_summary' => $cart_summary,
 	]);
 }
-
-
 
 // Unhook default payment section rendering
 remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);

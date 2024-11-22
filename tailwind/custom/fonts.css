@@ -43,7 +43,7 @@
 }
 
 .body-extra-small-light {
-	@apply font-light text-[0.625rem] leading-[1.25rem] font-sans;
+	@apply font-light text-[0.75rem] leading-[1rem] font-sans;
 }
 
 .body-extra-small-regular {

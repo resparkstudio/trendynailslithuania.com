@@ -521,7 +521,58 @@ footer {
 
 /* newsletter */
 
-.newsletter-button {
+.newsletter-button-inner {
 	writing-mode: vertical-rl;
 	text-orientation: mixed;
+}
+
+/* remove mini cart default animation */
+.blockUI.blockOverlay {
+	display: none !important;
+	background: none !important;
+}
+
+.blockUI.blockOverlay:after {
+	display: none !important;
+}
+
+.error {
+	@apply text-red;
+}
+
+.border-error {
+	@apply border border-red;
+}
+
+.requirements-not-met {
+	@apply cursor-not-allowed pointer-events-none;
+}
+
+.woocommerce-NoticeGroup {
+	@apply hidden;
+}
+
+.woocommerce-password-strength {
+	@apply mt-2 body-small-regular;
+}
+
+.woocommerce-password-hint {
+	@apply body-extra-small-regular text-deep-dark-gray;
+}
+
+.password-input .short,
+.password-input .bad {
+	@apply text-red;
+}
+
+.password-input .good {
+	@apply text-yellow;
+}
+
+.password-input .strong {
+	@apply text-green;
+}
+
+#terms-error {
+	@apply mb-2 block body-extra-small-light;
 }

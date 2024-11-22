@@ -46,7 +46,7 @@ defined('ABSPATH') || exit;
 					'field_key' => $key,
 				]
 			);
-
+			//validaiton error renders here
 			$field['label_class'] = isset($field['label_class'])
 				? array_merge($field['label_class'], $custom_label_class)
 				: $custom_label_class;

@@ -1,6 +1,5 @@
 // Set the Preflight flag based on the build target.
 const includePreflight = 'editor' === process.env._TW_TARGET ? false : true;
-
 module.exports = {
 	presets: [
 		// Manage Tailwind Typography's configuration in a separate file.
@@ -39,6 +38,8 @@ module.exports = {
 				'dark-gray': '#747474',
 				pink: '#E5D7D1',
 				red: '#A81919',
+				yellow: '#FFD700',
+				green: '#28A745',
 				'discount-gray': '#797979',
 			},
 		},
@@ -50,6 +51,6 @@ module.exports = {
 	plugins: [
 		require('@_tw/typography'),
 		require('@_tw/themejson'),
-		require('postcss-import'), // Ensure CSS imports are handled
+		require('postcss-import'),
 	],
 };

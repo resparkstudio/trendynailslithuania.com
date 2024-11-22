@@ -30,7 +30,7 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
         ?>
         <li class="woocommerce-mini-cart-item py-5 border-b-[0.5px] border-[#C3C3C3]">
 
-            <div class="flex items-start text-deep-dark-gray sm:grid sm:grid-cols-12 ">
+            <div class="flex items-start text-deep-dark-gray sm:grid sm:grid-cols-12 relative">
                 <!-- Product Image -->
                 <div class="flex-shrink-0 sm:col-span-3  mr-6 sm:mr-4">
 
@@ -102,6 +102,28 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                         </div>
 
                     </div>
+                </div>
+                <div class="absolute right-0 top-0">
+                    <?php
+                    echo apply_filters(
+                        'woocommerce_cart_item_remove_link',
+                        sprintf(
+                            '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" data-product_name="%s">
+                                        <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <line x1="0.901405" y1="1.37276" x2="10.2489" y2="10.7203" stroke="#747474"/>
+                                            <line x1="10.2491" y1="1.30082" x2="0.901523" y2="10.6484" stroke="#747474"/>
+                                        </svg>
+                                    </a>',
+                            esc_url(wc_get_cart_remove_url($cart_item_key)),
+                            esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
+                            esc_attr($product_id),
+                            esc_attr($cart_item_key),
+                            esc_attr($_product->get_sku()),
+                            esc_attr($_product->get_name())
+                        ),
+                        $cart_item_key
+                    );
+                    ?>
                 </div>
 
 

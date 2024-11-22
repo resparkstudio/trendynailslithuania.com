@@ -37,11 +37,13 @@ global $woocommerce;
 
 	<div class="terms w-full px-5 lg:px-4 mb-6 lg:mb-8">
 		<label class="flex">
-			<input class="input-checkbox" type="checkbox" required>
+			<input class="input-checkbox" type="checkbox" name="terms" required>
 			<span class="body-extra-small-light">
-				<?php echo wp_kses_post("Su el. prekybos taisyklėmis susipažinau ir sutinku") ?></span>
+				<?php echo wp_kses_post("Su el. prekybos taisyklėmis susipažinau ir sutinku") ?>
+			</span>
 		</label>
 	</div>
+
 
 	<div class="w-full px-5 lg:px-4 pb-5">
 		<form id="order_review" method="post">
@@ -49,7 +51,6 @@ global $woocommerce;
 				<div class="form-row">
 					<input type="hidden" name="woocommerce_checkout_place_order" value="1" />
 
-					<?php wc_get_template('checkout/terms.php'); ?>
 
 					<?php do_action('woocommerce_review_order_before_submit'); ?>
 
