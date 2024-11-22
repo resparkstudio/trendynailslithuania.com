@@ -20,32 +20,49 @@ defined('ABSPATH') || exit;
 do_action('woocommerce_before_lost_password_form');
 ?>
 
-<form method="post" class="woocommerce-ResetPassword lost_reset_password">
+<div class="mb-48 mt-5 md:mb-28 md:mt-2.5">
+	<div class="max-w-[87.5rem] mx-auto w-full">
+		<div class="flex flex-col mx-12 md:mx-4">
 
-	<p><?php echo apply_filters('woocommerce_lost_password_message', esc_html__('Pamiršote slaptažodį? Įveskite savo naudotojo vardą arba el. pašto adresą. Jums bus atsiųsta nuoroda, skirta sukurti naują slaptažodį.', 'woocommerce')); ?>
-	</p><?php // @codingStandardsIgnoreLine ?>
+			<header id="heading-section">
+				<h1 class="w-full heading-md text-deep-dark-gray mb-4">
+					<?php echo wp_kses_post("Slaptažodžio atkūrimas") ?>
+				</h1>
+			</header>
 
-	<p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-		<label for="user_login"><?php esc_html_e('Naudotojo vardas arba el. paštas', 'woocommerce'); ?>&nbsp;<span
-				class="required" aria-hidden="true">*</span><span
-				class="screen-reader-text"><?php esc_html_e('Privaloma', 'woocommerce'); ?></span></label>
-		<input class="woocommerce-Input woocommerce-Input--text input-text" type="text" name="user_login"
-			id="user_login" autocomplete="username" required aria-required="true" />
-	</p>
+			<form method="post" class="woocommerce-ResetPassword lost_reset_password">
 
-	<div class="clear"></div>
+				<p class="text-deep-dark-gray body-normal-regular">
+					<?php echo apply_filters('woocommerce_lost_password_message', esc_html__('Pamiršote slaptažodį? Įveskite savo naudotojo vardą arba el. pašto adresą. Jums bus atsiųsta nuoroda, skirta sukurti naują slaptažodį.', 'woocommerce')); ?>
+				</p><?php // @codingStandardsIgnoreLine ?>
 
-	<?php do_action('woocommerce_lostpassword_form'); ?>
+				<p
+					class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first max-w-72 md:max-w-full mt-3">
+					<label class=" account-form-label" for="user_login">
+						<?php esc_html_e('El. paštas', 'woocommerce'); ?>&nbsp;<span class="required"
+							aria-hidden="true">*</span><span
+							class="screen-reader-text"><?php esc_html_e('Privaloma', 'woocommerce'); ?></span></label>
+					<input class="woocommerce-Input woocommerce-Input--text input-text form-input" type="text"
+						name="user_login" id="user_login" autocomplete="username" required aria-required="true" />
+				</p>
 
-	<p class="woocommerce-form-row form-row">
-		<input type="hidden" name="wc_reset_password" value="true" />
-		<button type="submit"
-			class="woocommerce-Button button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"
-			value="<?php esc_attr_e('Atstatyti slaptažodį', 'woocommerce'); ?>"><?php esc_html_e('Atstatyti slaptažodį', 'woocommerce'); ?></button>
-	</p>
+				<div class="clear"></div>
 
-	<?php wp_nonce_field('lost_password', 'woocommerce-lost-password-nonce'); ?>
+				<?php do_action('woocommerce_lostpassword_form'); ?>
 
-</form>
-<?php
-do_action('woocommerce_after_lost_password_form');
+				<p class="woocommerce-form-row form-row">
+					<input type="hidden" name="wc_reset_password" value="true" />
+					<button type="submit"
+						class="white-button-black-text py-3 px-8 mt-6 woocommerce-Button button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"
+						value="<?php esc_attr_e('Atstatyti slaptažodį', 'woocommerce'); ?>"><?php esc_html_e('Atstatyti slaptažodį', 'woocommerce'); ?></button>
+				</p>
+
+				<?php wp_nonce_field('lost_password', 'woocommerce-lost-password-nonce'); ?>
+
+			</form>
+			<?php
+			do_action('woocommerce_after_lost_password_form');
+			?>
+		</div>
+	</div>
+</div>

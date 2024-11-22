@@ -27,7 +27,7 @@ do_action('woocommerce_before_edit_account_address_form'); ?>
 
 	<form method="post">
 
-		<h2 class="heading-sm mb-1">
+		<h2 class="heading-sm mb-3">
 			<?php echo apply_filters('woocommerce_my_account_edit_address_title', $page_title, $load_address); ?>
 		</h2>
 		<?php // @codingStandardsIgnoreLine ?>

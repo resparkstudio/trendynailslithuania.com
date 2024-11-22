@@ -1239,3 +1239,29 @@ function gettext_translate_strings($translated_text, $text, $domain)
 
 	return $translated_text;
 }
+
+add_filter('woocommerce_form_field', 'add_account_form_label_class', 10, 4);
+
+function add_account_form_label_class($field, $key, $args, $value)
+{
+	if (isset($args['label'])) {
+		$field = str_replace(
+			'<label',
+			'<label class="account-form-label"',
+			$field
+		);
+	}
+	return $field;
+}
+
+add_filter('woocommerce_default_address_fields', 'remove_billing_company_field_from_account');
+
+function remove_billing_company_field_from_account($address_fields)
+{
+	// Unset the billing_company field
+	if (isset($address_fields['company'])) {
+		unset($address_fields['company']);
+	}
+
+	return $address_fields;
+}
