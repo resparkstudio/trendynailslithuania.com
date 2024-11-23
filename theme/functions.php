@@ -490,7 +490,7 @@ function load_more_products_ajax()
 
 	$args = [
 		'post_type' => 'product',
-		'posts_per_page' => 10,
+		'posts_per_page' => 16,
 		'paged' => $page,
 		'no_found_rows' => true,
 		'post_status' => 'publish',
@@ -545,7 +545,7 @@ function fetch_products_callback()
 	// 1. Search by Product Name
 	$name_args = [
 		'post_type' => 'product',
-		'posts_per_page' => 10,
+		'posts_per_page' => 4,
 		'post_status' => 'publish',
 		's' => $query,
 	];

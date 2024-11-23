@@ -92,17 +92,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Event listeners for adding to and removing from wishlist
-	document
-		.querySelectorAll('.add-to-wishlist-btn')
-		.forEach(function (button) {
-			button.addEventListener('click', function (event) {
-				event.preventDefault();
-				const productId = button.getAttribute('data-product_id');
-				const productName = button.getAttribute('data-product_name');
-				addToWishlist(productId, productName);
-			});
-		});
+	jQuery(document).on('click', '.add-to-wishlist-btn', function (event) {
+		event.preventDefault();
+		const productId = jQuery(this).data('product_id');
+		const productName = jQuery(this).data('product_name');
+		addToWishlist(productId, productName);
+	});
 
 	jQuery('.wishlist-items').on(
 		'click',
