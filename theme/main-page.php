@@ -35,12 +35,12 @@ get_header();
                 <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
                     <?php if ($hero_image && $hero_image_mobile): ?>
                         <img class="w-full h-auto round-15 block md:hidden aspect-[1401/581]"
-                            src="<?php echo esc_url($hero_image); ?>" alt="Hero Image" />
+                            src="<?php echo esc_url($hero_image); ?>" alt="Desktop Hero Banner" />
                         <img class="w-full h-auto round-15 hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
-                            alt="Hero Image Mobile" />
+                            alt="Mobile Hero Banner" />
                     <?php elseif ($hero_image): ?>
                         <img class="w-full h-auto object-cover round-15" src="<?php echo esc_url($hero_image); ?>"
-                            alt="Hero Image" />
+                            alt="Desktop Hero Banner" />
                     <?php endif; ?>
 
                     <div class="absolute inset-0 flex items-end justify-start">

@@ -577,10 +577,10 @@ footer {
 .requirements-not-met {
 	@apply cursor-not-allowed pointer-events-none;
 }
-
+/* 
 .woocommerce-NoticeGroup {
 	@apply hidden;
-}
+} */
 
 .woocommerce-password-strength {
 	@apply mt-2 body-small-regular;

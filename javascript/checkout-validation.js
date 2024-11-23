@@ -97,7 +97,7 @@ import 'jquery-validation';
 				} else {
 					const labelElement = element
 						.closest('.form-row')
-						.find('.checkout-form-label');
+						.find('label');
 
 					const errorWrapper = $('<div></div>').addClass(
 						'error-wrapper flex gap-x-2 items-center body-small-regular mb-2 body-extra-small-light'
