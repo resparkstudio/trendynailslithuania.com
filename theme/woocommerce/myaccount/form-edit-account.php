@@ -58,14 +58,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 			id="account_email" autocomplete="email" value="<?php echo esc_attr($user->user_email); ?>" />
 	</p>
 
-	<?php
-	/**
-	 * Hook where additional fields should be rendered.
-	 *
-	 * @since 8.7.0
-	 */
-	do_action('woocommerce_edit_account_form_fields');
-	?>
+	<?php do_action('woocommerce_edit_account_form_fields'); ?>
 
 	<fieldset>
 		<legend class="mt-2 mb-1 heading-sm"><?php esc_html_e('Keisti slaptažodį', 'woocommerce'); ?></legend>
@@ -78,7 +71,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 		</p>
 		<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 			<label class="account-form-label"
-				for="password_1"><?php esc_html_e('Naujas slaptažodis (palikite tuščią, jei nenorite keisti)', 'woocommerce'); ?></label>
+				for="password_1"><?php esc_html_e('Naujas slaptažodį (palikite tuščią, jei nenorite keisti)', 'woocommerce'); ?></label>
 			<input type="password" class="woocommerce-Input woocommerce-Input--password input-text" name="password_1"
 				id="password_1" autocomplete="off" />
 		</p>
@@ -91,14 +84,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 	</fieldset>
 	<div class="clear"></div>
 
-	<?php
-	/**
-	 * My Account edit account form.
-	 *
-	 * @since 2.6.0
-	 */
-	do_action('woocommerce_edit_account_form');
-	?>
+	<?php do_action('woocommerce_edit_account_form'); ?>
 
 	<p>
 		<?php wp_nonce_field('save_account_details', 'save-account-details-nonce'); ?>
@@ -109,7 +95,23 @@ do_action('woocommerce_before_edit_account_form'); ?>
 		<input type="hidden" name="action" value="save_account_details" />
 	</p>
 
+	<!-- Delete Account Button -->
+	<p>
+		<button type="button" id="delete-account-button" class="red-button py-2 mt-6 px-6" name="delete_account">
+			<?php esc_html_e('Ištrinti paskyrą', 'woocommerce'); ?>
+		</button>
+	</p>
+
 	<?php do_action('woocommerce_edit_account_form_end'); ?>
 </form>
 
 <?php do_action('woocommerce_after_edit_account_form'); ?>
+
+<script>
+	document.getElementById('delete-account-button').addEventListener('click', function () {
+		if (confirm("Ar tikrai norite ištrinti savo paskyrą? Šis veiksmas negali būti atšauktas.")) {
+			// Redirect to the login page after account deletion
+			window.location.href = "<?php echo esc_url(add_query_arg('delete_account', 'true', wc_get_account_endpoint_url('dashboard'))); ?>";
+		}
+	});
+</script>

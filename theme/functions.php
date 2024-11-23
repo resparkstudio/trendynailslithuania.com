@@ -794,23 +794,12 @@ function custom_woocommerce_account_menu_items($items)
 	$items = array(
 		'dashboard' => 'Pagrindinis',
 		'orders' => 'Užsakymai',
-		'downloads' => 'Atsisiuntimai',
 		'edit-address' => 'Mano adresai',
 		'edit-account' => 'Paskyros nustatymai',
-		'payment-methods' => 'Mokėjimo metodai',
 		'customer-logout' => 'Atsijungti',
 	);
 
 	return $items;
-}
-
-add_filter('woocommerce_account_menu_items', 'remove_dashboard_from_my_account', 999);
-
-function remove_dashboard_from_my_account($menu_links)
-{
-	unset($menu_links['dashboard']);
-
-	return $menu_links;
 }
 
 add_filter('body_class', 'add_my_account_body_class');
@@ -829,40 +818,39 @@ add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 
 function customize_checkout_fields($fields)
 {
-	// Define only the fields you want to show in the order you want
 	$fields['billing'] = array(
 		'billing_first_name' => array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __('Vardas', 'woocommerce'), // Custom label
+			'label' => __('Vardas', 'woocommerce'),
 			'class' => array('form-row-first'),
 			'priority' => 10, // Adjust order
 		),
 		'billing_last_name' => array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __('Pavardė', 'woocommerce'), // Custom label
+			'label' => __('Pavardė', 'woocommerce'),
 			'class' => array('form-row-last'),
 			'priority' => 20, // Adjust order
 		),
 		'billing_email' => array(
 			'type' => 'email',
 			'required' => true,
-			'label' => __('El. paštas', 'woocommerce'), // Custom label
+			'label' => __('El. paštas', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 30,
 		),
 		'billing_phone' => array(
 			'type' => 'tel',
 			'required' => true,
-			'label' => __('Telefonas', 'woocommerce'), // Custom label
+			'label' => __('Telefonas', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 40,
 		),
 		'billing_address_1' => array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __('Gatvė, namo numeris', 'woocommerce'), // Custom label
+			'label' => __('Gatvė, namo numeris', 'woocommerce'),
 			'placeholder' => __('Įveskite gatvę ir namo numerį', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 50,
@@ -870,23 +858,21 @@ function customize_checkout_fields($fields)
 		'billing_city' => array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __('Miestas', 'woocommerce'), // Custom label
+			'label' => __('Miestas', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 60,
 		),
 		'billing_postcode' => array(
 			'type' => 'text',
 			'required' => true,
-			'label' => __('Pašto kodas', 'woocommerce'), // Custom label
+			'label' => __('Pašto kodas', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 70,
 		),
 	);
 
-	// Remove shipping fields entirely if not needed
 	unset($fields['shipping']);
 
-	// Add account creation fields for non-logged-in users
 	if (!is_user_logged_in()) {
 		$fields['account']['account_password'] = array(
 			'type' => 'password',
@@ -907,25 +893,22 @@ function customize_checkout_fields($fields)
 	return $fields;
 }
 
-// Ensure WooCommerce validation doesn't fail due to removed fields
 add_filter('woocommerce_default_address_fields', 'customize_default_address_fields');
 function customize_default_address_fields($address_fields)
 {
 	// Unset unnecessary fields
-	unset($address_fields['address_2']); // Remove Address Line 2
-	unset($address_fields['state']); // Remove State
-	unset($address_fields['country']); // Remove Country
+	unset($address_fields['address_2']);
+	unset($address_fields['state']);
+	unset($address_fields['country']);
 
 	return $address_fields;
 }
 
-// Ensure WooCommerce does not trigger "Please enter an address" errors
 add_filter('woocommerce_billing_fields', 'fix_billing_validation');
 function fix_billing_validation($fields)
 {
-	// If necessary, force WooCommerce to require only these specific fields
 	if (isset($fields['billing_address_1'])) {
-		$fields['billing_address_1']['required'] = true; // Ensure it's marked as required
+		$fields['billing_address_1']['required'] = true;
 	}
 	return $fields;
 }
@@ -965,14 +948,13 @@ function custom_ajax_add_to_cart()
 	}
 
 	if ($added) {
-		// Re-render mini-cart HTML
 		ob_start();
 		woocommerce_mini_cart();
 		$mini_cart = ob_get_clean();
 
 		wp_send_json_success([
 			'cart_count' => WC()->cart->get_cart_contents_count(),
-			'mini_cart' => $mini_cart, // Include the mini-cart HTML
+			'mini_cart' => $mini_cart,
 			'message' => __('Produktas sėkmingai pridėtas į krepšelį!', 'woocommerce'),
 		]);
 	} else {
@@ -998,14 +980,11 @@ function custom_update_mini_cart()
 
 function custom_ajax_remove_from_cart()
 {
-	// Check if cart item key is set
 	$cart_item_key = isset($_POST['cart_item_key']) ? sanitize_text_field($_POST['cart_item_key']) : '';
 
 	if ($cart_item_key && WC()->cart->remove_cart_item($cart_item_key)) {
-		// Recalculate totals after item removal
 		WC()->cart->calculate_totals();
 
-		// Capture updated mini-cart HTML to send in response
 		ob_start();
 		woocommerce_mini_cart();
 		$mini_cart = ob_get_clean();
@@ -1041,17 +1020,14 @@ function update_cart_quantity_handler()
 	if (WC()->cart->set_quantity($cart_item_key, $quantity, true)) {
 		WC()->cart->calculate_totals();
 
-		// Re-render sidebar mini-cart
 		ob_start();
 		woocommerce_mini_cart();
 		$mini_cart = ob_get_clean();
 
-		// Re-render checkout product list
 		ob_start();
 		wc_get_template('checkout/checkout-product-list.php');
 		$product_list = ob_get_clean();
 
-		// Re-render checkout cart summary
 		ob_start();
 		wc_get_template('checkout/cart-summary-details.php');
 		$cart_summary = ob_get_clean();
@@ -1073,29 +1049,23 @@ function update_cart_quantity_handler()
 add_action('wp_ajax_update_cart_quantity', 'update_cart_quantity_handler');
 add_action('wp_ajax_nopriv_update_cart_quantity', 'update_cart_quantity_handler');
 
-// AJAX to render cart summary details
 add_action('wp_ajax_get_cart_summary', 'get_cart_summary_handler');
 add_action('wp_ajax_nopriv_get_cart_summary', 'get_cart_summary_handler');
 
 function get_cart_summary_handler()
 {
-	// Ensure WooCommerce functions are loaded and the cart is initialized
 	if (!function_exists('WC') || WC()->cart === null) {
 		wp_send_json_error(['message' => 'Cart not available.']);
 	}
 
-	// Capture output of the cart-summary-details.php template
 	ob_start();
 
-	// Ensure the cart totals are recalculated
 	WC()->cart->calculate_totals();
 
-	// Include the template
 	wc_get_template('checkout/cart-summary-details.php');
 
 	$html = ob_get_clean();
 
-	// Send back the rendered template
 	if (!empty($html)) {
 		wp_send_json_success($html);
 	} else {
@@ -1114,31 +1084,26 @@ function remove_cart_item_handler()
 
 	$cart_item_key = sanitize_text_field($_POST['cart_item_key']);
 
-	// Attempt to remove the cart item
 	$removed = WC()->cart->remove_cart_item($cart_item_key);
 
 	if ($removed) {
-		// Recalculate totals and ensure cart updates
 		WC()->cart->calculate_totals();
 		WC()->session->set('cart', WC()->cart->get_cart());
 
-		// Debugging: Check cart contents after removal
 		error_log('Cart contents after removal: ' . print_r(WC()->cart->get_cart(), true));
 
-		// Re-render templates
 		ob_start();
-		woocommerce_mini_cart(); // Update the mini-cart
+		woocommerce_mini_cart();
 		$mini_cart = ob_get_clean();
 
 		ob_start();
-		wc_get_template('checkout/checkout-product-list.php'); // Update the product list
+		wc_get_template('checkout/checkout-product-list.php');
 		$product_list = ob_get_clean();
 
 		ob_start();
-		wc_get_template('checkout/cart-summary-details.php'); // Update the cart summary
+		wc_get_template('checkout/cart-summary-details.php');
 		$cart_summary = ob_get_clean();
 
-		// Check if cart is empty for potential redirect
 		$redirect = WC()->cart->is_empty();
 
 		wp_send_json_success([
@@ -1254,9 +1219,6 @@ function add_account_form_label_class($field, $key, $args, $value)
 	return $field;
 }
 
-add_filter('woocommerce_default_address_fields', 'remove_billing_company_field_from_account');
-
-
 
 function replace_block_formats($init_array)
 {
@@ -1357,3 +1319,28 @@ function enable_custom_styles_in_tinymce($buttons)
 }
 add_filter('mce_buttons', 'enable_custom_styles_in_tinymce');
 
+
+add_action('init', function () {
+	if (is_user_logged_in() && isset($_GET['delete_account']) && $_GET['delete_account'] === 'true') {
+		$user_id = get_current_user_id();
+		$user = get_userdata($user_id);
+
+		if (in_array('administrator', $user->roles)) {
+			wp_redirect(add_query_arg('account_error', 'cannot_delete_admin', wc_get_page_permalink('myaccount')));
+			exit;
+		}
+
+		wp_logout();
+		wp_delete_user($user_id);
+
+		wp_redirect(wc_get_page_permalink('myaccount'));
+		exit;
+	}
+});
+
+
+add_action('woocommerce_account_content', function () {
+	if (isset($_GET['account_error']) && $_GET['account_error'] === 'cannot_delete_admin') {
+		wc_print_notice(__('Administratoriaus paskyra negali būti ištrinta.', 'woocommerce'), 'error');
+	}
+});

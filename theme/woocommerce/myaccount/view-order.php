@@ -21,38 +21,82 @@ defined('ABSPATH') || exit;
 
 $notes = $order->get_customer_order_notes();
 ?>
-<p>
+<p class="text-deep-dark-gray body-normal-regular">
 	<?php
 	printf(
 		/* translators: 1: order number 2: order date 3: order status */
 		esc_html__('Užsakymas #%1$s buvo pateiktas %2$s ir šiuo metu yra %3$s.', 'woocommerce'),
-		'<mark class="order-number">' . $order->get_order_number() . '</mark>', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		'<mark class="order-date">' . wc_format_datetime($order->get_date_created()) . '</mark>', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		'<mark class="order-status">' . wc_get_order_status_name($order->get_status()) . '</mark>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		'<span class="order-number body-normal-semibold">' . $order->get_order_number() . '</span>', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		'<span class="order-date body-normal-semibold">' . wc_format_datetime($order->get_date_created()) . '</span>', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		'<span class="order-status body-normal-semibold">' . wc_get_order_status_name($order->get_status()) . '</span>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	);
 	?>
 </p>
 
+<div class="overflow-x-auto text-deep-dark-gray">
+	<table class="min-w-full mt-4 table-auto border-collapse border border-deep-dark-gray">
+		<thead class="bg-gray-100">
+			<tr>
+				<th class="px-4 py-2 text-left  font-semibold">Produktas</th>
+				<th class="px-4 py-2 text-right  font-semibold">Viso</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($order->get_items() as $item_id => $item): ?>
+				<tr class="border-b border-deep-dark-gray">
+					<td class="px-4 py-2 ">
+						<a href="<?php echo esc_url(get_permalink($item->get_product_id())); ?>" class="">
+							<?php echo esc_html($item->get_name()); ?>
+						</a>
+						<strong class="ml-2">× <?php echo esc_html($item->get_quantity()); ?></strong>
+					</td>
+					<td class="px-4 py-2 text-right ">
+						<?php echo wp_kses_post($order->get_formatted_line_subtotal($item)); ?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+		<tfoot class="bg-gray-50">
+			<tr>
+				<th class="px-4 py-2 text-left ">Suma:</th>
+				<td class="px-4 py-2 text-right ">
+					<?php echo wp_kses_post($order->get_formatted_order_total()); ?>
+				</td>
+			</tr>
+			<tr>
+				<th class="px-4 py-2 text-left ">Pristatymas:</th>
+				<td class="px-4 py-2 text-right ">
+					<?php echo esc_html($order->get_shipping_method()); ?>
+				</td>
+			</tr>
+			<tr>
+				<th class="px-4 py-2 text-left ">Mokėjimo būdas:</th>
+				<td class="px-4 py-2 text-right ">
+					<?php echo esc_html($order->get_payment_method_title()); ?>
+				</td>
+			</tr>
+			<tr>
+				<th class="px-4 py-2 text-left ">Viso:</th>
+				<td class="px-4 py-2 text-right  font-bold">
+					<?php echo wp_kses_post($order->get_formatted_order_total()); ?>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
 <?php if ($notes): ?>
-	<h2><?php esc_html_e('Užsakymo atnaujinimai', 'woocommerce'); ?></h2>
-	<ol class="woocommerce-OrderUpdates commentlist notes">
+	<h2 class="mt-6 text-lg font-semibold text-gray-800"><?php esc_html_e('Užsakymo atnaujinimai', 'woocommerce'); ?></h2>
+	<ol class="mt-4 space-y-4">
 		<?php foreach ($notes as $note): ?>
-			<li class="woocommerce-OrderUpdate comment note">
-				<div class="woocommerce-OrderUpdate-inner comment_container">
-					<div class="woocommerce-OrderUpdate-text comment-text">
-						<p class="woocommerce-OrderUpdate-meta meta">
-							<?php echo date_i18n(esc_html__('l jS \o\f F Y, h:ia', 'woocommerce'), strtotime($note->comment_date)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-						</p>
-						<div class="woocommerce-OrderUpdate-description description">
-							<?php echo wpautop(wptexturize($note->comment_content)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-						</div>
-						<div class="clear"></div>
-					</div>
-					<div class="clear"></div>
+			<li class="bg-gray-100 p-4 rounded shadow-sm">
+				<p class="text-sm ">
+					<?php echo date_i18n(esc_html__('l jS \o\f F Y, h:ia', 'woocommerce'), strtotime($note->comment_date)); ?>
+				</p>
+				<div class="mt-2 ">
+					<?php echo wpautop(wptexturize($note->comment_content)); ?>
 				</div>
 			</li>
 		<?php endforeach; ?>
 	</ol>
 <?php endif; ?>
-
-<?php do_action('woocommerce_view_order', $order_id); ?>

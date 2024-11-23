@@ -20,43 +20,63 @@ defined('ABSPATH') || exit;
 do_action('woocommerce_before_reset_password_form');
 ?>
 
-<form method="post" class="woocommerce-ResetPassword lost_reset_password">
+<div class="mb-48 mt-5 md:mb-28 md:mt-2.5">
+	<div class="max-w-[87.5rem] mx-auto w-full">
+		<div class="flex flex-col mx-12 md:mx-4">
 
-	<p><?php echo apply_filters('woocommerce_reset_password_message', esc_html__('Įveskite naują slaptažodį žemiau.', 'woocommerce')); ?>
-	</p><?php // @codingStandardsIgnoreLine ?>
+			<header id="heading-section">
+				<h1 class="w-full heading-md text-deep-dark-gray mb-4">
+					<?php echo wp_kses_post("Naujo slaptažodžio sukūrimas"); ?>
+				</h1>
+			</header>
 
-	<p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-		<label for="password_1"><?php esc_html_e('Naujas slaptažodis', 'woocommerce'); ?>&nbsp;<span class="required"
-				aria-hidden="true">*</span><span
-				class="screen-reader-text"><?php esc_html_e('Privaloma', 'woocommerce'); ?></span></label>
-		<input type="password" class="woocommerce-Input woocommerce-Input--text input-text" name="password_1"
-			id="password_1" autocomplete="new-password" required aria-required="true" />
-	</p>
-	<p class="woocommerce-form-row woocommerce-form-row--last form-row form-row-last">
-		<label for="password_2"><?php esc_html_e('Pakartokite naują slaptažodį', 'woocommerce'); ?>&nbsp;<span
-				class="required" aria-hidden="true">*</span><span
-				class="screen-reader-text"><?php esc_html_e('Privaloma', 'woocommerce'); ?></span></label>
-		<input type="password" class="woocommerce-Input woocommerce-Input--text input-text" name="password_2"
-			id="password_2" autocomplete="new-password" required aria-required="true" />
-	</p>
+			<form method="post" class="woocommerce-ResetPassword lost_reset_password">
 
-	<input type="hidden" name="reset_key" value="<?php echo esc_attr($args['key']); ?>" />
-	<input type="hidden" name="reset_login" value="<?php echo esc_attr($args['login']); ?>" />
+				<p class="text-deep-dark-gray body-normal-regular">
+					<?php echo apply_filters('woocommerce_reset_password_message', esc_html__('Įveskite naują slaptažodį žemiau.', 'woocommerce')); ?>
+				</p>
 
-	<div class="clear"></div>
+				<p
+					class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first max-w-72 md:max-w-full mt-3">
+					<label class="account-form-label" for="password_1">
+						<?php esc_html_e('Naujas slaptažodis', 'woocommerce'); ?>&nbsp;<span class="required"
+							aria-hidden="true">*</span><span
+							class="screen-reader-text"><?php esc_html_e('Privaloma', 'woocommerce'); ?></span>
+					</label>
+					<input type="password" class="woocommerce-Input woocommerce-Input--text input-text form-input"
+						name="password_1" id="password_1" autocomplete="new-password" required aria-required="true" />
+				</p>
 
-	<?php do_action('woocommerce_resetpassword_form'); ?>
+				<p
+					class="woocommerce-form-row woocommerce-form-row--last form-row form-row-last max-w-72 md:max-w-full mt-3">
+					<label class="account-form-label" for="password_2">
+						<?php esc_html_e('Pakartokite naują slaptažodį', 'woocommerce'); ?>&nbsp;<span class="required"
+							aria-hidden="true">*</span><span
+							class="screen-reader-text"><?php esc_html_e('Privaloma', 'woocommerce'); ?></span>
+					</label>
+					<input type="password" class="woocommerce-Input woocommerce-Input--text input-text form-input"
+						name="password_2" id="password_2" autocomplete="new-password" required aria-required="true" />
+				</p>
 
-	<p class="woocommerce-form-row form-row">
-		<input type="hidden" name="wc_reset_password" value="true" />
-		<button type="submit"
-			class="woocommerce-Button button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"
-			value="<?php esc_attr_e('Išsaugoti', 'woocommerce'); ?>"><?php esc_html_e('Išsaugoti', 'woocommerce'); ?></button>
-	</p>
+				<input type="hidden" name="reset_key" value="<?php echo esc_attr($args['key']); ?>" />
+				<input type="hidden" name="reset_login" value="<?php echo esc_attr($args['login']); ?>" />
 
-	<?php wp_nonce_field('reset_password', 'woocommerce-reset-password-nonce'); ?>
+				<div class="clear"></div>
 
-</form>
-<?php
-do_action('woocommerce_after_reset_password_form');
+				<?php do_action('woocommerce_resetpassword_form'); ?>
 
+				<p class="woocommerce-form-row form-row">
+					<input type="hidden" name="wc_reset_password" value="true" />
+					<button type="submit"
+						class="white-button-black-text py-3 px-8 mt-6 woocommerce-Button button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"
+						value="<?php esc_attr_e('Išsaugoti', 'woocommerce'); ?>"><?php esc_html_e('Išsaugoti', 'woocommerce'); ?></button>
+				</p>
+
+				<?php wp_nonce_field('reset_password', 'woocommerce-reset-password-nonce'); ?>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<?php do_action('woocommerce_after_reset_password_form'); ?>

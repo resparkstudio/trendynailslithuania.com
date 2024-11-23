@@ -117,8 +117,8 @@ do_action('woocommerce_before_customer_login_form'); ?>
 								class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide block mb-4 pl-4">
 								<label
 									class="woocommerce-form__label woocommerce-form__label-for-checkbox flex gap-2 items-center">
-									<input class="woocommerce-form__input woocommerce-form__input-checkbox" type="checkbox"
-										name="privacy_policy" id="privacy_policy" required>
+									<input class="input-checkbox woocommerce-form__input woocommerce-form__input-checkbox"
+										type="checkbox" name="privacy_policy" id="privacy_policy" required>
 									<span
 										class="block body-extra-small-light text-deep-dark-gray"><?php esc_html_e('Sutinku su', 'woocommerce'); ?>
 										<a class="underline" href="<?php echo esc_url(get_permalink(12)); ?>"
