@@ -133,9 +133,9 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 					<?php echo wp_kses_post($subscribe_description); ?>
 				</div>
 			<?php endif; ?>
-			<form action="#" method="POST" class="mt-4 mb-9 md:mb-5 w-full">
+			<div class="mt-4 mb-9 md:mb-5 w-full">
 				<div id="omnisend-embedded-v2-67431b88dcdc64b34f2f4612"></div>
-			</form>
+			</div>
 
 
 
