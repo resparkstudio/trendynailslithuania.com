@@ -1104,14 +1104,13 @@ function remove_cart_item_handler()
 		wc_get_template('checkout/cart-summary-details.php');
 		$cart_summary = ob_get_clean();
 
-		$redirect = WC()->cart->is_empty();
 
 		wp_send_json_success([
 			'cart_count' => WC()->cart->get_cart_contents_count(),
 			'mini_cart' => $mini_cart,
 			'product_list' => $product_list,
 			'cart_summary' => $cart_summary,
-			'redirect' => $redirect, // If the cart is empty
+			'redirect' => $redirect,
 		]);
 	} else {
 		// Debugging: Log if the item could not be removed
@@ -1121,6 +1120,7 @@ function remove_cart_item_handler()
 
 	wp_die();
 }
+
 
 
 add_action('template_redirect', 'redirect_empty_cart_checkout');

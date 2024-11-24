@@ -42,7 +42,7 @@ Template Name: Header
 							$menu_id = $locations['header-menu'];
 							$menu_items = wp_get_nav_menu_items($menu_id);
 
-							echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative gap-11">';
+							echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative gap-8">';
 
 							foreach ($menu_items as $index => &$item) {
 								// Get the current URL for comparison

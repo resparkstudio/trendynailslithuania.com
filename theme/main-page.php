@@ -28,7 +28,7 @@ $shop_url = esc_url(get_permalink(wc_get_page_id('shop')));
 
 get_header();
 ?>
-<section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
+<section id="primary" class="mb-48 md:mb-28">
     <?php if ($hero_image || $hero_image_mobile || $hero_heading || $hero_description): ?>
         <div class="px-12 md:px-4 w-full">
             <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">

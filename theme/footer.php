@@ -35,13 +35,15 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 			<ul class="mt-4 space-y-2.5 mb-7">
 				<?php if ($phone_number): ?>
 					<li>
-						<a href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo wp_kses_post($phone_number); ?></a>
+						<a class="link-hover"
+							href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo wp_kses_post($phone_number); ?></a>
 					</li>
 				<?php endif; ?>
 
 				<?php if ($email): ?>
 					<li>
-						<a href="mailto:<?php echo esc_attr($email); ?>"><?php echo wp_kses_post($email); ?></a>
+						<a class="link-hover"
+							href="mailto:<?php echo esc_attr($email); ?>"><?php echo wp_kses_post($email); ?></a>
 					</li>
 				<?php endif; ?>
 			</ul>

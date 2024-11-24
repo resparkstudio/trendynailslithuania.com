@@ -81,7 +81,7 @@ if (!function_exists('WC')) {
                                 <span><?php echo wp_kses_post("-"); ?></span>
                             </button>
                             <input type="number" id="quantity_<?php echo esc_attr($cart_item_key); ?>"
-                                class="quantity-input ajax-cart-quantity w-[2.5rem] text-center focus:outline-none body-normal-semibold text-[1.3rem] text-deep-dark-gray"
+                                class="quantity-input ajax-cart-quantity w-[2.5rem] text-center focus:outline-none body-normal-semibold text-[1rem] text-deep-dark-gray"
                                 name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]"
                                 value="<?php echo esc_attr($cart_item['quantity']); ?>" size="4" min="1" step="1"
                                 data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>" inputmode="numeric"
