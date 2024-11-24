@@ -134,7 +134,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 				</div>
 			<?php endif; ?>
 			<div class="mt-4 mb-9 md:mb-5 w-full">
-				<div id="omnisend-embedded-v2-67431b88dcdc64b34f2f4612"></div>
+				<div id="omnisend-embedded-v2-67433cccdcdc64b34f2f4633"></div>
 			</div>
 
 
