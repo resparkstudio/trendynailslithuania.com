@@ -27,31 +27,34 @@ $bottom_image_description = get_field('bottom_image_description');
 
 ?>
 <section id="primary" class="mb-36 md:mb-28">
+    <div class="px-12 md:px-4 w-full">
+        <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
+            <div id="hero-section" class="mx-4 relative round-15 mb-20 md:mb-16 md:mx-0">
+                <?php if ($hero_image && $hero_image_mobile): ?>
+                    <img class="block md:hidden w-full h-auto object-cover round-10 round-15"
+                        src="<?php echo esc_url($hero_image); ?>" alt="Hero Image" />
+                    <img class="hidden md:block w-full h-auto object-cover round-10 round-15"
+                        src="<?php echo esc_url($hero_image_mobile); ?>" alt="Mobile Hero Image" />
+                <?php elseif ($hero_image): ?>
+                    <img class="w-full h-auto object-cover round-10 round-15" src="<?php echo esc_url($hero_image); ?>"
+                        alt="Hero Image" />
+                <?php endif; ?>
+
+                <?php if ($hero_text): ?>
+                    <div class="absolute inset-0 bg-deep-dark-gray/[0.24] pointer-events-none rounded-md">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white text-center">
+                            <?php echo wp_kses_post($hero_text); ?>
+                        </h2>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    </div>
     <main id="main" class="max-w-[87.5rem] mx-auto w-full">
         <div id="page-content" class="flex flex-col gap-20 md:gap-16">
-            <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
-                <div id="hero-section" class="mx-4 relative round-15">
-                    <?php if ($hero_image && $hero_image_mobile): ?>
-                        <img class="block md:hidden w-full h-auto object-cover round-10 round-15"
-                            src="<?php echo esc_url($hero_image); ?>" alt="Hero Image" />
-                        <img class="hidden md:block w-full h-auto object-cover round-10 round-15"
-                            src="<?php echo esc_url($hero_image_mobile); ?>" alt="Mobile Hero Image" />
-                    <?php elseif ($hero_image): ?>
-                        <img class="w-full h-auto object-cover round-10 round-15" src="<?php echo esc_url($hero_image); ?>"
-                            alt="Hero Image" />
-                    <?php endif; ?>
 
-                    <?php if ($hero_text): ?>
-                        <div class="absolute inset-0 bg-deep-dark-gray/[0.24] pointer-events-none rounded-md">
-                        </div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white text-center">
-                                <?php echo wp_kses_post($hero_text); ?>
-                            </h2>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
 
             <?php if ($description_1): ?>
                 <div id="description-section-1" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">

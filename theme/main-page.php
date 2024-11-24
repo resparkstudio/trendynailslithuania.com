@@ -29,52 +29,54 @@ $shop_url = esc_url(get_permalink(wc_get_page_id('shop')));
 get_header();
 ?>
 <section id="primary" class="mb-48 mt-5 md:mb-28 md:mt-2.5">
-    <main id="main" class="max-w-[87.5rem] mx-auto w-full">
-        <div id="page-content" class="flex flex-col mx-12 md:mx-4">
-            <?php if ($hero_image || $hero_image_mobile || $hero_heading || $hero_description): ?>
-                <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
-                    <?php if ($hero_image && $hero_image_mobile): ?>
-                        <img class="w-full h-auto round-15 block md:hidden aspect-[1401/581]"
-                            src="<?php echo esc_url($hero_image); ?>" alt="Desktop Hero Banner" />
-                        <img class="w-full h-auto round-15 hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
-                            alt="Mobile Hero Banner" />
-                    <?php elseif ($hero_image): ?>
-                        <img class="w-full h-auto object-cover round-15" src="<?php echo esc_url($hero_image); ?>"
-                            alt="Desktop Hero Banner" />
-                    <?php endif; ?>
+    <?php if ($hero_image || $hero_image_mobile || $hero_heading || $hero_description): ?>
+        <div class="px-12 md:px-4 w-full">
+            <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
+                <?php if ($hero_image && $hero_image_mobile): ?>
+                    <img class="w-full h-auto round-15 block md:hidden aspect-[1401/581]"
+                        src="<?php echo esc_url($hero_image); ?>" alt="Desktop Hero Banner" />
+                    <img class="w-full h-auto round-15 hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
+                        alt="Mobile Hero Banner" />
+                <?php elseif ($hero_image): ?>
+                    <img class="w-full h-auto object-cover round-15" src="<?php echo esc_url($hero_image); ?>"
+                        alt="Desktop Hero Banner" />
+                <?php endif; ?>
 
-                    <div class="absolute inset-0 flex items-end justify-start">
+                <div class="absolute inset-0 flex items-end justify-start px-12 md:px-4 ">
 
-                        <div
-                            class="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-t from-deep-dark-gray/100 via-deep-dark-gray/50 to-transparent/0 opacity-20 pointer-events-none round-15">
-                        </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-t from-deep-dark-gray/100 via-deep-dark-gray/50 to-transparent/0 opacity-20 pointer-events-none round-15">
+                    </div>
 
-                        <div class="relative z-10 pl-9 pb-16 w-full md:mb-10 md:px-5">
+                    <div class="relative z-10 pl-9 pb-16 w-full md:mb-10 md:px-5">
 
-                            <div class="text-left">
-                                <?php if ($hero_heading): ?>
-                                    <h1
-                                        class="text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
-                                        <?php echo wp_kses_post($hero_heading); ?>
-                                    </h1>
-                                <?php endif; ?>
+                        <div class="text-left">
+                            <?php if ($hero_heading): ?>
+                                <h1
+                                    class="text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
+                                    <?php echo wp_kses_post($hero_heading); ?>
+                                </h1>
+                            <?php endif; ?>
 
-                                <?php if ($hero_description): ?>
-                                    <div class="text-white mb-7 md:mb-6">
-                                        <?php echo wp_kses_post($hero_description); ?>
-                                    </div>
-                                <?php endif; ?>
+                            <?php if ($hero_description): ?>
+                                <div class="text-white mb-7 md:mb-6">
+                                    <?php echo wp_kses_post($hero_description); ?>
+                                </div>
+                            <?php endif; ?>
 
-                                <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>"
-                                    class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
-                                    <?php echo wp_kses_post("Skaityti daugiau"); ?>
-                                </a>
-                            </div>
+                            <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>"
+                                class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
+                                <?php echo wp_kses_post("Skaityti daugiau"); ?>
+                            </a>
                         </div>
                     </div>
                 </div>
-            <?php endif; ?>
+            </div>
+        </div>
 
+    <?php endif; ?>
+    <main id="main" class="max-w-[87.5rem] mx-auto w-full">
+        <div id="page-content" class="flex flex-col mx-12 md:mx-4">
             <!-- Sale products section -->
             <?php
             $args = array(
