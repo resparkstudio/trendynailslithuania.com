@@ -255,7 +255,7 @@ body.admin-bar #cart-sidebar {
 	width: 100%;
 	transform: scaleX(0);
 	border-radius: 5px;
-	height: 0.05em;
+	height: 1px;
 	bottom: 0;
 	left: 0;
 	background: currentcolor;
