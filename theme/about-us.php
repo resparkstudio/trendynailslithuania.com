@@ -29,7 +29,7 @@ $bottom_image_description = get_field('bottom_image_description');
 <section id="primary" class="mb-36 md:mb-28">
     <div class="px-12 md:px-4 w-full">
         <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
-            <div id="hero-section" class="mx-4 relative round-15 mb-20 md:mb-16 md:mx-0">
+            <div id="hero-section" class="relative round-15 mb-20 md:mb-16 md:mx-0">
                 <?php if ($hero_image && $hero_image_mobile): ?>
                     <img class="block md:hidden w-full h-auto object-cover round-10 round-15"
                         src="<?php echo esc_url($hero_image); ?>" alt="Hero Image" />
@@ -57,13 +57,14 @@ $bottom_image_description = get_field('bottom_image_description');
 
 
             <?php if ($description_1): ?>
-                <div id="description-section-1" class="mx-4 grid grid-cols-12 grid-rows-1 gap-4">
+                <div id="description-section-1" class="mx-12 md:mx-4 grid grid-cols-12 grid-rows-1 gap-4">
                     <div class="col-start-7 col-end-12 md:col-start-1"><?php echo wp_kses_post($description_1); ?></div>
                 </div>
             <?php endif; ?>
 
             <?php if ($product_category_image_1 || $product_category_image_2 || $product_category_image_3): ?>
-                <div id="category-section" class="mx-4 grid grid-cols-12 grid-rows-1 md:grid-cols-1 md:grid-rows-3 gap-4">
+                <div id="category-section"
+                    class="mx-12 md:mx-4 grid grid-cols-12 grid-rows-1 md:grid-cols-1 md:grid-rows-3 gap-4">
                     <img class="col-span-4 round-10 md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
                         src="<?php echo esc_url($product_category_image_1); ?>" />
                     <img class="col-span-4 round-10 md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
@@ -74,7 +75,7 @@ $bottom_image_description = get_field('bottom_image_description');
             <?php endif; ?>
 
             <?php if ($product_category_description): ?>
-                <div id="category-description-section" class="mx-4">
+                <div id="category-description-section" class="mx-12 md:mx-4">
                     <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-black text-center">
                         <?php echo esc_textarea($product_category_description); ?>
                     </h2>
@@ -82,7 +83,8 @@ $bottom_image_description = get_field('bottom_image_description');
             <?php endif; ?>
 
             <?php if ($bottom_image || $bottom_image_description): ?>
-                <div id="description-section-2" class="mx-4 grid grid-cols-12 gap-4 grid-rows-1 md:grid-cols-1 md:gap-y-12">
+                <div id="description-section-2"
+                    class="mx-12 md:mx-4 grid grid-cols-12 gap-4 grid-rows-1 md:grid-cols-1 md:gap-y-12">
                     <img class="col-span-6 round-10 md:col-span-12 md:row-span-1"
                         src="<?php echo esc_url($bottom_image); ?>" />
                     <div class="col-span-6 flex justify-center items-center ml-10 md:ml-0 md:col-span-12 md:row-span-1">

@@ -117,7 +117,19 @@ body {
 }
 
 /* ---------------------------------- Swiper */
-/* Product swiper */
+/* Swiper */
+#page .sale-nav-button-next,
+#page .sale-nav-button-prev,
+#page .new-products-nav-button-next,
+#page .new-products-nav-button-prev,
+#page .popular-products-nav-button-next,
+#page .popular-products-nav-button-prev,
+#page .related-products-nav-button-next,
+#page .related-products-nav-button-prev,
+#page .new-products-section-nav-button-next,
+#page .new-products-section-nav-button-prev {
+	@apply top-[40%];
+}
 .product-nav-button-next,
 .product-nav-button-prev {
 	@apply absolute top-1/2 transform -translate-y-1/2 w-[2.4375rem] h-[2.4375rem] flex items-center justify-center bg-white rounded-full;
