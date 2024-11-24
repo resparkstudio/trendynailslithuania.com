@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const openButton = document.querySelector('.newsletter-button-outer');
 	const closeButton = document.querySelector('.newsletter-close-button');
 	const overlay = document.querySelector('#newsletter-mobile-overlay');
-
+	let opened_flag = false;
 	function isSmallScreen() {
 		return window.innerWidth <= 639;
 	}
@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function closeNewsletterPopup() {
+		opened_flag = false;
 		aside.classList.remove('right-0');
 		aside.style.right = '0rem';
 
@@ -85,7 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	openButton.addEventListener('click', function (event) {
 		event.stopPropagation();
-		openNewsletterPopup();
+		if (opened_flag === false) {
+			openNewsletterPopup();
+			opened_flag = true;
+		}
 	});
 
 	closeButton.addEventListener('click', function (event) {

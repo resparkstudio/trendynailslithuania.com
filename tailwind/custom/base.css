@@ -610,3 +610,19 @@ footer {
 .custom-my-account #billing_company_field {
 	@apply hidden;
 }
+
+/* 
+<svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 6.5L0.994745 -4.34817e-08L-5.27902e-07 0.923L2.40981 3.146L6.02452 6.5L2.40981 9.854L0.0140103 12.077L1.00876 13L8 6.5Z" fill="black"/>
+</svg>
+
+*/
+
+/* 
+this should be displayed above #omnisend-form-67431b88dcdc64b34f2f4612-field-container-674319c0d0ce60f076f4d5ee-emailField-input
+<div aria-live="polite">
+</div>
+
+
+
+*/

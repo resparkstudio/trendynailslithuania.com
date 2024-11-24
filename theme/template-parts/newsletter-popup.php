@@ -33,12 +33,9 @@
                     <?php echo wp_kses_post('Prenumeruokite mūsų naujienlaiškį! Ir pirmieji sužinokite visas naujienas bei specialius pasiūlymus.'); ?>
                 </p>
 
-                <form class="mt-7 sm:mb-6 sm:mt-5">
+                <div class="mt-7 sm:mb-6 sm:mt-5">
                     <div class="mb-4">
-                        <label for="email" class="sr-only"><?php echo wp_kses_post('El. paštas'); ?></label>
-                        <input type="email" id="email" name="email"
-                            placeholder="<?php echo wp_kses_post('El. paštas'); ?>" class="w-full py-2">
-                        <button type="submit"></button>
+                        <div id="omnisend-embedded-v2-67431b88dcdc64b34f2f4612"></div>
                     </div>
 
                     <div class="mb-7 sm:mb-6 flex">
@@ -50,7 +47,7 @@
                             <?php echo wp_kses_post('Susipažinau ir sutinku su Privatumo politika bei privatumo politika'); ?>
                         </label>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
