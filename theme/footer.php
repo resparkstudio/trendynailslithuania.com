@@ -134,9 +134,11 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 				</div>
 			<?php endif; ?>
 			<form action="#" method="POST" class="mt-4 mb-9 md:mb-5 w-full">
-				<input type="email" name="email" placeholder="El. paštas"
-					class="w-full pl-3 py-4 bg-gray-700 text-white rounded-lg">
+				<div id="omnisend-embedded-v2-67431b88dcdc64b34f2f4612"></div>
 			</form>
+
+
+
 			<!-- Payment icons -->
 			<div
 				class="grid grid-cols-6 gap-1 mt-4 auto-rows-auto xl:grid-cols-5 lg:grid-cols-4 max-850px:grid-cols-3 max-w-72 md:grid-cols-6">
