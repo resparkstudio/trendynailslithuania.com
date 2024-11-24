@@ -193,7 +193,10 @@ Template Name: Header
 					</div>
 				</a>
 			</div>
+			<div id="newsletter-mobile-overlay" class="w-full h-full fixed bg-black/[0.27] z-[32] hidden">
+			</div>
 			<?php get_template_part('template-parts/newsletter-popup'); ?>
+
 			<?php get_template_part('template-parts/contact-form-modal'); ?>
 
 			<?php get_template_part('template-parts/notification-banner'); ?>
