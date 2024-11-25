@@ -29,7 +29,7 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 		<div id="page" class="relative">
 			<a href="#content" class="sr-only"><?php wp_kses_post('Skip to content'); ?></a>
 
-			<header class="fixed w-full site-header z-40 md:z-30">
+			<header class="fixed w-full site-header z-40 md:z-32">
 				<div
 					class="w-full relative flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 z-40 bg-white md:z-30">
 

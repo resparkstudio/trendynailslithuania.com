@@ -33,9 +33,9 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
         </header>
 
 
-        <div class="border-b-[0.5px] border-dark-gray mb-12 md:mb-6 overflow-x-auto">
+        <div class="border-b-[0.5px] border-dark-gray mb-12 md:mb-6 md:overflow-x-auto no-scrollbar">
             <div
-                class="shop-archive-nav-menu flex gap-8 md:gap-6 body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5">
+                class="shop-archive-nav-menu flex flex-wrap md:flex-nowrap gap-x-8 gap-y-5 md:gap-x-6 body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5">
                 <a href="<?php echo $shop_url; ?>"
                     class="filter-button link-hover hover:text-deep-dark-gray whitespace-nowrap <?php echo $all_active; ?>">
                     <?php echo wp_kses_post("Rodyti viską") ?>
@@ -102,7 +102,7 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
                     $padding_left = 2 + ($depth * 2);
                     $padding_class = 'pl-' . $padding_left;
 
-                    echo '<div class="shop-archive-nav-menu flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5 ' . esc_attr($padding_class) . '">';
+                    echo '<div class="shop-archive-nav-menu flex flex-wrap md:flex-nowrap gap-x-8 gap-y-5 md:gap-x-6 body-small-regular  body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5 ' . esc_attr($padding_class) . '">';
 
                     foreach ($subcategories as $subcategory) {
                         $subcategory_url = esc_url(get_term_link($subcategory));

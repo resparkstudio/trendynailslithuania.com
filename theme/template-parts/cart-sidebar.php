@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<aside id="cart-sidebar" class="fixed hidden right-0 w-96 sm:w-full  h-svh bg-white transform pt-5 z-50 sm:z-20">
+<aside id="cart-sidebar" class="fixed hidden right-0 w-96 sm:w-full  h-svh bg-white transform pt-5 z-50 sm:z-[31]">
     <div class="sidebar-wrapper relative h-full">
         <div class="flex justify-between px-5 sm:px-4 relative text-deep-dark-gray ">
 

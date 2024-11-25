@@ -659,3 +659,11 @@ footer {
 .related-post-item:hover .daugiau-button-svg {
 	@apply translate-x-1;
 }
+
+.cf-form-col-1 {
+	@apply col-span-1 md:col-span-2;
+}
+
+.cf-form-col-2 {
+	@apply col-span-2;
+}
