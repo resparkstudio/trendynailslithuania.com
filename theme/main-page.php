@@ -42,7 +42,7 @@ get_header();
                         alt="Desktop Hero Banner" />
                 <?php endif; ?>
 
-                <div class="absolute inset-0 flex items-end justify-start px-12 md:px-4 ">
+                <div class="absolute inset-0 flex items-end justify-starts">
 
                     <div
                         class="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-t from-deep-dark-gray/100 via-deep-dark-gray/50 to-transparent/0 opacity-20 pointer-events-none round-15">

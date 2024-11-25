@@ -37,10 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	);
 	const sidebar = document.getElementById('shop-sidebar');
 
+	// GSAP Timeline
 	const timeline = gsap.timeline({ paused: true });
 
+	// Initial State
 	sidebarOpenedShopLink.style.display = 'none';
 
+	// Define Timeline Animations
 	timeline
 		.set(sidebar, { x: '-100%', display: 'none' })
 		.set(sidebarOpenedShopLink, {
@@ -177,10 +180,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	function closeSidebar() {
-		animateLinkClose(sidebarOpenedShopLink);
 		sidebarOpenedShopLinkSpan.classList.remove('link-hover');
-
 		timeline.reverse();
+		animateLinkClose(sidebarOpenedShopLink);
 		timeline.eventCallback('onReverseComplete', () => {
 			sidebarOpenedShopLink.style.display = 'none';
 
