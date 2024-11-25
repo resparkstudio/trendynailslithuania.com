@@ -97,9 +97,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	);
 
 	const instagramGallerySwiper = new Swiper('.instagram-gallery-swiper', {
-		modules: [Pagination],
+		modules: [Navigation],
 		spaceBetween: 16,
+		loop: true,
 		slidesPerView: 3.5,
+		navigation: {
+			prevEl: '.instagram-gallery-button-prev',
+		},
 		breakpoints: {
 			1279: { slidesPerView: 3.5 },
 			1023: { slidesPerView: 3.5 },

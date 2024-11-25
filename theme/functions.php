@@ -671,6 +671,38 @@ function fetch_products_callback()
 	exit;
 }
 
+add_action('user_register', 'save_guest_wishlist_on_registration');
+
+function save_guest_wishlist_on_registration($user_id)
+{
+	if (!isset($_SESSION)) {
+		session_start();
+	}
+
+	// Get guest wishlist from session or cookies
+	$guest_wishlist = $_SESSION['guest_wishlist'] ?? [];
+
+	// If using cookies
+	if (isset($_COOKIE['guest_wishlist'])) {
+		$guest_wishlist = json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: [];
+	}
+
+	// Ensure the wishlist contains valid product IDs
+	$guest_wishlist = array_unique(array_filter($guest_wishlist, 'is_numeric'));
+
+	if (!empty($guest_wishlist)) {
+		// Fetch the user's existing wishlist
+		$user_wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
+
+		// Merge and save the wishlist
+		$merged_wishlist = array_unique(array_merge($user_wishlist, $guest_wishlist));
+		update_user_meta($user_id, '_custom_user_wishlist', $merged_wishlist);
+
+		// Clear guest wishlist from session and cookies
+		unset($_SESSION['guest_wishlist']);
+		setcookie('guest_wishlist', '', time() - 3600, '/'); // Expire the cookie
+	}
+}
 
 // Custom function to add product to wishlist
 function custom_add_to_wishlist()
@@ -690,47 +722,62 @@ function custom_add_to_wishlist()
 		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
 
 		if (in_array($product_id, $wishlist)) {
-			wp_send_json_error(['message' => sprintf(__('%s jau yra norų sąraše', '_tw'), $product_name)]);
-			wp_die();
+			// Remove the product if it's already in the wishlist
+			$wishlist = array_diff($wishlist, [$product_id]);
+			update_user_meta($user_id, '_custom_user_wishlist', $wishlist);
+			wp_send_json_success(['message' => sprintf(__('%s sėkmingai pašalintas iš norų sąrašo.', '_tw'), $product_name)]);
+		} else {
+			// Add the product if it's not in the wishlist
+			$wishlist[] = $product_id;
+			update_user_meta($user_id, '_custom_user_wishlist', $wishlist);
+			wp_send_json_success(['message' => sprintf(__('%s sėkmingai pridėtas į norų sąrašą.', '_tw'), $product_name)]);
 		}
-
-		$wishlist[] = $product_id;
-		update_user_meta($user_id, '_custom_user_wishlist', $wishlist);
 	} else {
 		if (!isset($_SESSION)) {
 			session_start();
 		}
 
-		$wishlist = isset($_SESSION['guest_wishlist']) ? $_SESSION['guest_wishlist'] : [];
+		$wishlist = $_SESSION['guest_wishlist'] ?? [];
 
 		if (in_array($product_id, $wishlist)) {
-			wp_send_json_error(['message' => sprintf(__('%s jau yra norų sąraše', '_tw'), $product_name)]);
-			wp_die();
+			// Remove the product if it's already in the wishlist
+			$wishlist = array_diff($wishlist, [$product_id]);
+			$_SESSION['guest_wishlist'] = $wishlist;
+			wp_send_json_success(['message' => sprintf(__('%s sėkmingai pašalintas iš norų sąrašo.', '_tw'), $product_name)]);
+		} else {
+			// Add the product if it's not in the wishlist
+			$wishlist[] = $product_id;
+			$_SESSION['guest_wishlist'] = $wishlist;
+			wp_send_json_success(['message' => sprintf(__('%s sėkmingai pridėtas į norų sąrašą.', '_tw'), $product_name)]);
 		}
-
-		$wishlist[] = $product_id;
-		$_SESSION['guest_wishlist'] = $wishlist;
 	}
 
-	wp_send_json_success(['message' => sprintf(__('%s sėkmingai pridėtas į norų sarašą.', '_tw'), $product_name)]);
 	wp_die();
 }
 
-
 add_action('wp_ajax_custom_add_to_wishlist', 'custom_add_to_wishlist');
 add_action('wp_ajax_nopriv_custom_add_to_wishlist', 'custom_add_to_wishlist');
+
 
 // Helper function to get current user's wishlist
 function custom_get_wishlist()
 {
 	if (is_user_logged_in()) {
+		// Fetch wishlist for logged-in user
 		$user_id = get_current_user_id();
-		return get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
+		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
 	} elseif (isset($_SESSION['guest_wishlist'])) {
-		return $_SESSION['guest_wishlist'];
+		// Fetch wishlist from session for guest users
+		$wishlist = $_SESSION['guest_wishlist'] ?? [];
+	} else {
+		$wishlist = [];
 	}
-	return [];
+
+	// Return only unique and valid product IDs
+	return array_unique(array_filter($wishlist, 'is_numeric'));
 }
+
+
 
 function custom_remove_from_wishlist()
 {

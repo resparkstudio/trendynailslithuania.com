@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Function to add a product to the wishlist
-	function addToWishlist(productId, productName) {
+	// Function to toggle a product in the wishlist
+	function toggleWishlist(productId, productName, button) {
 		jQuery.ajax({
 			url: ajax_wishlist_params.ajax_url,
 			type: 'POST',
@@ -34,30 +34,40 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 			success: function (response) {
 				if (response.success) {
-					createNotification(
-						`${productName} sėkmingai pridėtas į norų sarašą.`,
-						true
+					const iconPath = button.querySelector('svg path');
+					const isAdding = response.data.message.includes('pridėtas');
+
+					// Toggle UI state
+					button.classList.toggle('active', isAdding);
+					iconPath.setAttribute(
+						'fill',
+						isAdding ? 'currentColor' : 'none'
 					);
-					updateWishlistCount(); // Update wishlist count on success
+
+					// Show notification
+					createNotification(response.data.message, true);
+
+					// Update wishlist count
+					updateWishlistCount();
 				} else {
 					createNotification(
 						response.data.message ||
-							'Nepavyko pridėti į norų sąrašą.',
+							'Nepavyko atnaujinti norų sąrašo.',
 						false
 					);
 				}
 			},
 			error: function () {
 				createNotification(
-					'Įvyko klaida bandant pridėti į norų sarašą.',
+					'Įvyko klaida bandant atnaujinti norų sąrašą.',
 					false
 				);
 			},
 		});
 	}
 
-	// Function to remove a product from the wishlist
-	function removeFromWishlist(productId, productName) {
+	// Function to remove a product explicitly from the wishlist
+	function removeFromWishlist(productId, productName, card) {
 		jQuery.ajax({
 			url: ajax_wishlist_params.ajax_url,
 			type: 'POST',
@@ -67,14 +77,25 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 			success: function (response) {
 				if (response.success) {
+					// Show notification
 					createNotification(
 						`${productName} sėkmingai pašalintas iš norų sąrašo.`,
 						true
 					);
-					jQuery('.wishlist-items').load(
-						location.href + ' .wishlist-items > *'
-					); // Refresh wishlist
-					updateWishlistCount(); // Update wishlist count on removal
+
+					// Remove the product card from the wishlist page
+					if (card) {
+						gsap.to(card, {
+							opacity: 0,
+							duration: 0.5,
+							onComplete: function () {
+								card.remove();
+							},
+						});
+					}
+
+					// Update wishlist count
+					updateWishlistCount();
 				} else {
 					createNotification(
 						response.data.message ||
@@ -92,24 +113,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
+	// Attach click event to wishlist buttons
 	jQuery(document).on('click', '.add-to-wishlist-btn', function (event) {
 		event.preventDefault();
-		const productId = jQuery(this).data('product_id');
-		const productName = jQuery(this).data('product_name');
-		addToWishlist(productId, productName);
+		const button = this;
+		const productId = jQuery(button).data('product_id');
+		const productName = jQuery(button).data('product_name');
+		toggleWishlist(productId, productName, button);
 	});
 
-	jQuery('.wishlist-items').on(
-		'click',
-		'.remove-from-wishlist-btn',
-		function (event) {
-			event.preventDefault();
-			const button = jQuery(this);
-			const productId = button.data('product_id');
-			const productName = button.data('product_name');
-			removeFromWishlist(productId, productName);
-		}
-	);
+	// Attach click event to remove-from-wishlist buttons on the wishlist page
+	jQuery(document).on('click', '.remove-from-wishlist-btn', function (event) {
+		event.preventDefault();
+		const button = this;
+		const productId = jQuery(button).data('product_id');
+		const productName = jQuery(button).data('product_name');
+		const productCard = button.closest('.product-card'); // Find the parent card
+		removeFromWishlist(productId, productName, productCard);
+	});
 
 	// Initial load of the wishlist count
 	updateWishlistCount();
