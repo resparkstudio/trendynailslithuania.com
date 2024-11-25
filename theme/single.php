@@ -37,7 +37,7 @@ get_header();
 				<!-- Content -->
 				<?php if (get_the_content()): ?>
 					<div class="single-post-content text-deep-dark-gray mb-28 md:md-16 flex justify-center">
-						<div class="max-w-[43.125rem]">
+						<div class="max-w-[43.125rem] w-full">
 							<?php the_content(); ?>
 						</div>
 					</div>

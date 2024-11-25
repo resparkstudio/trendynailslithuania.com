@@ -1442,3 +1442,14 @@ function update_shipping_method_on_refresh($posted_data)
 		WC()->cart->calculate_totals();
 	}
 }
+
+
+function add_custom_list_classes($content)
+{
+	$content = str_replace('<ul>', '<ul class="numbered-list">', $content);
+
+	$content = str_replace('<ol>', '<ol class="point-list">', $content);
+
+	return $content;
+}
+add_filter('the_content', 'add_custom_list_classes');
