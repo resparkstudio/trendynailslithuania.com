@@ -159,6 +159,12 @@ function _tw_scripts()
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
 
+	wp_localize_script('wc-checkout', 'wc_checkout_params', array(
+		'ajax_url' => WC_AJAX::get_endpoint("%%endpoint%%"),
+		'update_order_review_nonce' => wp_create_nonce('update-shipping-method'), // Update the nonce
+	));
+
+
 	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
 		'ajax_url' => admin_url('admin-ajax.php')
 	));
@@ -994,7 +1000,7 @@ function custom_ajax_remove_from_cart()
 			'cart_count' => WC()->cart->get_cart_contents_count(),
 		]);
 	} else {
-		wp_send_json_error(['message' => __('Failed to remove item from cart.', 'woocommerce')]);
+		wp_send_json_error(['message' => __('Nepavyko pašaltini iš krepšelio.', 'woocommerce')]);
 	}
 
 	wp_die();
@@ -1090,7 +1096,6 @@ function remove_cart_item_handler()
 		WC()->cart->calculate_totals();
 		WC()->session->set('cart', WC()->cart->get_cart());
 
-		error_log('Cart contents after removal: ' . print_r(WC()->cart->get_cart(), true));
 
 		ob_start();
 		woocommerce_mini_cart();
@@ -1110,12 +1115,11 @@ function remove_cart_item_handler()
 			'mini_cart' => $mini_cart,
 			'product_list' => $product_list,
 			'cart_summary' => $cart_summary,
-			'redirect' => $redirect,
 		]);
 	} else {
 		// Debugging: Log if the item could not be removed
 		error_log('Failed to remove cart item: ' . $cart_item_key);
-		wp_send_json_error(['message' => __('Failed to remove item from cart.', 'woocommerce')]);
+		wp_send_json_error(['message' => __('Nepavyko pašalinti prekės iš krepšelio.', 'woocommerce')]);
 	}
 
 	wp_die();
@@ -1344,3 +1348,50 @@ add_action('woocommerce_account_content', function () {
 		wc_print_notice(__('Administratoriaus paskyra negali būti ištrinta.', 'woocommerce'), 'error');
 	}
 });
+
+
+add_action('wp_ajax_update_shipping_method', 'update_shipping_method_handler');
+add_action('wp_ajax_nopriv_update_shipping_method', 'update_shipping_method_handler');
+
+function update_shipping_method_handler()
+{
+
+	if (!isset($_POST['shipping_method'])) {
+		error_log('Missing shipping_method');
+		wp_send_json_error(['message' => 'Invalid request.']);
+		wp_die();
+	}
+
+	$shipping_method = sanitize_text_field($_POST['shipping_method']);
+
+	$chosen_shipping_methods = WC()->session->get('chosen_shipping_methods', []);
+	$chosen_shipping_methods[0] = $shipping_method;
+
+	WC()->session->set('chosen_shipping_methods', $chosen_shipping_methods);
+	WC()->cart->calculate_totals();
+
+	ob_start();
+	wc_get_template('checkout/cart-summary-details.php');
+	$cart_summary = ob_get_clean();
+
+	wp_send_json_success([
+		'cart_summary' => $cart_summary,
+	]);
+
+	wp_die();
+}
+add_action('woocommerce_checkout_update_order_review', 'update_shipping_method_on_refresh');
+
+function update_shipping_method_on_refresh($posted_data)
+{
+	parse_str($posted_data, $parsed_data);
+
+	if (isset($parsed_data['shipping_method']) && is_array($parsed_data['shipping_method'])) {
+		$shipping_method = sanitize_text_field($parsed_data['shipping_method'][0]);
+		$chosen_shipping_methods = WC()->session->get('chosen_shipping_methods', []);
+		$chosen_shipping_methods[0] = $shipping_method;
+
+		WC()->session->set('chosen_shipping_methods', $chosen_shipping_methods);
+		WC()->cart->calculate_totals();
+	}
+}

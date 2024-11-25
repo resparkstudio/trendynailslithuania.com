@@ -15,27 +15,16 @@ $applied_code = WC()->session->get('applied_discount_code');
         </span>
     </p>
 
-    <p class="flex justify-between mb-4">
-        <span class="body-small-regular">
-            <?php echo wp_kses_post(__('Pristatymas:')); ?>
-        </span>
-        <span id="ajax-shipping-total" class="body-normal-semibold">
-            <?php echo wp_kses_post(WC()->cart->get_shipping_total()); ?>
-        </span>
-    </p>
-    <!-- TO-DO add pvm name whcih is defined in settings. Dont display if no pvm exists -->
-    <!-- 
+    <?php if (WC()->cart->get_shipping_total() > 0): ?>
         <p class="flex justify-between mb-4">
             <span class="body-small-regular">
-                <?php
-                // echo wp_kses_post(__('PVM (21%):'));
-                ?>
+                <?php echo wp_kses_post(__('Pristatymas:')); ?>
             </span>
-            <span class="body-normal-semibold"
-                id="ajax-tax-total"><?php
-                // echo wc_price(WC()->cart->get_taxes_total());
-                ?></span>
-        </p> -->
+            <span id="ajax-shipping-total" class="body-normal-semibold">
+                <?php echo wc_price(WC()->cart->get_shipping_total()); ?>
+            </span>
+        </p>
+    <?php endif; ?>
 
     <?php if (!empty($applied_code)): ?>
         <p class="flex justify-between">

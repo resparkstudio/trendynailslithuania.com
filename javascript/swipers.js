@@ -113,6 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		loop: false,
 		slidesPerView: 3,
 		spaceBetween: 16,
+		navigation: {
+			nextEl: '.related-posts-section-nav-button-next',
+			prevEl: '.related-posts-section-nav-button-prev',
+		},
 		breakpoints: {
 			1279: { slidesPerView: 3 },
 			767: { slidesPerView: 2 },

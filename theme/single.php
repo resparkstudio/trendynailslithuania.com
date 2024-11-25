@@ -68,10 +68,10 @@ get_header();
 								<?php echo wp_kses_post("Blogas"); ?>
 							</h3>
 							<div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-								<a class="flex gap-3" href="<?php echo esc_url($category_url); ?>">
+								<a class="daugiau-button flex gap-3" href="<?php echo esc_url($category_url); ?>">
 									<span><?php echo wp_kses_post("Daugiau"); ?></span>
 									<div class="flex items-center">
-										<svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+										<svg class="daugiau-button-svg" width="6" height="10" viewBox="0 0 6 10" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
 											<path
 												d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
@@ -97,12 +97,12 @@ get_header();
 											<p class="related-post-title mb-4 heading-sm text-deep-dark-gray">
 												<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 											</p>
-											<a class="flex gap-3" href="<?php the_permalink(); ?>">
+											<a class="daugiau-button flex gap-3" href="<?php the_permalink(); ?>">
 												<span
 													class="body-small-regular uppercase text-deep-dark-gray"><?php echo wp_kses_post("Daugiau"); ?></span>
 												<div class="flex items-center">
-													<svg width="6" height="10" viewBox="0 0 6 10" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
+													<svg class="daugiau-button-svg" width="6" height="10" viewBox="0 0 6 10"
+														fill="none" xmlns="http://www.w3.org/2000/svg">
 														<path
 															d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
 															fill="#201F1F" />

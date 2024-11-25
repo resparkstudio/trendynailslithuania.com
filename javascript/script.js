@@ -17,3 +17,4 @@ import './dynamic-shipping-pick-up.js';
 import './dynamic-payment-option.js';
 import './newsletter-toggle.js';
 import './checkout-validation.js';
+import './ajax-shipping.js';

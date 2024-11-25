@@ -36,8 +36,7 @@ if (post_password_required()) {
 			$ingredients = get_field_object('product_ingredients');
 			$shipping = get_field_object('product_shipping');
 			?>
-
-			<div class="product-additional-info overflow-hidden">
+			<div class="product-additional-info overflow-hidden mt-12 md:mt-10">
 				<?php if (!empty($usage_conditions['value'])): ?>
 					<div class="relative pb-3.5 z-30">
 						<div class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer">

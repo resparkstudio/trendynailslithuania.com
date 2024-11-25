@@ -37,15 +37,15 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
             <div
                 class="shop-archive-nav-menu flex gap-8 md:gap-6 body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5">
                 <a href="<?php echo $shop_url; ?>"
-                    class="filter-button link-hover whitespace-nowrap <?php echo $all_active; ?>">
+                    class="filter-button link-hover hover:text-deep-dark-gray whitespace-nowrap <?php echo $all_active; ?>">
                     <?php echo wp_kses_post("Rodyti viską") ?>
                 </a>
                 <a href="<?php echo $new_products_url; ?>"
-                    class="filter-button link-hover whitespace-nowrap <?php echo $new_products_active; ?>">
+                    class="filter-button link-hover hover:text-deep-dark-gray whitespace-nowrap <?php echo $new_products_active; ?>">
                     <?php echo wp_kses_post("Naujienos") ?>
                 </a>
                 <a href="<?php echo $sale_url; ?>"
-                    class="filter-button link-hover whitespace-nowrap <?php echo $sale_active; ?>">
+                    class="filter-button link-hover hover:text-deep-dark-gray whitespace-nowrap <?php echo $sale_active; ?>">
                     <?php echo wp_kses_post("Išpardavimas") ?>
                 </a>
 
@@ -62,14 +62,14 @@ $sale_active = ($current_url == $sale_url) ? 'link-active' : '';
                     } else {
                         $category_url = esc_url(get_term_link($category));
                         $category_active = in_array($category->term_id, $active_category_ids) ? 'link-active' : '';
-                        echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+                        echo '<a href="' . $category_url . '" class="filter-button link-hover hover:text-deep-dark-gray whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
                     }
                 }
 
                 if ($uncategorized) {
                     $uncategorized_url = esc_url(get_term_link($uncategorized));
                     $uncategorized_active = in_array($uncategorized->term_id, $active_category_ids) ? 'link-active' : '';
-                    echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
+                    echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover hover:text-deep-dark-gray whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
                 }
                 ?>
             </div>

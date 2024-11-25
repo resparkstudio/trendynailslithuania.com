@@ -14,7 +14,7 @@ get_header();
         <div
             class="flex gap-8 md:gap-6 overflow-x-auto body-small-regular text-dark-gray md:text-[0.75rem] md:leading-[1rem] pb-5 border-b-[0.5px] border-mid-gray mb-12 md:mb-6">
             <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>"
-                class="filter-button link-active link-hover whitespace-nowrap"><?php echo wp_kses_post("Rodyti viską") ?></a>
+                class="filter-button link-active hover:text-deep-dark-gray link-hover whitespace-nowrap"><?php echo wp_kses_post("Rodyti viską") ?></a>
             <?php
             $uncategorized = null;
             $blog_categories = get_categories(array('hide_empty' => true));
@@ -26,7 +26,7 @@ get_header();
                     $category_url = esc_url(get_category_link($category->term_id));
                     $category_active = (is_category($category->term_id)) ? 'link-active' : '';
 
-                    echo '<a href="' . $category_url . '" class="filter-button link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
+                    echo '<a href="' . $category_url . '" class="filter-button hover:text-deep-dark-gray link-hover whitespace-nowrap ' . $category_active . '">' . esc_html($category->name) . '</a>';
                 }
             }
 
@@ -34,7 +34,7 @@ get_header();
                 $uncategorized_url = esc_url(get_category_link($uncategorized->term_id));
                 $uncategorized_active = (is_category($uncategorized->term_id)) ? 'link-active' : '';
 
-                echo '<a href="' . $uncategorized_url . '" class="filter-button link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
+                echo '<a href="' . $uncategorized_url . '" class="filter-button hover:text-deep-dark-gray link-hover whitespace-nowrap ' . $uncategorized_active . '">' . esc_html($uncategorized->name) . '</a>';
             }
             ?>
 
@@ -79,11 +79,11 @@ get_header();
 
                         <!-- "Daugiau" Button -->
                         <div>
-                            <a class="flex gap-3 text-deep-dark-gray body-small-regular md:text-[0.75rem]"
+                            <a class="flex daugiau-button gap-3 text-deep-dark-gray body-small-regular md:text-[0.75rem]"
                                 href="<?php the_permalink(); ?>">
                                 <span class="uppercase"><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
-                                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none"
+                                    <svg class="daugiau-button-svg" width="6" height="10" viewBox="0 0 6 10" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
