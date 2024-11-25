@@ -3,6 +3,7 @@
 Template Name: Header
 */
 
+$shop_url = get_permalink(wc_get_page_id('shop'));
 ?>
 
 
@@ -45,29 +46,25 @@ Template Name: Header
 							echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative gap-8">';
 
 							foreach ($menu_items as $index => &$item) {
-								// Get the current URL for comparison
 								$current_url = home_url(add_query_arg([], $wp->request));
 								$is_active = (untrailingslashit($item->url) === untrailingslashit($current_url)) ? 'link-active' : '';
 
 								if ($index === 0) {
-									// For the first item, apply the link-active class to the <p> element
 									$item->title = '<p class="link-hover ' . esc_attr($is_active) . '">' . $item->title . '</p>' . '
-					<div class="flex items-center">
-						<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z" fill="black"/>
-						</svg>
-					</div>';
+									<div class="flex items-center">
+										<svg class="h-full inline-block" width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z" fill="black"/>
+										</svg>
+									</div>';
 								}
 
 								echo '<li class="' . esc_attr(implode(' ', $item->classes)) . '">';
 
-								// For the first item, we use the modified $item->title with <p> tag
 								if ($index === 0) {
-									echo '<a href="' . esc_url($item->url) . '" class="flex items-center gap-1 cursor-pointer">';
-									echo $item->title; // Includes the <p> element with link-hover and link-active if applicable
+									echo '<a href="' . esc_url($shop_url) . '" class="flex items-center gap-1 cursor-pointer">';
+									echo $item->title;
 									echo '</a>';
 								} else {
-									// For other items, apply the link-active class to the <a> tag
 									echo '<a href="' . esc_url($item->url) . '" class="flex items-center gap-1 cursor-pointer link-hover ' . esc_attr($is_active) . '">';
 									echo $item->title;
 									echo '</a>';
@@ -178,8 +175,9 @@ Template Name: Header
 				</div>
 
 			</header>
-			<div class="fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
-				<a href="#" id="sidebar-close-link" class="invisible gap-1">
+			<div id="sidebar-opened-shop-wrapper"
+				class="fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
+				<a href="<?php echo esc_url($shop_url) ?>" id="sidebar-opened-shop-link" class="invisible gap-1">
 					<span class="inline-block">
 						<?php echo wp_kses_post("Parduotuvė") ?>
 					</span>

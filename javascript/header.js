@@ -29,9 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	const sidebarOpenLinks = document.querySelectorAll('.shop-link');
 	const mobileSidebarOpenLink = document.querySelector('.mobile-shop-link');
-	const sidebarCloseLink = document.getElementById('sidebar-close-link');
+	const sidebarCloseLink = document.getElementById(
+		'sidebar-opened-shop-link'
+	);
 	const sidebarCloseLinkSpan = document.querySelector(
-		'#sidebar-close-link span'
+		'#sidebar-opened-shop-link span'
 	);
 	const sidebar = document.getElementById('shop-sidebar');
 
@@ -81,24 +83,30 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	sidebarOpenLinks.forEach((link) => {
-		link.addEventListener('click', function (e) {
+		link.addEventListener('mouseover', function (e) {
 			e.preventDefault();
 			sidebarCloseLinkSpan.classList.add('toggle-underline');
 			gsap.to(link, {
+				onStart: () => disableHover(),
 				duration: 0.3,
 				opacity: 0,
 				ease: 'power2.out',
 				onComplete: function () {
 					link.style.pointerEvents = 'none';
 					link.style.visibility = 'hidden';
+					enableHover();
 				},
 			});
 
 			gsap.set(sidebar, { display: 'grid', visibility: 'visible' });
 			gsap.to(sidebar, {
+				onStart: () => disableHover(),
 				duration: 0.5,
 				x: '0%',
 				ease: 'power2.out',
+				onComplete: function () {
+					enableHover();
+				},
 			});
 
 			gsap.set(sidebarCloseLink, {
@@ -132,9 +140,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	sidebarCloseLink.addEventListener('click', function (e) {
-		e.preventDefault();
-		closeSidebar();
+	sidebar.addEventListener('mouseleave', function (e) {
+		if (window.innerWidth >= 767) {
+			const relatedTarget = e.relatedTarget;
+			const safeDiv = document.querySelector(
+				'#sidebar-opened-shop-wrapper'
+			);
+
+			if (
+				safeDiv &&
+				(relatedTarget === safeDiv || safeDiv.contains(relatedTarget))
+			) {
+				return;
+			}
+
+			e.preventDefault();
+			closeSidebar();
+		}
 	});
 
 	function closeSidebar() {
