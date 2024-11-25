@@ -28,7 +28,7 @@ defined('ABSPATH') || exit;
 						<?php
 					}
 				} else {
-					echo '<p>' . esc_html__('No shipping methods available.', 'woocommerce') . '</p>';
+					echo '<p class = "body-normal-regular text-deep-dark-gray">' . esc_html__('Nėra galimų pristatymo būdų.', 'woocommerce') . '</p>';
 				}
 			}
 			?>

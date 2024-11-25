@@ -89,9 +89,14 @@ get_header();
 										<article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
 											<a href="<?php the_permalink(); ?>" class="related-post-thumbnail block mb-5">
 												<?php if (has_post_thumbnail()): ?>
-													<?php the_post_thumbnail('medium', ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
+													<?php the_post_thumbnail('medium', [
+														'class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12',
+														'alt' => esc_attr(get_the_title())
+													]); ?>
 												<?php else: ?>
-													<?php echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
+													<?php echo wp_get_attachment_image(7, 'medium', false, [
+														'class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12'
+													]); ?>
 												<?php endif; ?>
 											</a>
 											<p class="related-post-title mb-4 heading-sm text-deep-dark-gray">

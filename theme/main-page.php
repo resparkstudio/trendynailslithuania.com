@@ -34,12 +34,13 @@ get_header();
             <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
                 <?php if ($hero_image && $hero_image_mobile): ?>
                     <img class="w-full h-auto round-15 block md:hidden aspect-[1401/581]"
-                        src="<?php echo esc_url($hero_image); ?>" alt="Desktop Hero Banner" />
+                        src="<?php echo esc_url($hero_image); ?>"
+                        alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
                     <img class="w-full h-auto round-15 hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
-                        alt="Mobile Hero Banner" />
+                        alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
                 <?php elseif ($hero_image): ?>
                     <img class="w-full h-auto object-cover round-15" src="<?php echo esc_url($hero_image); ?>"
-                        alt="Desktop Hero Banner" />
+                        alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
                 <?php endif; ?>
 
                 <div class="absolute inset-0 flex items-end justify-starts">
@@ -709,7 +710,10 @@ get_header();
                                     <article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
                                         <a href="<?php the_permalink(); ?>" class="related-post-thumbnail block mb-5">
                                             <?php if (has_post_thumbnail()): ?>
-                                                <?php the_post_thumbnail('medium', ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
+                                                <?php the_post_thumbnail('medium', [
+                                                    'class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12',
+                                                    'alt' => esc_attr(get_the_title()) // Add the post title as the alt attribute
+                                                ]); ?>
                                             <?php else: ?>
                                                 <?php echo wp_get_attachment_image(7, 'medium', false, ['class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12']); ?>
                                             <?php endif; ?>
@@ -763,7 +767,8 @@ get_header();
                     <?php if ($about_image_1): ?>
                         <div class="col-span-6 lg:col-span-12 aspect-[670/507] w-full relative h-full order-1">
                             <img class="w-full h-full object-cover rounded-tl-[12px] lg:rounded-t-[12px]"
-                                src="<?php echo esc_url($about_image_1); ?>">
+                                src="<?php echo esc_url($about_image_1); ?>"
+                                alt="Trendy Nails DREAM base bottle with a floral background">
                         </div>
                     <?php endif; ?>
 
@@ -822,7 +827,8 @@ get_header();
                         <div
                             class="col-span-6 lg:col-span-12 aspect-[670/507] w-full relative h-full order-4 lg:order-3 lg:relative lg:top-[-1rem]">
                             <img class="w-full h-full object-cover rounded-br-[12px] lg:rounded-t-[12px] lg:rounded-br-[0px]"
-                                src="<?php echo esc_url($about_image_2); ?>">
+                                src="<?php echo esc_url($about_image_2); ?>"
+                                alt="Row of Trendy Nails Builder Gel bottles on a pink surface">
                         </div>
                     <?php endif; ?>
                 </div>
@@ -858,7 +864,7 @@ get_header();
                         <div class="swiper-wrapper">
                             <?php foreach ($instagram_gallery as $image_url): ?>
                                 <div class="swiper-slide round-12">
-                                    <img src="<?php echo esc_url($image_url); ?>" alt="Instagram Image"
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="Trendy Nails Instagram Image"
                                         class="instagram-image w-full h-auto object-cover aspect-square round-12">
                                     <a class="instagram-image-overlay flex round-12 absolute inset-0 left-0 top-0 w-full h-full bg-black/[.32] justify-center items-center"
                                         href="<?php echo esc_url($instagram_link); ?>" target="_blank">

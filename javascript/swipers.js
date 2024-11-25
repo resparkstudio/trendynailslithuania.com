@@ -108,24 +108,33 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
 	});
 
-	const relatedPostsSwiper = new Swiper(
-		'.blog-posts-gallery-swiper-container',
-		{
-			modules: [Navigation],
-			loop: false,
-			slidesPerView: 3,
-			spaceBetween: 16,
-			navigation: {
-				nextEl: '.blog-posts-button-next',
-				prevEl: '.blog-posts-button-prev',
-			},
-			breakpoints: {
-				1279: { slidesPerView: 3 },
-				767: { slidesPerView: 2 },
-				1: { slidesPerView: 1.3 },
-			},
-		}
-	);
+	const blogPostsSwiper = new Swiper('.blog-posts-gallery-swiper-container', {
+		modules: [Navigation],
+		loop: false,
+		slidesPerView: 3,
+		spaceBetween: 16,
+		navigation: {
+			nextEl: '.blog-posts-button-next',
+			prevEl: '.blog-posts-button-prev',
+		},
+		breakpoints: {
+			1279: { slidesPerView: 3 },
+			767: { slidesPerView: 2 },
+			1: { slidesPerView: 1.3 },
+		},
+	});
+
+	const relatedPostsSwiper = new Swiper('.related-posts-swiper-container', {
+		modules: [Navigation],
+		loop: false,
+		slidesPerView: 3,
+		spaceBetween: 16,
+		breakpoints: {
+			1279: { slidesPerView: 3 },
+			767: { slidesPerView: 2 },
+			1: { slidesPerView: 1.3 },
+		},
+	});
 
 	const productGallerySwiper = new Swiper('.product-gallery-swiper', {
 		modules: [Pagination],

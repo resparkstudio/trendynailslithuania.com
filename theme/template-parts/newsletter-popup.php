@@ -12,7 +12,7 @@
 
         <!-- Subscription Content -->
         <div
-            class="bg-white flex items-center z-20 w-[36rem] sm:w-screen text-deep-dark-gray rounded-l-[10px] relative sm:flex-wrap">
+            class="bg-white flex items-center z-20 w-[36rem] sm:w-screen text-deep-dark-gray rounded-l-[10px] sm:rounded-t-[10px] relative sm:flex-wrap">
             <div class="newsletter-close-button cursor-pointer absolute right-4 top-4">
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="0.353553" y1="0.755333" x2="13.6612" y2="14.063" stroke="#747474" />
@@ -20,10 +20,10 @@
                 </svg>
             </div>
             <!-- Image Section -->
-            <div class="h-full rounded-l-[10px] sm:w-full sm:max-h-[12rem] max-360px:max-h-[10rem]">
-                <img class="object-cover object-center aspect-[213/282] h-full rounded-l-[10px] sm:aspect-[393/192] sm:w-full"
+            <div class="h-full rounded-l-[10px] sm:rounded-t-[10px] sm:w-full sm:max-h-[12rem] max-360px:max-h-[10rem]">
+                <img class="object-cover object-center aspect-[213/282] h-full rounded-l-[10px] sm:rounded-t-[10px] sm:aspect-[393/192] sm:w-full"
                     src="<?php echo wp_kses_post(wp_get_attachment_url('410')); ?>"
-                    alt="<?php echo wp_kses_post('Naujienlaiškis'); ?>">
+                    alt="<?php echo wp_kses_post('Stacked Trendy Nails bottles with dripping polish'); ?>">
             </div>
 
             <!-- Text Section -->

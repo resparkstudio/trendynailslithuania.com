@@ -39,14 +39,6 @@ defined('ABSPATH') || exit;
 		$custom_input_class = ['checkout-form-input'];
 
 		foreach ($fields as $key => $field) {
-			// Render the error placeholder template
-			wc_get_template(
-				'checkout/checkout-error-placeholder.php',
-				[
-					'field_key' => $key,
-				]
-			);
-			//validaiton error renders here
 			$field['label_class'] = isset($field['label_class'])
 				? array_merge($field['label_class'], $custom_label_class)
 				: $custom_label_class;
@@ -59,8 +51,6 @@ defined('ABSPATH') || exit;
 		}
 		?>
 	</div>
-
-
 
 	<?php do_action('woocommerce_after_checkout_billing_form', $checkout); ?>
 </div>

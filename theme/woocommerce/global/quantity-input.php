@@ -35,7 +35,4 @@ $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 
     </span>
     </button>
 </div>
-
-
-
 <?php

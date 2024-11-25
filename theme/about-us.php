@@ -32,12 +32,14 @@ $bottom_image_description = get_field('bottom_image_description');
             <div id="hero-section" class="relative round-15 mb-20 md:mb-16 md:mx-0">
                 <?php if ($hero_image && $hero_image_mobile): ?>
                     <img class="block md:hidden w-full h-auto object-cover round-10 round-15"
-                        src="<?php echo esc_url($hero_image); ?>" alt="Hero Image" />
+                        src="<?php echo esc_url($hero_image); ?>"
+                        alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
                     <img class="hidden md:block w-full h-auto object-cover round-10 round-15"
-                        src="<?php echo esc_url($hero_image_mobile); ?>" alt="Mobile Hero Image" />
+                        src="<?php echo esc_url($hero_image_mobile); ?>"
+                        alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
                 <?php elseif ($hero_image): ?>
                     <img class="w-full h-auto object-cover round-10 round-15" src="<?php echo esc_url($hero_image); ?>"
-                        alt="Hero Image" />
+                        alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
                 <?php endif; ?>
 
                 <?php if ($hero_text): ?>
@@ -66,11 +68,14 @@ $bottom_image_description = get_field('bottom_image_description');
                 <div id="category-section"
                     class="mx-12 md:mx-4 grid grid-cols-12 grid-rows-1 md:grid-cols-1 md:grid-rows-3 gap-4">
                     <img class="col-span-4 round-10 md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
-                        src="<?php echo esc_url($product_category_image_1); ?>" />
+                        src="<?php echo esc_url($product_category_image_1); ?>"
+                        alt="Stacked Trendy Nails bottles with dripping polish" />
                     <img class="col-span-4 round-10 md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
-                        src="<?php echo esc_url($product_category_image_2); ?>" />
+                        src="<?php echo esc_url($product_category_image_2); ?>"
+                        alt="Pink Trendy Nails box with a DREAM base bottle" />
                     <img class="col-span-4 round-10 md:col-span-12 md:row-span-1 md:w-full md:h-72 object-cover object-center"
-                        src="<?php echo esc_url($product_category_image_3); ?>" />
+                        src="<?php echo esc_url($product_category_image_3); ?>"
+                        alt="Woman holding a Trendy Nails product" />
                 </div>
             <?php endif; ?>
 
@@ -86,7 +91,8 @@ $bottom_image_description = get_field('bottom_image_description');
                 <div id="description-section-2"
                     class="mx-12 md:mx-4 grid grid-cols-12 gap-4 grid-rows-1 md:grid-cols-1 md:gap-y-12">
                     <img class="col-span-6 round-10 md:col-span-12 md:row-span-1"
-                        src="<?php echo esc_url($bottom_image); ?>" />
+                        src="<?php echo esc_url($bottom_image); ?>"
+                        alt="Trendy Nails lollipops in front of a luxury Chanel store with decorative pearls and bows" />
                     <div class="col-span-6 flex justify-center items-center ml-10 md:ml-0 md:col-span-12 md:row-span-1">
                         <?php echo wp_kses_post($bottom_image_description); ?>
                     </div>

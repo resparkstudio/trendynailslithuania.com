@@ -53,7 +53,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
 							<p class="pl-4">
 								<label
 									class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme mb-4 flex gap-2 body-small-light text-deep-dark-gray">
-									<input class="woocommerce-form__input woocommerce-form__input-checkbox"
+									<input class="input-checkbox woocommerce-form__input woocommerce-form__input-checkbox"
 										name="rememberme" type="checkbox" id="rememberme" value="forever" />
 									<span
 										class="body-small-light"><?php esc_html_e('Prisiminti mane', 'woocommerce'); ?></span>
@@ -158,7 +158,8 @@ do_action('woocommerce_before_customer_login_form'); ?>
 
 		<div class="w-full h-full md:hidden col-span-7 col-start-7">
 			<img class="w-full h-full object-cover object-center aspect-[712/646] rounded-l-[15px]"
-				src="<?php echo wp_get_attachment_image_src(362, 'full')[0]; ?>">
+				src="<?php echo wp_get_attachment_image_src(362, 'full')[0]; ?>"
+				alt="Row of Trendy Nails Builder Gel bottles in black matte finish with shades labeled, displayed on a pink background.">
 		</div>
 
 

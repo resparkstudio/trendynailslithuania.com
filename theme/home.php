@@ -56,9 +56,11 @@ get_header();
                     <article id="post-<?php the_ID(); ?>" <?php post_class("$col_span_class lg:col-span-6 md:col-span-12 blog-post mb-5 md:mb-3"); ?>>
                         <?php if (has_post_thumbnail()): ?>
                             <a href="<?php the_permalink(); ?>">
-                                <div
-                                    class="post-thumbnail mb-5 lg:aspect-[664/434] md:aspect-[361/270] <?php echo $aspect_ratio_class; ?>">
-                                    <?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover round-12')); ?>
+                                <div class="post-thumbnail mb-5 <?php echo $aspect_ratio_class; ?>">
+                                    <?php the_post_thumbnail('large', array(
+                                        'class' => 'w-full h-full object-cover rounded-lg',
+                                        'alt' => esc_attr(get_the_title())
+                                    )); ?>
                                 </div>
                             </a>
                         <?php else: ?>
