@@ -291,19 +291,6 @@ footer {
 	margin-top: auto;
 }
 
-/* Animations */
-.menu-icon-rotate {
-	transition: transform 0.3s ease;
-}
-
-.menu-icon-flipped {
-	transform: rotate(180deg);
-}
-
-.menu-icon-flipped-90 {
-	transform: rotate(90deg);
-}
-
 .single-post-content img {
 	@apply round-15 w-full aspect-[663/434] object-cover object-center my-2;
 }

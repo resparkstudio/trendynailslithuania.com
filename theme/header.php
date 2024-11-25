@@ -177,7 +177,8 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 			</header>
 			<div id="sidebar-opened-shop-wrapper"
 				class="fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
-				<a href="<?php echo esc_url($shop_url) ?>" id="sidebar-opened-shop-link" class="invisible gap-1">
+				<a href="<?php echo esc_url($shop_url) ?>" id="sidebar-opened-shop-link"
+					class="invisible gap-1 text-white">
 					<span class="inline-block">
 						<?php echo wp_kses_post("Parduotuvė") ?>
 					</span>
@@ -186,7 +187,7 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 							xmlns="http://www.w3.org/2000/svg">
 							<path
 								d="M4.5 5L9 0.621716L8.361 0L6.822 1.50613L4.5 3.76532L2.178 1.50613L0.639 0.00875643L0 0.630473L4.5 5Z"
-								fill="black" />
+								fill="white" />
 						</svg>
 					</div>
 				</a>
