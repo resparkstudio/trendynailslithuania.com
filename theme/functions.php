@@ -919,7 +919,6 @@ function customize_checkout_fields($fields)
 			'type' => 'text',
 			'required' => true,
 			'label' => __('Gatvė, namo numeris', 'woocommerce'),
-			'placeholder' => __('Įveskite gatvę ir namo numerį', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 50,
 		),
