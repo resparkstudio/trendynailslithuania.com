@@ -87,7 +87,7 @@ get_header();
 									$related_posts->the_post(); ?>
 									<a href="<?php the_permalink(); ?>" class="swiper-slide">
 										<article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
-											<div class="related-post-thumbnail block mb-5">
+											<div class="related-post-thumbnail block mb-5 round-12">
 												<?php if (has_post_thumbnail()): ?>
 													<?php the_post_thumbnail('medium', [
 														'class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12',

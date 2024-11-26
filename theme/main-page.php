@@ -140,7 +140,7 @@ get_header();
                                                 $first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
                                                 ?>
 
-                                                <div class=" w-full relative mb-4 md:mb-3 product-image-container">
+                                                <div class=" w-full relative mb-4 md:mb-3 product-image-container ">
                                                     <a class="w-full" href="<?php the_permalink(); ?>">
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
@@ -726,7 +726,7 @@ get_header();
                                 ?>
                                 <a class="swiper-slide" href="<?php the_permalink(); ?>">
                                     <article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
-                                        <div class="related-post-thumbnail block mb-5">
+                                        <div class="related-post-thumbnail block mb-5 round-12">
                                             <?php if (has_post_thumbnail()): ?>
                                                 <?php the_post_thumbnail('medium', [
                                                     'class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12',
