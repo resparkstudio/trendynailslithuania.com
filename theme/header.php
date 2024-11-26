@@ -79,10 +79,11 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 					</nav>
 
 
-					<div class="mobile-shop-link hidden md:block md:mr-9 cursor-pointer">
+					<div
+						class="mobile-shop-link h-full hidden md:flex md:mr-9 cursor-pointer md:justify-center md:items-center">
 						<svg width="18" height="8" viewBox="0 0 18 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<line y1="1.4" x2="17.5" y2="1.4" stroke="black" stroke-width="1.2" />
-							<line y1="7.4" x2="17.5" y2="7.4" stroke="black" stroke-width="1.2" />
+							<line class="line-1" y1="1.4" x2="17.5" y2="1.4" stroke="black" stroke-width="1.2" />
+							<line class="line-2" y1="7.4" x2="17.5" y2="7.4" stroke="black" stroke-width="1.2" />
 						</svg>
 					</div>
 

@@ -673,3 +673,26 @@ footer {
 .woocommerce-form-coupon-toggle {
 	@apply hidden;
 }
+
+.mobile-shop-link {
+	@apply cursor-pointer inline-block;
+}
+
+.mobile-shop-link svg {
+	@apply transition duration-300 h-4; /* Adjust height to 1rem using h-4 */
+}
+
+.mobile-shop-link .line-1,
+.mobile-shop-link .line-2 {
+	@apply transform origin-center transition duration-300;
+}
+
+.mobile-shop-link.active .line-1 {
+	@apply transform;
+	transform: rotate(45deg) translateY(3px);
+}
+
+.mobile-shop-link.active .line-2 {
+	@apply transform;
+	transform: rotate(-45deg) translateY(-3px);
+}

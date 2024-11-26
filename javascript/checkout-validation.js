@@ -79,7 +79,7 @@ import 'jquery-validation';
 				billing_postcode:
 					'<strong>Pašto kodas</strong> yra būtinas laukelis.',
 				terms: 'Jūs turite sutikti su taisyklėmis ir sąlygomis.',
-				account_password: 'Slaptažodis yra būtinas laukelis.',
+				account_password: 'Įveskite slaptažodį.',
 				account_password_confirm: {
 					required: 'Patvirtinkite slaptažodį.',
 					equalTo: 'Slaptažodžiai turi sutapti.',

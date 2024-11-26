@@ -20,3 +20,4 @@ import './checkout-validation.js';
 import './ajax-shipping.js';
 import './wishlistlist-active-heart.js';
 import './move-omnisend-checkbox.js';
+import './mobile-hamburger.js';
