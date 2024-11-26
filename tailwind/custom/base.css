@@ -404,6 +404,11 @@ footer {
 	@apply mb-4;
 }
 
+.woocommerce-checkout .woocommerce-notices-wrapper,
+.woocommerce-shop .woocommerce-notices-wrapper {
+	@apply hidden;
+}
+
 .woocommerce-orders-table {
 	@apply w-full;
 }
