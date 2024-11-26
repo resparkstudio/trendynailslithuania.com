@@ -39,8 +39,13 @@ global $woocommerce;
 		<label class="flex">
 			<input class="input-checkbox" type="checkbox" name="terms" required>
 			<span class="body-extra-small-light">
-				<?php echo wp_kses_post("Su el. prekybos taisyklėmis susipažinau ir sutinku") ?>
+				<?php
+				echo wp_kses_post(
+					'Su <a class = "link-hover" href="' . esc_url(get_permalink(12)) . '" target="_blank">el. prekybos taisyklėmis</a> susipažinau ir sutinku'
+				);
+				?>
 			</span>
+
 		</label>
 	</div>
 
