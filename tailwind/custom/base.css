@@ -673,3 +673,11 @@ footer {
 .woocommerce-form-coupon-toggle {
 	@apply hidden;
 }
+
+.newsletter-checkbox-placeholder .optional {
+	@apply hidden;
+}
+
+.newsletter-checkbox-placeholder .account-form-label {
+	@apply body-extra-small-light text-deep-dark-gray;
+}

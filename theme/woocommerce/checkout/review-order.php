@@ -35,7 +35,7 @@ global $woocommerce;
 		</div>
 	</div>
 
-	<div class="terms w-full px-5 lg:px-4 mb-6 lg:mb-8">
+	<div class="terms w-full px-5 lg:px-4 mb-4">
 		<label class="flex">
 			<input class="input-checkbox" type="checkbox" name="terms" required>
 			<span class="body-extra-small-light">
@@ -44,7 +44,7 @@ global $woocommerce;
 		</label>
 	</div>
 
-	<div class="newsletter-checkbox-placeholder"></div>
+	<div class="terms w-full px-5 lg:px-4 mb-6 lg:mb-8 newsletter-checkbox-placeholder"></div>
 
 	<div class="w-full px-5 lg:px-4 pb-5">
 		<form id="order_review" method="post">
