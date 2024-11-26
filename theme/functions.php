@@ -759,23 +759,38 @@ add_action('wp_ajax_custom_add_to_wishlist', 'custom_add_to_wishlist');
 add_action('wp_ajax_nopriv_custom_add_to_wishlist', 'custom_add_to_wishlist');
 
 
-// Helper function to get current user's wishlist
 function custom_get_wishlist()
 {
 	if (is_user_logged_in()) {
 		// Fetch wishlist for logged-in user
 		$user_id = get_current_user_id();
 		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
-	} elseif (isset($_SESSION['guest_wishlist'])) {
+	} else {
+		// Ensure session is started
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
+
 		// Fetch wishlist from session for guest users
 		$wishlist = $_SESSION['guest_wishlist'] ?? [];
-	} else {
-		$wishlist = [];
+
+		// Alternatively, check for a cookie if session is not available
+		if (empty($wishlist) && isset($_COOKIE['guest_wishlist'])) {
+			$wishlist = json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: [];
+		}
 	}
 
 	// Return only unique and valid product IDs
 	return array_unique(array_filter($wishlist, 'is_numeric'));
 }
+
+
+
+add_action('init', function () {
+	if (!isset($_SESSION)) {
+		session_start();
+	}
+}, 1);
 
 
 
@@ -1453,3 +1468,23 @@ function add_custom_list_classes($content)
 	return $content;
 }
 add_filter('the_content', 'add_custom_list_classes');
+
+
+add_action('woocommerce_review_order_before_submit', 'move_omnisend_checkbox_to_review_order', 10);
+function move_omnisend_checkbox_to_review_order()
+{
+	// Check if the checkbox is being rendered by Omnisend
+	if (class_exists('Omnisend')) {
+		?>
+		<div class="terms w-full px-5 lg:px-4 mb-6 lg:mb-8">
+			<label class="flex">
+				<input type="checkbox" id="omnisend_newsletter_checkbox" name="omnisend_newsletter_checkbox" value="1"
+					class="input-checkbox">
+				<span class="body-extra-small-light">
+					<?php echo wp_kses_post(__('Siųskite man naujienas ir pasiūlymus el. paštu', '_tw')); ?>
+				</span>
+			</label>
+		</div>
+		<?php
+	}
+}

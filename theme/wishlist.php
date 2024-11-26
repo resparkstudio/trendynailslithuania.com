@@ -3,11 +3,6 @@
 Template Name: Wishlist
 */
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
-
 get_header();
 
 // Retrieve wishlist items
