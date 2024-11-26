@@ -679,7 +679,7 @@ footer {
 }
 
 #omnisend_newsletter_checkbox_field .account-form-label {
-	@apply font-light text-[0.75rem] leading-[1rem] text-deep-dark-gray;
+	@apply font-light text-[0.75rem] leading-[1rem] text-deep-dark-gray p-0;
 }
 
 #omnisend_newsletter_checkbox_field .woocommerce-input-wrapper {
