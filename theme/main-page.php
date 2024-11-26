@@ -145,13 +145,13 @@ get_header();
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg original-image"
+                                                            class="w-full object-cover object-center aspect-[324/365] rounded-lg original-image"
                                                             style="position: relative; opacity: 1;">
 
                                                         <?php if ($first_gallery_image_url): ?>
                                                             <img src="<?php echo esc_url($first_gallery_image_url); ?>"
                                                                 alt="<?php the_title(); ?> - Gallery"
-                                                                class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg gallery-image"
+                                                                class="w-full object-cover object-center aspect-[324/365] rounded-lg gallery-image"
                                                                 style="position: absolute; top: 0; left: 0; opacity: 0;">
                                                         <?php endif; ?>
                                                     </a>
@@ -321,13 +321,13 @@ get_header();
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg original-image"
+                                                            class="w-full object-cover object-center aspect-[324/365] rounded-lg original-image"
                                                             style="position: relative; opacity: 1;">
 
                                                         <?php if ($first_gallery_image_url): ?>
                                                             <img src="<?php echo esc_url($first_gallery_image_url); ?>"
                                                                 alt="<?php the_title(); ?> - Gallery"
-                                                                class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg gallery-image"
+                                                                class="w-full object-cover object-center aspect-[324/365] rounded-lg gallery-image"
                                                                 style="position: absolute; top: 0; left: 0; opacity: 0;">
                                                         <?php endif; ?>
                                                     </a>
@@ -469,7 +469,7 @@ get_header();
                                         class="product-category-link-wrap block w-full relative round-12 ">
                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                             alt="<?php echo esc_attr($category->name); ?>"
-                                            class="product-category-link-wrap-image aspect-square md:aspect-[361/220] round-12 w-full h-full object-cover object-center">
+                                            class="product-category-link-wrap-image aspect-square md:aspect-[361/220] round-12 w-full object-cover object-center">
                                         <div
                                             class="absolute inset-0 bg-gradient-to-t from-deep-dark-gray/100 via-deep-dark-gray/50 to-transparent/0 opacity-20 pointer-events-none round-15">
                                         </div>
@@ -571,13 +571,13 @@ get_header();
 
                                                         <img src="<?php echo esc_url($thumbnail_url); ?>"
                                                             alt="<?php the_title(); ?>"
-                                                            class="w-full h-full object-cover object-center aspect-[324/365] rounded-lg original-image"
+                                                            class="w-full object-cover object-center aspect-[324/365] rounded-lg original-image"
                                                             style="position: relative; opacity: 1;">
 
                                                         <?php if ($first_gallery_image_url): ?>
                                                             <img src="<?php echo esc_url($first_gallery_image_url); ?>"
                                                                 alt="<?php the_title(); ?> - Gallery"
-                                                                class="w-full h-full rounded-lg gallery-image object-cover object-center aspect-[324/365]"
+                                                                class="w-full rounded-lg gallery-image object-cover object-center aspect-[324/365]"
                                                                 style="position: absolute; top: 0; left: 0; opacity: 0;">
                                                         <?php endif; ?>
                                                     </a>

@@ -36,7 +36,7 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 
                     <a href="<?php echo esc_url($product_permalink); ?>" class="block max-w-24 w-full relative">
                         <img src="<?php echo esc_url($product_image_url); ?>" alt="<?php echo esc_attr($product_name); ?>"
-                            class="w-full h-full object-cover object-center aspect-[78/100] sm:aspect-[82/100] rounded-[4px]" />
+                            class="w-full object-cover object-center aspect-[78/100] sm:aspect-[82/100] rounded-[4px]" />
                     </a>
                 </div>
 

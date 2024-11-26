@@ -98,13 +98,13 @@ if ($related_products_query->have_posts()): ?>
 								<a class="w-full" href="<?php the_permalink(); ?>">
 
 									<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
-										class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
+										class="w-full object-cover aspect-[324/365] object-center rounded-lg original-image"
 										style="position: relative; opacity: 1;">
 
 									<?php if ($first_gallery_image_url): ?>
 										<img src="<?php echo esc_url($first_gallery_image_url); ?>"
 											alt="<?php the_title(); ?> - Gallery"
-											class="w-full h-full object-cover rounded-lg gallery-image"
+											class="w-full object-cover rounded-lg gallery-image"
 											style="position: absolute; top: 0; left: 0; opacity: 0;">
 									<?php endif; ?>
 								</a>
@@ -250,13 +250,13 @@ $new_products_query = new WP_Query($args);
 										<a class="w-full" href="<?php the_permalink(); ?>">
 
 											<img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php the_title(); ?>"
-												class="w-full h-full object-cover aspect-[324/365] object-center rounded-lg original-image"
+												class="w-full object-cover aspect-[324/365] object-center rounded-lg original-image"
 												style="position: relative; opacity: 1;">
 
 											<?php if ($first_gallery_image_url): ?>
 												<img src="<?php echo esc_url($first_gallery_image_url); ?>"
 													alt="<?php the_title(); ?> - Gallery"
-													class="w-full h-full object-cover rounded-lg gallery-image"
+													class="w-full object-cover rounded-lg gallery-image"
 													style="position: absolute; top: 0; left: 0; opacity: 0;">
 											<?php endif; ?>
 										</a>
