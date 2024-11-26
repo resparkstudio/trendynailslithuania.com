@@ -44,8 +44,17 @@
                                 class="relative input-checkbox rounded-[2px] w-3 h-3 mr-2">
                         </div>
                         <label for="privacy" class="block body-extra-small-regular">
-                            <?php echo wp_kses_post('Susipažinau ir sutinku su Privatumo politika bei privatumo politika'); ?>
+                            <?php
+                            echo wp_kses_post(
+                                'Susipažinau ir sutinku su 
+                                        <a class = "link-hover" href="' . esc_url(get_permalink(3)) . '" target="_blank">Privatumo politika</a> 
+                                        bei 
+                                        <a class = "link-hover" href="' . esc_url(get_permalink(12)) . '" target="_blank">Naudojimo sąlygomis</a>'
+                            );
+                            ?>
                         </label>
+
+
                     </div>
                 </div>
             </div>
