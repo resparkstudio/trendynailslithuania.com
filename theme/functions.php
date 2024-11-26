@@ -1457,34 +1457,3 @@ function update_shipping_method_on_refresh($posted_data)
 		WC()->cart->calculate_totals();
 	}
 }
-
-
-function add_custom_list_classes($content)
-{
-	$content = str_replace('<ul>', '<ul class="numbered-list">', $content);
-
-	$content = str_replace('<ol>', '<ol class="point-list">', $content);
-
-	return $content;
-}
-add_filter('the_content', 'add_custom_list_classes');
-
-
-add_action('woocommerce_review_order_before_submit', 'move_omnisend_checkbox_to_review_order', 10);
-function move_omnisend_checkbox_to_review_order()
-{
-	// Check if the checkbox is being rendered by Omnisend
-	if (class_exists('Omnisend')) {
-		?>
-		<div class="terms w-full px-5 lg:px-4 mb-6 lg:mb-8">
-			<label class="flex">
-				<input type="checkbox" id="omnisend_newsletter_checkbox" name="omnisend_newsletter_checkbox" value="1"
-					class="input-checkbox">
-				<span class="body-extra-small-light">
-					<?php echo wp_kses_post(__('Siųskite man naujienas ir pasiūlymus el. paštu', '_tw')); ?>
-				</span>
-			</label>
-		</div>
-		<?php
-	}
-}

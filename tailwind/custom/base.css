@@ -669,3 +669,7 @@ footer {
 .point-list {
 	@apply list-disc pl-5 my-4 space-y-2;
 }
+
+.woocommerce-form-coupon-toggle {
+	@apply hidden;
+}

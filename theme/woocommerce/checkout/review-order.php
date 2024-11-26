@@ -44,7 +44,7 @@ global $woocommerce;
 		</label>
 	</div>
 
-	<!-- display omnisend checkbox here with the same styling as terms checkbox -->
+	<div class="newsletter-checkbox-placeholder"></div>
 
 	<div class="w-full px-5 lg:px-4 pb-5">
 		<form id="order_review" method="post">
