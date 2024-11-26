@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	const sidebarOpenLinks = document.querySelectorAll('.shop-link');
+	const mobileSidebarOpenLink = document.querySelector('.mobile-shop-link');
 	const sidebarOpenedShopLink = document.getElementById(
 		'sidebar-opened-shop-link'
 	);
@@ -128,9 +129,17 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 			gsap.to(svgIcons, {
 				duration: 0.6,
-				rotation: 1,
+				rotation: 0,
 				ease: 'power2.out',
 			});
 		}
 	});
+
+	// Mobile shop link functionality
+	if (mobileSidebarOpenLink) {
+		mobileSidebarOpenLink.addEventListener('click', function (e) {
+			e.preventDefault();
+			toggleSidebar(!sidebarOpen);
+		});
+	}
 });
