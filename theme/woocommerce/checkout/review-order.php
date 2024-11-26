@@ -23,7 +23,7 @@ global $woocommerce;
 		<label class="inline-block mb-4"
 			for="discount-code"><?php echo wp_kses_post("Įveskite nuolaidos kodą:") ?></label>
 		<div class="discount-input-wrapper mb-5 flex justify-between relative">
-			<input class="checkout-form-input" type="text" id="discount-code" name="discount-code" />
+			<input class="checkout-form-input" type="text" id="discount-code" name="discount-code" autocomplete="off" />
 			<button type="button" class="apply-discount-button absolute inset-y-0 right-4"
 				style="background: none; border: none; cursor: pointer; padding: 0;">
 				<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">

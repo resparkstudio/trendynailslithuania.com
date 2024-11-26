@@ -184,6 +184,13 @@ document.addEventListener('DOMContentLoaded', function () {
 		updateCartQuantity(cartItemKey, quantity, $input);
 	});
 
+	jQuery('#discount-code').on('keydown', function (event) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			jQuery('.apply-discount-button').click();
+		}
+	});
+
 	jQuery(document).on(
 		'click',
 		'.remove-item, .remove_from_cart_button',
