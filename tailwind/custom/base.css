@@ -696,3 +696,28 @@ footer {
 	@apply transform;
 	transform: rotate(-45deg) translateY(-3px);
 }
+
+.related-post-item:hover .daugiau-button span {
+	@apply link-hover;
+}
+
+.related-post-item .daugiau-button span::after,
+.archive-blog-post .daugiau-button span::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	border-radius: 5px;
+	height: 0.05em;
+	bottom: 0;
+	left: 0;
+	background: currentcolor;
+	transform-origin: bottom right;
+	transition: transform 0.25s ease-out;
+}
+
+.related-post-item:hover .daugiau-button span::after,
+.archive-blog-post:hover .daugiau-button span::after {
+	transform: scaleX(1);
+	transform-origin: bottom left;
+}

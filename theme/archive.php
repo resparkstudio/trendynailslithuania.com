@@ -56,38 +56,31 @@ get_header();
 					$aspect_ratio_class = ($post_count <= 3 || $post_count > 5) ? 'aspect-square' : 'aspect-[664/434]';
 					?>
 
-					<article id="post-<?php the_ID(); ?>" <?php post_class("$col_span_class blog-post mb-5"); ?>>
+					<article id="post-<?php the_ID(); ?>" <?php post_class("$col_span_class blog-post mb-5 md:col-span-12 archive-blog-post"); ?>>
 
-						<?php if (has_post_thumbnail()): ?>
-							<a href="<?php the_permalink(); ?>">
+						<a href="<?php the_permalink(); ?>" class="block">
+							<?php if (has_post_thumbnail()): ?>
 								<div class="post-thumbnail mb-5 <?php echo $aspect_ratio_class; ?>">
 									<?php the_post_thumbnail('large', array(
 										'class' => 'w-full h-full object-cover rounded-lg',
 										'alt' => esc_attr(get_the_title())
 									)); ?>
 								</div>
-							</a>
-						<?php else: ?>
-							<a href="<?php the_permalink(); ?>">
+							<?php else: ?>
 								<div class="post-thumbnail mb-5 <?php echo $aspect_ratio_class; ?>">
 									<?php echo wp_get_attachment_image(7, 'large', false, array(
 										'class' => 'w-full h-full object-cover rounded-lg'
-									), ); ?>
+									)); ?>
 								</div>
-							</a>
-						<?php endif; ?>
+							<?php endif; ?>
 
-
-						<div class="mb-4 heading-sm">
-							<a href="<?php the_permalink(); ?>">
+							<div class="mb-4 heading-sm">
 								<h4 class="text-deep-dark-gray"><?php the_title(); ?></h4>
-							</a>
-						</div>
+							</div>
 
-						<!-- "Daugiau" Button -->
-						<div>
-							<a class="daugiau-button flex gap-3 text-deep-dark-gray body-small-regular"
-								href="<?php the_permalink(); ?>">
+							<!-- "Daugiau" Button -->
+							<div href="<?php the_permalink(); ?>"
+								class="daugiau-button flex gap-3 text-deep-dark-gray body-small-regular">
 								<span class="uppercase"><?php echo wp_kses_post("Daugiau"); ?></span>
 								<div class="flex items-center">
 									<svg class="daugiau-button-svg" width="6" height="10" viewBox="0 0 6 10" fill="none"
@@ -97,10 +90,10 @@ get_header();
 											fill="#201F1F" />
 									</svg>
 								</div>
-							</a>
-						</div>
-
+							</div>
+						</a>
 					</article>
+
 
 				<?php endwhile; ?>
 

@@ -53,36 +53,31 @@ get_header();
                     $aspect_ratio_class = ($post_count <= 3 || $post_count > 5) ? 'aspect-square' : 'aspect-[664/434]';
                     ?>
 
-                    <article id="post-<?php the_ID(); ?>" <?php post_class("$col_span_class lg:col-span-6 md:col-span-12 blog-post mb-5 md:mb-3"); ?>>
-                        <?php if (has_post_thumbnail()): ?>
-                            <a href="<?php the_permalink(); ?>">
+                    <article id="post-<?php the_ID(); ?>" <?php post_class("$col_span_class md:col-span-12 blog-post mb-5 archive-blog-post"); ?>>
+
+                        <a href="<?php the_permalink(); ?>" class="block">
+                            <?php if (has_post_thumbnail()): ?>
                                 <div class="post-thumbnail mb-5 <?php echo $aspect_ratio_class; ?>">
                                     <?php the_post_thumbnail('large', array(
                                         'class' => 'w-full h-full object-cover rounded-lg',
                                         'alt' => esc_attr(get_the_title())
                                     )); ?>
                                 </div>
-                            </a>
-                        <?php else: ?>
-                            <a href="<?php the_permalink(); ?>">
-                                <div
-                                    class="post-thumbnail mb-5 lg:aspect-[664/434] md:aspect-[361/270] <?php echo $aspect_ratio_class; ?>">
-                                    <?php echo wp_get_attachment_image(7, 'large', false, array('class' => 'w-full h-full object-cover round-12')); ?>
+                            <?php else: ?>
+                                <div class="post-thumbnail mb-5 <?php echo $aspect_ratio_class; ?>">
+                                    <?php echo wp_get_attachment_image(7, 'large', false, array(
+                                        'class' => 'w-full h-full object-cover rounded-lg'
+                                    )); ?>
                                 </div>
-                            </a>
-                        <?php endif; ?>
+                            <?php endif; ?>
 
-                        <!-- Post Title -->
-                        <div class="mb-4 heading-sm md:text-[1rem]">
-                            <a href="<?php the_permalink(); ?>">
+                            <div class="mb-4 heading-sm">
                                 <h4 class="text-deep-dark-gray"><?php the_title(); ?></h4>
-                            </a>
-                        </div>
+                            </div>
 
-                        <!-- "Daugiau" Button -->
-                        <div>
-                            <a class="flex daugiau-button gap-3 text-deep-dark-gray body-small-regular md:text-[0.75rem]"
-                                href="<?php the_permalink(); ?>">
+                            <!-- "Daugiau" Button -->
+                            <div href="<?php the_permalink(); ?>"
+                                class="daugiau-button flex gap-3 text-deep-dark-gray body-small-regular">
                                 <span class="uppercase"><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
                                     <svg class="daugiau-button-svg" width="6" height="10" viewBox="0 0 6 10" fill="none"
@@ -92,9 +87,8 @@ get_header();
                                             fill="#201F1F" />
                                     </svg>
                                 </div>
-                            </a>
-                        </div>
-
+                            </div>
+                        </a>
                     </article>
 
                 <?php endwhile; ?>

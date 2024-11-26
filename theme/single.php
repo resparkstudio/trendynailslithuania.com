@@ -85,9 +85,9 @@ get_header();
 							<div class="swiper-wrapper">
 								<?php while ($related_posts->have_posts()):
 									$related_posts->the_post(); ?>
-									<div class="swiper-slide">
+									<a href="<?php the_permalink(); ?>" class="swiper-slide">
 										<article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
-											<a href="<?php the_permalink(); ?>" class="related-post-thumbnail block mb-5">
+											<div class="related-post-thumbnail block mb-5">
 												<?php if (has_post_thumbnail()): ?>
 													<?php the_post_thumbnail('medium', [
 														'class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12',
@@ -98,11 +98,11 @@ get_header();
 														'class' => 'w-full h-auto object-cover object-center aspect-center aspect-square round-12'
 													]); ?>
 												<?php endif; ?>
-											</a>
+											</div>
 											<p class="related-post-title mb-4 heading-sm text-deep-dark-gray">
-												<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+												<span><?php the_title(); ?></span>
 											</p>
-											<a class="daugiau-button flex gap-3" href="<?php the_permalink(); ?>">
+											<div class="daugiau-button flex gap-3">
 												<span
 													class="body-small-regular uppercase text-deep-dark-gray"><?php echo wp_kses_post("Daugiau"); ?></span>
 												<div class="flex items-center">
@@ -113,9 +113,9 @@ get_header();
 															fill="#201F1F" />
 													</svg>
 												</div>
-											</a>
+											</div>
 										</article>
-									</div>
+									</a>
 								<?php endwhile; ?>
 							</div>
 						</div>
