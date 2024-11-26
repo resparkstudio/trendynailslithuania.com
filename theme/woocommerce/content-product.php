@@ -52,8 +52,8 @@ if (empty($product) || !$product->is_visible()) {
 		?>
 
 		<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer 
-														<?php echo $is_in_wishlist ? 'active' : ''; ?>"
-			data-action="add_to_wishlist" data-product_id="<?php echo esc_attr(get_the_ID()); ?>"
+														<?php echo $is_in_wishlist ? 'active' : ''; ?>" data-action="add_to_wishlist"
+			data-product_id="<?php echo esc_attr(get_the_ID()); ?>"
 			data-product_name="<?php echo esc_attr(get_the_title()); ?>">
 			<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path

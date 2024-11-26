@@ -256,7 +256,7 @@ $new_products_query = new WP_Query($args);
 											<?php if ($first_gallery_image_url): ?>
 												<img src="<?php echo esc_url($first_gallery_image_url); ?>"
 													alt="<?php the_title(); ?> - Gallery"
-													class="w-full object-cover rounded-lg gallery-image"
+													class="w-full object-cover aspect-[324/365] object-center rounded-lg  gallery-image"
 													style="position: absolute; top: 0; left: 0; opacity: 0;">
 											<?php endif; ?>
 										</a>
