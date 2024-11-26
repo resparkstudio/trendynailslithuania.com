@@ -60,14 +60,14 @@ get_header();
 
 						<a href="<?php the_permalink(); ?>" class="block">
 							<?php if (has_post_thumbnail()): ?>
-								<div class="post-thumbnail mb-5 <?php echo $aspect_ratio_class; ?>">
+								<div class="post-thumbnail rounded-lg mb-5 <?php echo $aspect_ratio_class; ?>">
 									<?php the_post_thumbnail('large', array(
 										'class' => 'w-full h-full object-cover rounded-lg',
 										'alt' => esc_attr(get_the_title())
 									)); ?>
 								</div>
 							<?php else: ?>
-								<div class="post-thumbnail mb-5 <?php echo $aspect_ratio_class; ?>">
+								<div class="post-thumbnail rounded-lg mb-5 <?php echo $aspect_ratio_class; ?>">
 									<?php echo wp_get_attachment_image(7, 'large', false, array(
 										'class' => 'w-full h-full object-cover rounded-lg'
 									)); ?>
