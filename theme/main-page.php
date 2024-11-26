@@ -863,7 +863,7 @@ get_header();
                 class="col-span-2 lg:col-span-3 md:col-span-12 flex flex-col w-full justify-center md:flex-nowrap md:flex-row md:mb-8">
                 <?php if ($follow_us_heading): ?>
                     <h3
-                        class="w-full heading-md text-deep-dark-gray mb-6 md:mb-0 md:text-[1.125rem] md:leading-[1.375rem] md:max-w-32">
+                        class="w-full heading-md text-deep-dark-gray mb-6 md:mb-0 md:text-[1.125rem] md:leading-[1.375rem] md:max-w-32 pr-6">
                         <?php echo wp_kses_post($follow_us_heading); ?>
                     </h3>
                 <?php endif; ?>
