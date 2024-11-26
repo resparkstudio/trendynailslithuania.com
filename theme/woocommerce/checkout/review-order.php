@@ -35,7 +35,7 @@ global $woocommerce;
 		</div>
 	</div>
 
-	<div class="terms w-full px-5 lg:px-4 mb-4">
+	<div class="terms w-full px-5 lg:px-4 mb-5">
 		<label class="flex">
 			<input class="input-checkbox" type="checkbox" name="terms" required>
 			<span class="body-extra-small-light">

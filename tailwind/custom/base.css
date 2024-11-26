@@ -674,10 +674,14 @@ footer {
 	@apply hidden;
 }
 
-.newsletter-checkbox-placeholder .optional {
+#omnisend_newsletter_checkbox_field .optional {
 	@apply hidden;
 }
 
-.newsletter-checkbox-placeholder .account-form-label {
-	@apply body-extra-small-light text-deep-dark-gray;
+#omnisend_newsletter_checkbox_field .account-form-label {
+	@apply font-light text-[0.75rem] leading-[1rem] text-deep-dark-gray;
+}
+
+#omnisend_newsletter_checkbox_field .woocommerce-input-wrapper {
+	@apply p-0;
 }
