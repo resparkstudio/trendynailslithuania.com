@@ -24,7 +24,7 @@ $subscribe_description = get_field('subscribe_description', $footer_page_id);
 		<div class="col-span-3 md:col-span-1 md:mb-10">
 			<div class="site-logo flex flex-none justify-items-center mx-auto pb-5 md:pb-7">
 				<a href="<?php echo get_permalink(get_page_by_path('titulinis')->ID); ?>">
-					<img src="<?php echo esc_url(wp_get_attachment_url(462)); ?>" class="w-[8.625rem] h-[2.625rem]">
+					<img src="<?php echo esc_url(wp_get_attachment_url(505)); ?>" class="w-[8.625rem] h-[2.625rem]">
 				</a>
 			</div>
 			<?php if ($logo_description): ?>
