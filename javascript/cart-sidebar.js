@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	function openSidebar() {
 		overlay.classList.remove('hidden');
 		sidebar.classList.remove('hidden');
-		document.body.classList.add('overflow-hidden');
 
 		gsap.to(overlay, {
 			duration: 0.5,
@@ -25,8 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function closeSidebar() {
-		document.body.classList.remove('overflow-hidden');
-
 		gsap.to(overlay, {
 			duration: 0.5,
 			opacity: 0,
