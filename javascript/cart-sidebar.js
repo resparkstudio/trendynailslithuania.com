@@ -5,11 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	const sidebar = document.getElementById('cart-sidebar');
 	const overlay = document.getElementById('cart-sidebar-overlay');
 	const closeSidebarButton = document.getElementById('close-sidebar');
-
+	const mobileShopLink = document.querySelector('.mobile-shop-link');
 	function openSidebar() {
 		overlay.classList.remove('hidden');
 		sidebar.classList.remove('hidden');
-
+		if (window.innerWidth <= 767) {
+			document.body.classList.add('overflow-y-hidden');
+		}
 		gsap.to(overlay, {
 			duration: 0.5,
 			opacity: 1,
@@ -37,6 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			ease: 'power2.in',
 			onComplete: () => sidebar.classList.add('hidden'),
 		});
+
+		if (document.body.classList.contains('overflow-y-hidden')) {
+			document.body.classList.remove('overflow-y-hidden');
+		}
 	}
 
 	// Toggle sidebar open/close
@@ -44,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (sidebar.classList.contains('hidden')) {
 			openSidebar();
 		} else {
+			closeSidebar();
+		}
+	});
+
+	mobileShopLink.addEventListener('click', function () {
+		if (!sidebar.classList.contains('hidden')) {
 			closeSidebar();
 		}
 	});

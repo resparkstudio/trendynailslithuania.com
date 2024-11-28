@@ -544,6 +544,18 @@ footer {
 	@apply flex items-center;
 }
 
+.menu-icon-rotate {
+	transition: transform 0.3s ease;
+}
+
+.menu-icon-flipped {
+	transform: rotate(180deg);
+}
+
+.menu-icon-flipped-90 {
+	transform: rotate(90deg);
+}
+
 /* newsletter */
 
 .newsletter-button-inner {

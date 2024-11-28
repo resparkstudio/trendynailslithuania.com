@@ -12,18 +12,19 @@ document.addEventListener('DOMContentLoaded', function () {
 				event.preventDefault();
 
 				const submenu = item.parentElement.querySelector('ul.submenu');
-
+				const icon = item.querySelector('.sidebar-more-icon');
 				if (submenu.classList.contains('flex')) {
 					submenu.classList.remove('flex');
 					submenu.classList.add('hidden');
+					icon.classList.remove('menu-icon-flipped-90');
 				} else {
 					submenu.classList.remove('hidden');
 					submenu.classList.add('flex');
+					icon.classList.add('menu-icon-flipped-90');
 				}
 			}
 		});
 	});
-
 	const sidebarOpenLinks = document.querySelectorAll('.shop-link');
 	const mobileSidebarOpenLink = document.querySelector('.mobile-shop-link');
 	const sidebarOpenedShopLink = document.getElementById(
@@ -62,8 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	function toggleSidebar(open) {
 		if (open) {
 			sidebarTimeline.play();
+			mobileSidebarOpenLink.classList.add('active');
 		} else {
 			sidebarTimeline.reverse();
+			mobileSidebarOpenLink.classList.remove('active');
 		}
 		sidebarOpen = open;
 	}
@@ -142,4 +145,20 @@ document.addEventListener('DOMContentLoaded', function () {
 			toggleSidebar(!sidebarOpen);
 		});
 	}
+
+	// Handle clicks on the document
+	document.addEventListener('click', (event) => {
+		if (
+			sidebarOpen &&
+			!sidebar.contains(event.target) &&
+			event.target !== mobileSidebarOpenLink
+		) {
+			toggleSidebar(false);
+		}
+	});
+
+	// Prevent immediate closure when the mobile open link is clicked
+	mobileSidebarOpenLink.addEventListener('click', (e) => {
+		e.stopPropagation(); // Prevent the event from bubbling to document
+	});
 });

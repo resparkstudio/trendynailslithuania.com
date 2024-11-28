@@ -4,7 +4,7 @@ $facebook_link = get_field('facebook_link', 'option');
 $instagram_link = get_field('instagram_link', 'option');
 ?>
 <aside id="shop-sidebar"
-    class="shop-sidebar fixed left-0 w-[16.5rem] md:w-[14.25rem] h-svh bg-black text-white body-small-regular hidden z-40 md:z-[29] pt-20 md:pt-[3.75rem] grid-rows-12">
+    class="shop-sidebar fixed left-0 w-[16.5rem] md:w-[14.25rem] h-full bg-black text-white body-small-regular hidden z-40 md:z-[29] pt-20 md:pt-[3.75rem] grid-rows-12">
     <nav id="desktop-sidebar-navigation"
         class="main-navigation body-small-regular text-white flex flex-col md:hidden row-span-9 pl-12 py-9">
         <?php
