@@ -1292,25 +1292,25 @@ function replace_block_formats($init_array)
 	$style_formats = array(
 		array(
 			'title' => 'heading xl',
-			'classes' => 'heading-xl',
+			'classes' => 'heading-xl mb-4 inline-block',
 			'block' => 'span',
 			'wrapper' => true,
 		),
 		array(
 			'title' => 'heading lg',
-			'classes' => 'heading-lg',
+			'classes' => 'heading-lg mb-3 inline-block',
 			'block' => 'span',
 			'wrapper' => true,
 		),
 		array(
 			'title' => 'heading md',
-			'classes' => 'heading-md',
+			'classes' => 'heading-md mb-3 inline-block',
 			'block' => 'span',
 			'wrapper' => true,
 		),
 		array(
 			'title' => 'heading sm',
-			'classes' => 'heading-sm',
+			'classes' => 'heading-sm mb-2 inline-block',
 			'block' => 'span',
 			'wrapper' => true,
 		),
