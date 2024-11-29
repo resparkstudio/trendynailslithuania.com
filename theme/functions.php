@@ -780,10 +780,14 @@ function custom_get_wishlist()
 		}
 	}
 
-	// Return only unique and valid product IDs
-	return array_unique(array_filter($wishlist, 'is_numeric'));
-}
+	// Return only unique and valid product IDs that still exist and are visible
+	$valid_wishlist = array_filter(array_unique($wishlist), function ($product_id) {
+		$product = wc_get_product($product_id);
+		return $product && $product->is_visible();
+	});
 
+	return $valid_wishlist;
+}
 
 
 add_action('init', function () {
@@ -843,15 +847,7 @@ add_action('wp_ajax_nopriv_get_wishlist_count', 'get_wishlist_count');
 // AJAX handler to return wishlist count
 function get_wishlist_count()
 {
-	if (is_user_logged_in()) {
-		$user_id = get_current_user_id();
-		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
-	} else {
-		if (!session_id())
-			session_start();
-		$wishlist = $_SESSION['guest_wishlist'] ?? [];
-	}
-
+	$wishlist = custom_get_wishlist();
 	$count = count($wishlist);
 	wp_send_json_success(['wishlist_count' => $count]);
 }
