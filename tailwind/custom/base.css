@@ -4,6 +4,13 @@ body {
 	@apply bg-background text-foreground font-sans overflow-x-hidden;
 }
 
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
 #content {
 	min-height: 100vh;
 	display: flex;
