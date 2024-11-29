@@ -19,6 +19,7 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 		<link rel="profile" href="https://gmpg.org/xfn/11">
 		<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&display=swap"
 			rel="stylesheet">
+		<meta name="verify-paysera" content="c6d373845915b534de0cf74749d02c89">
 		<?php wp_head(); ?>
 	</head>
 
