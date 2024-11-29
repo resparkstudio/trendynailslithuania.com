@@ -3,17 +3,16 @@
 Template Name: Footer
 */
 
-$footer_page_id = 178;
 
-$logo_description = get_field('logo_description', $footer_page_id);
+$logo_description = get_field('logo_description', 'option');
 $phone_number = get_field('phone_number', 'option');
 $email = get_field('email', 'option');
 $facebook_link = get_field('facebook_link', 'option');
 $instagram_link = get_field('instagram_link', 'option');
-$shop_menu_heading = get_field('shop_menu_heading', $footer_page_id);
-$info_menu_heading = get_field('info_menu_heading', $footer_page_id);
-$subscribe_heading = get_field('subscribe_heading', $footer_page_id);
-$subscribe_description = get_field('subscribe_description', $footer_page_id);
+$shop_menu_heading = get_field('shop_menu_heading', 'option');
+$info_menu_heading = get_field('info_menu_heading', 'option');
+$subscribe_heading = get_field('subscribe_heading', 'option');
+$subscribe_description = get_field('subscribe_description', 'option');
 ?>
 
 
