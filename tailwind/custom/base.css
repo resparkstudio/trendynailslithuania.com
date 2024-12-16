@@ -422,9 +422,9 @@ footer {
 
 /* checkout */
 
-.checkout .woocommerce-NoticeGroup-checkout {
+/* .checkout .woocommerce-NoticeGroup-checkout {
 	@apply hidden;
-}
+} */
 
 .checkout-form-input,
 .checkout .woocommerce-account-fields .input-text {

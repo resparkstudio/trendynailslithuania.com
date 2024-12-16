@@ -19,12 +19,22 @@ function adjustPayseraOptions() {
 			'.paysera-payment-method'
 		);
 
+		payseraMethod.style.display = 'none';
+
 		payseraOptions.forEach((option) => {
 			const radioInput = option.querySelector('input[type="radio"]');
 
 			if (radioInput) {
-				radioInput.name = 'payment_method';
+				radioInput.name = 'payment[pay_type]';
 				radioInput.classList.add('custom-radio');
+				radioInput.addEventListener('change', () => {
+					const payseraMainInput = payseraMethod.querySelector(
+						'input[type="radio"][name="payment_method"]'
+					);
+					if (payseraMainInput) {
+						payseraMainInput.checked = true;
+					}
+				});
 			}
 
 			const containerDiv = option.querySelector('div');
@@ -38,11 +48,24 @@ function adjustPayseraOptions() {
 			newLi.appendChild(option);
 			mainPaymentMethods.appendChild(newLi);
 		});
-
-		payseraMethod.style.display = 'none';
 	}
+
+	const allPaymentMethods = document.querySelectorAll(
+		'input[type="radio"][name="payment_method"]'
+	);
+	allPaymentMethods.forEach((method) => {
+		method.addEventListener('change', () => {
+			if (!method.value.includes('paysera')) {
+				const payseraSubOptions = document.querySelectorAll(
+					'input[name="payment[pay_type]"]'
+				);
+				payseraSubOptions.forEach((subOption) => {
+					subOption.checked = false;
+				});
+			}
+		});
+	});
 }
 
 document.addEventListener('DOMContentLoaded', adjustPayseraOptions);
-
 jQuery(document.body).on('updated_checkout', adjustPayseraOptions);
