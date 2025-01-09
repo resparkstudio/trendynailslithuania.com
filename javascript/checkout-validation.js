@@ -8,11 +8,10 @@ import 'jquery-validation';
 			'validPhone',
 			function (value, element) {
 				return (
-					this.optional(element) ||
-					/^[+]?[\d\s\-()]{8,15}$/.test(value)
+					this.optional(element) || /^\+[\d\s\-()]{7,11}$/.test(value) // Updated regex
 				);
 			},
-			'Įvestas telefono numeris neteisingas'
+			'Telefono numeris turi prasidėti "+" ženklu ir būti ne ilgesnis nei 11 skaitmenų.' // Updated error message
 		);
 
 		// Custom email validation method
@@ -74,7 +73,8 @@ import 'jquery-validation';
 				billing_phone: {
 					required:
 						'<strong>Telefonas</strong> yra būtinas laukelis.',
-					validPhone: 'Įvestas telefono numeris neteisingas.',
+					validPhone:
+						'Telefono numeris turi prasidėti "+" ženklu ir būti ne ilgesnis nei 11 skaitmenų.', // Updated message
 				},
 				billing_postcode:
 					'<strong>Pašto kodas</strong> yra būtinas laukelis.',

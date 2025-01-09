@@ -45,4 +45,7 @@ $applied_code = WC()->session->get('applied_discount_code');
         <span id="ajax-total" class="body-normal-semibold"><?php echo wp_kses_post(WC()->cart->get_total()); ?>
         </span>
     </p>
+
+
+
 </div>
