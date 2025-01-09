@@ -73,14 +73,16 @@ if ($has_orders): ?>
 										?>
 									</span>
 								<?php elseif ('order-actions' === $column_id): ?>
-									<?php
-									$actions = wc_get_account_orders_actions($order);
-									if (!empty($actions)) {
-										foreach ($actions as $key => $action) {
-											echo '<a href="' . esc_url($action['url']) . '" class="inline-block px-2 sm:px-1 py-2 body-small-semibold text-white body-small-regular sm:text-[0.75rem] sm:leading-[1rem] rounded black-button">' . esc_html($action['name']) . '</a>';
+									<div class="flex flex-wrap gap-2 justify-center">
+										<?php
+										$actions = wc_get_account_orders_actions($order);
+										if (!empty($actions)) {
+											foreach ($actions as $key => $action) {
+												echo '<a href="' . esc_url($action['url']) . '" class="inline-block px-2 sm:px-1 py-2 body-small-semibold text-white body-small-regular sm:text-[0.75rem] sm:leading-[1rem] rounded black-button">' . esc_html($action['name']) . '</a>';
+											}
 										}
-									}
-									?>
+										?>
+									</div>
 								<?php endif; ?>
 								<?php if ($is_order_number): ?>
 									</th>

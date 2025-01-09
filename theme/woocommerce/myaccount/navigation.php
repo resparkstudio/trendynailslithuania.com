@@ -22,7 +22,7 @@ do_action('woocommerce_before_account_navigation');
 			<h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Mano paskyra"); ?></h1>
 		</header>
 		<nav class="woocommerce-MyAccount-navigation" aria-label="<?php esc_html_e('Account pages', 'woocommerce'); ?>">
-			<ul class="space-y-2">
+			<ul class="space-y-4">
 				<?php foreach (wc_get_account_menu_items() as $endpoint => $label): ?>
 					<?php
 					$is_current = wc_is_current_account_menu_item($endpoint);
