@@ -46,6 +46,20 @@ $applied_code = WC()->session->get('applied_discount_code');
         </span>
     </p>
 
+    <p class="flex justify-end mt-2">
+        <?php
+        $cart_subtotal_excluding_tax = WC()->cart->get_subtotal() - WC()->cart->get_taxes_total(); // Calculate subtotal excluding tax
+        $cart_total_tax = WC()->cart->get_taxes_total(); // Total tax (VAT)
+        
+        if ($cart_total_tax > 0): // Only display if VAT exists
+            ?>
+            <span id="calculated-vat" class="body-extra-small-regular">
+                <?php echo wp_kses_post(__('(Įskaičiuota')); ?>
+                <?php echo wc_price($cart_total_tax); ?>
+                <?php echo wp_kses_post(__('PVM)')); ?>
+            </span>
+        <?php endif; ?>
+    </p>
 
 
 </div>
