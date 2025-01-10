@@ -1500,14 +1500,11 @@ function fix_svg()
 add_action('admin_head', 'fix_svg');
 
 
-add_filter('woocommerce_checkout_fields', 'remove_country_field_and_set_lithuania');
+add_filter('woocommerce_checkout_fields', 'set_lithuania');
 
-function remove_country_field_and_set_lithuania($fields)
+function set_lithuania($fields)
 {
-	// Remove the country field from the billing fields
-	unset($fields['billing']['billing_country']);
 
-	// Set Lithuania as the default and enforce it
 	add_filter('woocommerce_default_address_fields', function ($address_fields) {
 		$address_fields['country']['default'] = 'LT'; // Set default to Lithuania
 		return $address_fields;
@@ -1520,14 +1517,19 @@ add_action('woocommerce_checkout_process', 'force_lithuania_checkout_country');
 
 function force_lithuania_checkout_country()
 {
-	// Always set Lithuania as the billing country in the background
 	$_POST['billing_country'] = 'LT';
+	$_POST['shipping_country'] = 'LT';
 }
 
-add_filter('woocommerce_customer_get_billing_country', 'force_lithuania_on_customer');
+add_filter('woocommerce_customer_get_billing_country', 'force_lithuania_on_billing_country');
+add_filter('woocommerce_customer_get_shipping_country', 'force_lithuania_on_shipping_country');
 
-function force_lithuania_on_customer($country)
+function force_lithuania_on_billing_country($country)
 {
-	// Enforce Lithuania on the customer object
+	return 'LT';
+}
+
+function force_lithuania_on_shipping_country($country)
+{
 	return 'LT';
 }
