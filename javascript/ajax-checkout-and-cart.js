@@ -146,15 +146,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			const $button = jQuery(this);
 			const productId = $button.data('product_id');
 			const productName = $button.data('product_name');
-			let quantity = 1;
-
-			const quantityInput = jQuery('.quantity-input');
-			if (
-				quantityInput.length &&
-				$button.is('#single-product-add-to-cart')
-			) {
-				quantity = quantityInput.val();
-			}
+			const quantityInput = $button
+				.closest('form')
+				.find('.quantity-input');
+			let quantity = parseInt(quantityInput.val(), 10) || 1;
 
 			addToCart(productId, quantity, productName);
 		}
