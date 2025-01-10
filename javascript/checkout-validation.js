@@ -3,18 +3,17 @@ import 'jquery-validation';
 
 (function ($) {
 	$(document).ready(function () {
-		// Custom phone validation method
 		$.validator.addMethod(
 			'validPhone',
 			function (value, element) {
+				const lithuanianPhoneRegex = /^\+370\d{8}$/;
 				return (
-					this.optional(element) || /^\+[\d\s\-()]{7,11}$/.test(value) // Updated regex
+					this.optional(element) || lithuanianPhoneRegex.test(value)
 				);
 			},
-			'Telefono numeris turi prasidėti "+" ženklu ir būti ne ilgesnis nei 11 skaitmenų.' // Updated error message
+			'Telefono numeris turi prasidėti "+370" ir iš viso sudaryti 11 skaitmenų.'
 		);
 
-		// Custom email validation method
 		$.validator.addMethod(
 			'validEmail',
 			function (value, element) {
@@ -25,11 +24,9 @@ import 'jquery-validation';
 			'Įvestas el. pašto adresas neteisingas'
 		);
 
-		// Disable default email validation
 		$.validator.addMethod(
 			'email',
 			function () {
-				// Always return true to disable default email validation
 				return true;
 			},
 			''
@@ -41,10 +38,10 @@ import 'jquery-validation';
 				billing_last_name: { required: true },
 				billing_address_1: { required: true },
 				billing_city: { required: true },
-				billing_email: { required: true, validEmail: true }, // Only use validEmail rule
+				billing_email: { required: true, validEmail: true },
 				billing_phone: { required: true, validPhone: true },
 				billing_postcode: { required: true },
-				terms: { required: true }, // Add terms validation
+				terms: { required: true },
 				account_password: {
 					required: function () {
 						return $('#createaccount').is(':checked');
@@ -74,7 +71,7 @@ import 'jquery-validation';
 					required:
 						'<strong>Telefonas</strong> yra būtinas laukelis.',
 					validPhone:
-						'Telefono numeris turi prasidėti "+" ženklu ir būti ne ilgesnis nei 11 skaitmenų.', // Updated message
+						'Telefono numeris turi prasidėti "+370" ir iš viso sudaryti 11 skaitmenų.',
 				},
 				billing_postcode:
 					'<strong>Pašto kodas</strong> yra būtinas laukelis.',
