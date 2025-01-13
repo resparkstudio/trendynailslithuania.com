@@ -932,9 +932,17 @@ function customize_checkout_fields($fields)
 			'class' => array('form-row-wide'),
 			'priority' => 70,
 		),
+		'billing_country' => array( // Add back billing country field
+			'type' => 'select',
+			'required' => true,
+			'label' => __('Šalis', 'woocommerce'),
+			'options' => array(
+				'LT' => __('Lithuania', 'woocommerce'), // Only Lithuania
+			),
+			'class' => array('form-row-wide'),
+			'priority' => 80,
+		),
 	);
-
-	unset($fields['shipping']);
 
 	if (!is_user_logged_in()) {
 		$fields['account']['account_password'] = array(
@@ -942,18 +950,48 @@ function customize_checkout_fields($fields)
 			'required' => true,
 			'label' => __('Slaptažodis', 'woocommerce'),
 			'class' => array('form-row-wide'),
-			'priority' => 80,
+			'priority' => 90,
 		);
 		$fields['account']['account_password_confirm'] = array(
 			'type' => 'password',
 			'required' => true,
 			'label' => __('Patvirtinti slaptažodį', 'woocommerce'),
 			'class' => array('form-row-wide'),
-			'priority' => 90,
+			'priority' => 100,
 		);
 	}
 
+	$fields['shipping'] = array(
+		'shipping_country' => array(
+			'type' => 'hidden',
+			'default' => 'LT', // Default shipping country set to Lithuania
+		)
+	);
+
+	unset($fields['shipping']['shipping_phone']);
+
 	return $fields;
+}
+
+// Force shipping country to Lithuania
+add_action('woocommerce_checkout_update_order_meta', 'force_shipping_country');
+
+function force_shipping_country($order_id)
+{
+	update_post_meta($order_id, '_shipping_country', 'LT');
+}
+
+add_action('woocommerce_checkout_update_order_meta', 'sync_shipping_phone_with_billing');
+
+function sync_shipping_phone_with_billing($order_id)
+{
+	if (isset($_POST['billing_phone'])) {
+		// Get the billing phone from the checkout form
+		$billing_phone = sanitize_text_field($_POST['billing_phone']);
+
+		// Update the shipping phone with the billing phone value
+		update_post_meta($order_id, '_shipping_phone', $billing_phone);
+	}
 }
 
 add_filter('woocommerce_default_address_fields', 'customize_default_address_fields');
@@ -1499,37 +1537,3 @@ function fix_svg()
 }
 add_action('admin_head', 'fix_svg');
 
-
-add_filter('woocommerce_checkout_fields', 'set_lithuania');
-
-function set_lithuania($fields)
-{
-
-	add_filter('woocommerce_default_address_fields', function ($address_fields) {
-		$address_fields['country']['default'] = 'LT'; // Set default to Lithuania
-		return $address_fields;
-	});
-
-	return $fields;
-}
-
-add_action('woocommerce_checkout_process', 'force_lithuania_checkout_country');
-
-function force_lithuania_checkout_country()
-{
-	$_POST['billing_country'] = 'LT';
-	$_POST['shipping_country'] = 'LT';
-}
-
-add_filter('woocommerce_customer_get_billing_country', 'force_lithuania_on_billing_country');
-add_filter('woocommerce_customer_get_shipping_country', 'force_lithuania_on_shipping_country');
-
-function force_lithuania_on_billing_country($country)
-{
-	return 'LT';
-}
-
-function force_lithuania_on_shipping_country($country)
-{
-	return 'LT';
-}

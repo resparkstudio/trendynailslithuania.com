@@ -745,3 +745,7 @@ footer {
 	transform: scaleX(1);
 	transform-origin: bottom left;
 }
+
+.woocommerce-error {
+	@apply px-12 pb-2 lg:px-0;
+}
