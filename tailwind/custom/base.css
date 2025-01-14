@@ -747,5 +747,9 @@ footer {
 }
 
 .woocommerce-error {
-	@apply px-12 pb-2 lg:px-0;
+	@apply px-12 pb-6 lg:px-0;
+}
+
+.woocommerce-error li {
+	@apply text-red font-medium text-[0.875rem] leading-[1.125rem] font-sans;
 }

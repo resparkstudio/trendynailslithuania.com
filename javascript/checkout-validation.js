@@ -4,6 +4,14 @@ import 'jquery-validation';
 (function ($) {
 	$(document).ready(function () {
 		$.validator.addMethod(
+			'validPostcode',
+			function (value, element) {
+				const postcodeRegex = /^\d{5}$/; // Matches exactly 5 numerical digits
+				return this.optional(element) || postcodeRegex.test(value);
+			},
+			'<strong>Pašto kodą</strong> turi sudaryti 5 skaitmenys.'
+		);
+		$.validator.addMethod(
 			'validPhone',
 			function (value, element) {
 				const lithuanianPhoneRegex = /^\+370\d{8}$/;
@@ -11,7 +19,7 @@ import 'jquery-validation';
 					this.optional(element) || lithuanianPhoneRegex.test(value)
 				);
 			},
-			'Telefono numeris turi prasidėti "+370" ir iš viso sudaryti 11 skaitmenų.'
+			'<strong>Telefono numeris</strong> turi prasidėti "+370" ir iš viso sudaryti 11 skaitmenų.'
 		);
 
 		$.validator.addMethod(
@@ -21,7 +29,7 @@ import 'jquery-validation';
 				const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 				return this.optional(element) || emailRegex.test(value);
 			},
-			'Įvestas el. pašto adresas neteisingas'
+			'<strong>Įvestas el. pašto adresas</strong> neteisingas'
 		);
 
 		$.validator.addMethod(
@@ -40,7 +48,10 @@ import 'jquery-validation';
 				billing_city: { required: true },
 				billing_email: { required: true, validEmail: true },
 				billing_phone: { required: true, validPhone: true },
-				billing_postcode: { required: true },
+				billing_postcode: {
+					required: true, // Separate 'required' rule
+					validPostcode: true, // Separate 'validPostcode' rule
+				},
 				terms: { required: true },
 				account_password: {
 					required: function () {
@@ -65,17 +76,22 @@ import 'jquery-validation';
 				billing_email: {
 					required:
 						'<strong>El. paštas</strong> yra būtinas laukelis.',
-					validEmail: 'Įvestas el. pašto adresas neteisingas.', // Custom error message
+					validEmail:
+						'<strong>Įvestas el. pašto adresas</strong> neteisingas.', // Custom error message
 				},
 				billing_phone: {
 					required:
 						'<strong>Telefonas</strong> yra būtinas laukelis.',
 					validPhone:
-						'Telefono numeris turi prasidėti "+370" ir iš viso sudaryti 11 skaitmenų.',
+						'<strong>Telefono numeris</strong> turi prasidėti "+370" ir iš viso sudaryti 11 skaitmenų.',
 				},
-				billing_postcode:
-					'<strong>Pašto kodas</strong> yra būtinas laukelis.',
-				terms: 'Jūs turite sutikti su taisyklėmis ir sąlygomis.',
+				billing_postcode: {
+					required:
+						'<strong>Pašto kodas</strong> yra būtinas laukelis.', // Required message
+					validPostcode:
+						'<strong>Pašto kodą</strong> turi sudaryti 5 skaitmenys.', // Custom validation message
+				},
+				terms: 'Jūs turite sutikti su <strong>taisyklėmis ir sąlygomis</strong>.',
 				account_password: 'Įveskite slaptažodį.',
 				account_password_confirm: {
 					required: 'Patvirtinkite slaptažodį.',

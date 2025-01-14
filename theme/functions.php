@@ -931,16 +931,14 @@ function customize_checkout_fields($fields)
 			'class' => array('form-row-wide'),
 			'priority' => 70,
 		),
-		'billing_country' => array( // Add back billing country field
-			'type' => 'select',
+		'billing_country' => array(
+			'type' => 'custom', // Custom type to render plain text
 			'required' => true,
 			'label' => __('Šalis', 'woocommerce'),
-			'options' => array(
-				'LT' => __('Lithuania', 'woocommerce'), // Only Lithuania
-			),
 			'class' => array('form-row-wide'),
 			'priority' => 80,
 		),
+
 	);
 
 	if (!is_user_logged_in()) {
@@ -971,6 +969,29 @@ function customize_checkout_fields($fields)
 
 	return $fields;
 }
+
+add_filter('woocommerce_form_field_custom', 'render_custom_plain_text_field', 10, 4);
+
+function render_custom_plain_text_field($field, $key, $args, $value)
+{
+	if ($key === 'billing_country') {
+		// Get WooCommerce country name
+		$countries = WC()->countries->get_countries();
+		$country_name = isset($countries[$value]) ? $countries[$value] : __('Lietuva', 'woocommerce'); // Default to Lithuania
+
+		// Replace the input with plain text
+		$label = !empty($args['label']) ? $args['label'] : '';
+		$field = '<div class="form-row ' . esc_attr(implode(' ', $args['class'])) . '">';
+		$field .= '<label>' . esc_html($label) . '</label>';
+		$field .= '<span class = "px-3">' . esc_html($country_name) . '</span>';
+		$field .= '</div>';
+		return $field;
+	}
+
+	return $field;
+}
+
+
 
 // Force shipping country to Lithuania
 add_action('woocommerce_checkout_update_order_meta', 'force_shipping_country');
@@ -1552,4 +1573,35 @@ function redirect_to_checkout_after_registration($redirect)
 {
 	$checkout_url = wc_get_checkout_url();
 	return $checkout_url; // Redirect to the checkout page
+}
+
+add_action('woocommerce_checkout_create_order', 'sync_shipping_with_billing_on_order_create', 10, 2);
+
+function sync_shipping_with_billing_on_order_create($order, $data)
+{
+	// Fields to synchronize
+	$fields_to_sync = [
+		'first_name',
+		'last_name',
+		'company',
+		'address_1',
+		'address_2',
+		'city',
+		'state',
+		'postcode',
+		'country',
+		'phone',
+	];
+
+	foreach ($fields_to_sync as $field) {
+		// Generate the method names dynamically
+		$get_billing_method = "get_billing_$field";
+		$set_shipping_method = "set_shipping_$field";
+
+		// Check if the getter method exists
+		if (method_exists($order, $get_billing_method) && method_exists($order, $set_shipping_method)) {
+			// Copy billing field value to the corresponding shipping field
+			$order->{$set_shipping_method}($order->{$get_billing_method}());
+		}
+	}
 }
