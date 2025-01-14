@@ -878,6 +878,7 @@ function add_my_account_body_class($classes)
 // ---------------------------------- Checkout
 
 
+
 add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 
 function customize_checkout_fields($fields)
@@ -1536,4 +1537,3 @@ function fix_svg()
 		  </style>';
 }
 add_action('admin_head', 'fix_svg');
-
