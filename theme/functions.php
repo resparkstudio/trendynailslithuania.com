@@ -522,8 +522,6 @@ function load_more_products_ajax()
 			$query->the_post();
 			wc_get_template_part('content', 'product');
 		}
-	} else {
-		echo 0;
 	}
 
 	wp_reset_postdata();
@@ -1537,3 +1535,21 @@ function fix_svg()
 		  </style>';
 }
 add_action('admin_head', 'fix_svg');
+
+
+// Redirect to checkout page after login
+add_filter('woocommerce_login_redirect', 'redirect_to_checkout_after_login', 10, 2);
+function redirect_to_checkout_after_login($redirect, $user)
+{
+	// Check if the user is logging in through WooCommerce login form
+	$checkout_url = wc_get_checkout_url();
+	return $checkout_url; // Redirect to the checkout page
+}
+
+// Redirect to checkout page after registration
+add_filter('woocommerce_registration_redirect', 'redirect_to_checkout_after_registration');
+function redirect_to_checkout_after_registration($redirect)
+{
+	$checkout_url = wc_get_checkout_url();
+	return $checkout_url; // Redirect to the checkout page
+}
