@@ -30,31 +30,29 @@ get_header();
 ?>
 <section id="primary" class="mb-48 md:mb-28">
     <?php if ($hero_image || $hero_image_mobile || $hero_heading || $hero_description): ?>
-        <div class="px-12 md:px-4 w-full">
-            <div id="hero-section" class="relative w-full round-15 overflow-hidden mb-16 md:mb-20">
+        <div class="w-full">
+            <div id="hero-section" class="relative w-full overflow-hidden mb-16 md:mb-20">
                 <?php if ($hero_image && $hero_image_mobile): ?>
-                    <img class="w-full h-auto round-15 block md:hidden aspect-[1401/581]"
-                        src="<?php echo esc_url($hero_image); ?>"
+                    <img class="w-full h-auto block md:hidden aspect-[1401/581]" src="<?php echo esc_url($hero_image); ?>"
                         alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
-                    <img class="w-full h-auto round-15 hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
+                    <img class="w-full h-auto hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
                         alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
                 <?php elseif ($hero_image): ?>
-                    <img class="w-full h-auto object-cover round-15" src="<?php echo esc_url($hero_image); ?>"
+                    <img class="w-full h-auto object-cover" src="<?php echo esc_url($hero_image); ?>"
                         alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
                 <?php endif; ?>
 
-                <div class="absolute inset-0 flex items-end justify-starts">
+                <div class="absolute inset-0 flex items-end justify-starts md:items-center md:justify-center">
 
-                    <div
-                        class="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-t from-deep-dark-gray/100 via-deep-dark-gray/50 to-transparent/0 opacity-20 pointer-events-none round-15">
+                    <div class="absolute inset-0 bg-black/30">
                     </div>
 
                     <div class="relative z-10 pl-9 pb-16 w-full md:pb-10 md:px-5">
 
-                        <div class="text-left">
+                        <div class="text-center">
                             <?php if ($hero_heading): ?>
                                 <h1
-                                    class="text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-4">
+                                    class="text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-2">
                                     <?php echo wp_kses_post($hero_heading); ?>
                                 </h1>
                             <?php endif; ?>
@@ -66,8 +64,8 @@ get_header();
                             <?php endif; ?>
 
                             <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>"
-                                class="inline-block white-button-white-text py-4 px-12 text-center sm:w-full">
-                                <?php echo wp_kses_post("Skaityti daugiau"); ?>
+                                class="inline-block white-button-black-text-fill py-4 px-20 text-center">
+                                <?php echo wp_kses_post("Įsigyti"); ?>
                             </a>
                         </div>
                     </div>
