@@ -41,7 +41,7 @@ $bottom_image_description = get_field('bottom_image_description');
                 <?php endif; ?>
 
                 <?php if ($hero_text): ?>
-                    <div class="absolute inset-0 bg-black/[0.24] pointer-events-none rounded-md">
+                    <div class="absolute inset-0 bg-black/[0.24] pointer-events-none">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center">
                         <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white text-center">
