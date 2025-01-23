@@ -27,23 +27,21 @@ $bottom_image_description = get_field('bottom_image_description');
 
 ?>
 <section id="primary" class="mb-36 md:mb-28">
-    <div class="px-12 md:px-4 w-full">
+    <div class="w-full">
         <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
-            <div id="hero-section" class="relative round-15 mb-20 md:mb-16 md:mx-0">
+            <div id="hero-section" class="relative mb-20 md:mb-16 md:mx-0">
                 <?php if ($hero_image && $hero_image_mobile): ?>
-                    <img class="block md:hidden w-full h-auto object-cover round-10 round-15"
-                        src="<?php echo esc_url($hero_image); ?>"
+                    <img class="block md:hidden w-full h-auto object-cover" src="<?php echo esc_url($hero_image); ?>"
                         alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
-                    <img class="hidden md:block w-full h-auto object-cover round-10 round-15"
-                        src="<?php echo esc_url($hero_image_mobile); ?>"
+                    <img class="hidden md:block w-full h-auto object-cover" src="<?php echo esc_url($hero_image_mobile); ?>"
                         alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
                 <?php elseif ($hero_image): ?>
-                    <img class="w-full h-auto object-cover round-10 round-15" src="<?php echo esc_url($hero_image); ?>"
+                    <img class="w-full h-auto object-cover" src="<?php echo esc_url($hero_image); ?>"
                         alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
                 <?php endif; ?>
 
                 <?php if ($hero_text): ?>
-                    <div class="absolute inset-0 bg-deep-dark-gray/[0.24] pointer-events-none rounded-md">
+                    <div class="absolute inset-0 bg-black/[0.24] pointer-events-none rounded-md">
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center">
                         <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white text-center">
