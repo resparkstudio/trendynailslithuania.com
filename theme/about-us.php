@@ -43,8 +43,12 @@ $bottom_image_description = get_field('bottom_image_description');
                 <?php if ($hero_text): ?>
                     <div class="absolute inset-0 bg-black/[0.24] pointer-events-none">
                     </div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <h2 class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white text-center">
+                    <div class="absolute inset-0 flex items-center justify-center md:block">
+                        <div class="hidden md:block mt-8 mb-2 body-small-regular w-full text-white md:mx-4">
+                            <?php echo wp_kses_post("Apie mus"); ?>
+                        </div>
+                        <h2
+                            class="mx-24 heading-lg md:text-[1.5rem] md:leading-[2rem] md:mx-4 text-white text-center md:text-start">
                             <?php echo wp_kses_post($hero_text); ?>
                         </h2>
                     </div>
