@@ -35,12 +35,12 @@ if (post_password_required()) {
 
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
-	<div class="grid grid-cols-12 ">
+	<div class="grid grid-cols-12">
 		<?php
 		do_action('woocommerce_before_single_product_summary'); // Product gallery section
 		?>
 
-		<div class="col-span-6 pl-16 pt-28 lg:pl-0 lg:pt-7 lg:col-span-12">
+		<div class="col-span-6 pl-16 pt-28 lg:pl-0 lg:pt-7 lg:col-span-12 ">
 
 			<?php
 			do_action('woocommerce_single_product_summary'); // Product summary section
@@ -123,6 +123,12 @@ if (post_password_required()) {
 				<?php endif; ?>
 			</div>
 		</div>
+		<div class="spacer col-span-12 mb-20 md:mb-12"></div>
+		<?php if (have_rows('produkto_duk', $product->get_id())): ?>
+			<div class="col-span-12 col-start-3 col-end-11 md:col-start-1 md:col-end-13 mb-24 md:mb-16">
+				<?php wc_get_template('single-product/duk.php'); ?>
+			</div>
+		<?php endif; ?>
 	</div>
 
 	<?php

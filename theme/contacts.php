@@ -25,7 +25,7 @@ $instagram_link = get_field('instagram_link', 'option');
 
             <div id="form-section" class=" grid grid-cols-12 gap-4">
                 <div id="contact-details" class="col-span-4 md:col-span-12 md:mb-5">
-                    <ul class="mb-7">
+                    <ul class="mb-7 no-list-style">
                         <?php if ($phone_number): ?>
                             <li class="mb-6 md:mb-4"><a
                                     href="tel:<?php echo esc_attr($phone_number); ?>"><?php echo wp_kses_post($phone_number); ?></a>

@@ -1,5 +1,5 @@
 <aside id="newsletter-popup"
-    class="fixed inset-y-0 right-[-36rem]  sm:right-[-100vw] flex items-end mb-28 sm:mb-0 justify-center bg-pink-50 z-[21] sm:z-[32] rounded-l-[10px]">
+    class="fixed right-[-36rem] h-full sm:right-[-100vw] flex items-center mb-28 sm:mb-0 justify-center bg-pink-50 z-[21] sm:z-[32] rounded-l-[10px]">
     <div class="inner-aside flex relative">
         <!-- Rotated Button -->
         <a

@@ -82,7 +82,7 @@ $totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVa
 
 	<div id="payment">
 		<?php if ($order->needs_payment()): ?>
-			<ul class="wc_payment_methods payment_methods methods">
+			<ul class="wc_payment_methods payment_methods methods no-list-style">
 				<?php
 				if (!empty($available_gateways)) {
 					foreach ($available_gateways as $gateway) {

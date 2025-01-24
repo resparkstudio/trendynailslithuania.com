@@ -1424,12 +1424,15 @@ function replace_block_formats($init_array)
 		),
 	);
 
+
+
 	$init_array['style_formats'] = wp_json_encode($style_formats);
 
 	$init_array['block_formats'] = 'paragraph=p';
 	return $init_array;
 }
 add_filter('tiny_mce_before_init', 'replace_block_formats');
+
 
 function enable_custom_styles_in_tinymce($buttons)
 {

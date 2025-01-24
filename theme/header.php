@@ -44,7 +44,7 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 							$menu_id = $locations['header-menu'];
 							$menu_items = wp_get_nav_menu_items($menu_id);
 
-							echo '<ul id="primary-menu" class="flex main-menu-fluid-spacing whitespace-nowrap relative gap-8">';
+							echo '<ul id="primary-menu" class="no-list-style flex main-menu-fluid-spacing whitespace-nowrap relative gap-8">';
 
 							foreach ($menu_items as $index => &$item) {
 								$current_url = home_url(add_query_arg([], $wp->request));

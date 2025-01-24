@@ -45,7 +45,7 @@ $related_products_query = new WP_Query($args);
 
 if ($related_products_query->have_posts()): ?>
 
-	<section class="relative mt-28 lg:mt-16">
+	<section class="relative">
 		<div class="flex justify-between w-full mb-7">
 			<h3 class="heading-md text-deep-dark-gray lg:text-[1.125rem] lg:leading-[1.375rem] grow w-full">
 				<?php echo wp_kses_post("Jums taip pat gali patikti"); ?>

@@ -31,7 +31,7 @@ $subscribe_description = get_field('subscribe_description', 'option');
 					<?php echo wp_kses_post($logo_description); ?>
 				</div>
 			<?php endif; ?>
-			<ul class="mt-4 space-y-2.5 mb-7">
+			<ul class="mt-4 space-y-2.5 mb-7 no-list-style">
 				<?php if ($phone_number): ?>
 					<li>
 						<a class="link-hover"
@@ -89,7 +89,7 @@ $subscribe_description = get_field('subscribe_description', 'option');
 				'theme_location' => 'footer-shop-menu',
 				'container' => false,
 				'menu_id' => 'footer-shop-menu',
-				'menu_class' => 'space-y-2 md:hidden md:mt-5',
+				'menu_class' => 'space-y-2 md:hidden md:mt-5 no-list-style',
 				'fallback_cb' => false,
 				'depth' => 1
 			));
@@ -116,7 +116,7 @@ $subscribe_description = get_field('subscribe_description', 'option');
 				'theme_location' => 'footer-info-menu',
 				'container' => false,
 				'menu_id' => 'footer-info-menu',
-				'menu_class' => 'space-y-2.5 md:hidden md:mt-5',
+				'menu_class' => 'space-y-2.5 md:hidden md:mt-5 no-list-style',
 				'fallback_cb' => false,
 				'depth' => 1
 			));

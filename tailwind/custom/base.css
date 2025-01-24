@@ -21,6 +21,56 @@ body {
 	@apply overflow-x-hidden;
 }
 
+/* General styles for unordered lists (ul) */
+ul {
+	margin-top: 1rem; /* Add spacing above the list */
+	list-style-type: disc; /* Use disc bullets */
+	margin-left: 1.5rem; /* Indent the list */
+	padding-left: 1rem; /* Additional padding */
+	color: #333; /* Text color */
+	font-size: 1rem; /* Font size */
+	line-height: 1.6; /* Line height for spacing */
+}
+
+/* General styles for ordered lists (ol) */
+ol {
+	margin-top: 1rem; /* Add spacing above the list */
+	list-style-type: decimal; /* Use decimal numbers */
+	margin-left: 1.5rem; /* Indent the list */
+	padding-left: 1rem; /* Additional padding */
+	color: #333; /* Text color */
+	font-size: 1rem; /* Font size */
+	line-height: 1.6; /* Line height for spacing */
+}
+
+/* Styling the list items */
+ul li,
+ol li {
+	margin-bottom: 0.5rem; /* Add spacing between list items */
+}
+
+/* Optional: Nested lists for better styling */
+ul ul,
+ol ol {
+	list-style-type: circle; /* Use circle bullets for nested lists */
+	margin-left: 1.5rem; /* Indent nested lists further */
+}
+
+/* Optional: Nested ordered lists styling */
+ol ol {
+	list-style-type: lower-roman; /* Use Roman numerals for nested ordered lists */
+}
+
+/* Class to remove all list styles */
+.no-list-style {
+	list-style-type: none; /* Remove bullet points or numbers */
+	margin: 0; /* Reset margins */
+	padding: 0; /* Reset padding */
+	color: inherit; /* Use inherited text color */
+	font-size: inherit; /* Use inherited font size */
+	line-height: inherit; /* Use inherited line height */
+}
+
 .notification-banner-shadow {
 	box-shadow: 0px 0px 5.7px rgba(0, 0, 0, 0.07);
 }
@@ -761,4 +811,8 @@ footer {
 
 .woocommerce-error li {
 	@apply text-red font-medium text-[0.875rem] leading-[1.125rem] font-sans;
+}
+
+.duk-item:not(:last-child) {
+	@apply border-b-[1px] border-lighter-gray;
 }
