@@ -61,7 +61,6 @@ ol ol {
 	list-style-type: lower-roman; /* Use Roman numerals for nested ordered lists */
 }
 
-/* Class to remove all list styles */
 .no-list-style {
 	list-style-type: none; /* Remove bullet points or numbers */
 	margin: 0; /* Reset margins */

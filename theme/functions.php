@@ -472,17 +472,21 @@ function modify_woocommerce_archive_query($query)
 	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category())) {
 		$orderby = $_GET['orderby'] ?? 'popularity';
 
-		if ($orderby === 'price-asc') {
-			$query->set('orderby', 'meta_value_num');
-			$query->set('meta_key', '_price');
-			$query->set('order', 'ASC');
-		} elseif ($orderby === 'price-desc') {
-			$query->set('orderby', 'meta_value_num');
-			$query->set('meta_key', '_price');
-			$query->set('order', 'DESC');
-		} else {
-			$query->set('orderby', $orderby);
-			$query->set('order', 'ASC');
+		switch ($orderby) {
+			case 'price-asc':
+				$query->set('orderby', 'meta_value_num');
+				$query->set('meta_key', '_price');
+				$query->set('order', 'ASC');
+				break;
+			case 'price-desc':
+				$query->set('orderby', 'meta_value_num');
+				$query->set('meta_key', '_price');
+				$query->set('order', 'DESC');
+				break;
+			default:
+				$query->set('orderby', 'date'); // Fallback to date sorting
+				$query->set('order', 'DESC');
+				break;
 		}
 	}
 }
@@ -498,7 +502,6 @@ function load_more_products_ajax()
 		'post_type' => 'product',
 		'posts_per_page' => 16,
 		'paged' => $page,
-		'no_found_rows' => true,
 		'post_status' => 'publish',
 	];
 
@@ -1607,3 +1610,5 @@ function sync_shipping_with_billing_on_order_create($order, $data)
 		}
 	}
 }
+
+add_image_size('product-archive-thumbnail', 800, 800, true);
