@@ -354,16 +354,17 @@ add_action('product_cat_add_form_fields', 'add_popular_category_checkbox_new', 1
 add_action('edited_product_cat', 'save_popular_category_checkbox', 10, 2);
 add_action('create_product_cat', 'save_popular_category_checkbox', 10, 2);
 
-// display descrption in single product template
 function display_full_product_description()
 {
 	global $post;
-	echo '<div class="woocommerce-product-description mb-10 text-deep-dark-gray">';
-	echo apply_filters('the_content', $post->post_content); // Display the full description
-	echo '</div>';
+
+	if (!empty($post->post_content)) {
+		echo '<div class="woocommerce-product-description mb-10 text-deep-dark-gray w-full">';
+		echo apply_filters('the_content', $post->post_content); // Display the full description
+		echo '</div>';
+	}
 }
 add_action('woocommerce_single_product_summary', 'display_full_product_description', 25);
-
 
 
 

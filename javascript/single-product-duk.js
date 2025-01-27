@@ -15,17 +15,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			const isOpen = item.classList.contains('open');
 
 			faqItems.forEach((otherItem) => {
-				if (otherItem !== item) {
-					otherItem.classList.remove('open');
+				if (
+					otherItem !== item &&
+					otherItem.classList.contains('open')
+				) {
 					const otherAnswer = otherItem.querySelector('.duk-answer');
-					otherAnswer.classList.add('hidden'); // Re-add 'hidden' class
+					const otherArrow =
+						otherItem.querySelector('svg:last-child');
+					otherItem.classList.remove('open');
+
 					gsap.to(otherAnswer, {
 						height: 0,
 						opacity: 0,
 						duration: 0.5,
 						ease: 'power2.out',
+						onComplete: () => otherAnswer.classList.add('hidden'), // Hide after animation
 					});
-					gsap.to(otherItem.querySelector('svg:last-child'), {
+					gsap.to(otherArrow, {
 						rotate: 0,
 						duration: 0.4,
 						ease: 'power2.out',

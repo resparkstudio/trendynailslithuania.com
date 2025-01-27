@@ -40,7 +40,7 @@ if (post_password_required()) {
 		do_action('woocommerce_before_single_product_summary'); // Product gallery section
 		?>
 
-		<div class="col-span-6 pl-16 pt-28 lg:pl-0 lg:pt-7 lg:col-span-12 ">
+		<div class="col-span-6 pl-16 lg:pl-0 lg:pt-7 lg:col-span-12 flex flex-wrap flex-col justify-center">
 
 			<?php
 			do_action('woocommerce_single_product_summary'); // Product summary section
@@ -52,7 +52,7 @@ if (post_password_required()) {
 			$ingredients = get_field_object('product_ingredients');
 			$shipping = get_field_object('product_shipping');
 			?>
-			<div class="product-additional-info overflow-hidden mt-12 md:mt-10">
+			<div class="product-additional-info overflow-hidden mt-12 md:mt-10 w-full">
 				<?php if (!empty($usage_conditions['value'])): ?>
 					<div class="relative pb-3.5 z-30">
 						<div class="relative info-expand overflow-hidden flex flex-nowrap items-center cursor-pointer">
