@@ -19,7 +19,7 @@ $instagram_link = get_field('instagram_link', 'option');
                 $menu_items_by_parent[$item->menu_item_parent][] = $item;
             }
 
-            echo '<ul id="primary-sidebar-menu" class="flex flex-col main-menu-fluid-spacing gap-5 overflow-auto pr-8">';
+            echo '<ul id="primary-sidebar-menu" class="flex flex-col main-menu-fluid-spacing gap-5 overflow-auto pr-8 no-list-style">';
 
             function display_menu_items($parent_id, $menu_items_by_parent, $is_submenu = false)
             {
@@ -50,7 +50,7 @@ $instagram_link = get_field('instagram_link', 'option');
                     echo '</a>';
 
                     if ($has_children) {
-                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden pl-2">';
+                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden pl-2 no-list-style">';
 
                         // Add "Visi produktai" link only if it's a product category and only at the first submenu level
                         if ($is_product_category && !$is_submenu) {
@@ -84,7 +84,7 @@ $instagram_link = get_field('instagram_link', 'option');
                 $menu_items_by_parent[$item->menu_item_parent][] = $item;
             }
 
-            echo '<ul id="mobile-primary-menu" class="flex flex-col overflow-y-auto overflow-x-hidden main-menu-fluid-spacing gap-5 pr-10">';
+            echo '<ul id="mobile-primary-menu" class="flex flex-col overflow-y-auto overflow-x-hidden main-menu-fluid-spacing gap-5 pr-10 no-list-style">';
 
             function display_mobile_menu_items($parent_id, $menu_items_by_parent, $is_submenu = false, $depth = 1)
             {
@@ -115,7 +115,7 @@ $instagram_link = get_field('instagram_link', 'option');
                     echo '</a>';
 
                     if ($has_children) {
-                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden pl-2">';
+                        echo '<ul class="pt-5 gap-5 flex-col submenu hidden pl-2 no-list-style">';
 
                         // Add "Visi produktai" link only if it's a product category and only within the first 2 levels
                         if ($is_product_category && $depth <= 2) {
