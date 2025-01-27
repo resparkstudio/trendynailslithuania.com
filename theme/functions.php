@@ -1460,7 +1460,6 @@ add_action('init', function () {
 	}
 });
 
-
 add_action('woocommerce_account_content', function () {
 	if (isset($_GET['account_error']) && $_GET['account_error'] === 'cannot_delete_admin') {
 		wc_print_notice(__('Administratoriaus paskyra negali būti ištrinta.', 'woocommerce'), 'error');
