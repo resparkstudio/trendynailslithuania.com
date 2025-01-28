@@ -511,7 +511,7 @@ get_header();
                         </h3>
 
                         <div class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray">
-                            <a class="daugiau-button flex gap-3" href="<?php echo $shop_url ?>">
+                            <a class="daugiau-button flex gap-3" href="<?php echo $shop_url . "?orderby=popularity" ?>">
                                 <span><?php echo wp_kses_post("Daugiau"); ?></span>
                                 <div class="flex items-center">
                                     <svg class="daugiau-button-svg" width="6" height="10" viewBox="0 0 6 10" fill="none"
