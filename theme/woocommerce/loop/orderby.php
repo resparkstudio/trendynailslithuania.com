@@ -24,8 +24,13 @@ if (!defined('ABSPATH')) {
 		class="orderby appearance-none body-extra-small-regular text-deep-dark-gray text-gray-700 bg-transparent focus:outline-none"
 		aria-label="<?php esc_attr_e('Shop order', 'woocommerce'); ?>">
 
+		<!-- Default Sorting -->
+		<option value="default" <?php selected($_GET['orderby'] ?? 'default', 'default'); ?>>
+			<?php echo wp_kses_post("Numatytas rikiavimas"); ?>
+		</option>
+
 		<!-- Sorting by Popularity -->
-		<option value="popularity" <?php selected($_GET['orderby'] ?? 'popularity', 'popularity'); ?>>
+		<option value="popularity" <?php selected($_GET['orderby'] ?? 'default', 'popularity'); ?>>
 			<?php echo wp_kses_post("Populiariausios prekės"); ?>
 		</option>
 

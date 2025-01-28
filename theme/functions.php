@@ -374,11 +374,9 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
 
-// Product archive
-// Handle sorting via AJAX
 function filter_products()
 {
-	$orderby = $_GET['orderby'] ?? 'popularity';
+	$orderby = $_GET['orderby'] ?? 'default'; // Set default as the fallback
 	$category = $_GET['category'] ?? ''; // Capture category from AJAX request
 
 	$args = array(
@@ -395,6 +393,15 @@ function filter_products()
 		$args['orderby'] = 'meta_value_num';
 		$args['meta_key'] = '_price';
 		$args['order'] = 'DESC';
+	} elseif ($orderby === 'popularity') {
+		$args['orderby'] = 'meta_value_num';
+		$args['meta_key'] = 'total_sales';
+		$args['order'] = 'DESC';
+	} elseif ($orderby === 'default') {
+		$args['orderby'] = array(
+			'menu_order' => 'ASC',
+			'date' => 'DESC',
+		);
 	} else {
 		$args['orderby'] = $orderby;
 		$args['order'] = 'ASC';
@@ -444,6 +451,7 @@ add_action('wp_ajax_filter_products', 'filter_products');
 add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 
 
+
 // Remove WooCommerce Notices Wrapper
 function remove_woocommerce_notices()
 {
@@ -467,11 +475,10 @@ function load_initial_products_in_archive($query)
 }
 add_action('pre_get_posts', 'load_initial_products_in_archive');
 
-// Function to modify WooCommerce archive query based on URL parameters
 function modify_woocommerce_archive_query($query)
 {
 	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category())) {
-		$orderby = $_GET['orderby'] ?? 'popularity';
+		$orderby = $_GET['orderby'] ?? 'default'; // Default sorting if no 'orderby' parameter is provided
 
 		switch ($orderby) {
 			case 'price-asc':
@@ -484,14 +491,23 @@ function modify_woocommerce_archive_query($query)
 				$query->set('meta_key', '_price');
 				$query->set('order', 'DESC');
 				break;
-			default:
-				$query->set('orderby', 'date'); // Fallback to date sorting
+			case 'popularity':
+				$query->set('orderby', 'meta_value_num');
+				$query->set('meta_key', 'total_sales');
 				$query->set('order', 'DESC');
+				break;
+			case 'default': // Default WooCommerce sorting
+			default:
+				$query->set('orderby', array(
+					'menu_order' => 'ASC', // Manual sorting set in the admin
+					'title' => 'ASC', // Alphabetical fallback
+				));
 				break;
 		}
 	}
 }
 add_action('pre_get_posts', 'modify_woocommerce_archive_query');
+
 
 // AJAX handler to load more products on scroll
 function load_more_products_ajax()
