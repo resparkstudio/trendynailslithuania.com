@@ -76,15 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			e.preventDefault();
 
 			// Simultaneously hide the link and open the sidebar
-			gsap.to(link, {
-				duration: 0.3,
-				opacity: 0,
-				ease: 'power2.out',
-				onComplete: function () {
-					link.style.pointerEvents = 'none';
-					link.style.visibility = 'hidden';
-				},
-			});
+			// gsap.to(link, {
+			// 	duration: 0.3,
+			// 	opacity: 0,
+			// 	ease: 'power2.out',
+			// 	onComplete: function () {
+			// 		link.style.pointerEvents = 'none';
+			// 		link.style.visibility = 'hidden';
+			// 	},
+			// });
 
 			// Flip both SVG icons
 			const svgIcons = document.querySelectorAll(
@@ -117,15 +117,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			e.preventDefault();
 			toggleSidebar(false);
 
-			sidebarOpenLinks.forEach((link) => {
-				link.style.visibility = 'visible';
-				link.style.pointerEvents = 'auto';
-				gsap.to(link, {
-					duration: 0.3,
-					opacity: 1,
-					ease: 'power2.out',
-				});
-			});
+			// sidebarOpenLinks.forEach((link) => {
+			// 	link.style.visibility = 'visible';
+			// 	link.style.pointerEvents = 'auto';
+			// 	gsap.to(link, {
+			// 		duration: 0.3,
+			// 		opacity: 1,
+			// 		ease: 'power2.out',
+			// 	});
+			// });
 
 			const svgIcons = document.querySelectorAll(
 				'.shop-link svg, #sidebar-opened-shop-link svg'
