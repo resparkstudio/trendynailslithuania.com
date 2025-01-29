@@ -79,7 +79,11 @@ if ($related_products_query->have_posts()): ?>
 
 					foreach ($attributes as $attribute) {
 						$attribute_name = wc_attribute_label($attribute->get_name());
-						$attribute_value = implode(', ', $attribute->get_options());
+						if ($attribute->is_taxonomy()) {
+							$attribute_value = implode(', ', wc_get_product_terms($related_product_id, $attribute->get_name(), ['fields' => 'names']));
+						} else {
+							$attribute_value = implode(', ', $attribute->get_options());
+						}
 						$attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
 
 					}
@@ -231,7 +235,11 @@ $new_products_query = new WP_Query($args);
 							// Format attributes as "attribute value attribute name"
 							foreach ($attributes as $attribute) {
 								$attribute_name = wc_attribute_label($attribute->get_name());
-								$attribute_value = implode(', ', $attribute->get_options());
+								if ($attribute->is_taxonomy()) {
+									$attribute_value = implode(', ', wc_get_product_terms($related_product_id, $attribute->get_name(), ['fields' => 'names']));
+								} else {
+									$attribute_value = implode(', ', $attribute->get_options());
+								}
 								$attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
 							}
 
