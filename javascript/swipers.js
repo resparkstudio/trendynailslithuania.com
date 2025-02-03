@@ -140,24 +140,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
 	});
 
-	document.addEventListener('DOMContentLoaded', function () {
-		const productGallerySwiperContainer = document.querySelector(
-			'.product-gallery-swiper'
-		);
-
-		if (productGallerySwiperContainer) {
-			const productGallerySwiper = new Swiper('.product-gallery-swiper', {
-				modules: [Pagination],
-				loop: false,
-				slidesPerView: 1,
-				spaceBetween: 16,
-				pagination: {
-					el: '.product-gallery-swiper-pagination',
-					clickable: true,
-				},
-			});
-		} else {
-			console.log('Product gallery Swiper container not found.');
-		}
+	const productGallerySwiper = new Swiper('.product-gallery-swiper', {
+		modules: [Pagination],
+		loop: false,
+		slidesPerView: 1,
+		spaceBetween: 16,
+		pagination: {
+			el: '.product-gallery-swiper-pagination',
+			clickable: true,
+		},
 	});
 });
