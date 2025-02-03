@@ -96,8 +96,9 @@ if ($related_products_query->have_posts()): ?>
 						<div class="product-card flex flex-col">
 							<div class="w-full relative mb-4 lg:mb-3 product-image-container">
 								<?php
-								$gallery_image_ids = $product->get_gallery_image_ids();
-								$first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
+								$related_product_obj = wc_get_product($related_product_id); // Get the WC_Product object for each related product
+								$gallery_image_ids = $related_product_obj->get_gallery_image_ids(); // Fetch correct gallery images
+								$first_gallery_image_url = (!empty($gallery_image_ids)) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
 								?>
 								<a class="w-full" href="<?php the_permalink(); ?>">
 
@@ -273,8 +274,9 @@ $popular_products_query = new WP_Query($args);
 								<div class="relative product-card flex flex-col">
 									<div class="w-full relative mb-4 lg:mb-3 product-image-container">
 										<?php
-										$gallery_image_ids = $product->get_gallery_image_ids();
-										$first_gallery_image_url = !empty($gallery_image_ids) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
+										$popular_product_obj = wc_get_product($popular_product_id); // Get the WC_Product object for each popular product
+										$gallery_image_ids = $popular_product_obj->get_gallery_image_ids(); // Fetch correct gallery images
+										$first_gallery_image_url = (!empty($gallery_image_ids)) ? wp_get_attachment_image_src($gallery_image_ids[0], 'full')[0] : '';
 										?>
 										<a class="w-full" href="<?php the_permalink(); ?>">
 
