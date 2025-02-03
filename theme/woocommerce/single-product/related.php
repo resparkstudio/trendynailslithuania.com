@@ -108,7 +108,7 @@ if ($related_products_query->have_posts()): ?>
 									<?php if ($first_gallery_image_url): ?>
 										<img src="<?php echo esc_url($first_gallery_image_url); ?>"
 											alt="<?php the_title(); ?> - Gallery"
-											class="w-full object-cover rounded-lg gallery-image"
+											class="w-full object-cover aspect-[324/365] object-center rounded-lg gallery-image"
 											style="position: absolute; top: 0; left: 0; opacity: 0;">
 									<?php endif; ?>
 								</a>
@@ -192,18 +192,38 @@ $args = array(
 	),
 );
 
-$new_products_query = new WP_Query($args);
+
+$categories = wp_get_post_terms($product->get_id(), 'product_cat');
+$category_ids = wp_list_pluck($categories, 'term_id');
+
+$args = array(
+	'post_type' => 'product',
+	'posts_per_page' => 8,
+	'post__not_in' => array($product->get_id()),
+	'orderby' => 'meta_value_num',
+	'order' => 'DESC',
+	'meta_key' => 'total_sales', // Sorting by total sales (popularity)
+	'tax_query' => array(
+		array(
+			'taxonomy' => 'product_cat',
+			'field' => 'term_id',
+			'terms' => $category_ids,
+		),
+	),
+);
+
+$popular_products_query = new WP_Query($args);
 ?>
-<?php if ($new_products_query->have_posts()): ?>
+<?php if ($popular_products_query->have_posts()): ?>
 	<section id="new-products-section" class="mt-20 relative">
 		<div class="flex justify-between w-full mb-7">
-			<h3 class="w-full heading-md text-deep-dark-gray lg:text-[1.125rem] lg:leading-[1.375rem]">
-				<?php echo wp_kses_post("Naujienos"); ?>
+			<h3 class="heading-md text-deep-dark-gray lg:text-[1.125rem] lg:leading-[1.375rem] w-full">
+				<?php echo wp_kses_post("Populiariausi"); ?>
 			</h3>
 			<div
 				class="w-full flex justify-end items-center body-small-regular uppercase text-deep-dark-gray lg:text-[0.75rem] lg:leading-[1.125rem]">
 				<a class="daugiau-button flex gap-3 justify-center items-center"
-					href="<?php echo esc_url(home_url('/parduotuve/?filter=naujienos')); ?>">
+					href="<?php echo esc_url(get_term_link($categories[0])); ?>?orderby=popularity">
 					<span><?php echo wp_kses_post("Daugiau"); ?></span>
 					<div class="flex items-center">
 						<svg class="daugiau-button-svg" width="6" height="10" viewBox="0 0 6 10" fill="none"
@@ -214,6 +234,7 @@ $new_products_query = new WP_Query($args);
 						</svg>
 					</div>
 				</a>
+
 			</div>
 		</div>
 
@@ -221,14 +242,14 @@ $new_products_query = new WP_Query($args);
 			<div class="relative swiper-container overflow-hidden new-products-swiper-container">
 				<div id="product-swiper-wrapper" class="swiper-wrapper">
 					<?php
-					if ($new_products_query->have_posts()):
-						while ($new_products_query->have_posts()):
-							$new_products_query->the_post();
-							$new_product_id = get_the_ID();
-							$new_product_name = get_the_title();
+					if ($popular_products_query->have_posts()):
+						while ($popular_products_query->have_posts()):
+							$popular_products_query->the_post();
+							$popular_product_id = get_the_ID();
+							$popular_product_name = get_the_title();
 
 							// Gather product attributes
-							$product_obj = wc_get_product($new_product_id);
+							$product_obj = wc_get_product($popular_product_id);
 							$attributes = $product_obj->get_attributes();
 							$attribute_text = '';
 
@@ -244,7 +265,7 @@ $new_products_query = new WP_Query($args);
 							}
 
 							// Get thumbnail URL
-							$thumbnail_id = get_post_thumbnail_id($new_product_id);
+							$thumbnail_id = get_post_thumbnail_id($popular_product_id);
 							$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_src($thumbnail_id, 'full')[0] : wp_get_attachment_image_src(7, 'full')[0];
 							?>
 
@@ -264,14 +285,14 @@ $new_products_query = new WP_Query($args);
 											<?php if ($first_gallery_image_url): ?>
 												<img src="<?php echo esc_url($first_gallery_image_url); ?>"
 													alt="<?php the_title(); ?> - Gallery"
-													class="w-full object-cover aspect-[324/365] object-center rounded-lg  gallery-image"
+													class="w-full object-cover aspect-[324/365] object-center rounded-lg gallery-image"
 													style="position: absolute; top: 0; left: 0; opacity: 0;">
 											<?php endif; ?>
 										</a>
 
 										<?php
 										$wishlist = custom_get_wishlist(); // Fetch the current wishlist
-										$is_in_wishlist = in_array($new_product_id, $wishlist); // Check if the product is in the wishlist
+										$is_in_wishlist = in_array($popular_product_id, $wishlist); // Check if the product is in the wishlist
 										?>
 
 										<a class="shop-heart-icon add-to-wishlist-btn absolute top-5 right-5 z-10 cursor-pointer 
@@ -288,8 +309,8 @@ $new_products_query = new WP_Query($args);
 										</a>
 
 										<div class="absolute bottom-5 right-5 z-10">
-											<a data-product_id="<?php echo esc_attr($new_product_id); ?>"
-												data-product_name="<?php echo esc_attr($new_product_name); ?>"
+											<a data-product_id="<?php echo esc_attr($popular_product_id); ?>"
+												data-product_name="<?php echo esc_attr($popular_product_name); ?>"
 												class="add-item-icon add-to-cart-swiper-btn cursor-pointer flex items-center justify-center p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
 												<svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 													xmlns="http://www.w3.org/2000/svg">
@@ -309,7 +330,7 @@ $new_products_query = new WP_Query($args);
 									</div>
 
 									<a href="<?php the_permalink(); ?>" class="product-title body-normal-regular mb-2.5 lg:mb-7">
-										<?php echo esc_html($new_product_name . $attribute_text); ?>
+										<?php echo esc_html($popular_product_name . $attribute_text); ?>
 									</a>
 
 									<div class="product-price">

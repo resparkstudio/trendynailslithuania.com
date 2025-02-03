@@ -31,6 +31,11 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 			<a href="#content" class="sr-only"><?php wp_kses_post('Skip to content'); ?></a>
 
 			<header class="fixed w-full site-header z-40 md:z-32">
+				<div class="w-full bg-black h-6 flex justify-center items-center">
+					<div class="text-white body-extra-small-regular">
+						<?php echo wp_kses_post(get_field('header_top_banner', 'option')) ?>
+					</div>
+				</div>
 				<div
 					class="w-full relative flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 z-40 bg-white md:z-30">
 
@@ -178,7 +183,7 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 
 			</header>
 			<div id="sidebar-opened-shop-wrapper"
-				class="fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
+				class="mt-5 fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
 				<a href="<?php echo esc_url($shop_url) ?>" id="sidebar-opened-shop-link"
 					class="invisible gap-1 text-white">
 					<span class="inline-block">
@@ -196,7 +201,9 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 			</div>
 			<div id="newsletter-mobile-overlay" class="w-full h-full fixed bg-black/[0.27] z-[32] hidden">
 			</div>
-			<?php get_template_part('template-parts/newsletter-popup'); ?>
+			<?php
+			// get_template_part('template-parts/newsletter-popup'); 
+			?>
 
 			<?php get_template_part('template-parts/contact-form-modal'); ?>
 

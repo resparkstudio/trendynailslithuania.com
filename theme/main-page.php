@@ -879,7 +879,7 @@ get_header();
                     <div class="instagram-gallery-swiper relative">
                         <div class="swiper-wrapper">
                             <?php foreach ($instagram_gallery as $image_url): ?>
-                                <div class="swiper-slide round-12">
+                                <div class="swiper-slide round-12 relative">
                                     <img src="<?php echo esc_url($image_url); ?>" alt="Trendy Nails Instagram Image"
                                         class="instagram-image w-full h-auto object-cover aspect-square round-12">
                                     <a class="instagram-image-overlay flex round-12 absolute inset-0 left-0 top-0 w-full h-full bg-black/[.32] justify-center items-center"
