@@ -177,7 +177,7 @@ if ($related_products_query->have_posts()): ?>
 <?php endif; ?>
 
 
-<!-- New Products Section -->
+
 <?php
 $new_product_days = 30;
 $args = array(
@@ -199,19 +199,17 @@ $category_ids = wp_list_pluck($categories, 'term_id');
 
 $args = array(
 	'post_type' => 'product',
-	'posts_per_page' => 8,
-	'post__not_in' => array($product->get_id()),
-	'orderby' => 'meta_value_num',
-	'order' => 'DESC',
-	'meta_key' => 'total_sales', // Sorting by total sales (popularity)
-	'tax_query' => array(
+	'posts_per_page' => 10,
+	'meta_query' => array(
 		array(
-			'taxonomy' => 'product_cat',
-			'field' => 'term_id',
-			'terms' => $category_ids,
-		),
-	),
+			'key' => '_populiariausi',
+			'value' => 'yes',
+			'compare' => '=',
+		)
+	)
 );
+
+$popular_product_loop = new WP_Query($args);
 
 $popular_products_query = new WP_Query($args);
 ?>
