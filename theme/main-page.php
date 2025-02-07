@@ -33,9 +33,10 @@ get_header();
         <div class="w-full">
             <div id="hero-section" class="relative w-full overflow-hidden mb-16 md:mb-20">
                 <?php if ($hero_image && $hero_image_mobile): ?>
-                    <img class="w-full h-auto block md:hidden aspect-[1401/581]" src="<?php echo esc_url($hero_image); ?>"
+                    <img class="w-full h-auto block md:hidden aspect-[1401/581] object-cover"
+                        src="<?php echo esc_url($hero_image); ?>"
                         alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
-                    <img class="w-full h-auto hidden md:block" src="<?php echo esc_url($hero_image_mobile); ?>"
+                    <img class="w-full h-auto hidden md:block object-cover" src="<?php echo esc_url($hero_image_mobile); ?>"
                         alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
                 <?php elseif ($hero_image): ?>
                     <img class="w-full h-auto object-cover" src="<?php echo esc_url($hero_image); ?>"
