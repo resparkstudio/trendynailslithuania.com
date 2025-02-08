@@ -466,15 +466,6 @@ add_filter('woocommerce_cart_item_removed_notice_type', '__return_false');
 remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
 
 
-// Limit initial products per page in WooCommerce archives for infinite scroll
-function load_initial_products_in_archive($query)
-{
-	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
-		$query->set('posts_per_page', 16);
-	}
-}
-add_action('pre_get_posts', 'load_initial_products_in_archive');
-
 function modify_woocommerce_archive_query($query)
 {
 	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category())) {
@@ -508,30 +499,75 @@ function modify_woocommerce_archive_query($query)
 }
 add_action('pre_get_posts', 'modify_woocommerce_archive_query');
 
+// Limit initial products per page in WooCommerce archives for infinite scroll
+function load_initial_products_in_archive($query)
+{
+	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
+		$query->set('posts_per_page', 16);
+	}
+}
+add_action('pre_get_posts', 'load_initial_products_in_archive');
 
-// AJAX handler to load more products on scroll
+
+// AJAX handler to load more products on scroll (updated)
 function load_more_products_ajax()
 {
-	$page = isset($_POST['page']) ? intval($_POST['page']) : 2;
+	// Get current AJAX page. (We start counting ajax pages at 2.)
+	$ajax_page = isset($_POST['page']) ? intval($_POST['page']) : 2;
 	$category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
+	$orderby = isset($_POST['orderby']) ? sanitize_text_field($_POST['orderby']) : 'default';
+
+	// Define your counts:
+	$initial_posts_count = 16; // Must match the posts_per_page in your initial query
+	$ajax_posts_per_page = 8; // Number of products loaded per AJAX request
+
+	// Calculate the offset:
+	// For the first AJAX load (ajax_page == 2), offset should be equal to the initial load count.
+	$offset = $initial_posts_count + ($ajax_page - 2) * $ajax_posts_per_page;
 
 	$args = [
 		'post_type' => 'product',
-		'posts_per_page' => 16,
-		'paged' => $page,
+		'posts_per_page' => $ajax_posts_per_page,
+		'offset' => $offset,
 		'post_status' => 'publish',
+		'ignore_sticky_posts' => 1,
 	];
 
-	// Add category filter if specified
+	// Add category filter if specified.
 	if (!empty($category)) {
 		$args['tax_query'] = [
 			[
 				'taxonomy' => 'product_cat',
 				'field' => 'slug',
 				'terms' => $category,
-				'operator' => 'IN',
 			],
 		];
+	}
+
+	// Replicate your ordering logic from modify_woocommerce_archive_query.
+	switch ($orderby) {
+		case 'price-asc':
+			$args['orderby'] = 'meta_value_num';
+			$args['meta_key'] = '_price';
+			$args['order'] = 'ASC';
+			break;
+		case 'price-desc':
+			$args['orderby'] = 'meta_value_num';
+			$args['meta_key'] = '_price';
+			$args['order'] = 'DESC';
+			break;
+		case 'popularity':
+			$args['orderby'] = 'meta_value_num';
+			$args['meta_key'] = 'total_sales';
+			$args['order'] = 'DESC';
+			break;
+		case 'default':
+		default:
+			$args['orderby'] = [
+				'menu_order' => 'ASC',
+				'title' => 'ASC',
+			];
+			break;
 	}
 
 	// Run query
@@ -542,6 +578,9 @@ function load_more_products_ajax()
 			$query->the_post();
 			wc_get_template_part('content', 'product');
 		}
+	} else {
+		// Signal no more products.
+		echo 0;
 	}
 
 	wp_reset_postdata();
@@ -549,6 +588,7 @@ function load_more_products_ajax()
 }
 add_action('wp_ajax_load_more_products', 'load_more_products_ajax');
 add_action('wp_ajax_nopriv_load_more_products', 'load_more_products_ajax');
+
 
 
 // AJAX searchbox funtionality

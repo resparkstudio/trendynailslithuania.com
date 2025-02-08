@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-	let page = 2; // Start with page 2 as page 1 loads initially
+	let page = 2; // Start with page 2 (page 1 is already loaded initially)
 	let loading = false;
 
 	const container = document.querySelector('ul.products'); // Target the ul.products element
-
-	// Check if container exists to avoid errors
 	if (!container) {
 		console.warn(
 			"Container element 'ul.products' not found. Exiting script."
@@ -12,12 +10,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		return;
 	}
 
+	// Get the category from a parent element's data attribute, if set
 	const productList = container.closest('#product-list');
 	const category = productList
 		? productList.getAttribute('data-category')
-		: null; // Set this dynamically if it exists
+		: null;
 
-	// Scroll handler function to be removed if no more products are available
+	// Get current orderby parameter from the URL (if set)
+	const urlParams = new URLSearchParams(window.location.search);
+	const orderby = urlParams.get('orderby') || 'default';
+
+	// Scroll handler function to load more products on scroll
 	const loadMoreOnScroll = () => {
 		if (
 			window.innerHeight + window.scrollY >=
@@ -29,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			const data = new FormData();
 			data.append('action', 'load_more_products');
 			data.append('page', page);
-			if (category) data.append('category', category); // Include category if it exists
+			data.append('orderby', orderby);
+			if (category) data.append('category', category);
 
 			fetch(woocommerce_params.ajax_url, {
 				method: 'POST',
@@ -38,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				.then((response) => response.text())
 				.then((response) => {
 					if (response == '0') {
-						// Stop further AJAX calls, no more products to load
+						// No more products; remove the scroll event listener
 						window.removeEventListener('scroll', loadMoreOnScroll);
 					} else {
 						container.insertAdjacentHTML('beforeend', response);
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						loading = false;
 
 						// Fade-in effect for newly loaded products
+						// This selects all new product cards; adjust the selector if needed.
 						const newProducts =
 							container.querySelectorAll('li.product-card');
 						newProducts.forEach((product) => {
@@ -61,6 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
-	// Add the scroll event listener only if the container exists
+	// Add the scroll event listener
 	window.addEventListener('scroll', loadMoreOnScroll);
 });
