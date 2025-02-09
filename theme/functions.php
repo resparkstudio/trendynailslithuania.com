@@ -578,9 +578,6 @@ function load_more_products_ajax()
 			$query->the_post();
 			wc_get_template_part('content', 'product');
 		}
-	} else {
-		// Signal no more products.
-		echo 0;
 	}
 
 	wp_reset_postdata();
