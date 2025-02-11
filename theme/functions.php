@@ -246,8 +246,8 @@ add_action('after_setup_theme', 'theme_setup');
 if (function_exists('acf_add_options_page')) {
 
 	acf_add_options_page(array(
-		'page_title' => 'Svetainės nustatymai',
-		'menu_title' => 'Svetainės nustatymai',
+		'page_title' => 'Global nustatymai',
+		'menu_title' => 'Global nustatymai',
 		'menu_slug' => 'contact-general-settings',
 		'capability' => 'edit_posts',
 		'redirect' => false,
