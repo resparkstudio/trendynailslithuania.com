@@ -4,6 +4,9 @@ Template Name: Header
 */
 
 $shop_url = get_permalink(wc_get_page_id('shop'));
+
+$header_padding = get_field('header_top_banner', 'option') ? 'pt-[6.5rem] md:pt-[5.25rem]' : 'pt-[5rem] md:pt-[3.75rem]';
+$search_form_position = get_field('header_top_banner', 'option') ? 'top-[7.5rem] md:top-[5rem]' : 'top-24 md:top-14';
 ?>
 
 
@@ -30,12 +33,14 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 		<div id="page" class="relative">
 			<a href="#content" class="sr-only"><?php wp_kses_post('Skip to content'); ?></a>
 
-			<header class="fixed w-full site-header z-40 md:z-32">
-				<div class="w-full bg-black h-6 flex justify-center items-center">
-					<div class="text-white body-extra-small-regular">
-						<?php echo wp_kses_post(get_field('header_top_banner', 'option')) ?>
+			<header class="fixed w-full site-header z-40 md:z-32 top-0">
+				<?php if (get_field('header_top_banner', 'option')): ?>
+					<div class="w-full bg-black h-6 flex justify-center items-center z-50 relative">
+						<div class="text-white body-extra-small-regular">
+							<?php echo wp_kses_post(get_field('header_top_banner', 'option')) ?>
+						</div>
 					</div>
-				</div>
+				<?php endif; ?>
 				<div
 					class="w-full relative flex justify-between items-center h-20 md:h-[3.75rem] px-12 md:px-4 z-40 bg-white md:z-30">
 
@@ -175,7 +180,7 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 				</div>
 
 				<div id="search-form-container"
-					class="hidden absolute px-12 md:px-4 left-0 top-24 md:top-14 w-full justify-center z-10">
+					class="hidden absolute px-12 md:px-4 left-0 <?php echo $search_form_position ?> w-full justify-center z-10">
 					<?php if (function_exists('get_product_search_form')): ?>
 						<?php get_product_search_form(); ?>
 					<?php endif; ?>
@@ -212,4 +217,4 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 			<?php get_template_part('template-parts/shop-menu-sidebar'); ?>
 			<div id="cart-sidebar-overlay" class="w-full h-full fixed z-[49] bg-black/[0.27] hidden sm:hidden"></div>
 			<?php get_template_part('template-parts/cart-sidebar'); ?>
-			<div id="content" class="pt-[6.5rem] md:pt-[5.25rem]">
+			<div id="content" class="<?php echo $header_padding ?>">

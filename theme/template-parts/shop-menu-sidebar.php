@@ -2,9 +2,10 @@
 
 $facebook_link = get_field('facebook_link', 'option');
 $instagram_link = get_field('instagram_link', 'option');
+$header_padding = get_field('header_top_banner', 'option') ? 'pt-[6.5rem] md:pt-[5.25rem]' : 'pt-[5rem] md:pt-[3.75rem]';
 ?>
 <aside id="shop-sidebar"
-    class="shop-sidebar fixed left-0 w-[16.5rem] md:w-[14.25rem] h-full bg-black text-white body-small-regular hidden z-40 md:z-[29] pt-[6.5rem] md:pt-[5.25rem] grid-rows-12">
+    class="shop-sidebar fixed left-0 w-[16.5rem] md:w-[14.25rem] h-full bg-black text-white body-small-regular hidden z-40 md:z-[29] <?php echo $header_padding ?> grid-rows-12">
     <nav id="desktop-sidebar-navigation"
         class="main-navigation body-small-regular text-white flex flex-col md:hidden row-span-9 pl-12 py-9">
         <?php
