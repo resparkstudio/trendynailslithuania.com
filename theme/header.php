@@ -212,4 +212,4 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 			<?php get_template_part('template-parts/shop-menu-sidebar'); ?>
 			<div id="cart-sidebar-overlay" class="w-full h-full fixed z-[49] bg-black/[0.27] hidden sm:hidden"></div>
 			<?php get_template_part('template-parts/cart-sidebar'); ?>
-			<div id="content" class="pt-20 md:pt-[3.75rem]">
+			<div id="content" class="pt-[6.5rem] md:pt-[5.25rem]">
