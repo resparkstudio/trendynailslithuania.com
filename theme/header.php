@@ -7,6 +7,7 @@ $shop_url = get_permalink(wc_get_page_id('shop'));
 
 $header_padding = get_field('header_top_banner', 'option') ? 'pt-[6.5rem] md:pt-[5.25rem]' : 'pt-[5rem] md:pt-[3.75rem]';
 $search_form_position = get_field('header_top_banner', 'option') ? 'top-[7.5rem] md:top-[5rem]' : 'top-24 md:top-14';
+$sidebar_padding = get_field('header_top_banner', 'option') ? 'mt-5' : '';
 ?>
 
 
@@ -188,7 +189,7 @@ $search_form_position = get_field('header_top_banner', 'option') ? 'top-[7.5rem]
 
 			</header>
 			<div id="sidebar-opened-shop-wrapper"
-				class="mt-5 fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
+				class="<?php echo $sidebar_padding ?> fixed left-0 z-50 body-small-regular h-[5rem] text-black flex items-center pl-12 md:hidden">
 				<a href="<?php echo esc_url($shop_url) ?>" id="sidebar-opened-shop-link"
 					class="invisible gap-1 text-white">
 					<span class="inline-block">

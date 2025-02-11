@@ -61,14 +61,14 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                     <div class="flex justify-between items-center sm:gap-4 mt-auto flex-wrap sm:flex-nowrap shrink-0">
                         <div>
                             <div
-                                class="hidden sm:flex items-center border-[0.7px] rounded-[46px] lg:rounded-[9px] py-0.5 border-deep-dark-gray justify-center overflow-hidden">
+                                class="hidden sm:flex items-center border-[0.7px] rounded-[46px] lg:rounded-[9px] py-[0.25rem] border-deep-dark-gray justify-center overflow-hidden">
                                 <button type="button"
                                     class="minus focus:outline-none flex items-center justify-center pl-3 text-[1.3rem] text-deep-dark-gray custom-minus"
                                     data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
                                     <span><?php echo wp_kses_post("-"); ?></span>
                                 </button>
                                 <input type="number" id="quantity_<?php echo esc_attr($cart_item_key); ?>"
-                                    class="quantity-input ajax-cart-quantity w-[2.5rem] text-center focus:outline-none body-normal-semibold text-[1.3rem] text-deep-dark-gray"
+                                    class="quantity-input ajax-cart-quantity w-[2.5rem] text-center focus:outline-none body-normal-regular text-[1.125rem] text-deep-dark-gray"
                                     name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]"
                                     value="<?php echo esc_attr($cart_item['quantity']); ?>" size="4" min="1" step="1"
                                     data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>" inputmode="numeric"
