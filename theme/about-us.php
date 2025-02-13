@@ -31,7 +31,8 @@ $bottom_image_description = get_field('bottom_image_description');
         <?php if ($hero_image || $hero_image_mobile || $hero_text): ?>
             <div id="hero-section" class="relative mb-20 md:mb-16 md:mx-0">
                 <?php if ($hero_image && $hero_image_mobile): ?>
-                    <img class="block md:hidden w-full h-auto object-cover" src="<?php echo esc_url($hero_image); ?>"
+                    <img class="block md:hidden w-full h-auto aspect-[1401/581] object-cover"
+                        src="<?php echo esc_url($hero_image); ?>"
                         alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
                     <img class="hidden md:block w-full h-auto object-cover" src="<?php echo esc_url($hero_image_mobile); ?>"
                         alt="Hero image of Trendy Nails DREAM base bottle with a floral background" />
