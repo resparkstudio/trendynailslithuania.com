@@ -994,6 +994,7 @@ function customize_checkout_fields($fields)
 			'label' => __('Šalis', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 80,
+			'default' => 'LT',
 		),
 
 	);
@@ -1029,25 +1030,28 @@ function customize_checkout_fields($fields)
 
 add_filter('woocommerce_form_field_custom', 'render_custom_plain_text_field', 10, 4);
 
+add_filter('woocommerce_form_field_custom', 'render_custom_plain_text_field', 10, 4);
+
 function render_custom_plain_text_field($field, $key, $args, $value)
 {
 	if ($key === 'billing_country') {
+		// Ensure a default value is used
+		$value = !empty($value) ? $value : 'LT';
 		// Get WooCommerce country name
 		$countries = WC()->countries->get_countries();
 		$country_name = isset($countries[$value]) ? $countries[$value] : __('Lietuva', 'woocommerce'); // Default to Lithuania
 
-		// Replace the input with plain text
 		$label = !empty($args['label']) ? $args['label'] : '';
 		$field = '<div class="form-row ' . esc_attr(implode(' ', $args['class'])) . '">';
 		$field .= '<label>' . esc_html($label) . '</label>';
-		$field .= '<span class = "px-3">' . esc_html($country_name) . '</span>';
+		$field .= '<span class="px-3">' . esc_html($country_name) . '</span>';
+		// Add a hidden input field to actually submit the value
+		$field .= '<input type="hidden" name="' . esc_attr($key) . '" value="' . esc_attr($value) . '"/>';
 		$field .= '</div>';
 		return $field;
 	}
-
 	return $field;
 }
-
 
 
 // Force shipping country to Lithuania
@@ -1059,6 +1063,15 @@ function force_shipping_country($order_id)
 }
 
 add_action('woocommerce_checkout_update_order_meta', 'sync_shipping_phone_with_billing');
+
+add_action('woocommerce_checkout_process', 'force_billing_country');
+
+function force_billing_country()
+{
+	if (empty($_POST['billing_country'])) {
+		$_POST['billing_country'] = 'LT';
+	}
+}
 
 function sync_shipping_phone_with_billing($order_id)
 {
