@@ -1,71 +1,79 @@
-function adjustPayseraOptions() {
-	const mainPaymentMethods = document.querySelector(
-		'.wc_payment_methods.payment_methods'
-	);
-	const payseraMethod = document.querySelector(
-		'.wc_payment_method.payment_method_paysera'
-	);
+// function adjustPayseraOptions() {
+// 	const mainPaymentMethods = document.querySelector(
+// 		'.wc_payment_methods.payment_methods'
+// 	);
+// 	const payseraMethod = document.querySelector(
+// 		'.wc_payment_method.payment_method_paysera'
+// 	);
 
-	if (!mainPaymentMethods || !payseraMethod) {
-		return;
-	}
+// 	if (!mainPaymentMethods || !payseraMethod) {
+// 		return;
+// 	}
 
-	const payseraOptionsWrapper = payseraMethod.querySelector(
-		'.payment_box.payment_method_paysera'
-	);
+// 	// Remove any previously appended Paysera sub-options to prevent duplicates.
+// 	const existingSubOptions = mainPaymentMethods.querySelectorAll(
+// 		'.paysera_sub_option'
+// 	);
+// 	existingSubOptions.forEach((option) => option.remove());
 
-	if (payseraOptionsWrapper) {
-		const payseraOptions = payseraOptionsWrapper.querySelectorAll(
-			'.paysera-payment-method'
-		);
+// 	const payseraOptionsWrapper = payseraMethod.querySelector(
+// 		'.payment_box.payment_method_paysera'
+// 	);
 
-		payseraMethod.style.display = 'none';
+// 	if (payseraOptionsWrapper) {
+// 		const payseraOptions = payseraOptionsWrapper.querySelectorAll(
+// 			'.paysera-payment-method'
+// 		);
 
-		payseraOptions.forEach((option) => {
-			const radioInput = option.querySelector('input[type="radio"]');
+// 		// Hide the main Paysera payment method (if needed)
+// 		payseraMethod.style.display = 'none';
 
-			if (radioInput) {
-				radioInput.name = 'payment[pay_type]';
-				radioInput.classList.add('custom-radio');
-				radioInput.addEventListener('change', () => {
-					const payseraMainInput = payseraMethod.querySelector(
-						'input[type="radio"][name="payment_method"]'
-					);
-					if (payseraMainInput) {
-						payseraMainInput.checked = true;
-					}
-				});
-			}
+// 		payseraOptions.forEach((option) => {
+// 			const radioInput = option.querySelector('input[type="radio"]');
 
-			const containerDiv = option.querySelector('div');
-			if (containerDiv) {
-				containerDiv.classList.add('custom-radio-button-container');
-			}
+// 			if (radioInput) {
+// 				radioInput.name = 'payment[pay_type]';
+// 				radioInput.classList.add('custom-radio');
+// 				radioInput.addEventListener('change', () => {
+// 					const payseraMainInput = payseraMethod.querySelector(
+// 						'input[type="radio"][name="payment_method"]'
+// 					);
+// 					if (payseraMainInput) {
+// 						payseraMainInput.checked = true;
+// 					}
+// 				});
+// 			}
 
-			const newLi = document.createElement('li');
-			newLi.className =
-				'flex gap-x-2 items-center wc_payment_method paysera_sub_option';
-			newLi.appendChild(option);
-			mainPaymentMethods.appendChild(newLi);
-		});
-	}
+// 			const containerDiv = option.querySelector('div');
+// 			if (containerDiv) {
+// 				containerDiv.classList.add('custom-radio-button-container');
+// 			}
 
-	const allPaymentMethods = document.querySelectorAll(
-		'input[type="radio"][name="payment_method"]'
-	);
-	allPaymentMethods.forEach((method) => {
-		method.addEventListener('change', () => {
-			if (!method.value.includes('paysera')) {
-				const payseraSubOptions = document.querySelectorAll(
-					'input[name="payment[pay_type]"]'
-				);
-				payseraSubOptions.forEach((subOption) => {
-					subOption.checked = false;
-				});
-			}
-		});
-	});
-}
+// 			const newLi = document.createElement('li');
+// 			newLi.className =
+// 				'flex gap-x-2 items-center wc_payment_method paysera_sub_option';
+// 			newLi.appendChild(option);
+// 			mainPaymentMethods.appendChild(newLi);
+// 		});
+// 	}
 
-document.addEventListener('DOMContentLoaded', adjustPayseraOptions);
-jQuery(document.body).on('updated_checkout', adjustPayseraOptions);
+// 	// Attach event listeners to all main payment method radios.
+// 	const allPaymentMethods = document.querySelectorAll(
+// 		'input[type="radio"][name="payment_method"]'
+// 	);
+// 	allPaymentMethods.forEach((method) => {
+// 		method.addEventListener('change', () => {
+// 			if (!method.value.includes('paysera')) {
+// 				const payseraSubOptions = document.querySelectorAll(
+// 					'input[name="payment[pay_type]"]'
+// 				);
+// 				payseraSubOptions.forEach((subOption) => {
+// 					subOption.checked = false;
+// 				});
+// 			}
+// 		});
+// 	});
+// }
+
+// document.addEventListener('DOMContentLoaded', adjustPayseraOptions);
+// jQuery(document.body).on('updated_checkout', adjustPayseraOptions);
