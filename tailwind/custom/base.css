@@ -514,15 +514,18 @@ footer {
 	@apply mb-4;
 }
 
-.custom-radio {
+.custom-radio,
+.paysera-payment-method-label input[type="radio"] {
 	@apply appearance-none rounded-full ring-[0.6px] ring-mid-gray w-4 h-4;
 }
 
-.custom-radio:checked {
+.custom-radio:checked,
+.paysera-payment-method-label input[type="radio"]:checked {
 	@apply bg-deep-dark-gray flex justify-center items-center;
 }
 
-.custom-radio:checked::after {
+.custom-radio:checked::after,
+.paysera-payment-method-label input[type="radio"]:checked::after {
 	content: "";
 	@apply w-2 h-2 bg-white rounded-full block;
 }
@@ -605,7 +608,23 @@ footer {
 	@apply m-0;
 }
 
+.paysera-payment-method-label {
+	justify-content: start !important;
+}
+
+#paysera_country {
+	@apply invisible w-0 h-0;
+}
+
+.payment_method_paysera .payment-group-title {
+	@apply hidden;
+}
+
 .custom-radio-button-container {
+	@apply flex items-center;
+}
+
+.paysera-payment-method-label > div:first-of-type {
 	@apply flex items-center;
 }
 

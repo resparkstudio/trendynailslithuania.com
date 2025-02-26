@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
 		<?php checked($gateway->chosen, true); ?>
 		data-order_button_text="<?php echo esc_attr($gateway->order_button_text); ?>" />
 	<div>
-		<label class="body-normal-regular text-black" for="payment_method_<?php echo esc_attr($gateway->id); ?>">
+		<label class="body-normal-regular text-black mb-4" for="payment_method_<?php echo esc_attr($gateway->id); ?>">
 			<?php echo $gateway->get_title(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>
 			<?php echo $gateway->get_icon(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>
 		</label>

@@ -9,15 +9,7 @@
  *
  * @package _tw
  */
-
-$shop_url = get_permalink(wc_get_page_id('shop'));
-
-$header_padding = get_field('header_top_banner', 'option') ? 'pt-[6.5rem] md:pt-[5.25rem]' : 'pt-[5rem] md:pt-[3.75rem]';
-$search_form_position = get_field('header_top_banner', 'option') ? 'top-[7.5rem] md:top-[5rem]' : 'top-24 md:top-14';
-$sidebar_padding = get_field('header_top_banner', 'option') ? 'mt-5' : '';
-?>
-
-<!doctype html>
+?><!doctype html>
 <html <?php language_attributes(); ?>>
 
 <head>
@@ -33,6 +25,12 @@ $sidebar_padding = get_field('header_top_banner', 'option') ? 'mt-5' : '';
 <body <?php body_class(); ?>>
 
 	<?php wp_body_open(); ?>
+	<?php
+	$shop_url = get_permalink(wc_get_page_id('shop'));
+	$header_padding = get_field('header_top_banner', 'option') ? 'pt-[6.5rem] md:pt-[5.25rem]' : 'pt-[5rem] md:pt-[3.75rem]';
+	$search_form_position = get_field('header_top_banner', 'option') ? 'top-[7.5rem] md:top-[5rem]' : 'top-24 md:top-14';
+	$sidebar_padding = get_field('header_top_banner', 'option') ? 'mt-5' : '';
+	?>
 
 	<div id="page" class="relative">
 		<a href="#content" class="sr-only"><?php wp_kses_post('Skip to content'); ?></a>
