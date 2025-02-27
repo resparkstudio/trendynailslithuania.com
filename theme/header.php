@@ -1,17 +1,5 @@
-<?php
-/**
- * The header for our theme
- *
- * This is the template that displays the `head` element and everything up
- * until the `#content` element.
- *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
- * @package _tw
- */
-?><!doctype html>
+<!doctype html>
 <html <?php language_attributes(); ?>>
-
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
