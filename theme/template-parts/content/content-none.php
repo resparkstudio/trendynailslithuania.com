@@ -6,11 +6,8 @@
  *
  * @package _tw
  */
-
 ?>
-
 <section>
-
 	<header class="page-header">
 		<?php if (is_search()): ?>
 

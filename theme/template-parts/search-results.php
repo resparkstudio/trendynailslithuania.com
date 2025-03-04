@@ -67,12 +67,12 @@ if (!defined('ABSPATH')) {
 
                     <!-- Product Price -->
                     <p class="body-normal-semibold text-deep-dark-gray">
-                        <?php echo wc_price(get_post_meta($product['id'], '_price', true)); ?>
+                        <?php woocommerce_template_loop_price(); ?>
                     </p>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p class="text-sm text-gray-600 p-4">No products found</p>
+        <p class="text-sm text-gray-600 p-4">Produktų nerasta</p>
     <?php endif; ?>
 </div>

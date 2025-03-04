@@ -8,7 +8,15 @@ if (!function_exists('WC')) {
     return;
 }
 
+// Define a helper function if not already defined.
+if (!function_exists('clean_attribute_slug')) {
+    function clean_attribute_slug($slug)
+    {
+        return str_replace('pa_', '', $slug);
+    }
+}
 ?>
+
 <div class="cart-items">
     <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item): ?>
         <?php
@@ -16,18 +24,20 @@ if (!function_exists('WC')) {
         $product_permalink = $_product->is_visible() ? $_product->get_permalink($cart_item) : '';
         $thumbnail_id = $_product->get_image_id();
         $thumbnail_src = wp_get_attachment_image_src($thumbnail_id, 'woocommerce_thumbnail');
-        $attributes = $_product->get_attributes();
         $product_name = $_product->get_name();
 
-        // Build attribute string
-        $attribute_text = '';
-        if (!empty($attributes)) {
-            foreach ($attributes as $attribute) {
-                $attribute_name = wc_attribute_label($attribute->get_name());
-                $attribute_value = implode(', ', $attribute->get_options());
-                $attribute_text .= ' ' . esc_html($attribute_value) . ' ' . esc_html(strtolower($attribute_name));
+        // Build attribute string using the same logic as the single product template.
+        $attributes = $_product->get_attributes();
+        $attribute_strings = array();
+        foreach ($attributes as $attribute_slug => $attribute) {
+            // Retrieve the formatted attribute value.
+            $attribute_value = $_product->get_attribute($attribute_slug);
+            if ($attribute_value) {
+                $formatted_attribute = esc_html($attribute_value) . ' ' . clean_attribute_slug($attribute_slug);
+                $attribute_strings[] = $formatted_attribute;
             }
         }
+        $attribute_text = !empty($attribute_strings) ? ' ' . implode(', ', $attribute_strings) : '';
         $formatted_product_name = $product_name . $attribute_text;
         ?>
         <div class="cart-item grid grid-cols-12 py-4" data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
@@ -45,8 +55,9 @@ if (!function_exists('WC')) {
                 <div class="product-details flex justify-between">
                     <div class="product-name body-small-medium deep-dark-gray mr-2">
                         <?php if ($product_permalink): ?>
-                            <a
-                                href="<?php echo esc_url($product_permalink); ?>"><?php echo esc_html($formatted_product_name); ?></a>
+                            <a href="<?php echo esc_url($product_permalink); ?>">
+                                <?php echo esc_html($formatted_product_name); ?>
+                            </a>
                         <?php else: ?>
                             <?php echo esc_html($formatted_product_name); ?>
                         <?php endif; ?>
@@ -95,25 +106,26 @@ if (!function_exists('WC')) {
                     </div>
                     <div
                         class="product-price flex gap-x-2 flex-wrap justify-end max-1200px:justify-start max-1200px:order-2">
-                        <?php if ($_product->is_on_sale()): ?>
+                        <?php
+                        $product_original_price = $_product->get_regular_price();
+                        $line_total_incl_tax = $cart_item['line_total'] + $cart_item['line_tax'];
+                        $price_after_discount_incl_tax = $line_total_incl_tax / $cart_item['quantity'];
+
+                        if (round($price_after_discount_incl_tax, 3) < $product_original_price): ?>
                             <span class="sale-price text-deep-dark-gray body-small-semibold flex items-end">
-                                <?php echo wc_price($_product->get_sale_price()); ?>
+                                <?php echo wc_price($price_after_discount_incl_tax); ?>
                             </span>
                             <span class="text-discount-gray line-through body-small-medium flex items-end">
-                                <?php echo wc_price($_product->get_regular_price()); ?>
+                                <?php echo wc_price($product_original_price); ?>
                             </span>
                         <?php else: ?>
                             <span class="text-deep-dark-gray body-small-semibold flex items-end">
-                                <?php echo wc_price($_product->get_regular_price()); ?>
+                                <?php echo wc_price($product_original_price); ?>
                             </span>
                         <?php endif; ?>
                     </div>
-
                 </div>
-
-
             </div>
-
         </div>
     <?php endforeach; ?>
 </div>

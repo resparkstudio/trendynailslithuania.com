@@ -1,8 +1,4 @@
-<?php
-
-get_header();
-?>
-
+<?php get_header(); ?>
 <section id="primary" class="max-w-[87.5rem] mx-auto w-full">
     <main id="main" class="mx-12 md:mx-4 mb-36 md:mb-32 mt-5 md:mt-2.5">
 

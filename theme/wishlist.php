@@ -68,19 +68,27 @@ $wishlist_items = custom_get_wishlist();
                                 }
                                 $product_name = $product->get_name();
                                 $attributes = $product->get_attributes();
-                                $attribute_text = '';
+                                $attribute_strings = array();
 
-                                // Format attributes as "attribute value attribute name"
-                                foreach ($attributes as $attribute) {
-                                    $attribute_name = wc_attribute_label($attribute->get_name());
-                                    $attribute_value = implode(', ', $attribute->get_options());
-                                    $attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
+                                foreach ($attributes as $attribute_slug => $attribute) {
+                                    // Get the attribute display value
+                                    $attribute_value = $product->get_attribute($attribute_slug);
+                                    if ($attribute_value) {
+                                        // Remove 'pa_' prefix from the attribute slug for display
+                                        $clean_slug = str_replace('pa_', '', $attribute_slug);
+                                        // Format as "attribute value attribute name" (slug in lowercase)
+                                        $attribute_strings[] = esc_html($attribute_value) . ' ' . strtolower(esc_html($clean_slug));
+                                    }
                                 }
+
+                                $attribute_text = !empty($attribute_strings) ? ' ' . implode(', ', $attribute_strings) : '';
+                                $formatted_product_name = $product_name . $attribute_text;
                                 ?>
                                 <a href="<?php echo esc_url(get_permalink($product_id)); ?>"
                                     class="product-title body-normal-regular mb-2.5 lg:mb-7">
-                                    <?php echo esc_html($product_name . $attribute_text); ?>
+                                    <?php echo esc_html($formatted_product_name); ?>
                                 </a>
+
                                 <div class="product-price">
                                     <?php woocommerce_template_loop_price(); ?>
                                 </div>

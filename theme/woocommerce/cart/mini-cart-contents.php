@@ -3,21 +3,32 @@ defined('ABSPATH') || exit;
 
 do_action('woocommerce_before_mini_cart_contents');
 
+
+function clean_attribute_slug_1($slug)
+{
+    return str_replace('pa_', '', $slug);
+}
+
+
 foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
     $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
     $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
 
     if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key)) {
         $product_name = $_product->get_name();
+
+        // Build attribute string using the same logic as in your single product template.
         $attributes = $_product->get_attributes();
-        $attribute_text = '';
-
-        foreach ($attributes as $attribute) {
-            $attribute_name = wc_attribute_label($attribute->get_name());
-            $attribute_value = implode(', ', $attribute->get_options());
-            $attribute_text .= ' ' . $attribute_value . ' ' . strtolower($attribute_name);
+        $attribute_strings = array();
+        foreach ($attributes as $attribute_slug => $attribute) {
+            // Get the formatted attribute value using get_attribute()
+            $attribute_value = $_product->get_attribute($attribute_slug);
+            if ($attribute_value) {
+                $formatted_attribute = esc_html($attribute_value) . ' ' . clean_attribute_slug_1($attribute_slug);
+                $attribute_strings[] = $formatted_attribute;
+            }
         }
-
+        $attribute_text = !empty($attribute_strings) ? ' ' . implode(', ', $attribute_strings) : '';
         $formatted_product_name = $product_name . $attribute_text;
 
         $thumbnail_id = $_product->get_image_id();
@@ -32,8 +43,7 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 
             <div class="flex items-start text-deep-dark-gray sm:grid sm:grid-cols-12 relative">
                 <!-- Product Image -->
-                <div class="flex-shrink-0 sm:col-span-3  mr-6 sm:mr-4">
-
+                <div class="flex-shrink-0 sm:col-span-3 mr-6 sm:mr-4">
                     <a href="<?php echo esc_url($product_permalink); ?>" class="block max-w-24 w-full relative">
                         <img src="<?php echo esc_url($product_image_url); ?>" alt="<?php echo esc_attr($product_name); ?>"
                             class="w-full object-cover object-center aspect-[78/100] sm:aspect-[82/100] rounded-[4px]" />
@@ -47,8 +57,9 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                         <?php if (empty($product_permalink)): ?>
                             <span class="body-small-regular"><?php echo wp_kses_post($formatted_product_name); ?></span>
                         <?php else: ?>
-                            <a
-                                href="<?php echo esc_url($product_permalink); ?>"><?php echo wp_kses_post($formatted_product_name); ?></a>
+                            <a href="<?php echo esc_url($product_permalink); ?>">
+                                <?php echo wp_kses_post($formatted_product_name); ?>
+                            </a>
                         <?php endif; ?>
 
                         <div class="body-normal-semibold">
@@ -57,7 +68,6 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                     </div>
 
                     <!-- Price and Quantity on the Same Line -->
-
                     <div class="flex justify-between items-center sm:gap-4 mt-auto flex-wrap sm:flex-nowrap shrink-0">
                         <div>
                             <div
@@ -82,25 +92,28 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                         </div>
                         <div
                             class="product-price flex gap-x-2 flex-wrap justify-start mb-4 sm:mb-0 h-full items-center w-full sm:justify-end">
-                            <?php if ($_product->is_on_sale()): ?>
+                            <?php
+                            $product_original_price = $_product->get_regular_price();
+                            $line_total_incl_tax = $cart_item['line_total'] + $cart_item['line_tax'];
+                            $price_after_discount_incl_tax = $line_total_incl_tax / $cart_item['quantity'];
+
+                            if (round($price_after_discount_incl_tax, 3) < $product_original_price): ?>
                                 <span class="sale-price text-deep-dark-gray body-small-semibold flex items-end">
-                                    <?php echo wc_price($_product->get_sale_price()); ?>
+                                    <?php echo wc_price($price_after_discount_incl_tax); ?>
                                 </span>
                                 <span class="text-discount-gray line-through body-small-medium flex items-end">
-                                    <?php echo wc_price($_product->get_regular_price()); ?>
+                                    <?php echo wc_price($product_original_price); ?>
                                 </span>
                             <?php else: ?>
                                 <span class="text-deep-dark-gray body-small-semibold flex items-end">
-                                    <?php echo wc_price($_product->get_regular_price()); ?>
+                                    <?php echo wc_price($product_original_price); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
-
                         <div class="sm:hidden text-[0.75rem] leading-[0.875rem]">
                             <span class="font-light inline-block mr-2"><?php echo wp_kses_post("Kiekis: "); ?></span>
                             <span class="font-normal"><?php echo $cart_item['quantity']; ?></span>
                         </div>
-
                     </div>
                 </div>
                 <div class="absolute right-0 top-0">
@@ -109,11 +122,11 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                         'woocommerce_cart_item_remove_link',
                         sprintf(
                             '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" data-product_name="%s">
-                                        <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <line x1="0.901405" y1="1.37276" x2="10.2489" y2="10.7203" stroke="#747474"/>
-                                            <line x1="10.2491" y1="1.30082" x2="0.901523" y2="10.6484" stroke="#747474"/>
-                                        </svg>
-                                    </a>',
+                                <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="0.901405" y1="1.37276" x2="10.2489" y2="10.7203" stroke="#747474"/>
+                                    <line x1="10.2491" y1="1.30082" x2="0.901523" y2="10.6484" stroke="#747474"/>
+                                </svg>
+                            </a>',
                             esc_url(wc_get_cart_remove_url($cart_item_key)),
                             esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
                             esc_attr($product_id),
@@ -125,8 +138,6 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                     );
                     ?>
                 </div>
-
-
             </div>
         </li>
         <?php
