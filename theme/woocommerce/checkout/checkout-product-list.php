@@ -110,8 +110,9 @@ if (!function_exists('clean_attribute_slug')) {
                         $product_original_price = $_product->get_regular_price();
                         $line_total_incl_tax = $cart_item['line_total'] + $cart_item['line_tax'];
                         $price_after_discount_incl_tax = $line_total_incl_tax / $cart_item['quantity'];
-
-                        if (round($price_after_discount_incl_tax, 3) < $product_original_price): ?>
+                        $tolerance = 0.01; // adjust as needed based on your price precision
+                    
+                        if (($product_original_price - $price_after_discount_incl_tax) > $tolerance): ?>
                             <span class="sale-price text-deep-dark-gray body-small-semibold flex items-end">
                                 <?php echo wc_price($price_after_discount_incl_tax); ?>
                             </span>
