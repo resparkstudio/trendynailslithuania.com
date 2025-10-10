@@ -1639,15 +1639,35 @@ add_image_size('product-archive-thumbnail', 800, 800, true);
 
 
 /**
- * Disable payments for all except 1 categpry
+ * Disable payments for all except 1 category and its children
  */
 
 function disable_purchasing_except_category($is_purchasable, $product) {
-	// Replace 'allowed-category' with your category slug
-	$allowed_category = 'greitu-metu-turesime';
+	$enabled_category = 'greitu-metu-turesime';
 
-	// Check if product has the allowed category
-	if (has_term($allowed_category, 'product_cat', $product->get_id())) {
+	// Get the parent category term
+	$parent_term = get_term_by('slug', $enabled_category, 'product_cat');
+
+	if (!$parent_term) {
+		return false; // Parent category doesn't exist
+	}
+
+	// Get all child categories of the parent
+	$child_categories = get_terms(array(
+		'taxonomy' => 'product_cat',
+		'child_of' => $parent_term->term_id,
+		'fields' => 'ids',
+		'hide_empty' => false,
+	));
+
+	// Add parent category ID to the allowed list
+	$allowed_category_ids = array_merge(array($parent_term->term_id), $child_categories);
+
+	// Get product's category IDs
+	$product_category_ids = $product->get_category_ids();
+
+	// Check if product has any of the allowed categories
+	if (array_intersect($product_category_ids, $allowed_category_ids)) {
 		return true; // Allow purchase
 	}
 
