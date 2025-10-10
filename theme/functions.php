@@ -1,4 +1,5 @@
 <?php
+
 /**
  * _tw functions and definitions
  *
@@ -50,8 +51,7 @@ if (!function_exists('_tw_setup')):
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function _tw_setup()
-	{
+	function _tw_setup() {
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
@@ -132,8 +132,7 @@ add_action('after_setup_theme', '_tw_setup');
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function _tw_widgets_init()
-{
+function _tw_widgets_init() {
 	register_sidebar(
 		array(
 			'name' => __('Footer', '_tw'),
@@ -151,8 +150,7 @@ add_action('widgets_init', '_tw_widgets_init');
 /**
  * Enqueue scripts and styles.
  */
-function _tw_scripts()
-{
+function _tw_scripts() {
 	wp_enqueue_style('_tw-style', get_stylesheet_uri(), array(), _TW_VERSION);
 
 	wp_enqueue_style('swiper-css', get_theme_root_uri() . '/_tw/node_modules/swiper/swiper-bundle.min.css');
@@ -181,7 +179,6 @@ function _tw_scripts()
 	wp_localize_script('_tw-script', 'ajax_wishlist_params', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 	));
-
 }
 
 add_action('wp_enqueue_scripts', '_tw_scripts');
@@ -191,8 +188,7 @@ add_action('wp_enqueue_scripts', '_tw_scripts');
 /**
  * Enqueue the block editor script.
  */
-function _tw_enqueue_block_editor_script()
-{
+function _tw_enqueue_block_editor_script() {
 	if (is_admin()) {
 		wp_enqueue_script(
 			'_tw-editor',
@@ -215,8 +211,7 @@ add_action('enqueue_block_assets', '_tw_enqueue_block_editor_script');
  * @param array $settings TinyMCE settings.
  * @return array
  */
-function _tw_tinymce_add_class($settings)
-{
+function _tw_tinymce_add_class($settings) {
 	$settings['body_class'] = _TW_TYPOGRAPHY_CLASSES;
 	return $settings;
 }
@@ -233,11 +228,8 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 
-function theme_setup()
-{
-	add_theme_support("custom-logo", array(
-
-	));
+function theme_setup() {
+	add_theme_support("custom-logo", array());
 }
 add_action('after_setup_theme', 'theme_setup');
 
@@ -253,20 +245,17 @@ if (function_exists('acf_add_options_page')) {
 		'redirect' => false,
 		'icon_url' => 'dashicons-admin-site'
 	));
-
 }
 
 //----------------------------------- WOOCOMMERCE
 // add woocommerce theme support
-function _tw_add_woocommerce_support()
-{
+function _tw_add_woocommerce_support() {
 	add_theme_support('woocommerce');
 }
 add_action('after_setup_theme', '_tw_add_woocommerce_support');
 
 // Add popular products checkbox to woo settings
-function add_popular_product_checkbox()
-{
+function add_popular_product_checkbox() {
 	global $woocommerce, $post;
 	echo '<div class="options_group">';
 
@@ -290,8 +279,7 @@ add_filter('woocommerce_product_tabs', 'remove_product_tabs', 98);
 // Remove product meta (Category, SKU) from single product pages
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 
-function remove_product_tabs($tabs)
-{
+function remove_product_tabs($tabs) {
 	unset($tabs['description']);            // Remove the description tab
 	unset($tabs['additional_information']); // Remove the additional information tab
 	unset($tabs['reviews']);                // Remove the reviews tab
@@ -300,8 +288,7 @@ function remove_product_tabs($tabs)
 
 
 // Save checkbox
-function save_popular_product_checkbox($post_id)
-{
+function save_popular_product_checkbox($post_id) {
 	$populiariausi = isset($_POST['_populiariausi']) ? 'yes' : 'no';
 	update_post_meta($post_id, '_populiariausi', $populiariausi);
 }
@@ -312,11 +299,10 @@ add_action('woocommerce_product_options_general_product_data', 'add_popular_prod
 
 // Add "category display in main page" field to product category settings
 // Add checkbox to the category edit screen
-function add_popular_category_checkbox($term)
-{
+function add_popular_category_checkbox($term) {
 	// Get the current value of the meta field
 	$checked = get_term_meta($term->term_id, '_display_in_section', true);
-	?>
+?>
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="_display_in_section"><?php _e('Rodyti tituliniame puslapyje'); ?></label>
 		</th>
@@ -327,13 +313,12 @@ function add_popular_category_checkbox($term)
 			</p>
 		</td>
 	</tr>
-	<?php
+<?php
 }
 
 // Add checkbox to the add new category screen
-function add_popular_category_checkbox_new($term)
-{
-	?>
+function add_popular_category_checkbox_new($term) {
+?>
 	<div class="form-field">
 		<label for="_display_in_section"><?php _e('Rodyti tituliniame puslapyje'); ?></label>
 		<input type="checkbox" name="_display_in_section" id="_display_in_section" value="yes" />
@@ -344,8 +329,7 @@ function add_popular_category_checkbox_new($term)
 	<?php
 }
 
-function save_popular_category_checkbox($term_id)
-{
+function save_popular_category_checkbox($term_id) {
 	$display = isset($_POST['_display_in_section']) ? 'yes' : 'no';
 	update_term_meta($term_id, '_display_in_section', $display);
 }
@@ -354,8 +338,7 @@ add_action('product_cat_add_form_fields', 'add_popular_category_checkbox_new', 1
 add_action('edited_product_cat', 'save_popular_category_checkbox', 10, 2);
 add_action('create_product_cat', 'save_popular_category_checkbox', 10, 2);
 
-function display_full_product_description()
-{
+function display_full_product_description() {
 	global $post;
 
 	if (!empty($post->post_content)) {
@@ -374,8 +357,7 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
 
-function filter_products()
-{
+function filter_products() {
 	$orderby = $_GET['orderby'] ?? 'default'; // Set default as the fallback
 	$category = $_GET['category'] ?? ''; // Capture category from AJAX request
 
@@ -453,8 +435,7 @@ add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 
 
 // Remove WooCommerce Notices Wrapper
-function remove_woocommerce_notices()
-{
+function remove_woocommerce_notices() {
 	remove_action('woocommerce_before_main_content', 'woocommerce_output_all_notices', 10);
 }
 add_action('wp', 'remove_woocommerce_notices');
@@ -466,8 +447,7 @@ add_filter('woocommerce_cart_item_removed_notice_type', '__return_false');
 remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
 
 
-function modify_woocommerce_archive_query($query)
-{
+function modify_woocommerce_archive_query($query) {
 	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category())) {
 		$orderby = $_GET['orderby'] ?? 'default'; // Default sorting if no 'orderby' parameter is provided
 
@@ -500,8 +480,7 @@ function modify_woocommerce_archive_query($query)
 add_action('pre_get_posts', 'modify_woocommerce_archive_query');
 
 // Limit initial products per page in WooCommerce archives for infinite scroll
-function load_initial_products_in_archive($query)
-{
+function load_initial_products_in_archive($query) {
 	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
 		$query->set('posts_per_page', 16);
 	}
@@ -510,8 +489,7 @@ add_action('pre_get_posts', 'load_initial_products_in_archive');
 
 
 // AJAX handler to load more products on scroll (updated)
-function load_more_products_ajax()
-{
+function load_more_products_ajax() {
 	// Get current AJAX page. (We start counting ajax pages at 2.)
 	$ajax_page = isset($_POST['page']) ? intval($_POST['page']) : 2;
 	$category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
@@ -592,8 +570,7 @@ add_action('wp_ajax_nopriv_load_more_products', 'load_more_products_ajax');
 add_action('wp_ajax_fetch_products', 'fetch_products_callback');
 add_action('wp_ajax_nopriv_fetch_products', 'fetch_products_callback');
 
-function fetch_products_callback()
-{
+function fetch_products_callback() {
 	if (empty($_GET['query'])) {
 		wp_send_json(['html' => '<p class="text-mid-gray pb-4 body-normal-regular">Produktų nerasta</p>', 'has_results' => false]);
 		return;
@@ -728,8 +705,7 @@ function fetch_products_callback()
 
 add_action('user_register', 'save_guest_wishlist_on_registration');
 
-function save_guest_wishlist_on_registration($user_id)
-{
+function save_guest_wishlist_on_registration($user_id) {
 	if (!isset($_SESSION)) {
 		session_start();
 	}
@@ -760,8 +736,7 @@ function save_guest_wishlist_on_registration($user_id)
 }
 
 // Custom function to add product to wishlist
-function custom_add_to_wishlist()
-{
+function custom_add_to_wishlist() {
 	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 
 	if ($product_id === 0) {
@@ -814,8 +789,7 @@ add_action('wp_ajax_custom_add_to_wishlist', 'custom_add_to_wishlist');
 add_action('wp_ajax_nopriv_custom_add_to_wishlist', 'custom_add_to_wishlist');
 
 
-function custom_get_wishlist()
-{
+function custom_get_wishlist() {
 	if (is_user_logged_in()) {
 		// Fetch wishlist for logged-in user
 		$user_id = get_current_user_id();
@@ -853,8 +827,7 @@ add_action('init', function () {
 
 
 
-function custom_remove_from_wishlist()
-{
+function custom_remove_from_wishlist() {
 	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 
 	if ($product_id === 0) {
@@ -900,16 +873,14 @@ add_action('wp_ajax_get_wishlist_count', 'get_wishlist_count');
 add_action('wp_ajax_nopriv_get_wishlist_count', 'get_wishlist_count');
 
 // AJAX handler to return wishlist count
-function get_wishlist_count()
-{
+function get_wishlist_count() {
 	$wishlist = custom_get_wishlist();
 	$count = count($wishlist);
 	wp_send_json_success(['wishlist_count' => $count]);
 }
 
 add_filter('woocommerce_account_menu_items', 'custom_woocommerce_account_menu_items');
-function custom_woocommerce_account_menu_items($items)
-{
+function custom_woocommerce_account_menu_items($items) {
 	$items = array(
 		'dashboard' => 'Pagrindinis',
 		'orders' => 'Užsakymai',
@@ -922,8 +893,7 @@ function custom_woocommerce_account_menu_items($items)
 }
 
 add_filter('body_class', 'add_my_account_body_class');
-function add_my_account_body_class($classes)
-{
+function add_my_account_body_class($classes) {
 	if (is_account_page() && is_user_logged_in()) {
 		$classes[] = 'custom-my-account';
 	}
@@ -936,8 +906,7 @@ function add_my_account_body_class($classes)
 
 add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 
-function customize_checkout_fields($fields)
-{
+function customize_checkout_fields($fields) {
 	$fields['billing'] = array(
 		'billing_first_name' => array(
 			'type' => 'text',
@@ -1032,8 +1001,7 @@ add_filter('woocommerce_form_field_custom', 'render_custom_plain_text_field', 10
 
 add_filter('woocommerce_form_field_custom', 'render_custom_plain_text_field', 10, 4);
 
-function render_custom_plain_text_field($field, $key, $args, $value)
-{
+function render_custom_plain_text_field($field, $key, $args, $value) {
 	if ($key === 'billing_country') {
 		// Ensure a default value is used
 		$value = !empty($value) ? $value : 'LT';
@@ -1057,8 +1025,7 @@ function render_custom_plain_text_field($field, $key, $args, $value)
 // Force shipping country to Lithuania
 add_action('woocommerce_checkout_update_order_meta', 'force_shipping_country');
 
-function force_shipping_country($order_id)
-{
+function force_shipping_country($order_id) {
 	update_post_meta($order_id, '_shipping_country', 'LT');
 }
 
@@ -1066,15 +1033,13 @@ add_action('woocommerce_checkout_update_order_meta', 'sync_shipping_phone_with_b
 
 add_action('woocommerce_checkout_process', 'force_billing_country');
 
-function force_billing_country()
-{
+function force_billing_country() {
 	if (empty($_POST['billing_country'])) {
 		$_POST['billing_country'] = 'LT';
 	}
 }
 
-function sync_shipping_phone_with_billing($order_id)
-{
+function sync_shipping_phone_with_billing($order_id) {
 	if (isset($_POST['billing_phone'])) {
 		// Get the billing phone from the checkout form
 		$billing_phone = sanitize_text_field($_POST['billing_phone']);
@@ -1085,8 +1050,7 @@ function sync_shipping_phone_with_billing($order_id)
 }
 
 add_filter('woocommerce_default_address_fields', 'customize_default_address_fields');
-function customize_default_address_fields($address_fields)
-{
+function customize_default_address_fields($address_fields) {
 	// Unset unnecessary fields
 	unset($address_fields['address_2']);
 	unset($address_fields['state']);
@@ -1096,8 +1060,7 @@ function customize_default_address_fields($address_fields)
 }
 
 add_filter('woocommerce_billing_fields', 'fix_billing_validation');
-function fix_billing_validation($fields)
-{
+function fix_billing_validation($fields) {
 	if (isset($fields['billing_address_1'])) {
 		$fields['billing_address_1']['required'] = true;
 	}
@@ -1105,8 +1068,7 @@ function fix_billing_validation($fields)
 }
 
 
-function customize_checkout_account_fields($args, $key, $value)
-{
+function customize_checkout_account_fields($args, $key, $value) {
 	if (in_array($key, ['account_password', 'account_password_confirm'])) {
 		if (isset($args['input_class']) && is_array($args['input_class'])) {
 			$args['input_class'][] = 'checkout-form-input';
@@ -1128,8 +1090,7 @@ add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 1
 
 // ajax checkout
 
-function custom_ajax_add_to_cart()
-{
+function custom_ajax_add_to_cart() {
 	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 	$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
@@ -1157,8 +1118,7 @@ function custom_ajax_add_to_cart()
 }
 
 
-function custom_update_mini_cart()
-{
+function custom_update_mini_cart() {
 	ob_start();
 	woocommerce_mini_cart();
 	$mini_cart = ob_get_clean();
@@ -1169,8 +1129,7 @@ function custom_update_mini_cart()
 	]);
 }
 
-function custom_ajax_remove_from_cart()
-{
+function custom_ajax_remove_from_cart() {
 	$cart_item_key = isset($_POST['cart_item_key']) ? sanitize_text_field($_POST['cart_item_key']) : '';
 
 	if ($cart_item_key && WC()->cart->remove_cart_item($cart_item_key)) {
@@ -1199,8 +1158,7 @@ add_action('wp_ajax_nopriv_custom_update_mini_cart', 'custom_update_mini_cart');
 add_action('wp_ajax_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
 add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
 
-function update_cart_quantity_handler()
-{
+function update_cart_quantity_handler() {
 	if (!isset($_POST['cart_item_key'], $_POST['quantity']) || !is_numeric($_POST['quantity'])) {
 		wp_send_json_error(['message' => 'Invalid data.']);
 	}
@@ -1243,8 +1201,7 @@ add_action('wp_ajax_nopriv_update_cart_quantity', 'update_cart_quantity_handler'
 add_action('wp_ajax_get_cart_summary', 'get_cart_summary_handler');
 add_action('wp_ajax_nopriv_get_cart_summary', 'get_cart_summary_handler');
 
-function get_cart_summary_handler()
-{
+function get_cart_summary_handler() {
 	if (!function_exists('WC') || WC()->cart === null) {
 		wp_send_json_error(['message' => 'Cart not available.']);
 	}
@@ -1267,8 +1224,7 @@ function get_cart_summary_handler()
 add_action('wp_ajax_remove_cart_item', 'remove_cart_item_handler');
 add_action('wp_ajax_nopriv_remove_cart_item', 'remove_cart_item_handler');
 
-function remove_cart_item_handler()
-{
+function remove_cart_item_handler() {
 	if (!isset($_POST['cart_item_key'])) {
 		wp_send_json_error(['message' => 'Invalid request.']);
 	}
@@ -1313,8 +1269,7 @@ function remove_cart_item_handler()
 
 
 add_action('template_redirect', 'redirect_empty_cart_checkout');
-function redirect_empty_cart_checkout()
-{
+function redirect_empty_cart_checkout() {
 	if (is_checkout() && !is_wc_endpoint_url('order-received') && WC()->cart->is_empty()) {
 		wp_safe_redirect(home_url());
 		exit;
@@ -1325,34 +1280,49 @@ function redirect_empty_cart_checkout()
 add_action('wp_ajax_apply_discount_code', 'apply_discount_code');
 add_action('wp_ajax_nopriv_apply_discount_code', 'apply_discount_code');
 
-function apply_discount_code()
-{
+function apply_discount_code() {
 	if (!isset($_POST['discount_code'])) {
 		wp_send_json_error(['message' => 'Nuolaidos kodas nepateiktas']);
 	}
 
 	$discount_code = sanitize_text_field($_POST['discount_code']);
-
-
 	$coupon = new WC_Coupon($discount_code);
 
-	if ($coupon->get_id()) {
-		$current_applied_code = WC()->session->get('applied_discount_code');
-
-		if ($current_applied_code !== $discount_code) {
-			if (!empty($current_applied_code)) {
-				WC()->cart->remove_coupon($current_applied_code);
-			}
-
-			WC()->session->set('applied_discount_code', $discount_code);
-			WC()->cart->apply_coupon($discount_code);
-
-			wp_send_json_success(['message' => 'Nuolaidos kodas pritaikytas sėkmingai!']);
-		} else {
-			wp_send_json_success(['message' => 'Nuolaidos kodas jau pritaikytas.']);
-		}
-	} else {
+	if (!$coupon->get_id()) {
 		wp_send_json_error(['message' => 'Toks nuolaidos kodas neegzistuoja.']);
+	}
+
+	// Check if coupon is already applied
+	$applied_coupons = WC()->cart->get_applied_coupons();
+	if (in_array($discount_code, $applied_coupons)) {
+		wp_send_json_success(['message' => 'Nuolaidos kodas jau pritaikytas.']);
+	}
+
+	// Let WooCommerce validate the coupon
+	$valid = $coupon->is_valid();
+
+	if (is_wp_error($valid)) {
+		wp_send_json_error(['message' => $valid->get_error_message()]);
+	}
+
+	// Remove any previously applied coupons if needed
+	$current_applied_code = WC()->session->get('applied_discount_code');
+	if (!empty($current_applied_code) && $current_applied_code !== $discount_code) {
+		WC()->cart->remove_coupon($current_applied_code);
+	}
+
+	// Apply the coupon
+	$applied = WC()->cart->apply_coupon($discount_code);
+
+	if ($applied) {
+		WC()->session->set('applied_discount_code', $discount_code);
+		wp_send_json_success(['message' => 'Nuolaidos kodas pritaikytas sėkmingai!']);
+	} else {
+		// Get any error messages from WooCommerce
+		$notices = wc_get_notices('error');
+		$error_message = !empty($notices) ? $notices[0]['notice'] : 'Nepavyko pritaikyti nuolaidos kodo.';
+		wc_clear_notices();
+		wp_send_json_error(['message' => $error_message]);
 	}
 
 	wp_die();
@@ -1362,8 +1332,7 @@ function apply_discount_code()
 add_action('wp_ajax_fetch_cart_summary', 'fetch_cart_summary');
 add_action('wp_ajax_nopriv_fetch_cart_summary', 'fetch_cart_summary');
 
-function fetch_cart_summary()
-{
+function fetch_cart_summary() {
 	ob_start();
 	wc_get_template('checkout/cart-summary-details.php');
 	$cart_summary = ob_get_clean();
@@ -1381,8 +1350,7 @@ add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
 add_filter('gettext', 'gettext_translate_strings', 20, 3);
 
-function gettext_translate_strings($translated_text, $text, $domain)
-{
+function gettext_translate_strings($translated_text, $text, $domain) {
 	if ($translated_text === 'Prašome pasirinkti atsiėmimo vietą') {
 		$translated_text = 'Pasirinkite paštomatą';
 	}
@@ -1396,8 +1364,7 @@ function gettext_translate_strings($translated_text, $text, $domain)
 
 add_filter('woocommerce_form_field', 'add_account_form_label_class', 10, 4);
 
-function add_account_form_label_class($field, $key, $args, $value)
-{
+function add_account_form_label_class($field, $key, $args, $value) {
 	if (isset($args['label'])) {
 		$field = str_replace(
 			'<label',
@@ -1409,8 +1376,7 @@ function add_account_form_label_class($field, $key, $args, $value)
 }
 
 
-function replace_block_formats($init_array)
-{
+function replace_block_formats($init_array) {
 
 
 	$style_formats = array(
@@ -1504,8 +1470,7 @@ function replace_block_formats($init_array)
 add_filter('tiny_mce_before_init', 'replace_block_formats');
 
 
-function enable_custom_styles_in_tinymce($buttons)
-{
+function enable_custom_styles_in_tinymce($buttons) {
 	array_push($buttons, 'styleselect');
 	return $buttons;
 }
@@ -1540,8 +1505,7 @@ add_action('woocommerce_account_content', function () {
 add_action('wp_ajax_update_shipping_method', 'update_shipping_method_handler');
 add_action('wp_ajax_nopriv_update_shipping_method', 'update_shipping_method_handler');
 
-function update_shipping_method_handler()
-{
+function update_shipping_method_handler() {
 
 	if (!isset($_POST['shipping_method'])) {
 		error_log('Missing shipping_method');
@@ -1569,8 +1533,7 @@ function update_shipping_method_handler()
 }
 add_action('woocommerce_checkout_update_order_review', 'update_shipping_method_on_refresh');
 
-function update_shipping_method_on_refresh($posted_data)
-{
+function update_shipping_method_on_refresh($posted_data) {
 	parse_str($posted_data, $parsed_data);
 
 	if (isset($parsed_data['shipping_method']) && is_array($parsed_data['shipping_method'])) {
@@ -1585,8 +1548,7 @@ function update_shipping_method_on_refresh($posted_data)
 
 
 // Allow SVG Uploads in WordPress
-function allow_svg_upload($mimes)
-{
+function allow_svg_upload($mimes) {
 	// Add SVG to allowed mime types
 	$mimes['svg'] = 'image/svg+xml';
 	return $mimes;
@@ -1608,18 +1570,15 @@ add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mime
 		'type' => $filetype['type'],
 		'proper_filename' => $data['proper_filename']
 	];
-
 }, 10, 4);
 
-function cc_mime_types($mimes)
-{
+function cc_mime_types($mimes) {
 	$mimes['svg'] = 'image/svg+xml';
 	return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
 
-function fix_svg()
-{
+function fix_svg() {
 	echo '<style type="text/css">
 		  .attachment-266x266, .thumbnail img {
 			   width: 100% !important;
@@ -1632,8 +1591,7 @@ add_action('admin_head', 'fix_svg');
 
 // Redirect to checkout page after login
 add_filter('woocommerce_login_redirect', 'redirect_to_checkout_after_login', 10, 2);
-function redirect_to_checkout_after_login($redirect, $user)
-{
+function redirect_to_checkout_after_login($redirect, $user) {
 	// Check if the user is logging in through WooCommerce login form
 	$checkout_url = wc_get_checkout_url();
 	return $checkout_url; // Redirect to the checkout page
@@ -1641,16 +1599,14 @@ function redirect_to_checkout_after_login($redirect, $user)
 
 // Redirect to checkout page after registration
 add_filter('woocommerce_registration_redirect', 'redirect_to_checkout_after_registration');
-function redirect_to_checkout_after_registration($redirect)
-{
+function redirect_to_checkout_after_registration($redirect) {
 	$checkout_url = wc_get_checkout_url();
 	return $checkout_url; // Redirect to the checkout page
 }
 
 add_action('woocommerce_checkout_create_order', 'sync_shipping_with_billing_on_order_create', 10, 2);
 
-function sync_shipping_with_billing_on_order_create($order, $data)
-{
+function sync_shipping_with_billing_on_order_create($order, $data) {
 	// Fields to synchronize
 	$fields_to_sync = [
 		'first_name',
@@ -1679,3 +1635,42 @@ function sync_shipping_with_billing_on_order_create($order, $data)
 }
 
 add_image_size('product-archive-thumbnail', 800, 800, true);
+
+
+
+/**
+ * Disable payments for all except 1 categpry
+ */
+
+function disable_purchasing_except_category($is_purchasable, $product) {
+	// Replace 'allowed-category' with your category slug
+	$allowed_category = 'greitu-metu-turesime';
+
+	// Check if product has the allowed category
+	if (has_term($allowed_category, 'product_cat', $product->get_id())) {
+		return true; // Allow purchase
+	}
+
+	return false; // Disable purchase
+}
+add_filter('woocommerce_is_purchasable', 'disable_purchasing_except_category', 10, 2);
+
+
+
+/**
+ * Show message for non-purchasable products
+ */
+function show_message_for_disabled_products() {
+	global $product;
+
+	$allowed_category = 'allowed-category';
+
+	// Check if product is NOT purchasable and NOT in the allowed category
+	if (!$product->is_purchasable() && !has_term($allowed_category, 'product_cat', $product->get_id())) : ?>
+		<div class="p-4 bg-rose-500 rounded-md text-white font-semibold">
+			<p>Šis produktas laikinai neprieinamas pirkimui.</p>
+		</div>
+<?php endif;
+}
+
+add_action('woocommerce_single_product_summary', 'show_message_for_disabled_products', 31);
