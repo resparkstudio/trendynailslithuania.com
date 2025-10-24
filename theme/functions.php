@@ -1673,7 +1673,7 @@ function disable_purchasing_except_category($is_purchasable, $product) {
 
 	return false; // Disable purchase
 }
-add_filter('woocommerce_is_purchasable', 'disable_purchasing_except_category', 10, 2);
+// add_filter('woocommerce_is_purchasable', 'disable_purchasing_except_category', 10, 2);
 
 
 
