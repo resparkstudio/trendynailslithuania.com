@@ -47,10 +47,10 @@ $company_code = $this->order->get_meta('_billing_company_code');
 			<?php do_action('wpo_wcpdf_before_billing_address', $this->get_type(), $this->order); ?>
 			<p><?php $this->billing_address(); ?></p>
 			<?php if ($company_code) : ?>
-				<p style="margin-top: 0"><?php echo esc_html($company_code) ?></p>
+				<p style="margin-top: 0">įm.k.:<?php echo esc_html($company_code) ?></p>
 			<?php endif ?>
 			<?php if ($vat_code) : ?>
-				<p style="margin-top: 0"><?php echo esc_html($vat_code) ?></p>
+				<p style="margin-top: 0">PVM k.:<?php echo esc_html($vat_code) ?></p>
 			<?php endif ?>
 			<?php do_action('wpo_wcpdf_after_billing_address', $this->get_type(), $this->order); ?>
 			<?php if (isset($this->settings['display_email'])) : ?>
