@@ -922,6 +922,27 @@ function customize_checkout_fields($fields) {
 			'class' => array('form-row-last'),
 			'priority' => 20, // Adjust order
 		),
+		'billing_company' => array(
+			'type' => 'text',
+			'required' => false,
+			'label' => __('Įmonė', 'woocommerce'),
+			'class' => array('form-row-wide'),
+			'priority' => 25,
+		),
+		'billing_company_code' => array(
+			'type' => 'text',
+			'required' => false,
+			'label' => __('Įmonės kodas', 'woocommerce'),
+			'class' => array('form-row-wide'),
+			'priority' => 26,
+		),
+		'billing_vat' => array(
+			'type' => 'text',
+			'required' => false,
+			'label' => __('PVM mokėtojo kodas', 'woocommerce'),
+			'class' => array('form-row-wide'),
+			'priority' => 27,
+		),
 		'billing_email' => array(
 			'type' => 'email',
 			'required' => true,
@@ -1602,6 +1623,38 @@ add_filter('woocommerce_registration_redirect', 'redirect_to_checkout_after_regi
 function redirect_to_checkout_after_registration($redirect) {
 	$checkout_url = wc_get_checkout_url();
 	return $checkout_url; // Redirect to the checkout page
+}
+
+// Save custom checkout fields
+add_action('woocommerce_checkout_create_order', 'save_custom_checkout_fields', 10, 2);
+
+function save_custom_checkout_fields($order, $data) {
+	// Save company code if provided
+	if (isset($_POST['billing_company_code']) && !empty($_POST['billing_company_code'])) {
+		$order->update_meta_data('_billing_company_code', sanitize_text_field($_POST['billing_company_code']));
+	}
+
+	// Save VAT number if provided
+	if (isset($_POST['billing_vat']) && !empty($_POST['billing_vat'])) {
+		$order->update_meta_data('_billing_vat', sanitize_text_field($_POST['billing_vat']));
+	}
+}
+
+// Add custom fields to admin order editing screen
+add_filter('woocommerce_admin_billing_fields', 'add_custom_billing_fields_admin');
+
+function add_custom_billing_fields_admin($billing_fields) {
+	$billing_fields['company_code'] = array(
+		'label' => __('Įmonės kodas', 'woocommerce'),
+		'show' => true,
+	);
+
+	$billing_fields['vat'] = array(
+		'label' => __('PVM mokėtojo kodas', 'woocommerce'),
+		'show' => true,
+	);
+
+	return $billing_fields;
 }
 
 add_action('woocommerce_checkout_create_order', 'sync_shipping_with_billing_on_order_create', 10, 2);
