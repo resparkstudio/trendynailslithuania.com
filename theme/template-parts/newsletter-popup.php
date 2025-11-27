@@ -3,10 +3,10 @@
     <div class="inner-aside flex relative">
         <!-- Rotated Button -->
         <a
-            class="newsletter-button-outer absolute top-[59px] sm:top-[95px] left-[-30px] -translate-y-1/2 w-[41px] z-10 bg-black rounded-l-[5px] pl-[0.375rem]">
+            class="newsletter-button-outer absolute top-[70px] sm:top-[95px] left-[-30px] -translate-y-1/2 w-[41px] z-10 bg-black rounded-l-[5px] pl-[0.375rem]">
             <div
-                class="newsletter-button-inner rotate-180 cursor-pointer text-white flex justify-center w-[41px] h-[117px] body-small-light">
-                <?php echo wp_kses_post('Naujienlaiškis'); ?>
+                class="newsletter-button-inner rotate-180 cursor-pointer text-white flex justify-center w-[41px] h-[140px] body-small-medium">
+                <?php echo wp_kses_post('Gauti 10% nuolaida'); ?>
             </div>
         </a>
 
@@ -28,9 +28,9 @@
 
             <!-- Text Section -->
             <div class="pl-8 pr-6 sm:px-4">
-                <h2 class="mt-9 heading-sm sm:mt-6"><?php echo wp_kses_post('Prenumeruokite!'); ?></h2>
+                <h2 class="mt-9 heading-sm sm:mt-6"><?php echo wp_kses_post('10% nuolaida pirmam užsakymui!'); ?></h2>
                 <p class="body-small-regular mt-8 sm:mt-5 block">
-                    <?php echo wp_kses_post('Prenumeruokite mūsų naujienlaiškį! Ir pirmieji sužinokite visas naujienas bei specialius pasiūlymus.'); ?>
+                    <?php echo wp_kses_post('Prenumeruokite mūsų naujienlaiškį! Ir pirmieji sužinokite visas naujienas bei gaukite specialius pasiūlymus.'); ?>
                 </p>
 
                 <div class="mt-7 sm:mb-6 sm:mt-5">
@@ -39,10 +39,6 @@
                     </div>
 
                     <div class="mb-7 sm:mb-6 flex">
-                        <div class="relative">
-                            <input id="privacy" type="checkbox"
-                                class="relative input-checkbox rounded-[2px] w-3 h-3 mr-2">
-                        </div>
                         <label for="privacy" class="block body-extra-small-regular">
                             <?php
                             echo wp_kses_post(

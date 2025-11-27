@@ -1,5 +1,6 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
+
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -125,7 +126,8 @@
 						</svg>
 						<span id="wishlist-count"
 							class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black text-white rounded-full text-[0.5rem] font-bold w-3 h-3 flex items-center justify-center">
-							<?php echo count(custom_get_wishlist()); // PHP function to get wishlist count ?>
+							<?php echo count(custom_get_wishlist()); // PHP function to get wishlist count 
+							?>
 						</span>
 					</a>
 
@@ -192,7 +194,7 @@
 		<div id="newsletter-mobile-overlay" class="w-full h-full fixed bg-black/[0.27] z-[32] hidden">
 		</div>
 		<?php
-		// get_template_part('template-parts/newsletter-popup'); 
+		get_template_part('template-parts/newsletter-popup');
 		?>
 
 		<?php get_template_part('template-parts/contact-form-modal'); ?>

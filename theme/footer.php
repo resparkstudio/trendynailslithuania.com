@@ -122,6 +122,14 @@ $subscribe_description = get_field('subscribe_description', 'option');
 			));
 			?>
 		</div>
+
+		<!-- Newsletter col -->
+		<div class="col-start-9 col-span-4 md:col-span-1">
+			<h2 class="uppercase body-normal-medium mb-5 md:mb-0 md:font-medium md:normal-case">PRENUMERUOKITE</h2>
+			<p class="md:mt-2">Užsiregistruokite ir gaukite -10 % nuolaidą kitam užsakymui, pirmieji sužinokite apie naujausius produktus!</p>
+			<div class="mt-4" id="omnisend-embedded-v2-67433cccdcdc64b34f2f4633"></div>
+		</div>
+
 	</div>
 
 	<div class="container block mx-auto text-center md:px-4">
