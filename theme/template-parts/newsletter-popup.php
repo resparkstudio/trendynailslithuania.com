@@ -37,7 +37,6 @@
                     <div class="mb-4">
                         <div id="omnisend-embedded-v2-67431b88dcdc64b34f2f4612"></div>
                     </div>
-
                     <div class="mb-7 sm:mb-6 flex">
                         <label for="privacy" class="block body-extra-small-regular">
                             <?php

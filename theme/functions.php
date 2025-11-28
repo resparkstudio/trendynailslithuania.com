@@ -1319,11 +1319,27 @@ function apply_discount_code() {
 		wp_send_json_success(['message' => 'Nuolaidos kodas jau pritaikytas.']);
 	}
 
-	// Let WooCommerce validate the coupon
-	$valid = $coupon->is_valid();
+	// Check if coupon excludes sale items
+	if ($coupon->get_exclude_sale_items()) {
+		// Check if any cart items have Discount Rules plugin discounts applied
+		$has_discounted_items = false;
 
-	if (is_wp_error($valid)) {
-		wp_send_json_error(['message' => $valid->get_error_message()]);
+		foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+			/**
+			 * Check if this cart item has a discount applied by Discount Rules plugin
+			 * Returns false if no discount, otherwise returns the discount price
+			 */
+			$discount_price = apply_filters('advanced_woo_discount_rules_get_cart_item_discount_price', false, $cart_item);
+
+			if ($discount_price !== false) {
+				$has_discounted_items = true;
+				break;
+			}
+		}
+
+		if ($has_discounted_items) {
+			wp_send_json_error(['message' => 'Nuolaidos kodas netaikomas akcijinėms prekėms. Krepšelyje yra produktų su nuolaida.']);
+		}
 	}
 
 	// Remove any previously applied coupons if needed
@@ -1331,6 +1347,9 @@ function apply_discount_code() {
 	if (!empty($current_applied_code) && $current_applied_code !== $discount_code) {
 		WC()->cart->remove_coupon($current_applied_code);
 	}
+
+	// Clear any existing notices before attempting to apply
+	wc_clear_notices();
 
 	// Apply the coupon
 	$applied = WC()->cart->apply_coupon($discount_code);
