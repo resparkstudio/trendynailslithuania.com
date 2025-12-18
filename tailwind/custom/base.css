@@ -682,54 +682,6 @@ footer {
 	@apply top-32;
 }
 
-.woocommerce-checkout .form-row {
-	@apply flex flex-col mb-4;
-}
-
-.woocommerce-checkout .woocommerce-billing-fields input {
-	@apply w-full border border-mid-gray p-3 rounded-md;
-}
-
-.woocommerce-checkout-review-order-table th {
-	@apply text-left align-top;
-}
-
-.woocommerce-shipping-methods {
-	@apply m-0 p-0 flex flex-col gap-2;
-}
-
-.woocommerce-shipping-methods li input {
-	@apply hidden;
-}
-
-.woocommerce-shipping-methods li {
-	@apply w-full !max-w-none;
-}
-
-.woocommerce-shipping-methods label {
-	@apply cursor-pointer;
-}
-
-.woocommerce-shipping-methods label > div {
-	@apply border-2 rounded-md border-white bg-white p-4 items-center;
-}
-
-.woocommerce-shipping-methods input:checked + label > div {
-	@apply border-black;
-}
-
-.mp-selected-pickup-point-info {
-	@apply !p-0;
-}
-
-.form-row.form-row-wide {
-	@apply mb-0;
-}
-
-.mp-please-select-location {
-	@apply !font-medium mb-2;
-}
-
 .wc-block-checkout__shipping-option
 	.select2-container--default
 	.select2-selection--single {
@@ -760,7 +712,7 @@ footer {
 }
 
 .paysera-radio-control.grid {
-	@apply !grid-cols-4 !gap-4;
+	@apply !grid-cols-4 !gap-4 md:!grid-cols-2;
 }
 
 .paysera-payment-group-label {
@@ -787,4 +739,9 @@ footer {
 .wc-block-components-totals-coupon__form
 	.wc-block-components-totals-coupon__button {
 	@apply black-button;
+}
+
+/* Gift cards on single product */
+.pwgc-input-text {
+	@apply border rounded-md border-neutral-300 p-4;
 }
