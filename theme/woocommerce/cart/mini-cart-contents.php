@@ -4,8 +4,7 @@ defined('ABSPATH') || exit;
 do_action('woocommerce_before_mini_cart_contents');
 
 
-function clean_attribute_slug_1($slug)
-{
+function clean_attribute_slug_1($slug) {
     return str_replace('pa_', '', $slug);
 }
 
@@ -38,7 +37,7 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
             $product_image_url = wp_get_attachment_url(7);
         }
         $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
-        ?>
+?>
         <li class="woocommerce-mini-cart-item py-5 border-b-[0.5px] border-[#C3C3C3]">
 
             <div class="flex items-start text-deep-dark-gray sm:grid sm:grid-cols-12 relative">
@@ -69,51 +68,59 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 
                     <!-- Price and Quantity on the Same Line -->
                     <div class="flex justify-between items-center sm:gap-4 mt-auto flex-wrap sm:flex-nowrap shrink-0">
-                        <div>
+                        <div class="flex flex-col gap-4">
                             <div
-                                class="hidden sm:flex items-center border-[0.7px] rounded-[46px] lg:rounded-[9px] py-[0.25rem] border-deep-dark-gray justify-center overflow-hidden">
+                                class="product-price flex gap-x-2 flex-wrap justify-start h-full items-center w-full sm:justify-end">
+                                <?php
+                                $product_original_price = floatval($_product->get_regular_price());
+                                $line_total_incl_tax = $cart_item['line_total'] + $cart_item['line_tax'];
+                                $price_after_discount_incl_tax = $line_total_incl_tax / $cart_item['quantity'];
+                                $tolerance = 0.01; // adjust as needed based on your price precision
+
+                                // For gift cards or products without a regular price, use the cart item price
+                                if ($product_original_price == 0) {
+                                    $product_original_price = $price_after_discount_incl_tax;
+                                }
+
+                                if (($product_original_price - $price_after_discount_incl_tax) > $tolerance): ?>
+                                    <span class="sale-price text-deep-dark-gray body-small-semibold flex items-end">
+                                        <?php echo wc_price($price_after_discount_incl_tax); ?>
+                                    </span>
+                                    <span class="text-discount-gray line-through body-small-medium flex items-end">
+                                        <?php echo wc_price($product_original_price); ?>
+                                    </span>
+                                <?php else: ?>
+                                    <span class="text-deep-dark-gray body-small-semibold flex items-end">
+                                        <?php echo wc_price($price_after_discount_incl_tax); ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                            <div
+                                class="flex items-center border-[0.7px] rounded-[46px] lg:rounded-[9px] py-[0.25rem] border-deep-dark-gray justify-center overflow-hidden">
                                 <button type="button"
-                                    class="minus focus:outline-none flex items-center justify-center pl-3 text-[1.3rem] text-deep-dark-gray custom-minus"
+                                    class="minus focus:outline-none flex items-center justify-center pl-3 text-lg text-deep-dark-gray custom-minus"
                                     data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
-                                    <span><?php echo wp_kses_post("-"); ?></span>
+                                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.8334 10L4.16675 10" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square" />
+                                    </svg>
+
                                 </button>
                                 <input type="number" id="quantity_<?php echo esc_attr($cart_item_key); ?>"
-                                    class="quantity-input ajax-cart-quantity w-[2.5rem] text-center focus:outline-none body-normal-regular text-[1.125rem] text-deep-dark-gray"
+                                    class="quantity-input ajax-cart-quantity w-[2.5rem] text-center focus:outline-none body-normal-regular text-sm text-deep-dark-gray"
                                     name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]"
                                     value="<?php echo esc_attr($cart_item['quantity']); ?>" size="4" min="1" step="1"
                                     data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>" inputmode="numeric"
                                     autocomplete="off">
                                 <button type="button"
-                                    class="plus focus:outline-none flex items-center justify-center pr-3 text-[1.3rem] text-deep-dark-gray custom-plus"
+                                    class="plus focus:outline-none flex items-center justify-center pr-3 text-lg text-deep-dark-gray custom-plus"
                                     data-cart-item-key="<?php echo esc_attr($cart_item_key); ?>">
-                                    <span><?php echo wp_kses_post("+"); ?></span>
+                                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.8332 10L4.1665 10" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square" />
+                                        <path d="M10 4.16664L10 15.8333" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square" />
+                                    </svg>
+
                                 </button>
                             </div>
-                        </div>
-                        <div
-                            class="product-price flex gap-x-2 flex-wrap justify-start mb-4 sm:mb-0 h-full items-center w-full sm:justify-end">
-                            <?php
-                            $product_original_price = $_product->get_regular_price();
-                            $line_total_incl_tax = $cart_item['line_total'] + $cart_item['line_tax'];
-                            $price_after_discount_incl_tax = $line_total_incl_tax / $cart_item['quantity'];
-                            $tolerance = 0.01; // adjust as needed based on your price precision
-                    
-                            if (($product_original_price - $price_after_discount_incl_tax) > $tolerance): ?>
-                                <span class="sale-price text-deep-dark-gray body-small-semibold flex items-end">
-                                    <?php echo wc_price($price_after_discount_incl_tax); ?>
-                                </span>
-                                <span class="text-discount-gray line-through body-small-medium flex items-end">
-                                    <?php echo wc_price($product_original_price); ?>
-                                </span>
-                            <?php else: ?>
-                                <span class="text-deep-dark-gray body-small-semibold flex items-end">
-                                    <?php echo wc_price($product_original_price); ?>
-                                </span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="sm:hidden text-[0.75rem] leading-[0.875rem]">
-                            <span class="font-light inline-block mr-2"><?php echo wp_kses_post("Kiekis: "); ?></span>
-                            <span class="font-normal"><?php echo $cart_item['quantity']; ?></span>
                         </div>
                     </div>
                 </div>
@@ -141,7 +148,7 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                 </div>
             </div>
         </li>
-        <?php
+<?php
     }
 }
 

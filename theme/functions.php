@@ -1113,10 +1113,16 @@ add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 1
 
 function custom_ajax_add_to_cart() {
 	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+	$variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
 	$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
 	$added = false;
-	if ($product_id > 0) {
+
+	if ($variation_id > 0) {
+		// Variable product - add variation
+		$added = WC()->cart->add_to_cart($product_id, $quantity, $variation_id);
+	} elseif ($product_id > 0) {
+		// Simple product
 		$added = WC()->cart->add_to_cart($product_id, $quantity);
 	}
 
@@ -1382,8 +1388,6 @@ function fetch_cart_summary() {
 	]);
 }
 
-// Unhook default payment section rendering
-remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
 
 // remove woocommerce styles
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
@@ -1766,3 +1770,39 @@ function show_message_for_disabled_products() {
 }
 
 add_action('woocommerce_single_product_summary', 'show_message_for_disabled_products', 31);
+
+
+
+
+add_filter(
+	'woocommerce_dropdown_variation_attribute_options_html',
+	function ($html, $args) {
+
+		if (empty($args['options']) || empty($args['attribute'])) {
+			return $html;
+		}
+
+		$attribute = $args['attribute'];
+		$name      = esc_attr($args['name'] ?? '');
+		$selected  = $args['selected'] ?? '';
+
+		$output  = '<div class="variation-buttons" data-attribute_name="' . esc_attr($attribute) . '">';
+
+		foreach ($args['options'] as $option) {
+			$is_active = selected($selected, $option, false);
+
+			$output .= sprintf(
+				'<button type="button" class="variation-button %s" data-value="%s">%s</button>',
+				$is_active ? 'is-active' : '',
+				esc_attr($option),
+				esc_html($option)
+			);
+		}
+
+		$output .= '</div>';
+
+		return $output;
+	},
+	10,
+	2
+);

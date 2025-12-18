@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple product add to cart
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying product content within loops
  *
@@ -22,6 +23,16 @@ global $product;
 // Ensure visibility.
 if (empty($product) || !$product->is_visible()) {
 	return;
+}
+
+// Replace add to cart on variable and gift card products to redirect to product page
+$show_add_to_cart = true;
+if ($product) {
+	$product_type = $product->get_type(); // simple, variable, grouped, external
+
+	if ($product_type !== 'simple') {
+		$show_add_to_cart = false;
+	}
 }
 ?>
 
@@ -62,13 +73,23 @@ if (empty($product) || !$product->is_visible()) {
 					fill="<?php echo $is_in_wishlist ? 'currentColor' : 'none'; ?>" />
 			</svg>
 		</a>
-		<a data-product_id="<?php echo esc_attr($product->get_id()); ?>"
-			data-product_name="<?php echo esc_attr(get_the_title()); ?>"
-			class="add-item-icon add-to-cart-swiper-btn cursor-pointer absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
-			<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M6.678 0.69V11.91H5.424V0.69H6.678ZM0.452 5.728H11.65V6.872H0.452V5.728Z" fill="#201F1F" />
-			</svg>
-		</a>
+
+		<?php if ($show_add_to_cart) : ?>
+			<a data-product_id="<?php echo esc_attr($product->get_id()); ?>"
+				data-product_name="<?php echo esc_attr(get_the_title()); ?>"
+				class="add-item-icon add-to-cart-swiper-btn cursor-pointer absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
+				<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M6.678 0.69V11.91H5.424V0.69H6.678ZM0.452 5.728H11.65V6.872H0.452V5.728Z" fill="#201F1F" />
+				</svg>
+			</a>
+		<?php else : ?>
+			<a href="<?php echo esc_url($product->get_permalink()) ?>"
+				class="add-item-icon cursor-pointer absolute bottom-5 right-5 z-10 p-4 lg:p-2.5 border-[0.5px] border-deep-dark-gray rounded-full">
+				<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M6.678 0.69V11.91H5.424V0.69H6.678ZM0.452 5.728H11.65V6.872H0.452V5.728Z" fill="#201F1F" />
+				</svg>
+			</a>
+		<?php endif ?>
 	</div>
 	<?php
 	$categories = get_the_terms($product->get_id(), 'product_cat');

@@ -1,7 +1,7 @@
 /* -------------------------------------- Body */
 
 body {
-	@apply bg-background text-foreground font-sans overflow-x-hidden;
+	@apply bg-background text-foreground font-sans;
 }
 
 body {
@@ -15,10 +15,6 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-}
-
-#page {
-	@apply overflow-x-hidden;
 }
 
 /* General styles for unordered lists (ul) */
@@ -478,168 +474,6 @@ footer {
 	@apply w-full;
 }
 
-/* checkout */
-
-/* .checkout .woocommerce-NoticeGroup-checkout {
-	@apply hidden;
-} */
-
-.checkout-form-input,
-.checkout .woocommerce-account-fields .input-text {
-	@apply w-full py-3 px-4 round-9 border border-mid-gray body-small-light text-deep-dark-gray placeholder:text-mid-gray placeholder:font-light;
-}
-
-.checkout-form-label,
-.account-form-label {
-	@apply block pl-3 body-small-regular mb-2;
-}
-
-.checkout .woocommerce-account-fields {
-	@apply text-deep-dark-gray mt-5;
-}
-
-.checkout .woocommerce-account-fields .create-account .clear {
-	@apply hidden;
-}
-
-.checkout .woocommerce-account-fields .create-account .optional {
-	@apply hidden;
-}
-
-.checkout .woocommerce-account-fields .create-account .form-row {
-	@apply w-full block;
-}
-
-.checkout .woocommerce-account-fields .create-account #account_password_field {
-	@apply mb-4;
-}
-
-.custom-radio,
-.paysera-payment-method-label input[type="radio"] {
-	@apply appearance-none rounded-full ring-[0.6px] ring-mid-gray w-4 h-4;
-}
-
-.custom-radio:checked,
-.paysera-payment-method-label input[type="radio"]:checked {
-	@apply bg-deep-dark-gray flex justify-center items-center;
-}
-
-.custom-radio:checked::after,
-.paysera-payment-method-label input[type="radio"]:checked::after {
-	content: "";
-	@apply w-2 h-2 bg-white rounded-full block;
-}
-
-.checkout .woocommerce-account-fields .woocommerce-form__label span {
-	@apply body-small-regular text-deep-dark-gray;
-}
-
-#mp-wc-pickup-point-shipping {
-	@apply w-full pt-5 ml-6;
-}
-
-#mp-wc-pickup-point-shipping .mp-please-select-location {
-	@apply hidden;
-}
-
-/* Shipping */
-.select2-selection__arrow b {
-	display: none; /* Hide the default arrow */
-}
-
-.select2-selection__arrow {
-	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20" fill="none"><path d="M5 -4.37114e-07L6.52226e-08 5.25394L0.71 6L2.42 4.19264L5 1.48161L7.58 4.19264L9.29 5.98949L10 5.24343L5 -4.37114e-07Z" fill="black"/><path d="M5 20L10 14.7461L9.29 14L7.58 15.8074L5 18.5184L2.42 15.8074L0.71 14.0105L0 14.7566L5 20Z" fill="black"/></svg>')
-		no-repeat center center;
-	background-size: contain;
-	@apply scale-75;
-}
-
-.select2-container .select2-selection--single {
-	@apply h-10 flex items-center justify-between border-[0.7px] rounded-[9px];
-}
-
-.select2-container--default
-	.select2-selection--single
-	.select2-selection__arrow {
-	@apply mr-3 relative block;
-}
-
-.select2-container--default
-	.select2-selection--single
-	.select2-selection__rendered {
-	@apply body-small-light  pl-4;
-}
-
-.mp-selected-pickup-point-info {
-	@apply hidden;
-}
-
-.select2-container--default
-	.select2-results__option--highlighted[aria-selected] {
-	@apply bg-black;
-}
-
-.select2-container--open .select2-dropdown--below {
-	@apply w-full top-[-0.3rem];
-}
-
-.select2-container--open .select2-dropdown--below {
-	@apply rounded-b-[9px];
-}
-
-/* paysera */
-
-#payment .paysera-payment-method-label .paysera-text {
-	@apply hidden;
-}
-
-#payment .paysera-payment-method-label .paysera-image {
-	@apply border-[0.7px] rounded-[9px] border-mid-gray h-auto px-7 py-2 flex justify-center items-center;
-}
-#payment .paysera-payment-method-label .paysera-image img {
-	@apply object-contain object-center scale-75;
-}
-
-#payment .paysera-payment-method-label {
-	@apply p-0 flex gap-x-2 border-0;
-}
-
-#payment .paysera-payment-method-label input {
-	@apply m-0;
-}
-
-.paysera-payment-method-label {
-	justify-content: start !important;
-}
-
-#paysera_country {
-	@apply invisible w-0 h-0;
-}
-
-.payment_method_paysera .payment-group-title {
-	@apply hidden;
-}
-
-.custom-radio-button-container {
-	@apply flex items-center;
-}
-
-.paysera-payment-method-label > div:first-of-type {
-	@apply flex items-center;
-}
-
-.menu-icon-rotate {
-	transition: transform 0.3s ease;
-}
-
-.menu-icon-flipped {
-	transform: rotate(180deg);
-}
-
-.menu-icon-flipped-90 {
-	transform: rotate(90deg);
-}
-
 /* newsletter */
 
 .newsletter-button-inner {
@@ -771,10 +605,6 @@ footer {
 	@apply list-disc pl-5 my-4 space-y-2;
 }
 
-.woocommerce-form-coupon-toggle {
-	@apply hidden;
-}
-
 .mobile-shop-link {
 	@apply cursor-pointer inline-block;
 }
@@ -833,4 +663,128 @@ footer {
 
 .duk-item:not(:last-child) {
 	@apply border-b-[1px] border-lighter-gray;
+}
+
+.variations tr {
+	@apply flex flex-col;
+}
+
+.variations th {
+	@apply text-left;
+}
+
+.omnisend_newsletter_checkbox_field .account-form-label {
+	@apply p-0 body-extra-small-light;
+}
+
+/* Checkout */
+.is-large .wc-block-checkout__sidebar {
+	@apply top-32;
+}
+
+.woocommerce-checkout .form-row {
+	@apply flex flex-col mb-4;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields input {
+	@apply w-full border border-mid-gray p-3 rounded-md;
+}
+
+.woocommerce-checkout-review-order-table th {
+	@apply text-left align-top;
+}
+
+.woocommerce-shipping-methods {
+	@apply m-0 p-0 flex flex-col gap-2;
+}
+
+.woocommerce-shipping-methods li input {
+	@apply hidden;
+}
+
+.woocommerce-shipping-methods li {
+	@apply w-full !max-w-none;
+}
+
+.woocommerce-shipping-methods label {
+	@apply cursor-pointer;
+}
+
+.woocommerce-shipping-methods label > div {
+	@apply border-2 rounded-md border-white bg-white p-4 items-center;
+}
+
+.woocommerce-shipping-methods input:checked + label > div {
+	@apply border-black;
+}
+
+.mp-selected-pickup-point-info {
+	@apply !p-0;
+}
+
+.form-row.form-row-wide {
+	@apply mb-0;
+}
+
+.mp-please-select-location {
+	@apply !font-medium mb-2;
+}
+
+.wc-block-checkout__shipping-option
+	.select2-container--default
+	.select2-selection--single {
+	@apply p-2 h-auto border-mid-gray;
+}
+.wc-block-checkout__shipping-option
+	.select2-container--default
+	.select2-selection--single
+	.select2-selection__arrow {
+	@apply top-1/2 -translate-y-1/2 right-1;
+}
+
+.select2-container--default
+	.select2-results__option--highlighted[aria-selected] {
+	@apply bg-black;
+}
+
+.wc-block-components-radio-control.grid.paysera-radio-control label {
+	@apply p-4 !border-2 rounded-md border-neutral-300;
+}
+
+.wc-block-components-radio-control.grid.paysera-radio-control
+	label:has(input:checked) {
+	@apply border-black border-2;
+}
+.wc-block-components-radio-control.grid.paysera-radio-control label input {
+	@apply !hidden;
+}
+
+.paysera-radio-control.grid {
+	@apply !grid-cols-4 !gap-4;
+}
+
+.paysera-payment-group-label {
+	@apply !mb-2 !mt-5 !font-medium;
+}
+
+.wc-block-components-checkout-place-order-button {
+	@apply black-button !py-5;
+}
+
+.wc-block-components-form
+	.wc-block-checkout__order-notes.wc-block-components-checkout-step {
+	@apply mb-5;
+}
+
+.wc-block-checkout__terms.wc-block-checkout__terms--with-separator {
+	@apply pt-5 mb-5;
+}
+
+.pwgc-apply-gift-card-button.wc-block-components-button {
+	@apply black-button;
+}
+
+.wc-block-components-totals-coupon__form
+	.wc-block-components-totals-coupon__button {
+	@apply black-button;
 }

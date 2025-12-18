@@ -1,5 +1,4 @@
 import { createNotification } from './notificationBanner';
-import gsap from 'gsap';
 
 document.addEventListener('DOMContentLoaded', function () {
 	const cartCountElement = document.getElementById('cart-count');
@@ -27,6 +26,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			}
 
+			// Trigger WooCommerce fragment refresh for traditional cart/checkout
+			jQuery(document.body).trigger('wc_fragment_refresh');
+
+			// Trigger checkout block to refresh (for WooCommerce Blocks)
+			if (window.wp && window.wp.data && window.wp.data.dispatch) {
+				const store = window.wp.data.dispatch('wc/store/cart');
+				if (store && typeof store.invalidateResolutionForStore === 'function') {
+					store.invalidateResolutionForStore();
+				}
+			}
+
 			// If the cart is empty, redirect to homepage
 			if (response.data.redirect) {
 				window.location.href = '/';
@@ -48,6 +58,39 @@ document.addEventListener('DOMContentLoaded', function () {
 			success: function (response) {
 				if (response.success) {
 					updateAllCarts(response); // Sinchronizuoti visus krepšelius
+					createNotification(
+						`${productName} sėkmingai pridėtas į krepšelį.`,
+						true
+					);
+				} else {
+					createNotification(
+						response.data.message || 'Nepavyko pridėti į krepšelį.',
+						false
+					);
+				}
+			},
+			error: function () {
+				createNotification(
+					'Įvyko klaida bandant pridėti į krepšelį.',
+					false
+				);
+			},
+		});
+	}
+
+	function addToCartVariable(productId, variationId, quantity, productName) {
+		jQuery.ajax({
+			url: ajax_add_to_cart_params.ajax_url,
+			type: 'POST',
+			data: {
+				action: 'custom_ajax_add_to_cart',
+				product_id: productId,
+				variation_id: variationId,
+				quantity: quantity,
+			},
+			success: function (response) {
+				if (response.success) {
+					updateAllCarts(response);
 					createNotification(
 						`${productName} sėkmingai pridėtas į krepšelį.`,
 						true
@@ -144,14 +187,34 @@ document.addEventListener('DOMContentLoaded', function () {
 		function (event) {
 			event.preventDefault();
 			const $button = jQuery(this);
+			const $form = $button.closest('form');
 			const productId = $button.data('product_id');
 			const productName = $button.data('product_name');
-			const quantityInput = $button
-				.closest('form')
-				.find('.quantity-input');
+			const quantityInput = $form.find('.quantity-input');
 			let quantity = parseInt(quantityInput.val(), 10) || 1;
 
-			addToCart(productId, quantity, productName);
+			// Check if it's a variable product (has variation_id field)
+			const variationIdInput = $form.find('input.variation_id');
+
+			// Validate single product gift card fields
+			if ($form[0]) {
+				if (!$form[0].reportValidity()) {
+					return;
+				}
+			}
+
+			if (variationIdInput.length) {
+				const variationId = variationIdInput.val();
+				addToCartVariable(
+					productId,
+					variationId,
+					quantity,
+					productName
+				);
+			} else {
+				// Simple product
+				addToCart(productId, quantity, productName);
+			}
 		}
 	);
 
