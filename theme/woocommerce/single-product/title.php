@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Single Product title
  *
@@ -22,8 +23,7 @@
 <?php
 global $product;
 
-function clean_attribute_slug($slug)
-{
+function clean_attribute_slug($slug) {
 	return str_replace('pa_', '', $slug);
 }
 
@@ -38,8 +38,7 @@ foreach ($attributes as $attribute_slug => $attribute) {
 
 	// If the attribute has a value, format it and add to array
 	if ($attribute_value) {
-		$formatted_attribute = esc_html($attribute_value) . ' ' . clean_attribute_slug($attribute_slug);
-		$attribute_strings[] = $formatted_attribute;
+		$attribute_strings[] = $attribute_value;
 	}
 }
 

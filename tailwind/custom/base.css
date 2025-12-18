@@ -752,3 +752,18 @@ footer {
 #pwgc-redeem-gift-card-number {
 	@apply rounded-md bg-neutral-100 p-2 my-1;
 }
+
+/* Swatches */
+
+.woo-variation-swatches
+	.variable-items-wrapper
+	.variable-item:not(.radio-variable-item) {
+	@apply h-auto m-1.5;
+}
+
+.woo-variation-swatches
+	.wvs-style-squared.variable-items-wrapper
+	.variable-item:not(.radio-variable-item).button-variable-item
+	.variable-item-span {
+	@apply p-3;
+}
