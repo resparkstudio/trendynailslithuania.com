@@ -259,11 +259,6 @@ if (! $item_data->preview) {
             </div>
         </div>
     </div>
-
-    <div class="pwgc-footer-note">
-        <?php _e('This gift card can be used at checkout.', 'pw-woocommerce-gift-cards'); ?><br>
-        <?php _e('No expiration date.', 'pw-woocommerce-gift-cards'); ?>
-    </div>
 </div>
 
 <?php
