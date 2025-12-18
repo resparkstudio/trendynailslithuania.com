@@ -700,12 +700,15 @@ footer {
 }
 
 .wc-block-components-radio-control.grid.paysera-radio-control label {
-	@apply p-4 !border-2 rounded-md border-neutral-300;
+	@apply p-4 !border rounded-md border-neutral-300 transition-all duration-200;
+}
+.wc-block-components-radio-control.grid.paysera-radio-control label:hover {
+	@apply border-neutral-500;
 }
 
 .wc-block-components-radio-control.grid.paysera-radio-control
 	label:has(input:checked) {
-	@apply border-black border-2;
+	@apply border-black bg-neutral-100;
 }
 .wc-block-components-radio-control.grid.paysera-radio-control label input {
 	@apply !hidden;
@@ -720,7 +723,7 @@ footer {
 }
 
 .wc-block-components-checkout-place-order-button {
-	@apply black-button !py-5;
+	@apply black-button !py-5 !transition-all !duration-200;
 }
 
 .wc-block-components-form
@@ -744,4 +747,8 @@ footer {
 /* Gift cards on single product */
 .pwgc-input-text {
 	@apply border rounded-md border-neutral-300 p-4;
+}
+
+#pwgc-redeem-gift-card-number {
+	@apply rounded-md bg-neutral-100 p-2 my-1;
 }
