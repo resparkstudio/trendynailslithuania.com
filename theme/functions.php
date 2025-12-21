@@ -1806,3 +1806,15 @@ add_filter(
 	10,
 	2
 );
+
+
+
+add_filter('woocommerce_get_country_locale', function ($locale) {
+
+	$locale['LT']['state'] = [
+		'required' => false,
+		'hidden'   => true,
+	];
+
+	return $locale;
+});
