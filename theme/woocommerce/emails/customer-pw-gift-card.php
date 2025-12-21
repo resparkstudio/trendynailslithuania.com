@@ -255,7 +255,7 @@ if (! $item_data->preview) {
 
         <div class="pwgc-button-section">
             <div id="pwgc-email-redeem-button">
-                <a href="<?php echo esc_url($item_data->redeem_url); ?>"><?php _e('Pasinaudoti kuponu', 'pw-woocommerce-gift-cards'); ?></a>
+                <a href="<?php echo esc_url($item_data->redeem_url); ?>"><?php _e('Pasinaudoti kuponu ', 'pw-woocommerce-gift-cards'); ?></a>
             </div>
         </div>
     </div>

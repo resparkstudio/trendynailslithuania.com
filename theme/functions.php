@@ -706,14 +706,9 @@ function fetch_products_callback() {
 add_action('user_register', 'save_guest_wishlist_on_registration');
 
 function save_guest_wishlist_on_registration($user_id) {
-	if (!isset($_SESSION)) {
-		session_start();
-	}
+	// Get guest wishlist from cookies
+	$guest_wishlist = [];
 
-	// Get guest wishlist from session or cookies
-	$guest_wishlist = $_SESSION['guest_wishlist'] ?? [];
-
-	// If using cookies
 	if (isset($_COOKIE['guest_wishlist'])) {
 		$guest_wishlist = json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: [];
 	}
@@ -729,8 +724,7 @@ function save_guest_wishlist_on_registration($user_id) {
 		$merged_wishlist = array_unique(array_merge($user_wishlist, $guest_wishlist));
 		update_user_meta($user_id, '_custom_user_wishlist', $merged_wishlist);
 
-		// Clear guest wishlist from session and cookies
-		unset($_SESSION['guest_wishlist']);
+		// Clear guest wishlist cookie
 		setcookie('guest_wishlist', '', time() - 3600, '/'); // Expire the cookie
 	}
 }
@@ -763,21 +757,20 @@ function custom_add_to_wishlist() {
 			wp_send_json_success(['message' => sprintf(__('%s sėkmingai pridėtas į norų sąrašą.', '_tw'), $product_name)]);
 		}
 	} else {
-		if (!isset($_SESSION)) {
-			session_start();
-		}
-
-		$wishlist = $_SESSION['guest_wishlist'] ?? [];
+		// Get wishlist from cookie
+		$wishlist = isset($_COOKIE['guest_wishlist'])
+			? json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: []
+			: [];
 
 		if (in_array($product_id, $wishlist)) {
 			// Remove the product if it's already in the wishlist
 			$wishlist = array_diff($wishlist, [$product_id]);
-			$_SESSION['guest_wishlist'] = $wishlist;
+			setcookie('guest_wishlist', json_encode(array_values($wishlist)), time() + (86400 * 30), '/'); // 30 days
 			wp_send_json_success(['message' => sprintf(__('%s sėkmingai pašalintas iš norų sąrašo.', '_tw'), $product_name)]);
 		} else {
 			// Add the product if it's not in the wishlist
 			$wishlist[] = $product_id;
-			$_SESSION['guest_wishlist'] = $wishlist;
+			setcookie('guest_wishlist', json_encode($wishlist), time() + (86400 * 30), '/'); // 30 days
 			wp_send_json_success(['message' => sprintf(__('%s sėkmingai pridėtas į norų sąrašą.', '_tw'), $product_name)]);
 		}
 	}
@@ -795,18 +788,10 @@ function custom_get_wishlist() {
 		$user_id = get_current_user_id();
 		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
 	} else {
-		// Ensure session is started
-		if (session_status() === PHP_SESSION_NONE) {
-			session_start();
-		}
-
-		// Fetch wishlist from session for guest users
-		$wishlist = $_SESSION['guest_wishlist'] ?? [];
-
-		// Alternatively, check for a cookie if session is not available
-		if (empty($wishlist) && isset($_COOKIE['guest_wishlist'])) {
-			$wishlist = json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: [];
-		}
+		// Fetch wishlist from cookie for guest users
+		$wishlist = isset($_COOKIE['guest_wishlist'])
+			? json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: []
+			: [];
 	}
 
 	// Return only unique and valid product IDs that still exist and are visible
@@ -817,13 +802,6 @@ function custom_get_wishlist() {
 
 	return $valid_wishlist;
 }
-
-
-add_action('init', function () {
-	if (!isset($_SESSION)) {
-		session_start();
-	}
-}, 1);
 
 
 
@@ -847,18 +825,17 @@ function custom_remove_from_wishlist() {
 		$wishlist = array_diff($wishlist, [$product_id]);
 		update_user_meta($user_id, '_custom_user_wishlist', $wishlist);
 	} else {
-		if (!isset($_SESSION)) {
-			session_start();
-		}
-
-		$wishlist = $_SESSION['guest_wishlist'] ?? [];
+		$wishlist = isset($_COOKIE['guest_wishlist'])
+			? json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: []
+			: [];
 
 		if (!in_array($product_id, $wishlist)) {
 			wp_send_json_error(['message' => __('Produktas nėra norų sąraše', '_tw')]);
 			wp_die();
 		}
 
-		$_SESSION['guest_wishlist'] = array_diff($wishlist, [$product_id]);
+		$wishlist = array_diff($wishlist, [$product_id]);
+		setcookie('guest_wishlist', json_encode(array_values($wishlist)), time() + (86400 * 30), '/'); // 30 days
 	}
 
 	wp_send_json_success();
@@ -1808,7 +1785,9 @@ add_filter(
 );
 
 
-
+/**
+ * Remove state field from checkout block
+ */
 add_filter('woocommerce_get_country_locale', function ($locale) {
 
 	$locale['LT']['state'] = [
@@ -1818,3 +1797,34 @@ add_filter('woocommerce_get_country_locale', function ($locale) {
 
 	return $locale;
 });
+
+
+
+/**
+ * MultiParcels Block Checkout Validation Fix
+ * Ensures terminal selection is required for both classic and block checkout
+ */
+
+// Block checkout validation (Store API)
+add_action('woocommerce_store_api_checkout_update_order_from_request', 'multiparcels_validate_block_checkout', 5, 2);
+
+function multiparcels_validate_block_checkout($order, $request) {
+	$shipping_method = WC()->session->get('chosen_shipping_methods')[0] ?? '';
+
+	// Check if it's a MultiParcels pickup point method
+	if (!str_contains($shipping_method, 'multiparcels') || !str_contains($shipping_method, 'pickup_point')) {
+		return;
+	}
+
+	// Now validate the terminal selection...
+	$terminal = $order->get_meta('multiparcels_location_identifier');
+
+
+	if (empty($terminal) || $terminal === 'Pasirinkite paštomatą') {
+		throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException(
+			'missing_terminal',
+			'Prašome pasirinkti paštomatą',
+			400
+		);
+	}
+}
