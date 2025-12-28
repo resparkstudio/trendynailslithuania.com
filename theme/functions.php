@@ -1799,32 +1799,39 @@ add_filter('woocommerce_get_country_locale', function ($locale) {
 });
 
 
-
 /**
  * MultiParcels Block Checkout Validation Fix
  * Ensures terminal selection is required for both classic and block checkout
  */
 
-// Block checkout validation (Store API)
-add_action('woocommerce_store_api_checkout_update_order_from_request', 'multiparcels_validate_block_checkout', 5, 2);
+add_action('woocommerce_store_api_checkout_update_order_from_request', function ($order, $request) {
 
-function multiparcels_validate_block_checkout($order, $request) {
-	$shipping_method = WC()->session->get('chosen_shipping_methods')[0] ?? '';
+	$shipping_methods = $order->get_shipping_methods();
 
-	// Check if it's a MultiParcels pickup point method
-	if (!str_contains($shipping_method, 'multiparcels') || !str_contains($shipping_method, 'pickup_point')) {
-		return;
+	foreach ($shipping_methods as $shipping_item) {
+		$method_id = $shipping_item->get_method_id();
+
+		// Check if this is a multiparcels pickup point method
+		if (strpos($method_id, 'multiparcels') !== false && strpos($method_id, 'pickup_point') !== false) {
+
+			$terminal = $order->get_meta('multiparcels_location_identifier');
+
+			// Invalid/placeholder values
+			$invalid_values = [
+				'',
+				'Pasirinkite paštomatą',
+				'Pasirinkite pristatymo tašką',
+				'Select pickup point',
+				'Select a parcel terminal',
+			];
+
+			if (empty($terminal) || in_array(trim($terminal), $invalid_values, true)) {
+				throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException(
+					'missing_pickup_terminal',
+					__('Prašome pasirinkti paštomatą arba pristatymo tašką.', '_tw'),
+					400
+				);
+			}
+		}
 	}
-
-	// Now validate the terminal selection...
-	$terminal = $order->get_meta('multiparcels_location_identifier');
-
-
-	if (empty($terminal) || $terminal === 'Pasirinkite paštomatą') {
-		throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException(
-			'missing_terminal',
-			'Prašome pasirinkti paštomatą',
-			400
-		);
-	}
-}
+}, 10, 2);
