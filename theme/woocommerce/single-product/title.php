@@ -45,6 +45,6 @@ foreach ($attributes as $attribute_slug => $attribute) {
 // Display all attributes in one line, separated by commas
 if (!empty($attribute_strings)): ?>
 	<div class="product-attributes-inline body-extra-small-regular text-deep-dark-gray">
-		<?php echo implode(', ', $attribute_strings); ?>
+		<?php echo implode(', ', $attribute_strings) . 'ml'; ?>
 	</div>
 <?php endif; ?>
