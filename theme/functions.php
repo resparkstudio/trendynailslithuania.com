@@ -1797,3 +1797,21 @@ add_filter('woocommerce_get_country_locale', function ($locale) {
 
 	return $locale;
 });
+
+/**
+ * Validate billing first and last name minimum length (3 characters) for block checkout
+ */
+add_action('woocommerce_blocks_validate_location_address_fields', function ($errors, $fields, $group) {
+	if ($group === 'billing') {
+		$first_name = $fields['first_name'] ?? '';
+		$last_name = $fields['last_name'] ?? '';
+
+		if (mb_strlen(trim($first_name)) < 3) {
+			$errors->add('billing_first_name', __('Vardas turi būti bent 3 simbolių ilgio.', 'woocommerce'));
+		}
+
+		if (mb_strlen(trim($last_name)) < 3) {
+			$errors->add('billing_last_name', __('Pavardė turi būti bent 3 simbolių ilgio.', 'woocommerce'));
+		}
+	}
+}, 10, 3);
