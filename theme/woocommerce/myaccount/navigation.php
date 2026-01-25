@@ -1,4 +1,5 @@
 <?php
+
 /**
  * My Account navigation
  *
@@ -17,7 +18,7 @@ do_action('woocommerce_before_account_navigation');
 ?>
 
 <div class="account-navigation-wrap w-full col-span-3 lg:col-span-4 md:col-span-5 sm:col-span-6">
-	<div class="ml-12 md:ml-4">
+	<div>
 		<header id="heading-section">
 			<h1 class="w-full heading-md text-deep-dark-gray mb-4"><?php echo wp_kses_post("Mano paskyra"); ?></h1>
 		</header>

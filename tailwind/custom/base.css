@@ -434,7 +434,7 @@ footer {
 /* My account */
 
 .custom-my-account .woocommerce {
-	@apply grid grid-cols-12 gap-4 max-w-[87.5rem] mx-auto w-full mb-28 body-normal-regular text-deep-dark-gray;
+	@apply grid grid-cols-12 gap-4 px-12 w-full mb-28 body-normal-regular text-deep-dark-gray md:flex md:flex-col md:px-4;
 }
 
 .woocommerce-account .woocommerce-privacy-policy-text {
