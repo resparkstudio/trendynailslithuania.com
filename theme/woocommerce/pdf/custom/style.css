@@ -212,12 +212,6 @@ table.order-details th {
 	text-align: inherit;
 }
 
-.order-details thead th {
-	color: white;
-	background-color: black;
-	border-color: black;
-}
-
 /* product bundles compatibility */
 .order-details tr.bundled-item td:first-child {
 	padding-left: 5mm;

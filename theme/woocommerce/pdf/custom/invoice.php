@@ -19,7 +19,7 @@
 				<?php do_action('wpo_wcpdf_before_order_data', $this->get_type(), $this->order); ?>
 				<?php if (isset($this->settings['display_number'])) : ?>
 					<tr class="invoice-number">
-						<th>Sąskaitos nr.:</th>
+						<th>PVM Sąskaita faktūra:</th>
 						<td><?php $this->number($this->get_type()); ?></td>
 					</tr>
 				<?php endif; ?>
@@ -101,13 +101,28 @@
 			<table>
 				<?php do_action('wpo_wcpdf_before_billing_address', $this->get_type(), $this->order); ?>
 				<tr class="billing-name">
-					<th>Vardas:</th>
-					<td><?php echo esc_html($this->order->get_billing_first_name() . ' ' . $this->order->get_billing_last_name()); ?></td>
+					<td style="font-weight:500"><?php echo esc_html($this->order->get_billing_first_name() . ' ' . $this->order->get_billing_last_name()); ?></td>
 				</tr>
 				<?php if ($this->order->get_billing_company()) : ?>
 					<tr class="billing-company">
 						<th>Įmonė:</th>
 						<td><?php echo esc_html($this->order->get_billing_company()); ?></td>
+					</tr>
+				<?php endif; ?>
+				<?php
+				$company_code = $this->order->get_meta('_wc_billing/trendynails/company-code');
+				$vat_code     = $this->order->get_meta('_wc_billing/trendynails/vat-code');
+				?>
+				<?php if ($company_code) : ?>
+					<tr class="billing-company-code">
+						<th>Įmonės k.:</th>
+						<td><?php echo esc_html($company_code); ?></td>
+					</tr>
+				<?php endif; ?>
+				<?php if ($vat_code) : ?>
+					<tr class="billing-vat">
+						<th>PVM k.:</th>
+						<td><?php echo esc_html($vat_code); ?></td>
 					</tr>
 				<?php endif; ?>
 				<tr class="billing-address-1">
@@ -198,6 +213,8 @@
 		</div>
 	</div>
 </div>
+
+<p class="amount-in-words"><strong>Suma žodžiais:</strong> <?php echo esc_html(trendynails_lt_amount_in_words((float) $this->order->get_total())); ?></p>
 
 <div class="bottom-spacer"></div>
 

@@ -906,21 +906,7 @@ function customize_checkout_fields($fields) {
 			'class' => array('form-row-wide'),
 			'priority' => 25,
 		),
-		'billing_company_code' => array(
-			'type' => 'text',
-			'required' => false,
-			'label' => __('Įmonės kodas', 'woocommerce'),
-			'class' => array('form-row-wide'),
-			'priority' => 26,
-		),
-		'billing_vat' => array(
-			'type' => 'text',
-			'required' => false,
-			'label' => __('PVM mokėtojo kodas', 'woocommerce'),
-			'class' => array('form-row-wide'),
-			'priority' => 27,
-		),
-		'billing_email' => array(
+'billing_email' => array(
 			'type' => 'email',
 			'required' => true,
 			'label' => __('El. paštas', 'woocommerce'),
@@ -1625,21 +1611,6 @@ function redirect_to_checkout_after_registration($redirect) {
 	return $checkout_url; // Redirect to the checkout page
 }
 
-// Save custom checkout fields
-add_action('woocommerce_checkout_create_order', 'save_custom_checkout_fields', 10, 2);
-
-function save_custom_checkout_fields($order, $data) {
-	// Save company code if provided
-	if (isset($_POST['billing_company_code']) && !empty($_POST['billing_company_code'])) {
-		$order->update_meta_data('_billing_company_code', sanitize_text_field($_POST['billing_company_code']));
-	}
-
-	// Save VAT number if provided
-	if (isset($_POST['billing_vat']) && !empty($_POST['billing_vat'])) {
-		$order->update_meta_data('_billing_vat', sanitize_text_field($_POST['billing_vat']));
-	}
-}
-
 // Add custom fields to admin order editing screen
 add_filter('woocommerce_admin_billing_fields', 'add_custom_billing_fields_admin');
 
@@ -1815,3 +1786,121 @@ add_action('woocommerce_blocks_validate_location_address_fields', function ($err
 		}
 	}
 }, 10, 3);
+
+/**
+ * Register company code and VAT fields for block checkout
+ */
+add_action('woocommerce_init', function () {
+	if (function_exists('woocommerce_register_additional_checkout_field')) {
+		woocommerce_register_additional_checkout_field([
+			'id'       => 'trendynails/company-code',
+			'label'    => 'Įmonės kodas',
+			'location' => 'address',
+			'required' => false,
+		]);
+
+		woocommerce_register_additional_checkout_field([
+			'id'       => 'trendynails/vat-code',
+			'label'    => 'PVM mokėtojo kodas',
+			'location' => 'address',
+			'required' => false,
+		]);
+	}
+});
+
+/**
+ * Sync block checkout company code and VAT to legacy meta keys for admin compatibility
+ */
+add_action('woocommerce_store_api_checkout_order_processed', function ($order) {
+	$company_code = $order->get_meta('_wc_billing/trendynails/company-code');
+	$vat_code     = $order->get_meta('_wc_billing/trendynails/vat-code');
+
+	if ($company_code) {
+		$order->update_meta_data('_billing_company_code', sanitize_text_field($company_code));
+	}
+
+	if ($vat_code) {
+		$order->update_meta_data('_billing_vat', sanitize_text_field($vat_code));
+	}
+
+	$order->save();
+});
+
+/**
+ * Convert an integer to Lithuanian words (masculine forms).
+ */
+function trendynails_lt_number_to_words(int $n, string $gender = 'm'): string {
+	if ($n === 0) return 'nulis';
+
+	$ones_m = ['', 'vienas', 'du', 'trys', 'keturi', 'penki', 'šeši', 'septyni', 'aštuoni', 'devyni'];
+	$ones_f = ['', 'viena', 'dvi', 'trys', 'keturios', 'penkios', 'šešios', 'septynios', 'aštuonios', 'devynios'];
+	$teens  = ['dešimt', 'vienuolika', 'dvylika', 'trylika', 'keturiolika', 'penkiolika', 'šešiolika', 'septyniolika', 'aštuoniolika', 'devyniolika'];
+	$tens   = ['', '', 'dvidešimt', 'trisdešimt', 'keturiasdešimt', 'penkiasdešimt', 'šešiasdešimt', 'septyniasdešimt', 'aštuoniasdešimt', 'devyniasdešimt'];
+
+	$ones  = ($gender === 'f') ? $ones_f : $ones_m;
+	$parts = [];
+
+	if ($n >= 1000) {
+		$t      = intdiv($n, 1000);
+		$n     %= 1000;
+		$tlast  = $t % 10;
+		$tlast2 = $t % 100;
+		if ($t === 1) {
+			$parts[] = 'tūkstantis';
+		} elseif ($tlast >= 2 && $tlast <= 9 && ($tlast2 < 10 || $tlast2 > 19)) {
+			$parts[] = trendynails_lt_number_to_words($t, 'm') . ' tūkstančiai';
+		} else {
+			$parts[] = trendynails_lt_number_to_words($t, 'm') . ' tūkstančių';
+		}
+	}
+
+	if ($n >= 100) {
+		$h      = intdiv($n, 100);
+		$n     %= 100;
+		$parts[] = ($h === 1) ? 'šimtas' : $ones_m[$h] . ' šimtai';
+	}
+
+	if ($n >= 20) {
+		$t      = intdiv($n, 10);
+		$o      = $n % 10;
+		$parts[] = $tens[$t];
+		if ($o > 0) $parts[] = $ones[$o];
+	} elseif ($n >= 10) {
+		$parts[] = $teens[$n - 10];
+	} elseif ($n > 0) {
+		$parts[] = $ones[$n];
+	}
+
+	return implode(' ', array_filter($parts));
+}
+
+/**
+ * Return the correct Lithuanian noun form based on the number.
+ * $forms = "nominative_sg|nominative_pl|genitive_pl" e.g. "euras|eurai|eurų"
+ */
+function trendynails_lt_currency_form(int $n, string $forms): string {
+	[$sg, $pl, $gen] = explode('|', $forms);
+	$last  = $n % 10;
+	$last2 = $n % 100;
+	if ($last === 1 && $last2 !== 11) return $sg;
+	if ($last >= 2 && $last <= 9 && ($last2 < 10 || $last2 > 19)) return $pl;
+	return $gen;
+}
+
+/**
+ * Convert a EUR amount to a Lithuanian sentence, e.g. "Šimtas dvidešimt penki eurai ir penkiasdešimt centų".
+ */
+function trendynails_lt_amount_in_words(float $amount): string {
+	$euros = (int) floor($amount);
+	$cents = (int) round(($amount - $euros) * 100);
+
+	$euro_word = trendynails_lt_number_to_words($euros, 'm');
+	$euro_form = trendynails_lt_currency_form($euros, 'euras|eurai|eurų');
+	$cent_word = trendynails_lt_number_to_words($cents, 'm');
+	$cent_form = trendynails_lt_currency_form($cents, 'centas|centai|centų');
+
+	$sentence  = mb_strtoupper(mb_substr($euro_word, 0, 1)) . mb_substr($euro_word, 1);
+	$sentence .= ' ' . $euro_form . ' ir ' . $cent_word . ' ' . $cent_form;
+
+	return $sentence;
+}
