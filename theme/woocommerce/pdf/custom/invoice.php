@@ -14,12 +14,12 @@
 				<?php $this->title(); ?>
 			<?php endif; ?>
 		</td>
-		<td class="shop-info">
+		<td style="width: 50%" class="shop-info">
 			<table>
 				<?php do_action('wpo_wcpdf_before_order_data', $this->get_type(), $this->order); ?>
 				<?php if (isset($this->settings['display_number'])) : ?>
 					<tr class="invoice-number">
-						<th><?php $this->number_title(); ?></th>
+						<th>Sąskaitos nr.:</th>
 						<td><?php $this->number($this->get_type()); ?></td>
 					</tr>
 				<?php endif; ?>
@@ -36,16 +36,16 @@
 					</tr>
 				<?php endif; ?>
 				<tr class="order-number">
-					<th><?php $this->order_number_title(); ?></th>
+					<th>Užsakymo nr.:</th>
 					<td><?php $this->order_number(); ?></td>
 				</tr>
 				<tr class="order-date">
-					<th><?php $this->order_date_title(); ?></th>
+					<th>Užsakymo data:</th>
 					<td><?php $this->order_date(); ?></td>
 				</tr>
 				<?php if (! empty($this->get_payment_method())) : ?>
 					<tr class="payment-method">
-						<th><?php $this->payment_method_title(); ?></th>
+						<th>Apmokėjimas:</th>
 						<td><?php $this->payment_method(); ?></td>
 					</tr>
 				<?php endif; ?>
@@ -58,7 +58,7 @@
 <?php do_action('wpo_wcpdf_before_document_label', $this->get_type(), $this->order); ?>
 
 <?php if ($this->has_header_logo()) : ?>
-	<h1 class="document-type-label"><?php $this->title(); ?></h1>
+	<h1 class="document-type-label">PVM Sąskaita faktūra</h1>
 <?php endif; ?>
 
 <?php do_action('wpo_wcpdf_after_document_label', $this->get_type(), $this->order); ?>
