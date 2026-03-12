@@ -1628,6 +1628,23 @@ function add_custom_billing_fields_admin($billing_fields) {
 	return $billing_fields;
 }
 
+// When admin saves an order, sync the billing fields to the block checkout meta keys used by the invoice
+add_action('woocommerce_process_shop_order_meta', 'sync_admin_billing_fields_to_block_meta');
+
+function sync_admin_billing_fields_to_block_meta($order_id) {
+	$order = wc_get_order($order_id);
+	if (!$order) return;
+
+	// phpcs:disable WordPress.Security.NonceVerification.Missing
+	$company_code = isset($_POST['_billing_company_code']) ? sanitize_text_field(wp_unslash($_POST['_billing_company_code'])) : '';
+	$vat_code     = isset($_POST['_billing_vat']) ? sanitize_text_field(wp_unslash($_POST['_billing_vat'])) : '';
+	// phpcs:enable
+
+	$order->update_meta_data('_wc_billing/trendynails/company-code', $company_code);
+	$order->update_meta_data('_wc_billing/trendynails/vat-code', $vat_code);
+	$order->save();
+}
+
 add_action('woocommerce_checkout_create_order', 'sync_shipping_with_billing_on_order_create', 10, 2);
 
 function sync_shipping_with_billing_on_order_create($order, $data) {
