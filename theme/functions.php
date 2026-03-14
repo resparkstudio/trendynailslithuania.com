@@ -1266,6 +1266,15 @@ function redirect_empty_cart_checkout() {
 	}
 }
 
+// Prevent Cloudflare and other proxies from caching WooCommerce dynamic pages
+add_action('send_headers', function () {
+	if (is_checkout() || is_cart() || is_account_page() || is_wc_endpoint_url()) {
+		nocache_headers();
+		header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+		header('Pragma: no-cache');
+	}
+});
+
 
 add_action('wp_ajax_apply_discount_code', 'apply_discount_code');
 add_action('wp_ajax_nopriv_apply_discount_code', 'apply_discount_code');

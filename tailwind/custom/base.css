@@ -464,11 +464,11 @@ footer {
 .custom-my-account .woocommerce-notices-wrapper {
 	@apply mb-4;
 }
-
+/* 
 .woocommerce-checkout .woocommerce-notices-wrapper,
 .woocommerce-shop .woocommerce-notices-wrapper {
 	@apply hidden;
-}
+} */
 
 .woocommerce-orders-table {
 	@apply w-full;
@@ -736,14 +736,30 @@ footer {
 }
 
 /* Place company code and VAT fields immediately after company name */
-.wc-block-components-address-form__company { order: 30; }
-.wc-block-components-address-form__trendynails-company-code { order: 31; }
-.wc-block-components-address-form__trendynails-vat-code { order: 32; }
-.wc-block-components-address-form__address_1 { order: 40; }
-.wc-block-components-address-form__address_2 { order: 50; }
-.wc-block-components-address-form__city { order: 60; }
-.wc-block-components-address-form__state { order: 70; }
-.wc-block-components-address-form__postcode { order: 80; }
+.wc-block-components-address-form__company {
+	order: 30;
+}
+.wc-block-components-address-form__trendynails-company-code {
+	order: 31;
+}
+.wc-block-components-address-form__trendynails-vat-code {
+	order: 32;
+}
+.wc-block-components-address-form__address_1 {
+	order: 40;
+}
+.wc-block-components-address-form__address_2 {
+	order: 50;
+}
+.wc-block-components-address-form__city {
+	order: 60;
+}
+.wc-block-components-address-form__state {
+	order: 70;
+}
+.wc-block-components-address-form__postcode {
+	order: 80;
+}
 
 .pwgc-apply-gift-card-button.wc-block-components-button {
 	@apply black-button;
