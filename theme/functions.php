@@ -157,10 +157,14 @@ function _tw_scripts() {
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
 
-	wp_localize_script('wc-checkout', 'wc_checkout_params', array(
-		'ajax_url' => WC_AJAX::get_endpoint("%%endpoint%%"),
-		'update_order_review_nonce' => wp_create_nonce('update-shipping-method'), // Update the nonce
-	));
+	// DISABLED: This overrides WooCommerce's own wc_checkout_params object, stripping out
+	// critical fields like checkout_url that WC's checkout JS needs to submit orders via AJAX.
+	// Without checkout_url, the AJAX call fails silently → no error shown → page scrolls to top.
+	// WooCommerce already localizes wc-checkout correctly — this block must stay commented out.
+	// wp_localize_script('wc-checkout', 'wc_checkout_params', array(
+	// 	'ajax_url' => WC_AJAX::get_endpoint("%%endpoint%%"),
+	// 	'update_order_review_nonce' => wp_create_nonce('update-shipping-method'),
+	// ));
 
 
 	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
@@ -878,9 +882,15 @@ function add_my_account_body_class($classes) {
 }
 
 // ---------------------------------- Checkout
+// NOTE: All hooks below (lines marked CLASSIC CHECKOUT) were used with the old classic WooCommerce
+// checkout template. The theme now uses block-based checkout — these filters/actions have no effect
+// on the block checkout but are kept here commented out so they can be restored if needed.
 
-
-
+/*
+ * CLASSIC CHECKOUT ONLY — woocommerce_checkout_fields
+ * Redefined billing/shipping fields with Lithuanian labels and removed unnecessary fields.
+ * Block checkout uses woocommerce_register_additional_checkout_field / locale filters instead.
+ *
 add_filter('woocommerce_checkout_fields', 'customize_checkout_fields');
 
 function customize_checkout_fields($fields) {
@@ -890,14 +900,14 @@ function customize_checkout_fields($fields) {
 			'required' => true,
 			'label' => __('Vardas', 'woocommerce'),
 			'class' => array('form-row-first'),
-			'priority' => 10, // Adjust order
+			'priority' => 10,
 		),
 		'billing_last_name' => array(
 			'type' => 'text',
 			'required' => true,
 			'label' => __('Pavardė', 'woocommerce'),
 			'class' => array('form-row-last'),
-			'priority' => 20, // Adjust order
+			'priority' => 20,
 		),
 		'billing_company' => array(
 			'type' => 'text',
@@ -906,7 +916,7 @@ function customize_checkout_fields($fields) {
 			'class' => array('form-row-wide'),
 			'priority' => 25,
 		),
-'billing_email' => array(
+		'billing_email' => array(
 			'type' => 'email',
 			'required' => true,
 			'label' => __('El. paštas', 'woocommerce'),
@@ -942,37 +952,19 @@ function customize_checkout_fields($fields) {
 			'priority' => 70,
 		),
 		'billing_country' => array(
-			'type' => 'custom', // Custom type to render plain text
+			'type' => 'custom',
 			'required' => true,
 			'label' => __('Šalis', 'woocommerce'),
 			'class' => array('form-row-wide'),
 			'priority' => 80,
 			'default' => 'LT',
 		),
-
 	);
-
-	if (!is_user_logged_in()) {
-		$fields['account']['account_password'] = array(
-			'type' => 'password',
-			'required' => true,
-			'label' => __('Slaptažodis', 'woocommerce'),
-			'class' => array('form-row-wide'),
-			'priority' => 90,
-		);
-		$fields['account']['account_password_confirm'] = array(
-			'type' => 'password',
-			'required' => true,
-			'label' => __('Patvirtinti slaptažodį', 'woocommerce'),
-			'class' => array('form-row-wide'),
-			'priority' => 100,
-		);
-	}
 
 	$fields['shipping'] = array(
 		'shipping_country' => array(
 			'type' => 'hidden',
-			'default' => 'LT', // Default shipping country set to Lithuania
+			'default' => 'LT',
 		)
 	);
 
@@ -980,32 +972,37 @@ function customize_checkout_fields($fields) {
 
 	return $fields;
 }
+*/
 
-add_filter('woocommerce_form_field_custom', 'render_custom_plain_text_field', 10, 4);
-
+/*
+ * CLASSIC CHECKOUT ONLY — woocommerce_form_field_custom
+ * Rendered the billing_country field as plain text (Lithuania) with a hidden input.
+ *
 add_filter('woocommerce_form_field_custom', 'render_custom_plain_text_field', 10, 4);
 
 function render_custom_plain_text_field($field, $key, $args, $value) {
 	if ($key === 'billing_country') {
-		// Ensure a default value is used
 		$value = !empty($value) ? $value : 'LT';
-		// Get WooCommerce country name
 		$countries = WC()->countries->get_countries();
-		$country_name = isset($countries[$value]) ? $countries[$value] : __('Lietuva', 'woocommerce'); // Default to Lithuania
+		$country_name = isset($countries[$value]) ? $countries[$value] : __('Lietuva', 'woocommerce');
 
 		$label = !empty($args['label']) ? $args['label'] : '';
 		$field = '<div class="form-row ' . esc_attr(implode(' ', $args['class'])) . '">';
 		$field .= '<label>' . esc_html($label) . '</label>';
 		$field .= '<span class="px-3">' . esc_html($country_name) . '</span>';
-		// Add a hidden input field to actually submit the value
 		$field .= '<input type="hidden" name="' . esc_attr($key) . '" value="' . esc_attr($value) . '"/>';
 		$field .= '</div>';
 		return $field;
 	}
 	return $field;
 }
+*/
 
-
+/*
+ * CLASSIC CHECKOUT ONLY — woocommerce_checkout_update_order_meta / woocommerce_checkout_process
+ * Forced shipping country to LT, synced shipping phone from billing, forced billing country fallback.
+ * For block checkout, use woocommerce_store_api_checkout_order_processed instead.
+ *
 // Force shipping country to Lithuania
 add_action('woocommerce_checkout_update_order_meta', 'force_shipping_country');
 
@@ -1025,24 +1022,30 @@ function force_billing_country() {
 
 function sync_shipping_phone_with_billing($order_id) {
 	if (isset($_POST['billing_phone'])) {
-		// Get the billing phone from the checkout form
 		$billing_phone = sanitize_text_field($_POST['billing_phone']);
-
-		// Update the shipping phone with the billing phone value
 		update_post_meta($order_id, '_shipping_phone', $billing_phone);
 	}
 }
+*/
 
+/*
+ * CLASSIC CHECKOUT ONLY — woocommerce_default_address_fields
+ * Removed address_2, state, and country from default address form fields.
+ * NOTE: This filter also affects My Account → Edit Address forms, not just checkout.
+ *
 add_filter('woocommerce_default_address_fields', 'customize_default_address_fields');
 function customize_default_address_fields($address_fields) {
-	// Unset unnecessary fields
 	unset($address_fields['address_2']);
 	unset($address_fields['state']);
 	unset($address_fields['country']);
-
 	return $address_fields;
 }
+*/
 
+/*
+ * CLASSIC CHECKOUT ONLY — woocommerce_billing_fields
+ * Ensured billing_address_1 was marked required.
+ *
 add_filter('woocommerce_billing_fields', 'fix_billing_validation');
 function fix_billing_validation($fields) {
 	if (isset($fields['billing_address_1'])) {
@@ -1050,8 +1053,12 @@ function fix_billing_validation($fields) {
 	}
 	return $fields;
 }
+*/
 
-
+/*
+ * CLASSIC CHECKOUT ONLY — woocommerce_form_field_args
+ * Added CSS classes to the account password fields (no longer used since forced account creation was removed).
+ *
 function customize_checkout_account_fields($args, $key, $value) {
 	if (in_array($key, ['account_password', 'account_password_confirm'])) {
 		if (isset($args['input_class']) && is_array($args['input_class'])) {
@@ -1069,6 +1076,7 @@ function customize_checkout_account_fields($args, $key, $value) {
 	return $args;
 }
 add_filter('woocommerce_form_field_args', 'customize_checkout_account_fields', 10, 3);
+*/
 
 
 
@@ -1547,6 +1555,11 @@ function update_shipping_method_handler() {
 
 	wp_die();
 }
+/*
+ * CLASSIC CHECKOUT ONLY — woocommerce_checkout_update_order_review
+ * Updated the chosen shipping method when the classic checkout order review refreshed via AJAX.
+ * Block checkout manages shipping method selection through the Store API directly.
+ *
 add_action('woocommerce_checkout_update_order_review', 'update_shipping_method_on_refresh');
 
 function update_shipping_method_on_refresh($posted_data) {
@@ -1561,6 +1574,7 @@ function update_shipping_method_on_refresh($posted_data) {
 		WC()->cart->calculate_totals();
 	}
 }
+*/
 
 
 // Allow SVG Uploads in WordPress
