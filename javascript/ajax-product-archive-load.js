@@ -1,3 +1,5 @@
+import { initProductImageHover } from './product-image-hover.js';
+
 document.addEventListener('DOMContentLoaded', function () {
 	let page = 2; // Start with page 2 (page 1 is already loaded initially)
 	let loading = false;
@@ -45,9 +47,13 @@ document.addEventListener('DOMContentLoaded', function () {
 						// No more products; remove the scroll event listener
 						window.removeEventListener('scroll', loadMoreOnScroll);
 					} else {
+						const prevCount = container.children.length;
 						container.insertAdjacentHTML('beforeend', response);
 						page++;
 						loading = false;
+
+						// Init hover on newly inserted products only
+						Array.from(container.children).slice(prevCount).forEach((el) => initProductImageHover(el));
 
 						// Fade-in effect for newly loaded products
 						// This selects all new product cards; adjust the selector if needed.

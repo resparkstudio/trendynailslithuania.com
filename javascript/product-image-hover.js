@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 
-document.addEventListener('DOMContentLoaded', function () {
-	const productImages = document.querySelectorAll('.product-image-container');
+export function initProductImageHover(scope = document) {
+	const productImages = scope.querySelectorAll('.product-image-container');
 
 	productImages.forEach((container) => {
 		const originalImage = container.querySelector('.original-image');
@@ -36,4 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		}
 	});
-});
+}
+
+document.addEventListener('DOMContentLoaded', () => initProductImageHover());
