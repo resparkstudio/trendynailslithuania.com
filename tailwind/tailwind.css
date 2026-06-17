@@ -1,4 +1,5 @@
 @import "./custom/file-header.css";
+@import "../node_modules/swiper/swiper-bundle.min.css";
 /**
  * The line above injects the WordPress file header. It needs to be first,
  * before this comment.

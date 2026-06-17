@@ -54,3 +54,17 @@
 .entry-content > .alignright {
 	@apply float-right ml-8;
 }
+
+/* Hero swiper pagination */
+.hero-swiper-pagination {
+	bottom: 2rem !important;
+}
+
+.hero-swiper-pagination .swiper-pagination-bullet {
+	background: white;
+	opacity: 1;
+}
+
+.hero-swiper-pagination .swiper-pagination-bullet-active {
+	background: black;
+}

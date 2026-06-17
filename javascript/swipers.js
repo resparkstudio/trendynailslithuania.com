@@ -1,7 +1,63 @@
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import gsap from 'gsap';
 
 document.addEventListener('DOMContentLoaded', function () {
+	// Hero Swiper
+	function setHeroSlideInitialState(slide) {
+		const titleInner = slide.querySelector('.hero-slide-title-inner');
+		const desc = slide.querySelector('.hero-slide-desc');
+		const cta = slide.querySelector('.hero-slide-cta');
+		if (titleInner) gsap.set(titleInner, { y: '110%' });
+		if (desc) gsap.set(desc, { opacity: 0, y: 24 });
+		if (cta) gsap.set(cta, { opacity: 0, y: 24 });
+	}
+
+	function animateHeroSlide(slide) {
+		const titleInner = slide.querySelector('.hero-slide-title-inner');
+		const desc = slide.querySelector('.hero-slide-desc');
+		const cta = slide.querySelector('.hero-slide-cta');
+		if (titleInner) {
+			gsap.killTweensOf(titleInner);
+			gsap.to(titleInner, { y: '0%', duration: 0.8, ease: 'power3.out' });
+		}
+		if (desc) {
+			gsap.killTweensOf(desc);
+			gsap.to(desc, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 });
+		}
+		if (cta) {
+			gsap.killTweensOf(cta);
+			gsap.to(cta, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.5 });
+		}
+	}
+
+	const heroSwiper = new Swiper('.hero-swiper', {
+		modules: [Pagination, Autoplay, EffectFade],
+		loop: true,
+		slidesPerView: 1,
+		effect: 'fade',
+		autoplay: {
+			delay: 3000,
+			disableOnInteraction: false,
+		},
+		pagination: {
+			el: '.hero-swiper-pagination',
+			clickable: true,
+		},
+		on: {
+			init(swiper) {
+				swiper.slides.forEach((slide) => setHeroSlideInitialState(slide));
+				animateHeroSlide(swiper.slides[swiper.activeIndex]);
+			},
+			slideChange(swiper) {
+				setHeroSlideInitialState(swiper.slides[swiper.activeIndex]);
+			},
+			slideChangeTransitionEnd(swiper) {
+				animateHeroSlide(swiper.slides[swiper.activeIndex]);
+			},
+		},
+	});
+
 	// Sale Products Swiper
 	const saleSwiper = new Swiper('.sale-swiper-container', {
 		modules: [Navigation],

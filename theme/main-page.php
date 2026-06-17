@@ -5,10 +5,7 @@ Template Name: Main Page
 
 $soc_media_page_id = 169;
 
-$hero_image = get_field('hero_image');
-$hero_image_mobile = get_field('hero_image_mobile');
-$hero_heading = get_field('heading');
-$hero_description = get_field('hero_description');
+$hero_slides = get_field('hero_slides');
 
 $about_heading_1 = get_field('about_heading_1');
 $about_description_1 = get_field('about_description_1');
@@ -29,51 +26,81 @@ $shop_url = esc_url(get_permalink(wc_get_page_id('shop')));
 get_header();
 ?>
 <section id="primary" class="mb-48 md:mb-28">
-    <?php if ($hero_image || $hero_image_mobile || $hero_heading || $hero_description): ?>
+    <?php if ($hero_slides): ?>
         <div class="w-full">
             <div id="hero-section" class="relative w-full overflow-hidden mb-16 md:mb-20">
-                <?php if ($hero_image && $hero_image_mobile): ?>
-                    <img class="w-full h-auto block md:hidden aspect-[1401/581] object-cover"
-                        src="<?php echo esc_url($hero_image); ?>"
-                        alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
-                    <img class="w-full h-auto hidden md:block object-cover" src="<?php echo esc_url($hero_image_mobile); ?>"
-                        alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
-                <?php elseif ($hero_image): ?>
-                    <img class="w-full h-auto object-cover" src="<?php echo esc_url($hero_image); ?>"
-                        alt="Trendy Nails DREAM base bottles in soft pink tones with labels, accompanied by text promoting new products" />
-                <?php endif; ?>
+                <div class="swiper hero-swiper">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($hero_slides as $slide): ?>
+                            <div class="swiper-slide relative aspect-[1440/580] min-h-[70vh] md:min-h-0 md:h-[580px]">
+                                <?php if ($slide['hero_image'] && $slide['hero_image_mobile']): ?>
+                                    <img class="absolute inset-0 w-full h-full object-cover block md:hidden"
+                                        src="<?php echo esc_url($slide['hero_image']); ?>"
+                                        alt="<?php echo esc_attr($slide['heading']); ?>" />
+                                    <img class="absolute inset-0 w-full h-full object-cover hidden md:block"
+                                        src="<?php echo esc_url($slide['hero_image_mobile']); ?>"
+                                        alt="<?php echo esc_attr($slide['heading']); ?>" />
+                                <?php elseif ($slide['hero_image']): ?>
+                                    <img class="absolute inset-0 w-full h-full object-cover"
+                                        src="<?php echo esc_url($slide['hero_image']); ?>"
+                                        alt="<?php echo esc_attr($slide['heading']); ?>" />
+                                <?php endif; ?>
 
-                <div class="absolute inset-0 flex items-end justify-starts md:items-center md:justify-center">
-
-                    <div class="absolute inset-0 bg-black/30">
-                    </div>
-
-                    <div class="relative z-10 pl-9 pb-16 w-full md:pb-10 md:px-5">
-
-                        <div class="text-center">
-                            <?php if ($hero_heading): ?>
-                                <h1
-                                    class="text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-2">
-                                    <?php echo wp_kses_post($hero_heading); ?>
-                                </h1>
-                            <?php endif; ?>
-
-                            <?php if ($hero_description): ?>
-                                <div class="text-white mb-7 md:mb-6">
-                                    <?php echo wp_kses_post($hero_description); ?>
+                                <div class="absolute inset-0 flex items-center justify-start">
+                                    <div class="absolute inset-0 bg-black/30"></div>
+                                    <div class="relative z-10 pl-16 w-full md:pb-10 md:pl-5">
+                                        <div class="text-left">
+                                            <?php if ($slide['heading']): ?>
+                                                <div class="overflow-hidden">
+                                                    <h1 class="hero-slide-title-inner text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-2">
+                                                        <?php echo wp_kses_post($slide['heading']); ?>
+                                                    </h1>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if ($slide['hero_description']): ?>
+                                                <div class="hero-slide-desc text-white mb-7 md:mb-6">
+                                                    <?php echo wp_kses_post($slide['hero_description']); ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <a href="<?php echo esc_url($slide['button_link'] ?: get_permalink(wc_get_page_id('shop'))); ?>"
+                                                class="hero-slide-cta inline-block white-button-black-text-fill py-4 px-20 text-center">
+                                                <?php echo wp_kses_post($slide['read_more_button_text'] ?: 'Įsigyti'); ?>
+                                            </a>
+                                            <?php
+                                            $extra = $slide['papildoma_informacija'] ?? [];
+                                            $extra_heading = $extra['antraste'] ?? '';
+                                            $extra_items = $extra['informacija'] ?? [];
+                                            if ($extra_heading || !empty($extra_items)): ?>
+                                                <div class="hero-slide-desc mt-10">
+                                                    <?php if ($extra_heading): ?>
+                                                        <p class="text-white text-sm mb-3"><?php echo esc_html($extra_heading); ?></p>
+                                                    <?php endif; ?>
+                                                    <?php if (!empty($extra_items)): ?>
+                                                        <div class="flex gap-4 flex-wrap">
+                                                            <?php foreach ($extra_items as $item): ?>
+                                                                <div class="flex flex-col gap-2.5">
+                                                                    <?php if ($item['antraste']): ?>
+                                                                        <p class="text-white font-semibold text-sm"><?php echo esc_html($item['antraste']); ?></p>
+                                                                    <?php endif; ?>
+                                                                    <?php if ($item['aprasymas']): ?>
+                                                                        <p class="text-white text-sm"><?php echo wp_kses($item['aprasymas'], ['br' => []]); ?></p>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            <?php endforeach; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
                                 </div>
-                            <?php endif; ?>
-
-                            <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>"
-                                class="inline-block white-button-black-text-fill py-4 px-20 text-center">
-                                <?php echo wp_kses_post("Įsigyti"); ?>
-                            </a>
-                        </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
+                    <div class="swiper-pagination hero-swiper-pagination absolute bottom-8 left-0 right-0 flex justify-center z-10"></div>
                 </div>
             </div>
         </div>
-
     <?php endif; ?>
     <main id="main" class="max-w-[87.5rem] mx-auto w-full">
         <div id="page-content" class="flex flex-col mx-12 md:mx-4">
@@ -129,7 +156,7 @@ get_header();
                                     while ($sale_product_loop->have_posts()):
                                         $sale_product_loop->the_post();
                                         global $product;
-                                        ?>
+                                ?>
                                         <div class="swiper-slide">
                                             <div class="relative product-card flex flex-col">
                                                 <?php
@@ -232,7 +259,7 @@ get_header();
                                             </div>
 
                                         </div>
-                                    <?php endwhile;
+                                <?php endwhile;
                                     wp_reset_postdata();
                                 endif; ?>
                             </div>
@@ -305,7 +332,7 @@ get_header();
                                 if ($new_product_loop->have_posts()):
                                     while ($new_product_loop->have_posts()):
                                         $new_product_loop->the_post();
-                                        ?>
+                                ?>
                                         <div class="swiper-slide">
                                             <div class="relative product-card flex flex-col">
                                                 <?php
@@ -409,7 +436,7 @@ get_header();
                                             </div>
 
                                         </div>
-                                    <?php endwhile;
+                                <?php endwhile;
                                     wp_reset_postdata();
                                 endif; ?>
                             </div>
@@ -461,7 +488,7 @@ get_header();
                         }
 
                         if ($thumbnail_url):
-                            ?>
+                    ?>
                             <div class="col-span-4 lg:col-span-6 md:col-span-12">
                                 <div class="aspect-square md:aspect-[361/220] object-center w-full">
                                     <a href="<?php echo get_term_link($category); ?>"
@@ -554,7 +581,7 @@ get_header();
                                     while ($popular_product_loop->have_posts()):
                                         $popular_product_loop->the_post();
                                         global $product;
-                                        ?>
+                                ?>
                                         <div class="swiper-slide">
                                             <div class="relative product-card flex flex-col">
                                                 <?php
@@ -659,7 +686,7 @@ get_header();
                                             </div>
 
                                         </div>
-                                    <?php endwhile;
+                                <?php endwhile;
                                     wp_reset_postdata();
                                 endif; ?>
                             </div>
@@ -722,7 +749,7 @@ get_header();
 
                             while ($latest_posts_query->have_posts()):
                                 $latest_posts_query->the_post();
-                                ?>
+                            ?>
                                 <a class="swiper-slide" href="<?php the_permalink(); ?>">
                                     <article id="post-<?php the_ID(); ?>" <?php post_class("related-post-item"); ?>>
                                         <div class="related-post-thumbnail block mb-5 round-12">
