@@ -28,11 +28,11 @@ get_header();
 <section id="primary" class="mb-48 md:mb-28">
     <?php if ($hero_slides): ?>
         <div class="w-full">
-            <div id="hero-section" class="relative w-full overflow-hidden mb-16 md:mb-20">
-                <div class="swiper hero-swiper">
+            <div id="hero-section" class="relative w-full overflow-hidden mb-16 md:mb-20 h-[80vh]">
+                <div class="swiper hero-swiper h-full">
                     <div class="swiper-wrapper">
                         <?php foreach ($hero_slides as $slide): ?>
-                            <div class="swiper-slide relative h-[80vh]">
+                            <div class="swiper-slide relative">
                                 <?php if ($slide['hero_image'] && $slide['hero_image_mobile']): ?>
                                     <img class="absolute inset-0 w-full h-full object-cover block md:hidden"
                                         src="<?php echo esc_url($slide['hero_image']); ?>"
