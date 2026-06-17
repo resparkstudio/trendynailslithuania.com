@@ -6,25 +6,25 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Hero Swiper
 	function setHeroSlideInitialState(slide) {
 		const titleInner = slide.querySelector('.hero-slide-title-inner');
-		const desc = slide.querySelector('.hero-slide-desc');
+		const descs = slide.querySelectorAll('.hero-slide-desc');
 		const cta = slide.querySelector('.hero-slide-cta');
 		if (titleInner) gsap.set(titleInner, { y: '110%' });
-		if (desc) gsap.set(desc, { opacity: 0, y: 24 });
+		if (descs.length) gsap.set(descs, { opacity: 0, y: 24 });
 		if (cta) gsap.set(cta, { opacity: 0, y: 24 });
 	}
 
 	function animateHeroSlide(slide) {
 		const titleInner = slide.querySelector('.hero-slide-title-inner');
-		const desc = slide.querySelector('.hero-slide-desc');
+		const descs = slide.querySelectorAll('.hero-slide-desc');
 		const cta = slide.querySelector('.hero-slide-cta');
 		if (titleInner) {
 			gsap.killTweensOf(titleInner);
 			gsap.to(titleInner, { y: '0%', duration: 0.8, ease: 'power3.out' });
 		}
-		if (desc) {
+		descs.forEach((desc, i) => {
 			gsap.killTweensOf(desc);
-			gsap.to(desc, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 });
-		}
+			gsap.to(desc, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 + i * 0.15 });
+		});
 		if (cta) {
 			gsap.killTweensOf(cta);
 			gsap.to(cta, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.5 });

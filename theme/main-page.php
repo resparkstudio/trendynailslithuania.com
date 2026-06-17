@@ -32,7 +32,7 @@ get_header();
                 <div class="swiper hero-swiper">
                     <div class="swiper-wrapper">
                         <?php foreach ($hero_slides as $slide): ?>
-                            <div class="swiper-slide relative aspect-[1440/580] min-h-[70vh] md:min-h-0 md:h-[580px]">
+                            <div class="swiper-slide relative aspect-[1440/580] min-h-[70vh] md:min-h-0 md:aspect-none md:h-[80vh]">
                                 <?php if ($slide['hero_image'] && $slide['hero_image_mobile']): ?>
                                     <img class="absolute inset-0 w-full h-full object-cover block md:hidden"
                                         src="<?php echo esc_url($slide['hero_image']); ?>"
@@ -46,10 +46,10 @@ get_header();
                                         alt="<?php echo esc_attr($slide['heading']); ?>" />
                                 <?php endif; ?>
 
-                                <div class="absolute inset-0 flex items-center justify-start">
+                                <div class="absolute inset-0 flex items-center justify-start md:items-end md:justify-center">
                                     <div class="absolute inset-0 bg-black/30"></div>
-                                    <div class="relative z-10 pl-16 w-full md:pb-10 md:pl-5">
-                                        <div class="text-left">
+                                    <div class="relative z-10 pl-16 w-full md:pl-0 md:px-5 md:pb-[80px]">
+                                        <div class="text-left md:text-center">
                                             <?php if ($slide['heading']): ?>
                                                 <div class="overflow-hidden">
                                                     <h1 class="hero-slide-title-inner text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-2">
@@ -58,12 +58,12 @@ get_header();
                                                 </div>
                                             <?php endif; ?>
                                             <?php if ($slide['hero_description']): ?>
-                                                <div class="hero-slide-desc text-white mb-7 md:mb-6">
+                                                <div class="hero-slide-desc text-white">
                                                     <?php echo wp_kses_post($slide['hero_description']); ?>
                                                 </div>
                                             <?php endif; ?>
                                             <a href="<?php echo esc_url($slide['button_link'] ?: get_permalink(wc_get_page_id('shop'))); ?>"
-                                                class="hero-slide-cta inline-block white-button-black-text-fill py-4 px-20 text-center">
+                                                class="hero-slide-cta inline-block white-button-black-text-fill py-4 px-20 text-center mt-[30px]">
                                                 <?php echo wp_kses_post($slide['read_more_button_text'] ?: 'Įsigyti'); ?>
                                             </a>
                                             <?php
@@ -71,7 +71,7 @@ get_header();
                                             $extra_heading = $extra['antraste'] ?? '';
                                             $extra_items = $extra['informacija'] ?? [];
                                             if ($extra_heading || !empty($extra_items)): ?>
-                                                <div class="hero-slide-desc mt-10">
+                                                <div class="hero-slide-desc mt-10 md:hidden">
                                                     <?php if ($extra_heading): ?>
                                                         <p class="text-white text-sm mb-3"><?php echo esc_html($extra_heading); ?></p>
                                                     <?php endif; ?>
@@ -266,7 +266,7 @@ get_header();
                         </div>
 
                         <div
-                            class="sale-nav-button-prev product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
+                            class="sale-nav-button-prev product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer md:hidden">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M-6.95394e-07 5L5.25394 10L6 9.29L4.19264 7.58L1.48161 5L4.19264 2.42L5.98949 0.71L5.24343 -3.30706e-08L-6.95394e-07 5Z"
@@ -274,7 +274,7 @@ get_header();
                             </svg>
                         </div>
                         <div
-                            class="sale-nav-button-next product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
+                            class="sale-nav-button-next product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer md:hidden">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
@@ -443,7 +443,7 @@ get_header();
                         </div>
 
                         <div
-                            class="product-nav-button-prev new-products-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
+                            class="product-nav-button-prev new-products-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer md:hidden">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M-6.95394e-07 5L5.25394 10L6 9.29L4.19264 7.58L1.48161 5L4.19264 2.42L5.98949 0.71L5.24343 -3.30706e-08L-6.95394e-07 5Z"
@@ -451,7 +451,7 @@ get_header();
                             </svg>
                         </div>
                         <div
-                            class="product-nav-button-next new-products-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
+                            class="product-nav-button-next new-products-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer md:hidden">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
@@ -693,7 +693,7 @@ get_header();
                         </div>
 
                         <div
-                            class="product-nav-button-prev popular-products-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
+                            class="product-nav-button-prev popular-products-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer md:hidden">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M-6.95394e-07 5L5.25394 10L6 9.29L4.19264 7.58L1.48161 5L4.19264 2.42L5.98949 0.71L5.24343 -3.30706e-08L-6.95394e-07 5Z"
@@ -701,7 +701,7 @@ get_header();
                             </svg>
                         </div>
                         <div
-                            class="product-nav-button-next popular-products-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
+                            class="product-nav-button-next popular-products-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer md:hidden">
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"
@@ -785,7 +785,7 @@ get_header();
                         </div>
                     </div>
                     <div
-                        class="blog-posts-button-prev product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer">
+                        class="blog-posts-button-prev product-nav-button-prev absolute left-[-1.21875rem] z-20 cursor-pointer md:hidden">
                         <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M-6.95394e-07 5L5.25394 10L6 9.29L4.19264 7.58L1.48161 5L4.19264 2.42L5.98949 0.71L5.24343 -3.30706e-08L-6.95394e-07 5Z"
@@ -793,7 +793,7 @@ get_header();
                         </svg>
                     </div>
                     <div
-                        class="blog-posts-button-next product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer">
+                        class="blog-posts-button-next product-nav-button-next absolute right-[-1.21875rem] z-20 cursor-pointer md:hidden">
                         <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M6 5L0.746059 -3.26113e-08L-4.06079e-07 0.71L1.80736 2.42L4.51839 5L1.80736 7.58L0.0105077 9.29L0.756567 10L6 5Z"

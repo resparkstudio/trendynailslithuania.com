@@ -63,6 +63,36 @@ $instagram_link = get_field('instagram_link', 'option');
                             </a>
                         <?php endif; ?>
                     </div>
+
+                    <?php
+                    $adresai_title = get_field('adresai_antraste');
+                    $adresai_items = get_field('adresai');
+                    if ($adresai_title || !empty($adresai_items)): ?>
+                        <div class="mt-10">
+                            <?php if ($adresai_title): ?>
+                                <p class="text-deep-dark-gray mb-5"><?php echo esc_html($adresai_title); ?></p>
+                            <?php endif; ?>
+                            <?php if (!empty($adresai_items)): ?>
+                                <div class="grid grid-cols-2 gap-x-10 gap-y-8 md:grid-cols-1 md:gap-4">
+                                    <?php foreach ($adresai_items as $item): ?>
+                                        <div class="flex flex-col gap-2.5">
+                                            <?php if ($item['antraste']): ?>
+                                                <p class="text-deep-dark-gray font-semibold text-sm"><?php echo esc_html($item['antraste']); ?></p>
+                                            <?php endif; ?>
+                                            <div>
+                                                <?php if ($item['aprasymas']): ?>
+                                                    <p class="text-deep-dark-gray text-sm"><?php echo wp_kses($item['aprasymas'], ['br' => []]); ?></p>
+                                                <?php endif; ?>
+                                                <?php if ($item['papildomas_tekstas']): ?>
+                                                    <p class="text-sm leading-[18px]" style="color:#747474"><?php echo wp_kses($item['papildomas_tekstas'], ['br' => []]); ?></p>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <div id="contact-form" class="col-span-8 md:col-span-12">
