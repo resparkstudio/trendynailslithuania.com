@@ -48,7 +48,7 @@ get_header();
 
                                 <div class="absolute inset-0 flex items-center justify-start md:items-end md:justify-center">
                                     <div class="absolute inset-0 bg-black/30"></div>
-                                    <div class="relative z-10 pl-16 w-full md:pl-0 md:px-5 md:pb-[80px]">
+                                    <div class="relative z-10 pl-16 w-full md:px-5 md:pb-[80px]">
                                         <div class="text-left md:text-center">
                                             <?php if ($slide['heading']): ?>
                                                 <div class="overflow-hidden">
