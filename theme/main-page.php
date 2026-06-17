@@ -53,7 +53,7 @@ get_header();
                                             <?php if ($slide['heading']): ?>
                                                 <div class="overflow-hidden">
                                                     <h1 class="hero-slide-title-inner text-white heading-xl font-semibold mb-2.5 md:text-[1.5rem] md:leading-[2rem] md:mb-2">
-                                                        <?php echo wp_kses_post($slide['heading']); ?>
+                                                        <?php echo wp_kses($slide['heading'], ['br' => []]); ?>
                                                     </h1>
                                                 </div>
                                             <?php endif; ?>

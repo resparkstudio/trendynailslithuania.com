@@ -83,7 +83,7 @@
                     "label": "Antra\u0161t\u0117",
                     "name": "heading",
                     "aria-label": "",
-                    "type": "text",
+                    "type": "textarea",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -95,9 +95,9 @@
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
+                    "rows": "",
                     "placeholder": "",
-                    "prepend": "",
-                    "append": "",
+                    "new_lines": "br",
                     "parent_repeater": "field_hero_slides_rep"
                 },
                 {

@@ -23,11 +23,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		descs.forEach((desc, i) => {
 			gsap.killTweensOf(desc);
-			gsap.to(desc, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 + i * 0.15 });
+			gsap.to(desc, {
+				opacity: 1,
+				y: 0,
+				duration: 0.6,
+				ease: 'power2.out',
+				delay: 0.35 + i * 0.15,
+			});
 		});
 		if (cta) {
 			gsap.killTweensOf(cta);
-			gsap.to(cta, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.5 });
+			gsap.to(cta, {
+				opacity: 1,
+				y: 0,
+				duration: 0.6,
+				ease: 'power2.out',
+				delay: 0.5,
+			});
 		}
 	}
 
@@ -37,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		slidesPerView: 1,
 		effect: 'fade',
 		autoplay: {
-			delay: 3000,
+			delay: 4000,
 			disableOnInteraction: false,
 		},
 		pagination: {
@@ -46,7 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
 		on: {
 			init(swiper) {
-				swiper.slides.forEach((slide) => setHeroSlideInitialState(slide));
+				swiper.slides.forEach((slide) =>
+					setHeroSlideInitialState(slide)
+				);
 				animateHeroSlide(swiper.slides[swiper.activeIndex]);
 			},
 			slideChange(swiper) {
