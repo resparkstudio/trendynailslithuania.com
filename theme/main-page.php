@@ -32,7 +32,7 @@ get_header();
                 <div class="swiper hero-swiper">
                     <div class="swiper-wrapper">
                         <?php foreach ($hero_slides as $slide): ?>
-                            <div class="swiper-slide relative aspect-[1440/580] min-h-[70vh] md:min-h-0 md:aspect-none md:h-[80vh]">
+                            <div class="swiper-slide relative h-[80vh]">
                                 <?php if ($slide['hero_image'] && $slide['hero_image_mobile']): ?>
                                     <img class="absolute inset-0 w-full h-full object-cover block md:hidden"
                                         src="<?php echo esc_url($slide['hero_image']); ?>"
