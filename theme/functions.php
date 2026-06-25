@@ -1658,22 +1658,6 @@ function trendynails_lt_currency_form(int $n, string $forms): string {
 }
 
 /**
- * Fix YITH Points & Rewards: apply points via AJAX instead of page reload.
- *
- * YITH registers its wc_ajax_ywpar_apply_points handler only when the
- * ywpar_redeem_uses_ajax filter returns true during plugins_loaded — before
- * the theme loads. We set the filter (for the JS) and register the handler
- * ourselves (for the server side).
- */
-add_filter( 'ywpar_redeem_uses_ajax', '__return_true' );
-
-add_action( 'wc_ajax_ywpar_apply_points', function () {
-	if ( function_exists( 'yith_points' ) && isset( yith_points()->redeeming ) ) {
-		yith_points()->redeeming->apply_discount();
-	}
-} );
-
-/**
  * Convert a EUR amount to a Lithuanian sentence, e.g. "Šimtas dvidešimt penki eurai ir penkiasdešimt centų".
  */
 function trendynails_lt_amount_in_words(float $amount): string {
