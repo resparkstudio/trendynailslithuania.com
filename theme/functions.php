@@ -251,6 +251,50 @@ if (function_exists('acf_add_options_page')) {
 	));
 }
 
+//----------------------------------- ACF POPUP FIELDS
+
+if (function_exists('acf_add_local_field_group')) {
+	acf_add_local_field_group(array(
+		'key' => 'group_popup_settings',
+		'title' => 'Popup nustatymai',
+		'fields' => array(
+			array(
+				'key' => 'field_popup_enable',
+				'label' => 'Popup įjungtas',
+				'name' => 'popup_enable',
+				'type' => 'true_false',
+				'ui' => 1,
+			),
+			array(
+				'key' => 'field_popup_text',
+				'label' => 'Popup tekstas',
+				'name' => 'popup_text',
+				'type' => 'wysiwyg',
+				'tabs' => 'all',
+				'toolbar' => 'basic',
+				'media_upload' => 0,
+			),
+			array(
+				'key' => 'field_popup_delay',
+				'label' => 'Popup delsa (sekundėmis)',
+				'name' => 'popup_delay',
+				'type' => 'number',
+				'default_value' => 3,
+				'min' => 0,
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'options_page',
+					'operator' => '==',
+					'value' => 'contact-general-settings',
+				),
+			),
+		),
+	));
+}
+
 //----------------------------------- WOOCOMMERCE
 // add woocommerce theme support
 function _tw_add_woocommerce_support() {

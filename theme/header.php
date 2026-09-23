@@ -197,7 +197,9 @@
 		get_template_part('template-parts/newsletter-popup');
 		?>
 
-		<?php get_template_part('template-parts/contact-form-modal'); ?>
+		<?php get_template_part('template-parts/popup'); ?>
+
+	<?php get_template_part('template-parts/contact-form-modal'); ?>
 
 		<?php get_template_part('template-parts/notification-banner'); ?>
 
