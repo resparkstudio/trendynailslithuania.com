@@ -1,9 +1,4 @@
 <?php
-/*
-Template Name: Footer
-*/
-
-
 $logo_description = get_field('logo_description', 'option');
 $phone_number = get_field('phone_number', 'option');
 $email = get_field('email', 'option');

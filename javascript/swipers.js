@@ -146,26 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	);
 
-	// New Products Section Swiper
-	const newProductsSectionSwiper = new Swiper(
-		'.new-products-section-swiper-container',
-		{
-			modules: [Navigation],
-			loop: false,
-			slidesPerView: 4,
-			spaceBetween: 16,
-			navigation: {
-				nextEl: '.new-products-section-nav-button-next',
-				prevEl: '.new-products-section-nav-button-prev',
-			},
-			breakpoints: {
-				1279: { slidesPerView: 4 },
-				767: { slidesPerView: 3 },
-				1: { slidesPerView: 2 },
-			},
-		}
-	);
-
 	const instagramGallerySwiper = new Swiper('.instagram-gallery-swiper', {
 		modules: [Navigation],
 		spaceBetween: 16,

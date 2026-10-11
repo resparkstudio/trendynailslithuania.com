@@ -23,10 +23,6 @@
 <?php
 global $product;
 
-function clean_attribute_slug($slug) {
-	return str_replace('pa_', '', $slug);
-}
-
 // Get all product attributes
 $attributes = $product->get_attributes();
 $attribute_strings = [];

@@ -28,11 +28,6 @@ if (!defined('_TW_TYPOGRAPHY_CLASSES')) {
 	 * function. You will see that function used everywhere an `entry-content`
 	 * or `page-content` class has been added to a wrapper element.
 	 *
-	 * For the block editor, these classes are converted to a JavaScript array
-	 * and then used by the `./javascript/block-editor.js` file, which adds
-	 * them to the appropriate elements in the block editor (and adds them
-	 * again when they’re removed.)
-	 *
 	 * For the classic editor (and anything using TinyMCE, like Advanced Custom
 	 * Fields), these classes are added to TinyMCE’s body class when it
 	 * initializes.
@@ -78,9 +73,11 @@ if (!function_exists('_tw_setup')):
 		 */
 		add_theme_support('post-thumbnails');
 
+		add_theme_support('custom-logo', array());
 
+		add_theme_support('woocommerce');
 
-		// This theme uses wp_nav_menu() in two locations.
+		// Menu locations used by the header, shop sidebar and footer.
 		register_nav_menus(
 			array(
 				'header-menu' => __('Header Menu'),
@@ -128,26 +125,6 @@ endif;
 add_action('after_setup_theme', '_tw_setup');
 
 /**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function _tw_widgets_init() {
-	register_sidebar(
-		array(
-			'name' => __('Footer', '_tw'),
-			'id' => 'sidebar-1',
-			'description' => __('Add widgets here to appear in your footer.', '_tw'),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget' => '</section>',
-			'before_title' => '<h2 class="widget-title">',
-			'after_title' => '</h2>',
-		)
-	);
-}
-add_action('widgets_init', '_tw_widgets_init');
-
-/**
  * Enqueue scripts and styles.
  */
 function _tw_scripts() {
@@ -156,16 +133,6 @@ function _tw_scripts() {
 	wp_enqueue_style('swiper-css', get_theme_root_uri() . '/_tw/node_modules/swiper/swiper-bundle.min.css');
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
-
-	// DISABLED: This overrides WooCommerce's own wc_checkout_params object, stripping out
-	// critical fields like checkout_url that WC's checkout JS needs to submit orders via AJAX.
-	// Without checkout_url, the AJAX call fails silently → no error shown → page scrolls to top.
-	// WooCommerce already localizes wc-checkout correctly — this block must stay commented out.
-	// wp_localize_script('wc-checkout', 'wc_checkout_params', array(
-	// 	'ajax_url' => WC_AJAX::get_endpoint("%%endpoint%%"),
-	// 	'update_order_review_nonce' => wp_create_nonce('update-shipping-method'),
-	// ));
-
 
 	wp_localize_script('_tw-script', 'ajax_add_to_cart_params', array(
 		'ajax_url' => admin_url('admin-ajax.php')
@@ -176,38 +143,12 @@ function _tw_scripts() {
 		'action' => 'fetch_products'
 	));
 
-	wp_localize_script('_tw-script', 'checkoutData', [
-		'checkoutUrl' => esc_url(wc_get_checkout_url())
-	]);
-
 	wp_localize_script('_tw-script', 'ajax_wishlist_params', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 	));
 }
 
 add_action('wp_enqueue_scripts', '_tw_scripts');
-
-
-
-/**
- * Enqueue the block editor script.
- */
-function _tw_enqueue_block_editor_script() {
-	if (is_admin()) {
-		wp_enqueue_script(
-			'_tw-editor',
-			get_template_directory_uri() . '/js/block-editor.min.js',
-			array(
-				'wp-blocks',
-				'wp-edit-post',
-			),
-			_TW_VERSION,
-			true
-		);
-		wp_add_inline_script('_tw-editor', "tailwindTypographyClasses = '" . esc_attr(_TW_TYPOGRAPHY_CLASSES) . "'.split(' ');", 'before');
-	}
-}
-add_action('enqueue_block_assets', '_tw_enqueue_block_editor_script');
 
 /**
  * Add the Tailwind Typography classes to TinyMCE.
@@ -231,11 +172,6 @@ require get_template_directory() . '/inc/template-tags.php';
  * Functions which enhance the theme by hooking into WordPress.
  */
 require get_template_directory() . '/inc/template-functions.php';
-
-function theme_setup() {
-	add_theme_support("custom-logo", array());
-}
-add_action('after_setup_theme', 'theme_setup');
 
 //----------------------------------- ACF
 
@@ -296,11 +232,6 @@ if (function_exists('acf_add_local_field_group')) {
 }
 
 //----------------------------------- WOOCOMMERCE
-// add woocommerce theme support
-function _tw_add_woocommerce_support() {
-	add_theme_support('woocommerce');
-}
-add_action('after_setup_theme', '_tw_add_woocommerce_support');
 
 // Add popular products checkbox to woo settings
 function add_popular_product_checkbox() {
@@ -405,6 +336,27 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
 
+// Number of products shown on first archive load; infinite scroll continues from here.
+define('TRENDYNAILS_ARCHIVE_INITIAL_PRODUCTS', 16);
+
+/**
+ * Query args for the archive sort dropdown options (see woocommerce/loop/orderby.php).
+ * Shared by the archive main query, AJAX sorting and infinite scroll so they stay in sync.
+ */
+function trendynails_product_orderby_args($orderby) {
+	switch ($orderby) {
+		case 'price-asc':
+			return array('orderby' => 'meta_value_num', 'meta_key' => '_price', 'order' => 'ASC');
+		case 'price-desc':
+			return array('orderby' => 'meta_value_num', 'meta_key' => '_price', 'order' => 'DESC');
+		case 'popularity':
+			return array('orderby' => 'meta_value_num', 'meta_key' => 'total_sales', 'order' => 'DESC');
+		default:
+			// Manual order set in the admin, alphabetical fallback
+			return array('orderby' => array('menu_order' => 'ASC', 'title' => 'ASC'));
+	}
+}
+
 function filter_products() {
 	$orderby = $_GET['orderby'] ?? 'default'; // Set default as the fallback
 	$category = $_GET['category'] ?? ''; // Capture category from AJAX request
@@ -412,30 +364,7 @@ function filter_products() {
 	$args = array(
 		'post_type' => 'product',
 		'posts_per_page' => -1,
-	);
-
-	// Apply sorting logic based on orderby
-	if ($orderby === 'price-asc') {
-		$args['orderby'] = 'meta_value_num';
-		$args['meta_key'] = '_price';
-		$args['order'] = 'ASC';
-	} elseif ($orderby === 'price-desc') {
-		$args['orderby'] = 'meta_value_num';
-		$args['meta_key'] = '_price';
-		$args['order'] = 'DESC';
-	} elseif ($orderby === 'popularity') {
-		$args['orderby'] = 'meta_value_num';
-		$args['meta_key'] = 'total_sales';
-		$args['order'] = 'DESC';
-	} elseif ($orderby === 'default') {
-		$args['orderby'] = array(
-			'menu_order' => 'ASC',
-			'date' => 'DESC',
-		);
-	} else {
-		$args['orderby'] = $orderby;
-		$args['order'] = 'ASC';
-	}
+	) + trendynails_product_orderby_args($orderby);
 
 	// Apply category filter if provided
 	if (!empty($category)) {
@@ -495,45 +424,23 @@ add_filter('woocommerce_cart_item_removed_notice_type', '__return_false');
 remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
 
 
+// Sorting and initial page size for the shop archive main query (infinite scroll loads the rest)
 function modify_woocommerce_archive_query($query) {
-	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category())) {
-		$orderby = $_GET['orderby'] ?? 'default'; // Default sorting if no 'orderby' parameter is provided
+	if (is_admin() || !$query->is_main_query() || !(is_shop() || is_product_category() || is_product_tag())) {
+		return;
+	}
 
-		switch ($orderby) {
-			case 'price-asc':
-				$query->set('orderby', 'meta_value_num');
-				$query->set('meta_key', '_price');
-				$query->set('order', 'ASC');
-				break;
-			case 'price-desc':
-				$query->set('orderby', 'meta_value_num');
-				$query->set('meta_key', '_price');
-				$query->set('order', 'DESC');
-				break;
-			case 'popularity':
-				$query->set('orderby', 'meta_value_num');
-				$query->set('meta_key', 'total_sales');
-				$query->set('order', 'DESC');
-				break;
-			case 'default': // Default WooCommerce sorting
-			default:
-				$query->set('orderby', array(
-					'menu_order' => 'ASC', // Manual sorting set in the admin
-					'title' => 'ASC', // Alphabetical fallback
-				));
-				break;
-		}
+	$query->set('posts_per_page', TRENDYNAILS_ARCHIVE_INITIAL_PRODUCTS);
+
+	if (is_product_tag()) {
+		return;
+	}
+
+	foreach (trendynails_product_orderby_args($_GET['orderby'] ?? 'default') as $key => $value) {
+		$query->set($key, $value);
 	}
 }
 add_action('pre_get_posts', 'modify_woocommerce_archive_query');
-
-// Limit initial products per page in WooCommerce archives for infinite scroll
-function load_initial_products_in_archive($query) {
-	if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
-		$query->set('posts_per_page', 16);
-	}
-}
-add_action('pre_get_posts', 'load_initial_products_in_archive');
 
 
 // AJAX handler to load more products on scroll (updated)
@@ -543,13 +450,11 @@ function load_more_products_ajax() {
 	$category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
 	$orderby = isset($_POST['orderby']) ? sanitize_text_field($_POST['orderby']) : 'default';
 
-	// Define your counts:
-	$initial_posts_count = 16; // Must match the posts_per_page in your initial query
 	$ajax_posts_per_page = 8; // Number of products loaded per AJAX request
 
 	// Calculate the offset:
 	// For the first AJAX load (ajax_page == 2), offset should be equal to the initial load count.
-	$offset = $initial_posts_count + ($ajax_page - 2) * $ajax_posts_per_page;
+	$offset = TRENDYNAILS_ARCHIVE_INITIAL_PRODUCTS + ($ajax_page - 2) * $ajax_posts_per_page;
 
 	$args = [
 		'post_type' => 'product',
@@ -570,31 +475,7 @@ function load_more_products_ajax() {
 		];
 	}
 
-	// Replicate your ordering logic from modify_woocommerce_archive_query.
-	switch ($orderby) {
-		case 'price-asc':
-			$args['orderby'] = 'meta_value_num';
-			$args['meta_key'] = '_price';
-			$args['order'] = 'ASC';
-			break;
-		case 'price-desc':
-			$args['orderby'] = 'meta_value_num';
-			$args['meta_key'] = '_price';
-			$args['order'] = 'DESC';
-			break;
-		case 'popularity':
-			$args['orderby'] = 'meta_value_num';
-			$args['meta_key'] = 'total_sales';
-			$args['order'] = 'DESC';
-			break;
-		case 'default':
-		default:
-			$args['orderby'] = [
-				'menu_order' => 'ASC',
-				'title' => 'ASC',
-			];
-			break;
-	}
+	$args += trendynails_product_orderby_args($orderby);
 
 	// Run query
 	$query = new WP_Query($args);
@@ -751,15 +632,17 @@ function fetch_products_callback() {
 	exit;
 }
 
+// Read the guest wishlist (array of product IDs) from its cookie
+function trendynails_get_guest_wishlist() {
+	return isset($_COOKIE['guest_wishlist'])
+		? json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: []
+		: [];
+}
+
 add_action('user_register', 'save_guest_wishlist_on_registration');
 
 function save_guest_wishlist_on_registration($user_id) {
-	// Get guest wishlist from cookies
-	$guest_wishlist = [];
-
-	if (isset($_COOKIE['guest_wishlist'])) {
-		$guest_wishlist = json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: [];
-	}
+	$guest_wishlist = trendynails_get_guest_wishlist();
 
 	// Ensure the wishlist contains valid product IDs
 	$guest_wishlist = array_unique(array_filter($guest_wishlist, 'is_numeric'));
@@ -806,9 +689,7 @@ function custom_add_to_wishlist() {
 		}
 	} else {
 		// Get wishlist from cookie
-		$wishlist = isset($_COOKIE['guest_wishlist'])
-			? json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: []
-			: [];
+		$wishlist = trendynails_get_guest_wishlist();
 
 		if (in_array($product_id, $wishlist)) {
 			// Remove the product if it's already in the wishlist
@@ -837,9 +718,7 @@ function custom_get_wishlist() {
 		$wishlist = get_user_meta($user_id, '_custom_user_wishlist', true) ?: [];
 	} else {
 		// Fetch wishlist from cookie for guest users
-		$wishlist = isset($_COOKIE['guest_wishlist'])
-			? json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: []
-			: [];
+		$wishlist = trendynails_get_guest_wishlist();
 	}
 
 	// Return only unique and valid product IDs that still exist and are visible
@@ -873,9 +752,7 @@ function custom_remove_from_wishlist() {
 		$wishlist = array_diff($wishlist, [$product_id]);
 		update_user_meta($user_id, '_custom_user_wishlist', $wishlist);
 	} else {
-		$wishlist = isset($_COOKIE['guest_wishlist'])
-			? json_decode(stripslashes($_COOKIE['guest_wishlist']), true) ?: []
-			: [];
+		$wishlist = trendynails_get_guest_wishlist();
 
 		if (!in_array($product_id, $wishlist)) {
 			wp_send_json_error(['message' => __('Produktas nėra norų sąraše', '_tw')]);
@@ -961,46 +838,8 @@ function custom_ajax_add_to_cart() {
 	wp_die();
 }
 
-
-function custom_update_mini_cart() {
-	ob_start();
-	woocommerce_mini_cart();
-	$mini_cart = ob_get_clean();
-
-	wp_send_json_success([
-		'mini_cart' => $mini_cart,
-		'cart_count' => WC()->cart->get_cart_contents_count(),
-	]);
-}
-
-function custom_ajax_remove_from_cart() {
-	$cart_item_key = isset($_POST['cart_item_key']) ? sanitize_text_field($_POST['cart_item_key']) : '';
-
-	if ($cart_item_key && WC()->cart->remove_cart_item($cart_item_key)) {
-		WC()->cart->calculate_totals();
-
-		ob_start();
-		woocommerce_mini_cart();
-		$mini_cart = ob_get_clean();
-
-		wp_send_json_success([
-			'mini_cart' => $mini_cart,
-			'cart_count' => WC()->cart->get_cart_contents_count(),
-		]);
-	} else {
-		wp_send_json_error(['message' => __('Nepavyko pašaltini iš krepšelio.', 'woocommerce')]);
-	}
-
-	wp_die();
-}
-
-
 add_action('wp_ajax_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
 add_action('wp_ajax_nopriv_custom_ajax_add_to_cart', 'custom_ajax_add_to_cart');
-add_action('wp_ajax_custom_update_mini_cart', 'custom_update_mini_cart');
-add_action('wp_ajax_nopriv_custom_update_mini_cart', 'custom_update_mini_cart');
-add_action('wp_ajax_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
-add_action('wp_ajax_nopriv_custom_remove_from_cart', 'custom_ajax_remove_from_cart');
 
 function update_cart_quantity_handler() {
 	if (!isset($_POST['cart_item_key'], $_POST['quantity']) || !is_numeric($_POST['quantity'])) {
@@ -1017,23 +856,9 @@ function update_cart_quantity_handler() {
 		woocommerce_mini_cart();
 		$mini_cart = ob_get_clean();
 
-		ob_start();
-		wc_get_template('checkout/checkout-product-list.php');
-		$product_list = ob_get_clean();
-
-		ob_start();
-		wc_get_template('checkout/cart-summary-details.php');
-		$cart_summary = ob_get_clean();
-
 		wp_send_json_success([
-			'subtotal' => WC()->cart->get_cart_subtotal(),
-			'shipping_total' => WC()->cart->get_shipping_total(),
-			'tax_total' => wc_price(WC()->cart->get_taxes_total()),
-			'total' => WC()->cart->get_total(),
 			'cart_count' => WC()->cart->get_cart_contents_count(),
 			'mini_cart' => $mini_cart,
-			'product_list' => $product_list,
-			'cart_summary' => $cart_summary,
 		]);
 	} else {
 		wp_send_json_error(['message' => 'Failed to update cart.']);
@@ -1041,29 +866,6 @@ function update_cart_quantity_handler() {
 }
 add_action('wp_ajax_update_cart_quantity', 'update_cart_quantity_handler');
 add_action('wp_ajax_nopriv_update_cart_quantity', 'update_cart_quantity_handler');
-
-add_action('wp_ajax_get_cart_summary', 'get_cart_summary_handler');
-add_action('wp_ajax_nopriv_get_cart_summary', 'get_cart_summary_handler');
-
-function get_cart_summary_handler() {
-	if (!function_exists('WC') || WC()->cart === null) {
-		wp_send_json_error(['message' => 'Cart not available.']);
-	}
-
-	ob_start();
-
-	WC()->cart->calculate_totals();
-
-	wc_get_template('checkout/cart-summary-details.php');
-
-	$html = ob_get_clean();
-
-	if (!empty($html)) {
-		wp_send_json_success($html);
-	} else {
-		wp_send_json_error(['message' => 'Failed to render cart summary.']);
-	}
-}
 
 add_action('wp_ajax_remove_cart_item', 'remove_cart_item_handler');
 add_action('wp_ajax_nopriv_remove_cart_item', 'remove_cart_item_handler');
@@ -1081,25 +883,13 @@ function remove_cart_item_handler() {
 		WC()->cart->calculate_totals();
 		WC()->session->set('cart', WC()->cart->get_cart());
 
-
 		ob_start();
 		woocommerce_mini_cart();
 		$mini_cart = ob_get_clean();
 
-		ob_start();
-		wc_get_template('checkout/checkout-product-list.php');
-		$product_list = ob_get_clean();
-
-		ob_start();
-		wc_get_template('checkout/cart-summary-details.php');
-		$cart_summary = ob_get_clean();
-
-
 		wp_send_json_success([
 			'cart_count' => WC()->cart->get_cart_contents_count(),
 			'mini_cart' => $mini_cart,
-			'product_list' => $product_list,
-			'cart_summary' => $cart_summary,
 		]);
 	} else {
 		// Debugging: Log if the item could not be removed
@@ -1118,91 +908,6 @@ function redirect_empty_cart_checkout() {
 		wp_safe_redirect(home_url());
 		exit;
 	}
-}
-
-
-add_action('wp_ajax_apply_discount_code', 'apply_discount_code');
-add_action('wp_ajax_nopriv_apply_discount_code', 'apply_discount_code');
-
-function apply_discount_code() {
-	if (!isset($_POST['discount_code'])) {
-		wp_send_json_error(['message' => 'Nuolaidos kodas nepateiktas']);
-	}
-
-	$discount_code = sanitize_text_field($_POST['discount_code']);
-	$coupon = new WC_Coupon($discount_code);
-
-	if (!$coupon->get_id()) {
-		wp_send_json_error(['message' => 'Toks nuolaidos kodas neegzistuoja.']);
-	}
-
-	// Check if coupon is already applied
-	$applied_coupons = WC()->cart->get_applied_coupons();
-	if (in_array($discount_code, $applied_coupons)) {
-		wp_send_json_success(['message' => 'Nuolaidos kodas jau pritaikytas.']);
-	}
-
-	// Check if coupon excludes sale items
-	if ($coupon->get_exclude_sale_items()) {
-		// Check if any cart items have Discount Rules plugin discounts applied
-		$has_discounted_items = false;
-
-		foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-			/**
-			 * Check if this cart item has a discount applied by Discount Rules plugin
-			 * Returns false if no discount, otherwise returns the discount price
-			 */
-			$discount_price = apply_filters('advanced_woo_discount_rules_get_cart_item_discount_price', false, $cart_item);
-
-			if ($discount_price !== false) {
-				$has_discounted_items = true;
-				break;
-			}
-		}
-
-		if ($has_discounted_items) {
-			wp_send_json_error(['message' => 'Nuolaidos kodas netaikomas akcijinėms prekėms. Krepšelyje yra produktų su nuolaida.']);
-		}
-	}
-
-	// Remove any previously applied coupons if needed
-	$current_applied_code = WC()->session->get('applied_discount_code');
-	if (!empty($current_applied_code) && $current_applied_code !== $discount_code) {
-		WC()->cart->remove_coupon($current_applied_code);
-	}
-
-	// Clear any existing notices before attempting to apply
-	wc_clear_notices();
-
-	// Apply the coupon
-	$applied = WC()->cart->apply_coupon($discount_code);
-
-	if ($applied) {
-		WC()->session->set('applied_discount_code', $discount_code);
-		wp_send_json_success(['message' => 'Nuolaidos kodas pritaikytas sėkmingai!']);
-	} else {
-		// Get any error messages from WooCommerce
-		$notices = wc_get_notices('error');
-		$error_message = !empty($notices) ? $notices[0]['notice'] : 'Nepavyko pritaikyti nuolaidos kodo.';
-		wc_clear_notices();
-		wp_send_json_error(['message' => $error_message]);
-	}
-
-	wp_die();
-}
-
-
-add_action('wp_ajax_fetch_cart_summary', 'fetch_cart_summary');
-add_action('wp_ajax_nopriv_fetch_cart_summary', 'fetch_cart_summary');
-
-function fetch_cart_summary() {
-	ob_start();
-	wc_get_template('checkout/cart-summary-details.php');
-	$cart_summary = ob_get_clean();
-
-	wp_send_json_success([
-		'cart_summary' => $cart_summary,
-	]);
 }
 
 
@@ -1359,29 +1064,6 @@ function allow_svg_upload($mimes) {
 }
 add_filter('upload_mimes', 'allow_svg_upload');
 
-// Allow SVG
-add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mimes) {
-
-	global $wp_version;
-	if ($wp_version !== '4.7.1') {
-		return $data;
-	}
-
-	$filetype = wp_check_filetype($filename, $mimes);
-
-	return [
-		'ext' => $filetype['ext'],
-		'type' => $filetype['type'],
-		'proper_filename' => $data['proper_filename']
-	];
-}, 10, 4);
-
-function cc_mime_types($mimes) {
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-}
-add_filter('upload_mimes', 'cc_mime_types');
-
 function fix_svg() {
 	echo '<style type="text/css">
 		  .attachment-266x266, .thumbnail img {
@@ -1474,57 +1156,13 @@ function sync_shipping_with_billing_on_order_create($order, $data) {
 
 add_image_size('product-archive-thumbnail', 800, 800, true);
 
-
-
-/**
- * Disable payments for all except 1 category and its children
- */
-
-function disable_purchasing_except_category($is_purchasable, $product) {
-	$enabled_category = 'greitu-metu-turesime';
-
-	// Get the parent category term
-	$parent_term = get_term_by('slug', $enabled_category, 'product_cat');
-
-	if (!$parent_term) {
-		return false; // Parent category doesn't exist
-	}
-
-	// Get all child categories of the parent
-	$child_categories = get_terms(array(
-		'taxonomy' => 'product_cat',
-		'child_of' => $parent_term->term_id,
-		'fields' => 'ids',
-		'hide_empty' => false,
-	));
-
-	// Add parent category ID to the allowed list
-	$allowed_category_ids = array_merge(array($parent_term->term_id), $child_categories);
-
-	// Get product's category IDs
-	$product_category_ids = $product->get_category_ids();
-
-	// Check if product has any of the allowed categories
-	if (array_intersect($product_category_ids, $allowed_category_ids)) {
-		return true; // Allow purchase
-	}
-
-	return false; // Disable purchase
-}
-// add_filter('woocommerce_is_purchasable', 'disable_purchasing_except_category', 10, 2);
-
-
-
 /**
  * Show message for non-purchasable products
  */
 function show_message_for_disabled_products() {
 	global $product;
 
-	$allowed_category = 'allowed-category';
-
-	// Check if product is NOT purchasable and NOT in the allowed category
-	if (!$product->is_purchasable() && !has_term($allowed_category, 'product_cat', $product->get_id())) : ?>
+	if (!$product->is_purchasable()) : ?>
 		<div class="p-4 bg-rose-500 rounded-md text-white font-semibold">
 			<p>Šis produktas laikinai neprieinamas pirkimui.</p>
 		</div>
@@ -1532,43 +1170,6 @@ function show_message_for_disabled_products() {
 }
 
 add_action('woocommerce_single_product_summary', 'show_message_for_disabled_products', 31);
-
-
-
-
-add_filter(
-	'woocommerce_dropdown_variation_attribute_options_html',
-	function ($html, $args) {
-
-		if (empty($args['options']) || empty($args['attribute'])) {
-			return $html;
-		}
-
-		$attribute = $args['attribute'];
-		$name      = esc_attr($args['name'] ?? '');
-		$selected  = $args['selected'] ?? '';
-
-		$output  = '<div class="variation-buttons" data-attribute_name="' . esc_attr($attribute) . '">';
-
-		foreach ($args['options'] as $option) {
-			$is_active = selected($selected, $option, false);
-
-			$output .= sprintf(
-				'<button type="button" class="variation-button %s" data-value="%s">%s</button>',
-				$is_active ? 'is-active' : '',
-				esc_attr($option),
-				esc_html($option)
-			);
-		}
-
-		$output .= '</div>';
-
-		return $output;
-	},
-	10,
-	2
-);
-
 
 /**
  * Remove state field from checkout block
@@ -1718,3 +1319,74 @@ function trendynails_lt_amount_in_words(float $amount): string {
 
 	return $sentence;
 }
+
+/**
+ * Prevent combining WooCommerce discount coupons with PW Gift Cards.
+ * Blocks applying a gift card when a coupon is in the cart.
+ */
+function trendynails_block_gift_card_with_coupon($error_message, $card_number) {
+	if (empty($error_message) && WC()->cart && !empty(WC()->cart->get_applied_coupons())) {
+		$error_message = __('Dovanų kortelės negalima naudoti kartu su nuolaidos kodu. Pirmiausia pašalinkite nuolaidos kodą.', '_tw');
+	}
+	return $error_message;
+}
+add_filter('pwgc_gift_card_can_be_redeemed', 'trendynails_block_gift_card_with_coupon', 10, 2);
+
+/**
+ * Blocks applying a discount coupon when a PW gift card is already applied.
+ */
+function trendynails_block_coupon_with_gift_card($valid, $coupon) {
+	if (!$valid || !function_exists('WC') || !WC()->session || !defined('PWGC_SESSION_KEY') || !class_exists('PW_Gift_Card')) {
+		return $valid;
+	}
+
+	// Gift card codes entered in the coupon field also pass through here, so let them through.
+	$gift_card = new PW_Gift_Card($coupon->get_code());
+	if ($gift_card->get_id()) {
+		return $valid;
+	}
+
+	$session_data = (array) WC()->session->get(PWGC_SESSION_KEY);
+	if (!empty($session_data['gift_cards'])) {
+		throw new Exception(__('Nuolaidos kodo negalima naudoti kartu su dovanų kortele. Pirmiausia pašalinkite dovanų kortelę.', '_tw'));
+	}
+
+	return $valid;
+}
+add_filter('woocommerce_coupon_is_valid', 'trendynails_block_coupon_with_gift_card', 10, 2);
+
+/**
+ * Show PW Gift Card errors in the block checkout.
+ * The plugin's Store API callback returns a WP_Error, which WooCommerce ignores,
+ * so rejected gift cards fail silently. This replaces it with a callback that throws instead.
+ */
+function trendynails_register_pwgc_store_api_callback() {
+	if (!function_exists('woocommerce_store_api_register_update_callback') || !class_exists('PW_Gift_Cards_Blocks_Endpoint')) {
+		return;
+	}
+
+	woocommerce_store_api_register_update_callback([
+		'namespace' => 'pw-gift-cards',
+		'callback'  => function ($data) {
+			global $pw_gift_cards_redeeming;
+
+			$data        = is_array($data) ? $data : [];
+			$card_number = isset($data['code']) ? wc_clean(wp_unslash($data['code'])) : '';
+
+			if ('' === $card_number) {
+				throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException('pwgc_number_missing', __('Įveskite dovanų kortelės numerį.', '_tw'), 400);
+			}
+
+			if (!empty($data['remove'])) {
+				$pw_gift_cards_redeeming->remove_gift_card_from_session($card_number);
+				return;
+			}
+
+			$result = $pw_gift_cards_redeeming->add_gift_card_to_session($card_number);
+			if (true !== $result) {
+				throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException('pwgc_apply_error', wp_strip_all_tags($result), 400);
+			}
+		},
+	]);
+}
+add_action('init', 'trendynails_register_pwgc_store_api_callback');

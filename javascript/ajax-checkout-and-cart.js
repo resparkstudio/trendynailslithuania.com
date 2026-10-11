@@ -1,22 +1,10 @@
 import { createNotification } from './notificationBanner';
 
 document.addEventListener('DOMContentLoaded', function () {
-	const cartCountElement = document.getElementById('cart-count');
-
 	function updateAllCarts(response) {
 		if (response.success) {
 			if (response.data.mini_cart) {
 				jQuery('#mini-cart-contents').html(response.data.mini_cart); // Update mini-cart
-			}
-
-			if (response.data.product_list) {
-				jQuery('.cart-items').html(response.data.product_list); // Update product list
-			}
-
-			if (response.data.cart_summary) {
-				jQuery('.cart-summary-details').html(
-					response.data.cart_summary
-				); // Update cart summary
 			}
 
 			if (response.data.cart_count !== undefined) {
@@ -35,11 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (store && typeof store.invalidateResolutionForStore === 'function') {
 					store.invalidateResolutionForStore();
 				}
-			}
-
-			// If the cart is empty, redirect to homepage
-			if (response.data.redirect) {
-				window.location.href = '/';
 			}
 		} else {
 			console.error('Error updating cart:', response.data.message);
@@ -151,16 +134,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 			success: function (response) {
 				if (response.success) {
-					if (response.data.redirect === true) {
-						window.location.href = '/';
-						return false;
-					} else {
-						updateAllCarts(response);
-						createNotification(
-							`${productName} sėkmingai pašalintas iš krepšelio.`,
-							true
-						);
-					}
+					updateAllCarts(response);
+					createNotification(
+						`${productName} sėkmingai pašalintas iš krepšelio.`,
+						true
+					);
 				} else {
 					createNotification(
 						response.data.message || 'Nepavyko pašalinti produkto.',
@@ -242,21 +220,13 @@ document.addEventListener('DOMContentLoaded', function () {
 		updateCartQuantity(cartItemKey, quantity, $input);
 	});
 
-	jQuery('#discount-code').on('keydown', function (event) {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			jQuery('.apply-discount-button').click();
-		}
-	});
-
 	jQuery(document).on(
 		'click',
-		'.remove-item, .remove_from_cart_button',
+		'.remove_from_cart_button',
 		function (event) {
 			event.preventDefault();
 			const $button = jQuery(this);
-			const cartItemKey =
-				$button.data('remove-item') || $button.data('cart_item_key');
+			const cartItemKey = $button.data('cart_item_key');
 			const productName = $button.data('product_name');
 
 			removeFromCart(cartItemKey, productName, $button);

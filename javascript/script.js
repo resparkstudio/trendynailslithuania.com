@@ -13,6 +13,4 @@ import './contact-form.js';
 import './product-image-hover.js';
 import './ajax-product-archive-load.js';
 import './newsletter-toggle.js';
-import './wishlistlist-active-heart.js';
-import './move-omnisend-checkbox.js';
 import './single-product-duk.js';
